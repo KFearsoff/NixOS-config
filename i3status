@@ -1,0 +1,28 @@
+general {
+  colors = true
+  interval = 5
+}
+
+order += "volume master"
+order += "disk /"
+order += "load"
+order += "tztime local"
+
+disk "/" {
+  format = "%avail"
+}
+
+load {
+  format = "%1min"
+}
+
+tztime local {
+  format = "%Y-%m-%d %H:%M:%S"
+}
+
+volume master {
+  format = "%volume"
+  format_muted = "muted (%volume)"
+  mixer = "Master"
+  mixer_idx = 0"
+}

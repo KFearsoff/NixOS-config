@@ -33,6 +33,7 @@
         nixos = buildSystem [
           ./configuration.nix
           ./hardware-configuration.nix
+          ./home.nix
           "${secrets}/smb.nix"
           nixos-hardware.nixosModules.common-cpu-intel
           nixos-hardware.nixosModules.common-pc-ssd
