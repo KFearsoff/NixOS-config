@@ -8,9 +8,12 @@
     
     home-manager.url = "github:nix-community/home-manager/release-21.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
+    secrets.flake = false;
+    secrets.url = "path:/secrets";
   };
 
-  outputs = inputs @ { self, nixpkgs, nixos-hardware, home-manager, nixpkgs-unstable, ... }:
+  outputs = inputs @ { self, nixpkgs, nixos-hardware, home-manager, nixpkgs-unstable, secrets, ... }:
     let
       inherit (nixpkgs) lib;
       system = "x86_64-linux";
@@ -30,6 +33,7 @@
         nixos = buildSystem [
           ./configuration.nix
           ./hardware-configuration.nix
+          "${secrets}/smb.nix"
           nixos-hardware.nixosModules.common-cpu-intel
           nixos-hardware.nixosModules.common-pc-ssd
           nixos-hardware.nixosModules.common-pc

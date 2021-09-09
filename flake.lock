@@ -74,7 +74,20 @@
         "home-manager": "home-manager",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
-        "nixpkgs-unstable": "nixpkgs-unstable"
+        "nixpkgs-unstable": "nixpkgs-unstable",
+        "secrets": "secrets"
+      }
+    },
+    "secrets": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-Xu5FTr3KRZrq6AFgmXoXw+vw6qlaolQWwSsg+ScREGk=",
+        "path": "/secrets",
+        "type": "path"
+      },
+      "original": {
+        "path": "/secrets",
+        "type": "path"
       }
     }
   },
