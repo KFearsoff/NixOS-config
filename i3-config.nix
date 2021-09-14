@@ -33,10 +33,10 @@ rec {
       mod = modifier;
       workspaces = with lib; listToAttrs (
       (map (i: nameValuePair "${mod}+${i}" "workspace number ${i}") (map toString (range 0 9))) ++
-      (map (i: nameValuePair "${mod}+Shift+${i}" "move container to workspae number ${i}") (map toString (range 0 9))));
+      (map (i: nameValuePair "${mod}+Shift+${i}" "move container to workspace number ${i}") (map toString (range 0 9))));
     in lib.mkDefault ({
       "${mod}+Tab" = "workspace back_and_forth";
-      "${mod}+Shift+q" = "kill";      
+      "{mod}+Shift+q" = "kill";      
       "${mod}+Return" = "exec DRI_PRIME=1 alacritty";
       "${mod}+Shift+Return" = "exec ee";
       "${mod}+d" = "exec rofi -combi-mode drun#run -show combi";
@@ -56,6 +56,8 @@ rec {
       "${mod}+w" = "layout tabbed";
       "${mod}+e" = "layout toggle split";
       "${mod}+v" = "split v";
+      "${mod}+h" = "split h";
+      "${mod}+a" = "focus parent";
 
       "${mod}+j" = "focus left";
       "${mod}+k" = "focus down";
@@ -66,6 +68,9 @@ rec {
       "${mod}+Shift+k" = "move down";
       "${mod}+Shift+l" = "move up";
       "${mod}+Shift+colon" = "move right";
+
+      "${mod}+Shift+plus" = "gaps inner current plus 6";
+      "${mod}+Shift+minus" = "gaps inner current minus 6";
 
       "${mod}+f" = "fullscreen toggle";
     } // workspaces);

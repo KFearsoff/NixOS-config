@@ -70,16 +70,32 @@
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
-  services.xserver.displayManager.sddm.enable = true;
+  services.xserver.xautolock = {
+    enable = true;
+    time = 5; # mins
+    killtime = 10; # mins
+    killer = "${pkgs.systemd}/bin/systemctl suspend";
+  };
+  services.xserver.displayManager.lightdm = {
+    enable = true;
+    greeter.enable = true;
+    greeters.gtk = {
+      iconTheme.package = pkgs.paper-icon-theme;
+      iconTheme.name = "Paper";
+      theme.package = pkgs.adapta-gtk-theme;
+      theme.name = "Adapta-Nokto-Eta";
+    };
+  };
+  services.xserver.windowManager.i3 = {
+    enable = true;
+    package = pkgs.i3-gaps;
+  };
   services.xserver.desktopManager.plasma5.enable = true;
-  services.xserver.windowManager.i3.enable = true;
-  services.xserver.displayManager.defaultSession = "none+plasma5";
-
   
 
   # Configure keymap in X11
   services.xserver.layout = "us,ru";
-  services.xserver.xkbOptions = "eurosign:e";
+  services.xserver.xkbOptions = "grp:alt_shift_toggle,eurosign:e";
 
   # Enable CUPS to print documents.
   # services.printing.enable = true;
