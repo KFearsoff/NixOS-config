@@ -9,22 +9,15 @@
   nix = {
     trustedUsers = [ "root" "user" ];
     autoOptimiseStore = true;
-    package = pkgs.nixUnstable;
+    package = pkgs.nixFlakes;
     extraOptions = ''
       experimental-features = nix-command flakes
     '';
   };
 
-  # Use the GRUB 2 boot loader.
-  boot.loader.grub.enable = true;
-  boot.loader.grub.version = 2;
+  # Use the systemd-boot EFI boot loader
   boot.loader.systemd-boot.enable = true;
-  boot.loader.grub.efiSupport = true;
-  boot.loader.grub.efiInstallAsRemovable = true;
-  # boot.loader.efi.efiSysMountPoint = "/boot/efi";
-  # Define on which hard drive you want to install Grub.
-  boot.loader.grub.device = "nodev"; # or "nodev" for efi only
-  
+  boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -72,8 +65,8 @@
   services.xserver.enable = true;
   services.xserver.xautolock = {
     enable = true;
-    time = 5; # mins
-    killtime = 10; # mins
+    time = 10; # mins
+    killtime = 30; # mins
     killer = "${pkgs.systemd}/bin/systemctl suspend";
   };
   services.xserver.displayManager.lightdm = {

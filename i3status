@@ -1,6 +1,6 @@
 general {
   colors = true
-  interval = 5
+  interval = 1 
 }
 
 order += "volume master"
@@ -17,7 +17,7 @@ load {
 }
 
 tztime local {
-  format = "%Y-%m-%d %H:%M:%S"
+  format = "%d.%m.%Y %H:%M:%S"
 }
 
 volume master {

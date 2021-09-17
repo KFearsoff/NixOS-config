@@ -13,7 +13,7 @@
     secrets.url = "path:/secrets";
   };
 
-  outputs = inputs @ { self, nixpkgs, nixos-hardware, home-manager, nixpkgs-unstable, secrets, ... }:
+  outputs = inputs @ { self, nixpkgs, nixpkgs-unstable, nixos-hardware, home-manager, secrets, ... }:
     let
       inherit (nixpkgs) lib;
       system = "x86_64-linux";
@@ -31,7 +31,7 @@
       {
       nixosConfigurations = {
         nixos = buildSystem [
-          ./configuration.nix
+          ./hosts/blueberry.nix
           ./hardware-configuration.nix
           ./home.nix
           "${secrets}/smb.nix"

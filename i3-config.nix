@@ -17,7 +17,7 @@ rec {
   ];
 
   # template = { border = "#"; background = "#"; text = "#"; indicator = "#"; childBorder = "#"; };
-  # Colorss from https://github.com/inix121/i3wm-themer/blob/master/themes/001.yml
+  # Colors from https://github.com/inix121/i3wm-themer/blob/master/themes/001.yml
   colors = {
     background = "#1E272B";
 
@@ -36,7 +36,7 @@ rec {
       (map (i: nameValuePair "${mod}+Shift+${i}" "move container to workspace number ${i}") (map toString (range 0 9))));
     in lib.mkDefault ({
       "${mod}+Tab" = "workspace back_and_forth";
-      "{mod}+Shift+q" = "kill";      
+      "${mod}+Shift+q" = "kill";      
       "${mod}+Return" = "exec DRI_PRIME=1 alacritty";
       "${mod}+Shift+Return" = "exec ee";
       "${mod}+d" = "exec rofi -combi-mode drun#run -show combi";
@@ -77,7 +77,7 @@ rec {
     
     bars = [
       {
-        position = "bottom";
+        position = "top";
         colors.separator = "#B5B5B5";
         extraConfig = ''
           separator_symbol |
