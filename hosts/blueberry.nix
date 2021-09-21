@@ -15,9 +15,17 @@
     '';
   };
 
-  # Use the systemd-boot EFI boot loader
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  # # Use the systemd-boot EFI boot loader
+  # boot.loader.systemd-boot.enable = true;
+  # boot.loader.efi.canTouchEfiVariables = true;
+  # Use the GRUB 2 boot loader
+  boot.loader.grub.enable = true;
+  boot.loader.grub.version = 2;
+  boot.loader.grub.efiSupport = true;
+  boot.loader.grub.efiInstallAsRemovable = true;
+  boot.loader.grub.device = "nodev";
+  # NixOS bootsplash
+  boot.plymouth.enable = true;
 
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -26,6 +34,7 @@
   virtualisation.virtualbox.host.enable = true;
   users.extraGroups.vboxusers.members = [ "user-with-access-to-virtualbox" ];
   virtualisation.virtualbox.host.enableExtensionPack = true;
+  virtualisation.docker.enable = true;
 
   # Set your time zone.
   time.timeZone = "Europe/Moscow";
@@ -58,7 +67,7 @@
   };
   console = {
     font = "Lat2-Terminus16";
-    keyMap = "us";
+    useXkbConfig = true;
   };
 
   # Enable the X11 windowing system.
@@ -88,7 +97,9 @@
 
   # Configure keymap in X11
   services.xserver.layout = "us,ru";
-  services.xserver.xkbOptions = "grp:alt_shift_toggle,eurosign:e";
+  services.xserver.xkbOptions = "caps:swapescape,grp:alt_shift_toggle,eurosign:e";
+  services.xserver.autoRepeatDelay = 250;
+  services.xserver.autoRepeatInterval = 20;
 
   # Enable CUPS to print documents.
   # services.printing.enable = true;
@@ -125,6 +136,7 @@
     samba
     cifs-utils
     lxqt.lxqt-policykit
+    ranger
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

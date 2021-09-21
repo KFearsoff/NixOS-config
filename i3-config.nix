@@ -12,6 +12,10 @@ rec {
     ];
   };
 
+  gaps = {
+    inner = 5;
+  };
+
   startup = [
     { command = "onboard"; notification = false; }
   ];
@@ -28,12 +32,12 @@ rec {
     placeholder = { border = "#EAD49B"; background = "#1E272B"; text = "#EAD49B"; indicator = "#78824B"; childBorder = "#78824B"; };
   };
 
-    keybindings =
+  keybindings =
     let
       mod = modifier;
       workspaces = with lib; listToAttrs (
-      (map (i: nameValuePair "${mod}+${i}" "workspace number ${i}") (map toString (range 0 9))) ++
-      (map (i: nameValuePair "${mod}+Shift+${i}" "move container to workspace number ${i}") (map toString (range 0 9))));
+      (map (i: nameValuePair "${mod}+${i}" "workspace number ${i}") (map toString (range 1 9))) ++
+      (map (i: nameValuePair "${mod}+Shift+${i}" "move container to workspace number ${i}") (map toString (range 1 9))));
     in lib.mkDefault ({
       "${mod}+Tab" = "workspace back_and_forth";
       "${mod}+Shift+q" = "kill";      
@@ -43,7 +47,8 @@ rec {
       "${mod}+q" = "exec rofi-pass";
       "${mod}+Escape" = "exec xautolock -locknow";
       "${mod}+Shift+e" = "exec i3-nagbar -t warning -m 'Do you want to exit i3?' -b 'Yes' 'i3-msg exit'";
-      
+      "${mod}+Shift+r" = "restart";
+
       "XF86AudioRaiseVolume" = "exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%";
       "XF86AudioLowerVolume" = "exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5%";
       "XF86AudioMute" = "exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle";
@@ -56,21 +61,20 @@ rec {
       "${mod}+w" = "layout tabbed";
       "${mod}+e" = "layout toggle split";
       "${mod}+v" = "split v";
-      "${mod}+h" = "split h";
+      "${mod}+g" = "split h";
       "${mod}+a" = "focus parent";
+      "${mod}+h" = "focus left";
+      "${mod}+j" = "focus down";
+      "${mod}+k" = "focus up";
+      "${mod}+l" = "focus right";
 
-      "${mod}+j" = "focus left";
-      "${mod}+k" = "focus down";
-      "${mod}+l" = "focus up";
-      "${mod}+semicolon" = "focus right";
+      "${mod}+Shift+h" = "move left";
+      "${mod}+Shift+j" = "move down";
+      "${mod}+Shift+k" = "move up";
+      "${mod}+Shift+l" = "move right";
 
-      "${mod}+Shift+j" = "move left";
-      "${mod}+Shift+k" = "move down";
-      "${mod}+Shift+l" = "move up";
-      "${mod}+Shift+colon" = "move right";
-
-      "${mod}+Shift+plus" = "gaps inner current plus 6";
-      "${mod}+Shift+minus" = "gaps inner current minus 6";
+      "${mod}+Shift+plus" = "gaps inner current plus 5";
+      "${mod}+Shift+minus" = "gaps inner current minus 5";
 
       "${mod}+f" = "fullscreen toggle";
     } // workspaces);
