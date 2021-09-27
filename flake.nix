@@ -11,34 +11,50 @@
 
     secrets.flake = false;
     secrets.url = "path:/secrets";
+    
+    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
   };
 
-  outputs = inputs @ { self, nixpkgs, nixpkgs-unstable, nixos-hardware, home-manager, secrets, ... }:
+  outputs = inputs@{ self, nixos-hardware, home-manager, secrets, ... }:
     let
-      inherit (nixpkgs) lib;
-      system = "x86_64-linux";
-      specialArgs = {
-        inherit inputs;
-        nixpkgs.config.allowUnfree = true;
-        unstable = (import nixpkgs-unstable {
-          inherit system;
-          config = { allowUnfree = true; };
-        });
-      };
-      buildConfig = modules: { inherit modules system specialArgs; };
-      buildSystem = modules: lib.nixosSystem (buildConfig modules);
+      # A function with 4 inputs: system architecture, nixpkgs to use, system config, extra modules
+      # Outputs a merged list of common modules and specified modules 
+      buildSystem = system: nixpkgs-ver: configurationNix: extraModules: nixpkgs-ver.lib.nixosSystem {
+        inherit system; 
+        specialArgs = { inherit system inputs; };
+        modules = ([
+          # System configuration for this host
+          configurationNix
+
+          # Common configuration
+
+          # Home-Manager configuration
+          home-manager.nixosModules.home-manager {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.user = import ./home.nix {
+              inherit inputs system;
+              pkgs = import nixpkgs-ver { inherit system; };
+              lib = nixpkgs-ver.lib;
+            };
+          }
+        ] ++ extraModules );
+      }; 
     in
       {
-      nixosConfigurations = {
-        nixos = buildSystem [
-          ./hosts/blueberry.nix
-          ./hardware-configuration.nix
-          ./home.nix
-          "${secrets}/smb.nix"
-          nixos-hardware.nixosModules.common-cpu-intel
-          nixos-hardware.nixosModules.common-pc-ssd
-          nixos-hardware.nixosModules.common-pc
-        ];  
-      };
-    };
+        nixosConfigurations = {
+          nixos = buildSystem "x86_64-linux" inputs.nixpkgs-unstable 
+            ./hosts/blueberry.nix
+            [
+              ./desktop 
+              ./desktop/fonts.nix
+              ./desktop/autolock.nix
+              ./desktop/swap-caps-esc.nix
+              nixos-hardware.nixosModules.common-pc-ssd
+              nixos-hardware.nixosModules.common-cpu-intel
+              nixos-hardware.nixosModules.common-pc
+              "${secrets}/smb.nix"  
+            ];
+        };
+      }; 
 }

@@ -1,29 +1,58 @@
-{ pkgs, config, inputs, unstable, ... }:
+{ lib, pkgs, inputs, system, ... }:
+let
+  neovim-nightly = inputs.neovim-nightly-overlay.packages.${system}.neovim;
+in
+rec {
+  home.packages = with pkgs; [
+      libreoffice
+      alacritty 
+      i3status
+      rofi rofi-pass xsecurelock xautolock xdotool
+      gnumake cachix unzip htop
+      ungoogled-chromium freetube tdesktop
+    ];
 
-{
-  imports = [
-    inputs.home-manager.nixosModules.home-manager
-  ];
+  home.file = {
+    ".config/i3status/config".source = ./i3status;
+  };
 
-  config = {
-    home-manager.useUserPackages = true;
-    home-manager.useGlobalPkgs = true;
-    home-manager.users.user = {
-      imports = with pkgs.lib; [
-        {
-          options = {
-            also.unstable = mkOption {
-              type = types.attrs;
-              default = unstable;
-            };
-            also.inputs = mkOption {
-              type = types.attrs;
-              default = inputs;
-            };
-          };
-        }
-        ./home-config.nix
-      ];
+  home.keyboard = {
+    layout = "us,ru";
+    options = [ "grp:alt_shift_toggle" "caps:swapescape" ];
+  };
+
+  
+  programs = {
+    alacritty = {
+      enable = true;
     };
+
+    rofi = {
+      enable = true;
+      theme = "sidebar";
+      terminal = "alacritty";
+    };
+
+    neovim = {
+      enable = true;
+      package = neovim-nightly;
+      viAlias = true;
+
+      plugins = with pkgs.vimPlugins; [
+#        vim-airline
+#        papercolor-theme
+        vim-nix
+      ];
+
+#      extraConfig = ''
+#        set background=dark
+#        colorscheme PaperColor
+#      '';
+    };
+  };
+
+  xsession = {
+    enable = true;
+    windowManager.i3 = import ./desktop/i3.nix { inherit lib pkgs; };
   };
 }

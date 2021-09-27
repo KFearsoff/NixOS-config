@@ -2,9 +2,33 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, lib, modulesPath, ... }:
 
 {
+  imports = 
+    [
+      (modulesPath + "/installer/scan/not-detected.nix")
+    ];
+  
+  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usb_storage" "usbhid" "sd_mod" ];
+  boot.initrd.kernelModules = [ ];
+  boot.kernelModules = [ "kvm-intel" ];
+  boot.extraModulePackages = [ ];
+  
+  fileSystems."/" = {
+    device = "/dev/disk/by-label/nixos";
+    fsType = "ext4";
+  };
+  
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-label/boot";
+    fsType = "vfat";
+  };
+
+  swapDevices = [ { device = "/dev/disk/by-label/swap"; } ];
+
+  powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
+
   nixpkgs.config.allowUnfree = true;
   nix = {
     trustedUsers = [ "root" "user" ];
@@ -114,7 +138,8 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.user = {
     isNormalUser = true;
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" ];
+    initialPassword = "test";
   };
 
   # List packages installed in system profile. To search, run:
@@ -123,20 +148,18 @@
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
     qutebrowser
-    freetube
-    tdesktop
     htop
     xorg.xkill
     neofetch
     vlc
     git
-    ungoogled-chromium
     notepadqq
     anydesk
     samba
     cifs-utils
     lxqt.lxqt-policykit
     ranger
+    cachix
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
