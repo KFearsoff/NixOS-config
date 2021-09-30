@@ -4,11 +4,8 @@ switch:
 test:
 	sudo nixos-rebuild --flake '.#' test -v
 
-system-gc:
-	sudo nix-collect-garbage
-
-home-gc:
-	sudo home-manager expire-generations -30days
+gc:
+	sudo nix-collect-garbage --delete-older-than 7d
 
 update:
 	sudo nix flake update

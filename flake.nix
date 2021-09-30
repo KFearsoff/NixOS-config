@@ -12,44 +12,40 @@
     secrets.flake = false;
     secrets.url = "path:/secrets";
     
-    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay/master";
   };
 
   outputs = inputs@{ self, nixos-hardware, home-manager, secrets, ... }:
     let
       # A function with 4 inputs: system architecture, nixpkgs to use, system config, extra modules
       # Outputs a merged list of common modules and specified modules 
-      buildSystem = system: nixpkgs-ver: configurationNix: extraModules: nixpkgs-ver.lib.nixosSystem {
+      buildSystem = system: nixpkgs-ver: extraModules: nixpkgs-ver.lib.nixosSystem {
         inherit system; 
         specialArgs = { inherit system inputs; };
         modules = ([
           # System configuration for this host
-          configurationNix
-
+#          builtins.elemAt (import host { pkgs = nixpkgs-ver; }).imports 0 
           # Common configuration
 
           # Home-Manager configuration
-          home-manager.nixosModules.home-manager {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.user = import ./home.nix {
-              inherit inputs system;
-              pkgs = import nixpkgs-ver { inherit system; };
-              lib = nixpkgs-ver.lib;
-            };
-          }
-        ] ++ extraModules );
+#          home-manager.nixosModules.home-manager {
+#            home-manager.useGlobalPkgs = true;
+#            home-manager.useUserPackages = true;
+#            home-manager.users.user = builtins.toPath (host + "/home.nix") {
+#              inherit inputs system;
+#              pkgs = import nixpkgs-ver { inherit system; };
+#              lib = nixpkgs-ver.lib;
+#            };
+#          }
+        ] ++ extraModules);
       }; 
     in
       {
         nixosConfigurations = {
           nixos = buildSystem "x86_64-linux" inputs.nixpkgs-unstable 
-            ./hosts/blueberry.nix
-            [
+          [
+              ./hosts/blueberry
               ./desktop 
-              ./desktop/fonts.nix
-              ./desktop/autolock.nix
-              ./desktop/swap-caps-esc.nix
               nixos-hardware.nixosModules.common-pc-ssd
               nixos-hardware.nixosModules.common-cpu-intel
               nixos-hardware.nixosModules.common-pc

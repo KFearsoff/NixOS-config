@@ -1,9 +1,17 @@
-{ lib, pkgs, inputs, system, ... }:
+{ lib, pkgs, config, inputs, system, ... }:
 let
   neovim-nightly = inputs.neovim-nightly-overlay.packages.${system}.neovim;
+  #home-manager = import inputs.home-manager.nixosModules.home-manager;
 in
-rec {
-  home.packages = with pkgs; [
+  {
+    imports = [ inputs.home-manager.nixosModules.home-manager ];
+  config = { 
+    home-manager.useGlobalPkgs = true;
+    home-manager.useUserPackages = true;
+    home-manager.users.user = {
+      home = {
+
+  packages = with pkgs; [
       libreoffice
       alacritty 
       i3status
@@ -12,14 +20,15 @@ rec {
       ungoogled-chromium freetube tdesktop
     ];
 
-  home.file = {
-    ".config/i3status/config".source = ./i3status;
+  file = {
+    ".config/i3status/config".source = ../../i3status;
   };
 
-  home.keyboard = {
+  keyboard = {
     layout = "us,ru";
     options = [ "grp:alt_shift_toggle" "caps:swapescape" ];
   };
+};
 
   
   programs = {
@@ -37,6 +46,7 @@ rec {
       enable = true;
       package = neovim-nightly;
       viAlias = true;
+      vimAlias = true;
 
       plugins = with pkgs.vimPlugins; [
 #        vim-airline
@@ -53,6 +63,14 @@ rec {
 
   xsession = {
     enable = true;
-    windowManager.i3 = import ./desktop/i3.nix { inherit lib pkgs; };
+    windowManager.i3 = import ../../desktop/i3.nix { inherit lib pkgs; };
   };
+
+  gtk = import ../../desktop/gtk.nix { inherit pkgs; };
+  qt = {
+    enable = true;
+    platformTheme = "gtk";
+  };
+  };
+};
 }
