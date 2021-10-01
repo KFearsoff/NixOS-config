@@ -161,6 +161,7 @@
     ranger
     cachix
     gnome3.dconf
+    tree
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
