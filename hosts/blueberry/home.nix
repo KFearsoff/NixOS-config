@@ -18,6 +18,9 @@ in
       rofi rofi-pass xsecurelock xautolock xdotool
       gnumake cachix unzip htop
       ungoogled-chromium freetube tdesktop
+      obs-studio
+      keepassxc
+      obsidian
     ];
 
   file = {
