@@ -3,7 +3,12 @@ let
   neovim = inputs.neovim.packages.${system}.neovim;
 in
   {
-  home = {
+    imports = [ inputs.home-manager.nixosModules.home-manager ];
+    config = {
+      home-manager.useGlobalPkgs = true;
+      home-manager.useUserPackages = true;
+      home-manager.users.user = {
+        home = {
 
   packages = with pkgs; [
       libreoffice
@@ -68,4 +73,6 @@ in
     enable = true;
     platformTheme = "gtk";
   };
+};
+};
 }

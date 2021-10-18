@@ -29,7 +29,7 @@
 #
 #  powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
 
-  imports = [ ./hardware-configuration.nix ];
+  imports = [ ./hardware-configuration.nix ./home.nix ];
 
   nixpkgs.config.allowUnfree = true;
   nix = {

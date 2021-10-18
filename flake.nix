@@ -23,17 +23,17 @@
         modules = ([
         ] ++ extraModules);
       };
-      makeHome = system: pkgs: user: path: {
-        modules.home-manager.nixosModules.home-manager = {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.users.${user} = import path {
-            inherit inputs system;
-            lib = pkgs.lib;
-            pkgs = import pkgs { inherit system; };
-          };
-        };
-      };
+      #makeHome = system: pkgs: user: path: {
+      #  modules.home-manager.nixosModules.home-manager = {
+      #    home-manager.useGlobalPkgs = true;
+      #    home-manager.useUserPackages = true;
+      #    home-manager.users.${user} = import path {
+      #      inherit inputs system;
+      #      lib = pkgs.lib;
+      #      pkgs = import pkgs { inherit system; };
+      #    };
+      #  };
+      #};
     in
       {
       #eachDefaultSystem = (system: {
@@ -42,7 +42,7 @@
           [
             ./hosts/blueberry
             ./desktop
-            (makeHome "x86_64-linux" unstable "user" ./hosts/blueberry/home.nix)
+            #(makeHome "x86_64-linux" unstable "user" ./hosts/blueberry/home.nix)
             nixos-hardware.nixosModules.common-pc-ssd
             nixos-hardware.nixosModules.common-cpu-intel
             nixos-hardware.nixosModules.common-pc
