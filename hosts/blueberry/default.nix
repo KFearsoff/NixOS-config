@@ -96,36 +96,36 @@
     useXkbConfig = true;
   };
 
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
-  services.xserver.xautolock = {
-    enable = true;
-    time = 10; # mins
-    killtime = 30; # mins
-    killer = "${pkgs.systemd}/bin/systemctl suspend";
-  };
-  services.xserver.displayManager.lightdm = {
-    enable = true;
-    greeter.enable = true;
-    greeters.gtk = {
-      iconTheme.package = pkgs.paper-icon-theme;
-      iconTheme.name = "Paper";
-      theme.package = pkgs.adapta-gtk-theme;
-      theme.name = "Adapta-Nokto-Eta";
-    };
-  };
-  services.xserver.windowManager.i3 = {
-    enable = true;
-    package = pkgs.i3-gaps;
-  };
-  services.xserver.desktopManager.plasma5.enable = true;
-  
-
-  # Configure keymap in X11
-  services.xserver.layout = "us,ru";
-  services.xserver.xkbOptions = "caps:swapescape,grp:alt_shift_toggle,eurosign:e";
-  services.xserver.autoRepeatDelay = 250;
-  services.xserver.autoRepeatInterval = 20;
+#  # Enable the X11 windowing system.
+#  services.xserver.enable = true;
+#  services.xserver.xautolock = {
+#    enable = true;
+#    time = 10; # mins
+#    killtime = 30; # mins
+#    killer = "${pkgs.systemd}/bin/systemctl suspend";
+#  };
+#  services.xserver.displayManager.lightdm = {
+#    enable = true;
+#    greeter.enable = true;
+#    greeters.gtk = {
+#      iconTheme.package = pkgs.paper-icon-theme;
+#      iconTheme.name = "Paper";
+#      theme.package = pkgs.adapta-gtk-theme;
+#      theme.name = "Adapta-Nokto-Eta";
+#    };
+#  };
+#  services.xserver.windowManager.i3 = {
+#    enable = true;
+#    package = pkgs.i3-gaps;
+#  };
+#  services.xserver.desktopManager.plasma5.enable = true;
+#  
+#
+#  # Configure keymap in X11
+#  services.xserver.layout = "us,ru";
+#  services.xserver.xkbOptions = "caps:swapescape,grp:alt_shift_toggle,eurosign:e";
+#  services.xserver.autoRepeatDelay = 250;
+#  services.xserver.autoRepeatInterval = 20;
 
   # Enable CUPS to print documents.
   # services.printing.enable = true;

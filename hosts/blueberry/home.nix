@@ -20,6 +20,8 @@ in
       obs-studio
       keepassxc
       obsidian
+      discord
+      flameshot
     ];
 
   file = {
@@ -61,6 +63,10 @@ in
 #        colorscheme PaperColor
 #      '';
     };
+  };
+
+  services = {
+    flameshot.enable = true;
   };
 
   xsession = {
