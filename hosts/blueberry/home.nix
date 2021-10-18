@@ -1,15 +1,9 @@
-{ lib, pkgs, config, inputs, system, ... }:
+{ lib, pkgs, inputs, system, ... }:
 let
-  neovim-nightly = inputs.neovim-nightly-overlay.packages.${system}.neovim;
-  #home-manager = import inputs.home-manager.nixosModules.home-manager;
+  neovim = inputs.neovim.packages.${system}.neovim;
 in
   {
-    imports = [ inputs.home-manager.nixosModules.home-manager ];
-  config = { 
-    home-manager.useGlobalPkgs = true;
-    home-manager.useUserPackages = true;
-    home-manager.users.user = {
-      home = {
+  home = {
 
   packages = with pkgs; [
       libreoffice
@@ -47,7 +41,7 @@ in
 
     neovim = {
       enable = true;
-      package = neovim-nightly;
+      package = neovim;
       viAlias = true;
       vimAlias = true;
 
@@ -74,6 +68,4 @@ in
     enable = true;
     platformTheme = "gtk";
   };
-  };
-};
 }

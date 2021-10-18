@@ -5,7 +5,7 @@
     nixpkgs.url = "github:nixos/nixpkgs/release-21.05";
     unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-    fup.url = "github:gytis-ivaskevicius/flake-utils-plus";
+    flake-utils.url = "github:numtide/flake-utils";
     home-manager.url = "github:nix-community/home-manager/release-21.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -15,83 +15,40 @@
     neovim.url = "github:nix-community/neovim-nightly-overlay/master";
   };
 
-  outputs = inputs@{ self, nixpkgs, unstable, fup, nixos-hardware, home-manager, secrets, neovim, ... }:
-#    let
-#      # A function with 4 inputs: system architecture, nixpkgs to use, system config, extra modules
-#      # Outputs a merged list of common modules and specified modules 
-#      buildSystem = system: nixpkgs-ver: extraModules: nixpkgs-ver.lib.nixosSystem {
-#        inherit system; 
-#        specialArgs = { inherit system inputs; };
-#        modules = ([
-#          # System configuration for this host
-##          builtins.elemAt (import host { pkgs = nixpkgs-ver; }).imports 0 
-#          # Common configuration
-#
-#          # Home-Manager configuration
-##          home-manager.nixosModules.home-manager {
-##            home-manager.useGlobalPkgs = true;
-##            home-manager.useUserPackages = true;
-##            home-manager.users.user = builtins.toPath (host + "/home.nix") {
-##              inherit inputs system;
-##              pkgs = import nixpkgs-ver { inherit system; };
-##              lib = nixpkgs-ver.lib;
-##            };
-##          }
-#        ] ++ extraModules);
-#      }; 
-#    in
-#      {
-#        nixosConfigurations = {
-#          nixos = buildSystem "x86_64-linux" inputs.nixpkgs-unstable 
-#          [
-#              ./hosts/blueberry
-#              ./desktop 
-#              nixos-hardware.nixosModules.common-pc-ssd
-#              nixos-hardware.nixosModules.common-cpu-intel
-#              nixos-hardware.nixosModules.common-pc
-#              "${secrets}/smb.nix"  
-#            ];
-#        };
-#      }; 
-
-
+  outputs = inputs@{ self, nixpkgs, unstable, flake-utils, nixos-hardware, home-manager, secrets, neovim, ... }:
     let
-      inherit (fup.lib) mkFlake exportOverlays exportPackages exportModules;
-    in
-      mkFlake {
-        inherit self inputs;
-
-        supportedSystems = [ "x86_64-linux" "aarch64-linux" ];
-        channelsConfig.allowUnfree = true;
-        hostDefaults = {
-          channelName = "unstable";
-          system = "x86_64-linux";
-          modules = [ ];
+      buildSystem = system: pkgs: extraModules: pkgs.lib.nixosSystem {
+        inherit system;
+        specialArgs = { inherit system inputs; };
+        modules = ([
+        ] ++ extraModules);
+      };
+      makeHome = system: pkgs: user: path: {
+        modules.home-manager.nixosModules.home-manager = {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.users.${user} = import path {
+            inherit inputs system;
+            lib = pkgs.lib;
+            pkgs = import pkgs { inherit system; };
+          };
         };
-
-        channels.nixpkgs.input = nixpkgs;
-        channels.unstable.input = unstable;
-
-#        overlay = import ./overlays;
-
-        sharedOverlays = [
-#          self.overlay
-          neovim.overlay
-        ];
-
-        nixosModules = exportModules [
-          ./hosts/blueberry
-        ];
-
-        hosts.nixos.modules = with self.nixosModules;
-        [
-          blueberry 
-#            ./hosts/blueberry
+      };
+    in
+      {
+      #eachDefaultSystem = (system: {
+        nixosConfigurations = {
+          nixos = buildSystem "x86_64-linux" unstable 
+          [
+            ./hosts/blueberry
             ./desktop
+            (makeHome "x86_64-linux" unstable "user" ./hosts/blueberry/home.nix)
             nixos-hardware.nixosModules.common-pc-ssd
             nixos-hardware.nixosModules.common-cpu-intel
             nixos-hardware.nixosModules.common-pc
             "${secrets}/smb.nix"
-        ];
+          ];
+        };
+      #});
       };
 }
