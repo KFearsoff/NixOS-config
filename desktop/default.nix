@@ -30,6 +30,6 @@
         enable = true;
         package = pkgs.i3-gaps;
       };
-      desktopManager.plasma5.enable = true;
+      #desktopManager.plasma5.enable = true;
     };
 }
