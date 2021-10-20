@@ -13,13 +13,22 @@
     secrets.url = "path:/secrets";
     
     neovim.url = "github:nix-community/neovim-nightly-overlay/master";
+
+    zsh-autosuggestions.url = "github:zsh-users/zsh-autosuggestions";
+    zsh-autosuggestions.flake = false;
+    zsh-you-should-use.url = "github:MichaelAquilina/zsh-you-should-use";
+    zsh-you-should-use.flake = false;
+    zsh-history-substring-search.url = "github:zsh-users/zsh-history-substring-search";
+    zsh-history-substring-search.flake = false;
+    zsh-nix-shell.url = "github:chisui/zsh-nix-shell";
+    zsh-nix-shell.flake = false;
   };
 
-  outputs = inputs@{ self, nixpkgs, unstable, flake-utils, nixos-hardware, home-manager, secrets, neovim, ... }:
+  outputs = inputs@{ self, nixpkgs, unstable, flake-utils, nixos-hardware, home-manager, secrets, neovim, zsh-autosuggestions, zsh-you-should-use, zsh-history-substring-search, zsh-nix-shell, ... }:
     let
       buildSystem = system: pkgs: extraModules: pkgs.lib.nixosSystem {
         inherit system;
-        specialArgs = { inherit system inputs; };
+        specialArgs = { inherit system inputs zsh-autosuggestions zsh-you-should-use zsh-history-substring-search zsh-nix-shell; };
         modules = ([
         ] ++ extraModules);
       };

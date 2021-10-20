@@ -1,4 +1,4 @@
-{ lib, pkgs, inputs, system, ... }:
+{ lib, pkgs, inputs, system, zsh-autosuggestions, zsh-you-should-use, zsh-history-substring-search, zsh-nix-shell, ... }:
 let
   neovim = inputs.neovim.packages.${system}.neovim;
 in
@@ -21,7 +21,6 @@ in
       keepassxc
       obsidian
       discord
-      flameshot
     ];
 
   file = {
@@ -38,6 +37,10 @@ in
   programs = {
     alacritty = {
       enable = true;
+    };
+
+    zsh = import ../../desktop/zsh.nix {
+      inherit lib pkgs zsh-autosuggestions zsh-you-should-use zsh-history-substring-search zsh-nix-shell;
     };
 
     rofi = {
@@ -62,6 +65,15 @@ in
 #        set background=dark
 #        colorscheme PaperColor
 #      '';
+    };
+
+    direnv = {
+      enable = true;
+      enableZshIntegration = true;
+      nix-direnv = {
+        enable = true;
+        enableFlakes = true;
+      };
     };
   };
 

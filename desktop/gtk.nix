@@ -1,8 +1,9 @@
 { pkgs, ... }:
 {
   enable = true;
-  iconTheme.package = pkgs.paper-icon-theme;
-  iconTheme.name = "Paper";
+  font.name = "Noto Sans";
+  iconTheme.package = pkgs.papirus-icon-theme;
+  iconTheme.name = "Papirus Dark";
   theme.name = "Adapta-Nokto-Eta";
   theme.package = pkgs.adapta-gtk-theme;
   gtk2.extraConfig = ''
@@ -42,12 +43,4 @@
       -gtk-icon-style: regular;
     }
   '';
-  gtk3.bookmarks = [
-    "file:///home/iammrinal0/Documents"
-    "file:///home/iammrinal0/Downloads"
-    "file:///home/iammrinal0/Pictures"
-    "file:///home/iammrinal0/Videos"
-    "file:///home/iammrinal0/oss"
-    "file:///home/iammrinal0/play"
-  ];
 }

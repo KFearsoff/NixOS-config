@@ -2,10 +2,12 @@
 
 {
   fonts = {
-    enableDefaultFonts = true;
+    #enableDefaultFonts = true;
+    fontconfig = { enable = true; };
 
     fonts = with pkgs; [
       noto-fonts-cjk 
+      noto-fonts
     ];
   };
 }

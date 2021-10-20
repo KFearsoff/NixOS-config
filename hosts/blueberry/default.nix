@@ -38,6 +38,8 @@
     package = pkgs.nixFlakes;
     extraOptions = ''
       experimental-features = nix-command flakes
+      keep-outputs = true
+      keep-derivations = true
     '';
   };
 
@@ -61,6 +63,9 @@
   users.extraGroups.vboxusers.members = [ "user-with-access-to-virtualbox" ];
   virtualisation.virtualbox.host.enableExtensionPack = true;
   virtualisation.docker.enable = true;
+
+  programs.zsh.enable = true;
+  users.users.user.shell = pkgs.zsh;
 
   # Set your time zone.
   time.timeZone = "Europe/Moscow";
@@ -92,7 +97,7 @@
     LC_IDENTIFICATION="en_US.UTF-8";
   };
   console = {
-    font = "Lat2-Terminus16";
+    font = "noto-sans-mono";
     useXkbConfig = true;
   };
 
