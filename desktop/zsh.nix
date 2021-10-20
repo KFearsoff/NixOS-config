@@ -1,4 +1,5 @@
 { lib, pkgs, zsh-autosuggestions, zsh-you-should-use, zsh-history-substring-search, zsh-nix-shell, ... }:
+
 {
   enable = true;
   enableCompletion = true;

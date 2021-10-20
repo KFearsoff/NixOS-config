@@ -1,4 +1,5 @@
 { pkgs, ... }:
+
 {
   enable = true;
   font.name = "Noto Sans";
