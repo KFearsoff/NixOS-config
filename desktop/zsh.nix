@@ -19,7 +19,7 @@
     }
     {
       name = "fast-syntax-highlighting";
-      src = "${pkgs.zsh-fast-syntax-highlighting}/share/zsh-site-functions";
+      src = "${pkgs.zsh-fast-syntax-highlighting}/share/zsh/site-functions";
     }
     {
       name = "you-should-use";
