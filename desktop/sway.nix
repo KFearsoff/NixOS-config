@@ -114,8 +114,7 @@ in {
       "Return" = "exec DRI_PRIME=1 alacritty";
       "Shift+Return" = "exec ee";
       "d" = "exec rofi -combi-mode drun#run -show combi";
-      "q" = "exec rofi-pass";
-      "Escape" = "exec xautolock -locknow";
+      "Escape" = "exec swaylock -i ~/Pictures/nix-wallpaper-nineish-dark-gray.png";
       "Shift+e" = "exec i3-nagbar -t warning -m 'Do you want to exit i3?' -b 'Yes' 'i3-msg exit'";
       "Shift+r" = "restart";
       "r" = "mode resize";
