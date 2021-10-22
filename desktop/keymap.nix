@@ -1,10 +1,6 @@
-{ config, pkgs, ... }:
-
 {
-  services.xserver = {
-    layout = "us,ru";
-    xkbOptions = "caps:swapescape,grp:alt_shift_toggle,eurosign:e";
-    autoRepeatDelay = 250;
-    autoRepeatInterval = 20;
-  };
+  xkb_layout = "us,ru";
+  xkb_options = "caps:swapescape,grp:alt_shift_toggle,eurosign:e";
+  repeat_delay = "250";
+  repeat_rate = "40";
 }

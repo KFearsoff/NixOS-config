@@ -13,8 +13,6 @@ in
         packages = with pkgs; [
             libreoffice
             alacritty 
-            i3status
-            rofi rofi-pass xsecurelock xautolock xdotool
             gnumake cachix unzip htop
             ungoogled-chromium freetube tdesktop
             obs-studio
@@ -22,11 +20,13 @@ in
             obsidian
             discord
             dolphin
+            dmenu
+            swaylock
+            swayidle
+            wl-clipboard
+            mako
+            rofi
           ];
-      
-        file = {
-          ".config/i3status/config".source = ../../desktop/i3status;
-        };
       
         keyboard = {
           layout = "us,ru";
@@ -41,12 +41,6 @@ in
       
         zsh = import ../../desktop/zsh.nix {
           inherit lib pkgs zsh-autosuggestions zsh-you-should-use zsh-history-substring-search zsh-nix-shell;
-        };
-      
-        rofi = {
-          enable = true;
-          theme = "sidebar";
-          terminal = "alacritty";
         };
       
         neovim = {
@@ -68,16 +62,19 @@ in
             enableFlakes = true;
           };
         };
+
+        rofi = {
+          enable = true;
+          theme = "sidebar";
+          terminal = "alacritty";      
+        };
       };
       
       services = {
         flameshot.enable = true;
       };
-      
-      xsession = {
-        enable = true;
-        windowManager.i3 = import ../../desktop/i3.nix { inherit lib pkgs; };
-      };
+
+      wayland.windowManager.sway = import ../../desktop/sway.nix { inherit lib pkgs; };
       
       gtk = import ../../desktop/gtk.nix { inherit pkgs; };
       qt = {

@@ -3,16 +3,8 @@
 {
   imports = [
     ./fonts.nix
-    ./autolock.nix
-    ./keymap.nix
   ];
 
-  environment.systemPackages = with pkgs; [
-    xorg.xmessage
-  ];
-
-  services.picom.enable = true;
-  # Enable the X11 windowing system.
   services.xserver = {
     enable = true;
     displayManager.lightdm = {
@@ -25,9 +17,10 @@
         theme.name = "Adapta-Nokto-Eta";
       };
     };
-    windowManager.i3 = {
-      enable = true;
-      package = pkgs.i3-gaps;
-    };
+  };
+
+  programs.sway = {
+    enable = true;
+    wrapperFeatures.gtk = true;
   };
 }
