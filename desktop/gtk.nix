@@ -2,7 +2,7 @@
 
 {
   enable = true;
-  font.name = "Noto Sans";
+#  font.name = "Noto Sans";
   iconTheme.package = pkgs.papirus-icon-theme;
   iconTheme.name = "Papirus Dark";
   theme.name = "Adapta-Nokto-Eta";

@@ -1,11 +1,11 @@
 { lib, pkgs, ... }:
 
 let
-  fontSize = 10.8;
-  fonts = {
-    names = [ "noto-fonts" ];
-    size = fontSize;
-  };
+#  fontSize = 10.8;
+#  fonts = {
+#    names = [ "Noto Sans" ];
+#    size = fontSize;
+#  };
   workspaces = [ "" "" "" "" "" "" "" "" "" ];
   numbers = map toString (lib.range 1 9);
   # TODO: rename workspaces to get extra style points
@@ -17,7 +17,7 @@ in {
   wrapperFeatures.gtk = true;
 
   config = rec {
-    inherit fonts;
+#    inherit fonts;
     modifier = "Mod4";
 
     input = { "type:keyboard" = import ./keymap.nix; };
