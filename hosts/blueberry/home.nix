@@ -13,7 +13,7 @@ in
         packages = with pkgs; [
             libreoffice
             alacritty 
-            gnumake cachix unzip htop
+            gnumake cachix unzip
             ungoogled-chromium freetube tdesktop
             obs-studio
             keepassxc
@@ -26,6 +26,19 @@ in
             wl-clipboard
             mako
             rofi
+            gimp
+            cmake
+            bottom # htop alternative
+            qbittorrent
+            ripgrep # alternative to grep
+            bat # alternative to cat
+            delta # git and diff viewer
+            du-dust # alternative to du
+            duf # alternative to df
+            fd # alternative to find
+            nix-prefetch-github
+            gh
+            zathura
           ];
       
         keyboard = {
