@@ -89,7 +89,12 @@
     cachix
     gnome3.dconf
     tree
+    gtk-engine-murrine
+    gtk_engines
+    gsettings-desktop-schemas
+    lxappearance
   ];
+  programs.qt5ct.enable = true;
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;

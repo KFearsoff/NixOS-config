@@ -12,7 +12,6 @@ in
       home = {
         packages = with pkgs; [
             libreoffice
-            alacritty 
             gnumake cachix unzip
             ungoogled-chromium freetube tdesktop
             obs-studio
@@ -23,9 +22,9 @@ in
             dmenu
             swaylock
             swayidle
+            waybar
             wl-clipboard
             mako
-            rofi
             gimp
             cmake
             bottom # htop alternative
@@ -39,6 +38,11 @@ in
             nix-prefetch-github
             gh
             zathura
+            gnome.nautilus
+            cinnamon.nemo
+            grim
+            slurp
+            feh
           ];
       
         keyboard = {
@@ -50,6 +54,10 @@ in
       programs = {
         alacritty = {
           enable = true;
+          settings = {
+            font.size = 14.0;
+            background_opacity = 0.85;
+          };
         };
       
         zsh = import ../../desktop/zsh.nix {
@@ -78,6 +86,7 @@ in
 
         rofi = {
           enable = true;
+         # package = pkgs.nur.repos.kira-bruneau.rofi-wayland;
           theme = "sidebar";
           terminal = "alacritty";      
         };
@@ -90,9 +99,20 @@ in
       wayland.windowManager.sway = import ../../desktop/sway.nix { inherit lib pkgs; };
       
       gtk = import ../../desktop/gtk.nix { inherit pkgs; };
+      home.sessionVariables = { 
+        DESKTOP_SESSION = "sway";
+        SDL_VIDEODRIVER = "wayland";
+        GTK_BACKEND = "wayland";
+        WLR_DRM_NO_MODIFIERS = "1";
+        _JAWA_AWT_WM_NONREPARENTING = "1";
+        XDG_CURRENT_DESKTOP = "sway";
+        XDG_SESSION_TYPE = "sway";
+        QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
+      };
       qt = {
         enable = true;
         platformTheme = "gtk";
+        style.name = "gtk2";
       };
     };
   };

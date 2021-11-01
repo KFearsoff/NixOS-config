@@ -21,14 +21,15 @@
     zsh-history-substring-search.flake = false;
     zsh-nix-shell.url = "github:chisui/zsh-nix-shell";
     zsh-nix-shell.flake = false;
+    nur.url = github:nix-community/NUR;
   };
 
-  outputs = inputs@{ self, nixpkgs, unstable, flake-utils, nixos-hardware, home-manager, secrets, neovim, zsh-autosuggestions, zsh-you-should-use, zsh-history-substring-search, zsh-nix-shell, ... }:
+  outputs = inputs@{ self, nixpkgs, unstable, flake-utils, nixos-hardware, home-manager, secrets, neovim, nur, ... }:
   let
     buildSystem = system: pkgs: extraModules: pkgs.lib.nixosSystem {
       inherit system;
-      specialArgs = { inherit system inputs zsh-autosuggestions zsh-you-should-use zsh-history-substring-search zsh-nix-shell; };
-      modules = ([
+      specialArgs = with self.inputs; { inherit system inputs zsh-autosuggestions zsh-you-should-use zsh-history-substring-search zsh-nix-shell; };
+      modules = ([ { nixpkgs.overlays = [ nur.overlay ]; }
       ] ++ extraModules);
     };
   in

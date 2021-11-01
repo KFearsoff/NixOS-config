@@ -171,6 +171,21 @@
         "type": "github"
       }
     },
+    "nur": {
+      "locked": {
+        "lastModified": 1635331542,
+        "narHash": "sha256-O+LLoUYhG6OtWoEQXfPlQz3ea19xkpxb9fGJ+FLoPto=",
+        "owner": "nix-community",
+        "repo": "NUR",
+        "rev": "64eaaf70f14d5854a37f75c29dfd6c9511bf557a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "NUR",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "flake-utils": "flake-utils",
@@ -178,6 +193,7 @@
         "neovim": "neovim",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_3",
+        "nur": "nur",
         "secrets": "secrets",
         "unstable": "unstable",
         "zsh-autosuggestions": "zsh-autosuggestions",
