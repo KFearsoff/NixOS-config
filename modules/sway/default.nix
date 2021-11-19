@@ -1,4 +1,4 @@
-{ outputConfig, ... }:
+{ lib, pkgs, ... }:
 
 {
   enable = true;
@@ -9,14 +9,24 @@
 
     input = { "type:keyboard" = import ./keymap.nix; };
 
-    output = outputConfig;
+    output = {
+      HDMI-A-1 = {
+        pos = "0 0";
+        bg = "/home/user/NixOS-config/assets/nix-wallpaper-nineish-dark-gray.png fill";
+      };
+      HDMI-A-2 = {
+        pos = "1920 0";
+        bg = "/home/user/NixOS-config/assets/nix-wallpaper-nineish-dark-gray.png fill";
+      };
+    };
 
     gaps = { inner = 5; };
 
-    bars = import ./waybar.nix;
+    # bars = import ./waybar.nix;
+    bars = [{ command = "waybar"; }];
 
     colors = import ./colors.nix;
 
-    keybindings = import ./keybindings.nix;
+    keybindings = import ./keybindings.nix { inherit lib; inherit pkgs; mod = "Mod4"; };
   };
 }

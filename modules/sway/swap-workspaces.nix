@@ -1,4 +1,6 @@
-with import <nixpkgs> { }; stdenv.mkDerivation {
+{ pkgs }:
+
+with pkgs; stdenv.mkDerivation {
   name = "swap-workspaces";
   buildInputs = [ bash autoPatchelfHook makeWrapper ];
   src = ./swap-workspaces.sh; 

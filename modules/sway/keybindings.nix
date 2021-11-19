@@ -1,10 +1,10 @@
 { lib, pkgs, mod, ... }:
 
 let
-  workspaces = [ "" "" "" "" "" "" "" "" "" ];
+  workspaces1 = [ "" "" "" "" "" "" "" "" "" ];
   numbers = map toString (lib.range 1 9);
   # TODO: rename workspaces to get extra style points
-  workspaceNumbers = lib.zipListsWith (x: y: x + "" + y) numbers workspaces;
+  workspaceNumbers = lib.zipListsWith (x: y: x + "" + y) numbers workspaces1;
   useWithModifier = mod: lib.mapAttrs' (k: v: lib.nameValuePair (mod + "+" + k) v);
   appendExecToCommand = lib.mapAttrs' (k: v: lib.nameValuePair k ("exec " + v));
   gsettings = "${pkgs.glib}/bin/gsettings";
@@ -21,9 +21,8 @@ let
     ${gsettings} set ${gnomeSchema} cursor-theme "$cursor_theme"
     ${gsettings} set ${gnomeSchema} font-name "$font_name"
   '';
-  swap = ${callPackage ./swap-workspaces.nix}/bin/swap-workspaces;
-in {
-  general // workspaces // functionKeys;
+  swapScript = pkgs.callPackage ./swap-workspaces.nix { };
+  swap = "${swapScript}/bin/swap-workspaces";
 
 
   /* On the basic level, this magic spell maps workspace-related hotkeys to the numbers on the keyboard.
@@ -31,9 +30,9 @@ in {
     attribute sets, then by merging those attribute sets together.
     func -> nul -> (number -> workspace -> attrSet) -> attrSetForAllNumbers */
   workspaces = lib.foldl (old: new: old // new) { } (lib.zipListsWith (number: workspace: {
-      "${number}" = "exec --no-startup-id swap-workspaces ${workspace}";
-      "Control+${number}" = "workspace ${workspace}";
-      "Shift+${number}" = "move container to workspace ${workspace}; workspace ${workspace}";
+      "${mod}+${number}" = "exec --no-startup-id ${swap} ${workspace}";
+      "${mod}+Control+${number}" = "workspace ${workspace}";
+      "${mod}+Shift+${number}" = "move container to workspace ${workspace}; workspace ${workspace}";
     }) numbers workspaceNumbers);
 
     functionKeys = appendExecToCommand ({
@@ -50,7 +49,7 @@ in {
       "Return" = "exec DRI_PRIME=1 alacritty";
       "Shift+Return" = "exec ee";
       "d" = "exec rofi -combi-mode drun#run -show combi";
-      "Caps" = "exec swaylock -i ~/NixOS-config/assets/nix-wallpaper-nineish-dark-gray.png";
+      "Caps_Lock" = "exec swaylock -i ~/NixOS-config/assets/nix-wallpaper-nineish-dark-gray.png";
       "Shift+e" = "exec swaynag -t warning -m 'Do you want to exit sway?' -b 'Yes' 'swaymsg exit'";
       "Shift+r" = "reload";
       "r" = "mode resize";
@@ -87,6 +86,5 @@ in {
 
       "f" = "fullscreen toggle";
     });
-}
- 
-    
+in
+    general // workspaces // functionKeys

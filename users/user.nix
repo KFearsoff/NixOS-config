@@ -60,7 +60,7 @@ in
           };
         };
       
-        zsh = import ../../desktop/zsh.nix {
+        zsh = import ../modules/zsh.nix {
           inherit lib pkgs zsh-autosuggestions zsh-you-should-use zsh-history-substring-search zsh-nix-shell;
         };
       
@@ -96,9 +96,9 @@ in
         flameshot.enable = true;
       };
 
-      wayland.windowManager.sway = import ../../desktop/sway.nix { inherit lib pkgs; };
+      wayland.windowManager.sway = import ../modules/sway { inherit lib pkgs; };
       
-      gtk = import ../../desktop/gtk.nix { inherit pkgs; };
+      gtk = import ../modules/gtk.nix { inherit pkgs; };
       home.sessionVariables = { 
         DESKTOP_SESSION = "sway";
         SDL_VIDEODRIVER = "wayland";

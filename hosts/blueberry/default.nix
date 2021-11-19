@@ -1,28 +1,7 @@
 { config, pkgs,  ... }:
 
 {
-  imports = [ ./hardware-configuration.nix ./home.nix ];
-
-  nixpkgs.config.allowUnfree = true;
-  nix = {
-    trustedUsers = [ "root" "user" ];
-    autoOptimiseStore = true;
-    package = pkgs.nixFlakes;
-    extraOptions = ''
-      experimental-features = nix-command flakes
-      keep-outputs = true
-      keep-derivations = true
-    '';
-  };
-
- # Use the GRUB 2 boot loader
-  boot.loader.grub.enable = true;
-  boot.loader.grub.version = 2;
-  boot.loader.grub.efiSupport = true;
-  boot.loader.grub.efiInstallAsRemovable = true;
-  boot.loader.grub.devices = [ "nodev" ];
-  # NixOS bootsplash
-  boot.plymouth.enable = true;
+  imports = [ ./hardware-configuration.nix ];
 
   networking.hostName = "nixos"; # Define your hostname.
 
@@ -33,8 +12,11 @@
 
   virtualisation.docker.enable = true;
 
+  programs.sway.enable = true;
+  programs.sway.wrapperFeatures.gtk = true;
+
   programs.zsh.enable = true;
-  users.users.user.shell = pkgs.zsh;
+  users.defaultUserShell = pkgs.zsh;
 
   # Set your time zone.
   time.timeZone = "Europe/Moscow";
@@ -44,23 +26,6 @@
   # replicates the default behaviour.
   networking.useDHCP = false;
   networking.interfaces.eno1.useDHCP = true;
-
-  # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF-8";
-  i18n.extraLocaleSettings = {
-    LC_CTYPE="en_US.UTF-8";
-    LC_NUMERIC="en_US.UTF-8";
-    LC_TIME="en_GB.UTF-8";
-    LC_COLLATE="en_US.UTF-8";
-    LC_MONETARY="en_US.UTF-8";
-    LC_MESSAGES="en_US.UTF-8";
-    LC_PAPER="en_US.UTF-8";
-    LC_NAME="en_US.UTF-8";
-    LC_ADDRESS="en_US.UTF-8";
-    LC_TELEPHONE="en_US.UTF-8";
-    LC_MEASUREMENT="en_US.UTF-8";
-    LC_IDENTIFICATION="en_US.UTF-8";
-  };
 
   # Enable sound.
   sound.enable = true;

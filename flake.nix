@@ -38,7 +38,8 @@
         nixos = buildSystem "x86_64-linux" unstable 
         [
           ./hosts/blueberry
-          ./desktop
+          ./users/user.nix
+          ./profiles/all.nix
           nixos-hardware.nixosModules.common-pc-ssd
           nixos-hardware.nixosModules.common-cpu-intel
           nixos-hardware.nixosModules.common-pc

@@ -7,4 +7,4 @@
   };
   # NixOS bootsplash
   boot.plymouth.enable = true;
-};
+}
