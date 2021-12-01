@@ -6,9 +6,12 @@ with pkgs; stdenv.mkDerivation {
   src = ./swap-workspaces.sh; 
   dontUnpack = true;
   installPhase = ''
-    mkdir -p $out/bin
-    cp $src $out/bin
-  '';
+    cp $src $out
+    '';
+#  ''
+#    mkdir -p $out/bin
+#    cp $src $out/bin
+#  '';
 #  ''
 #    #!/bin/bash
 #    

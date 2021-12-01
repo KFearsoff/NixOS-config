@@ -21,8 +21,8 @@ let
     ${gsettings} set ${gnomeSchema} cursor-theme "$cursor_theme"
     ${gsettings} set ${gnomeSchema} font-name "$font_name"
   '';
-  swapScript = pkgs.callPackage ./swap-workspaces.nix { };
-  swap = "${swapScript}/bin/swap-workspaces";
+  swap = pkgs.callPackage ./swap-workspaces.nix { };
+  #swap = "${swapScript}/bin/swap-workspaces";
 
 
   /* On the basic level, this magic spell maps workspace-related hotkeys to the numbers on the keyboard.

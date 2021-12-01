@@ -35,8 +35,11 @@ ws_target=$1
 
 json=$(swaymsg -t get_workspaces)
 
-re_target='"name":"'"$ws_target"'[^}]+},"output":"([^"]+)'
-re_current='"focused":true[^}]+},"output":"([^"]+)'
+#re_target='"name":" '"$ws_target"'[^}]+},"output": "([^"]+)'
+#re_current='"focused": true[^}]+},"output": "([^"]+)'
+re_target='"name": "$ws_target"[^}]+"output": "([^"]+)'
+re_current='"output": "([^"]+)[^}]+"focused": true[^}]+}'
+
 
 [[ $json =~ $re_current ]] && op_current=${BASH_REMATCH[1]}
 
@@ -50,7 +53,7 @@ if [[ $json =~ $re_target ]]; then
     # we don't need to know the current workspace 
     # name for this to work.
     msg+="move workspace to output $op_target;"
-    msg+="[workspace=$ws_target] move workspace to output $op_current;"
+    msg+="move workspace to output $op_current;"
   }
 
 else # ws_target doesn't exist
@@ -59,7 +62,7 @@ else # ws_target doesn't exist
   # move ws_target to op_current in case it was
   # "assigned" to a different output. swapping 
   # outputs is probably not what we want
-  msg+="[workspace=$ws_target] move workspace to output $op_current;"
+  msg+="move workspace to output $op_current;"
 fi
 
 # always focus ws_target
