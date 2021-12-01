@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 
-# Switches workspaces in i3 like xmonad.
+# Switches workspaces in Sway like xmonad.
 # Always bring the requested workspace to the
-# focused monitor ("output" in i3's terminology).
+# focused monitor ("output" in Sway's terminology).
 # If the requested workspace is on another monitor,
 # the current workspace and requested workspace 
 # will swap positions with each other.
 
-# ~/.config/i3/config
+# ~/.config/sway/config
 # set $ws1 "1"
 #
 # from this:
@@ -35,25 +35,24 @@ ws_target=$1
 
 json=$(swaymsg -t get_workspaces)
 
-#re_target='"name":" '"$ws_target"'[^}]+},"output": "([^"]+)'
-#re_current='"focused": true[^}]+},"output": "([^"]+)'
-re_target='"name": "$ws_target"[^}]+"output": "([^"]+)'
+re_target='"name": "'"$ws_target"'"[^}]+"output": "([^"]+)'
 re_current='"output": "([^"]+)[^}]+"focused": true[^}]+}'
 
 
 [[ $json =~ $re_current ]] && op_current=${BASH_REMATCH[1]}
+
 
 if [[ $json =~ $re_target ]]; then
   op_target=${BASH_REMATCH[1]}
 
   # only swap monitors if the workspaces are on 
   # different outputs
-  [[ $op_target = "$op_current" ]] || {
+  [[ $op_target = $op_current ]] || {
     # move the current workspace to op_target
     # we don't need to know the current workspace 
     # name for this to work.
     msg+="move workspace to output $op_target;"
-    msg+="move workspace to output $op_current;"
+    msg+="[workspace=$ws_target] move workspace to output $op_current;"
   }
 
 else # ws_target doesn't exist
@@ -62,7 +61,7 @@ else # ws_target doesn't exist
   # move ws_target to op_current in case it was
   # "assigned" to a different output. swapping 
   # outputs is probably not what we want
-  msg+="move workspace to output $op_current;"
+  msg+="[workspace=$ws_target] move workspace to output $op_current;"
 fi
 
 # always focus ws_target
