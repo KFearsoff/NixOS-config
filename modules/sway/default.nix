@@ -21,6 +21,8 @@
     };
 
     gaps = { inner = 5; };
+    gaps.smartBorders = "on";
+    gaps.smartGaps = true;
 
     # bars = import ./waybar.nix;
     bars = [{ command = "waybar"; }];
@@ -28,5 +30,8 @@
     colors = import ./colors.nix;
 
     keybindings = import ./keybindings.nix { inherit lib; inherit pkgs; mod = "Mod4"; };
+
+    startup = import ./startup.nix;
+    assigns = import ./assigns.nix;
   };
 }

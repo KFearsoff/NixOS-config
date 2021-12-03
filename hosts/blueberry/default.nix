@@ -60,6 +60,8 @@
     lxappearance
   ];
   programs.qt5ct.enable = true;
+  services.printing.enable = true;
+  services.avahi.enable = true;
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;

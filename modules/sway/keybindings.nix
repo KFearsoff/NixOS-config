@@ -21,7 +21,7 @@ let
     ${gsettings} set ${gnomeSchema} cursor-theme "$cursor_theme"
     ${gsettings} set ${gnomeSchema} font-name "$font_name"
   '';
-  swap = pkgs.callPackage ./swap-workspaces.nix { };
+  swap = pkgs.writeShellScript "swap-workspaces" (builtins.readFile ./swap-workspaces.sh);
   #swap = "${swapScript}/bin/swap-workspaces";
 
 

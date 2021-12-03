@@ -14,7 +14,7 @@ in
             libreoffice
             gnumake cachix unzip
             ungoogled-chromium freetube tdesktop
-            obs-studio
+#            obs-studio
             keepassxc
             obsidian
             discord
@@ -58,6 +58,11 @@ in
             font.size = 14.0;
             background_opacity = 0.85;
           };
+        };
+
+        obs-studio = {
+          enable = true;
+          plugins = [ pkgs.obs-studio-plugins.wlrobs ];
         };
       
         zsh = import ../modules/zsh.nix {
