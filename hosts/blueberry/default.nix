@@ -9,6 +9,8 @@
   virtualisation.virtualbox.host.enable = true;
   users.extraGroups.vboxusers.members = [ "user-with-access-to-virtualbox" ];
   virtualisation.virtualbox.host.enableExtensionPack = true;
+  virtualisation.libvirtd.enable = true;
+  programs.dconf.enable = true;
 
   virtualisation.docker.enable = true;
 
@@ -29,12 +31,12 @@
 
   # Enable sound.
   sound.enable = true;
-  hardware.pulseaudio.enable = true;
+#  hardware.pulseaudio.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.user = {
     isNormalUser = true;
-    extraGroups = [ "wheel" ];
+    extraGroups = [ "wheel" "libvirtd" "docker" ];
     initialPassword = "test";
   };
 
@@ -58,6 +60,7 @@
     gtk_engines
     gsettings-desktop-schemas
     lxappearance
+    virt-manager
   ];
   programs.qt5ct.enable = true;
   services.printing.enable = true;

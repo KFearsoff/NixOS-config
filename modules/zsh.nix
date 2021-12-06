@@ -2,11 +2,15 @@
 
 {
   enable = true;
+  enableAutosuggestions = true;
   enableCompletion = true;
+  enableSyntaxHighlighting = true;
+  #defaultKeymap = "vicmd";
   history.expireDuplicatesFirst = true;
   history.extended = true;
   oh-my-zsh = {
     enable = true;
+  #  theme = "dracula";
   };
   plugins = [
     {

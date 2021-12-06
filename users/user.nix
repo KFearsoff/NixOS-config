@@ -41,6 +41,9 @@ in
             grim
             slurp
             feh
+            statix
+	    rnix-lsp
+	    nodejs-12_x # for rnix-lsp
           ];
       
         keyboard = {
@@ -63,10 +66,7 @@ in
           delta.enable = true;
         };
 
-        obs-studio = {
-          enable = true;
-          plugins = [ pkgs.obs-studio-plugins.wlrobs ];
-        };
+        obs-studio.enable = true;
       
         zsh = import ../modules/zsh.nix {
           inherit lib pkgs zsh-autosuggestions zsh-you-should-use zsh-history-substring-search zsh-nix-shell;
@@ -77,8 +77,21 @@ in
           package = neovim;
           viAlias = true;
           vimAlias = true;
+          coc = {
+            enable = true;
+            settings = {
+              languageserver = {
+                nix = {
+                  command = "rnix-lsp";
+                  filetypes = [ "nix" ];
+                };
+              };
+            };
+          };
       
           plugins = with pkgs.vimPlugins; [
+            dracula-vim
+	    coc-nvim
             vim-nix
           ];
         };
@@ -91,16 +104,12 @@ in
 
         rofi = {
           enable = true;
-         # package = pkgs.nur.repos.kira-bruneau.rofi-wayland;
+          package = pkgs.nur.repos.kira-bruneau.rofi-wayland;
           theme = "sidebar";
           terminal = "alacritty";      
         };
       };
       
-      services = {
-        flameshot.enable = true;
-      };
-
       wayland.windowManager.sway = import ../modules/sway { inherit lib pkgs; };
       
       gtk = import ../modules/gtk.nix { inherit pkgs; };
@@ -113,6 +122,7 @@ in
         XDG_CURRENT_DESKTOP = "sway";
         XDG_SESSION_TYPE = "sway";
         QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
+	QT_QPA_PLATFORM = "wayland";
       };
       qt = {
         enable = true;

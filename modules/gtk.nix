@@ -5,8 +5,11 @@
 #  font.name = "Noto Sans";
   iconTheme.package = pkgs.papirus-icon-theme;
   iconTheme.name = "Papirus-Dark";
-  theme.name = "Adapta-Nokto-Eta";
-  theme.package = pkgs.adapta-gtk-theme;
+  #theme.name = "Adapta-Nokto-Eta";
+  #iconTheme.package = pkgs.dracula-theme;
+  #iconTheme.name = "Dracula";
+  theme.name = "Dracula";
+  theme.package = pkgs.dracula-theme;
 #  gtk2.extraConfig = ''
 #    gtk-cursor-theme-size=0
 #    gtk-toolbar-style=GTK_TOOLBAR_BOTH
