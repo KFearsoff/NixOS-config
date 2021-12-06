@@ -31,7 +31,7 @@
 
     keybindings = import ./keybindings.nix { inherit lib; inherit pkgs; mod = "Mod4"; };
 
-    startup = import ./startup.nix;
+    startup = import ./startup.nix { inherit pkgs; };
     assigns = import ./assigns.nix;
   };
 }

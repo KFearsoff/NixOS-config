@@ -14,7 +14,6 @@ in
             libreoffice
             gnumake cachix unzip
             ungoogled-chromium freetube tdesktop
-#            obs-studio
             keepassxc
             obsidian
             discord
@@ -31,7 +30,6 @@ in
             qbittorrent
             ripgrep # alternative to grep
             bat # alternative to cat
-            delta # git and diff viewer
             du-dust # alternative to du
             duf # alternative to df
             fd # alternative to find
@@ -58,6 +56,11 @@ in
             font.size = 14.0;
             background_opacity = 0.85;
           };
+        };
+
+        git = {
+          enable = true;
+          delta.enable = true;
         };
 
         obs-studio = {
