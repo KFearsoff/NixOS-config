@@ -1,6 +1,7 @@
 { pkgs, ... }:
 
 let
+  # fix for https://github.com/swaywm/sway/wiki/GTK-3-settings-on-Wayland
   gsettings = "${pkgs.glib}/bin/gsettings";
   gnomeSchema = "org.gnome.desktop.interface";
   importGsettings = pkgs.writeShellScript "import_gsettings.sh" ''
@@ -18,9 +19,7 @@ let
 in
   [
     # fix for https://github.com/swaywm/sway/issues/5732
-    { command = "systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK"; }
-#    { command = "hash dbus-update-activation-environment 2>/dev/null && \
-#    dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK"; }
+  { command = "systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK"; }
   { command = "${importGsettings}"; }
   { command = "keepassxc"; }
   { command = "chromium"; }

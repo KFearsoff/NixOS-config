@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 
-# Switches workspaces in Sway like xmonad.
+# Adapted to Sway and NixOS from this: 
+# https://gist.github.com/haselwarter/5e1b16bf6288a4a0376ca6480da4d6d6
+
+# Switches workspaces in Sway like Xmonad.
 # Always bring the requested workspace to the
 # focused monitor ("output" in Sway's terminology).
 # If the requested workspace is on another monitor,
@@ -14,9 +17,15 @@
 # bindsym $mod+1 workspace number $ws1
 #
 # to this:
-# bindsym $mod+1 exec --no-startup-id wsmove $ws1
+# bindsym $mod+1 exec --no-startup-id swap-workspaces $ws1
 #
-# (assuming this script is named 'wsmove' and available in $PATH)
+# (assuming this script is named 'swap-workspaces' and available in $PATH)
+
+# Changes from the original version are:
+# 1. From #!/bin/bash shebang to #!/usr/bin/env bash shebang for NixOS compatibility
+# 2. swaymsg adds a space after a colon, so regexes are changed to accomodate for that
+# 3. If the target workspace is invisible and on another output, it jumps to the
+# current output without affecting the other workspace
 # -----------------------------------------------
 
 declare ws_target  # $1 == target workspace
@@ -46,16 +55,13 @@ re_current='"output": "([^"]+)[^}]+"focused": true[^}]+}'
 
 if [[ $json =~ $re_target ]]; then
   op_target=${BASH_REMATCH[1]}
-  echo $ws_target
-  echo $op_target
-  echo $json
+  # check if the target is visible
   re_visible='"name": "'"$ws_target"'"[^}]+"output": "'"$op_target"'"[^}]+"visible": ([^[:space:]]*)[^}]+}'
-  echo $re_visible
-  if [[ $json =~ $re_visible ]]; then ws_visible=${BASH_REMATCH[1]}; fi
-  echo $ws_visible
+  [[ $json =~ $re_visible ]] && ws_visible=${BASH_REMATCH[1]}
 
-  # only swap monitors if the workspaces are on 
-  # different outputs and the target is not visible
+  # if the target is on a different output and visible, swap outputs
+  # if the target is on a different output and not visible, 
+  # display the target while leaving the other output intact
   if [ $op_target != $op_current ]; then
 	  if [ $ws_visible = "true" ]; then
 		  msg+="move workspace to output $op_target;"
@@ -64,16 +70,6 @@ if [[ $json =~ $re_target ]]; then
 		  msg+="[workspace=$ws_target] move workspace to output $op_current;"
 	  fi
   fi
-#    msg+="move workspace to output $op_target;"
-#    msg+="[workspace=$ws_target] move workspace to output $op_current;"
-#  fi
-#  [ $op_target = $op_current ] && [ $ws_visible = "true" ] && {
-#    # move the current workspace to op_target
-#    # we don't need to know the current workspace 
-#    # name for this to work.
-#    msg+="move workspace to output $op_target;"
-#    msg+="[workspace=$ws_target] move workspace to output $op_current;"
-#  }
 
 else # ws_target doesn't exist
   # create ws_target

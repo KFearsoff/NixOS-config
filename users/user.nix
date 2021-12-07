@@ -1,7 +1,7 @@
 { lib, pkgs, inputs, system, zsh-autosuggestions, zsh-you-should-use, zsh-history-substring-search, zsh-nix-shell, ... }:
 
 let
-  neovim = inputs.neovim.packages.${system}.neovim;
+  inherit (inputs.neovim.packages."${system}") neovim;
 in
 {
   imports = [ inputs.home-manager.nixosModules.home-manager ];
@@ -36,20 +36,13 @@ in
             nix-prefetch-github
             gh
             zathura
-            gnome.nautilus
-            cinnamon.nemo
             grim
             slurp
             feh
             statix
 	    rnix-lsp
-	    nodejs-12_x # for rnix-lsp
+	    nodejs-12_x # required for rnix-lsp
           ];
-      
-        keyboard = {
-          layout = "us,ru";
-          options = [ "grp:alt_shift_toggle" "caps:swapescape" ];
-        };
       };
       
       programs = {
@@ -77,6 +70,7 @@ in
           package = neovim;
           viAlias = true;
           vimAlias = true;
+          vimdiffAlias = true;
           coc = {
             enable = true;
             settings = {
@@ -94,6 +88,10 @@ in
 	    coc-nvim
             vim-nix
           ];
+
+          extraConfig = ''
+            set langmap=ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz
+            '';
         };
       
         direnv = {
@@ -114,15 +112,19 @@ in
       
       gtk = import ../modules/gtk.nix { inherit pkgs; };
       home.sessionVariables = { 
+        # don't remember, let it be for now
         DESKTOP_SESSION = "sway";
         SDL_VIDEODRIVER = "wayland";
         GTK_BACKEND = "wayland";
-        WLR_DRM_NO_MODIFIERS = "1";
-        _JAWA_AWT_WM_NONREPARENTING = "1";
         XDG_CURRENT_DESKTOP = "sway";
         XDG_SESSION_TYPE = "sway";
+        # Nouveau fix
+        WLR_DRM_NO_MODIFIERS = "1";
+        # required for some Java apps to work on Wayland
+        _JAWA_AWT_WM_NONREPARENTING = "1";
+        # required for Qt apps to run properly
         QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
-	QT_QPA_PLATFORM = "wayland";
+	QT_QPA_PLATFORM = "wayland-egl";
       };
       qt = {
         enable = true;
