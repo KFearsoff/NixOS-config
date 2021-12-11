@@ -45,6 +45,17 @@
           nixos-hardware.nixosModules.common-pc
           "${secrets}/smb.nix"
         ];
+
+        nixos = buildSystem "x86_64-linux" unstable 
+        [
+          ./hosts/blackberry
+          ./users/nixchad.nix
+          ./profiles/all.nix
+          nixos-hardware.nixosModules.common-pc-ssd
+          nixos-hardware.nixosModules.common-cpu-intel
+          nixos-hardware.nixosModules.common-pc
+          nixos-hardware.nixosModules.common-gpu-nvidia
+        ];
       };
     };
 }
