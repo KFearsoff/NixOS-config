@@ -1,94 +1,76 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
-{ config, pkgs, ... }:
+{ config, pkgs,  ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ./swap.nix
-    ];
+  imports = [ ./hardware-configuration.nix ./swap.nix ];
+
+  networking.hostName = "blackberry"; # Define your hostname.
+
+  # virtualbox
+  virtualisation.virtualbox.host.enable = true;
+  users.extraGroups.vboxusers.members = [ "user-with-access-to-virtualbox" ];
+  virtualisation.virtualbox.host.enableExtensionPack = true;
+  virtualisation.libvirtd.enable = true;
+  programs.dconf.enable = true;
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.supportedFilesystems = [ "btrfs" ];
-  hardware.enableAllFirmware = true;
-  nixpkgs.config.allowUnfree = true;
-
-  # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  services.xserver.videoDrivers = [ "nvidia" ];
 
-  networking.hostName = "virtualberry"; # Define your hostname.
-  networking.networkmanager.enable = true;
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  virtualisation.docker.enable = true;
+
+  programs.sway.enable = true;
+  programs.sway.wrapperFeatures.gtk = true;
+
+  programs.zsh.enable = true;
+  users.defaultUserShell = pkgs.zsh;
 
   # Set your time zone.
-  # time.timeZone = "Europe/Amsterdam";
+  time.timeZone = "Europe/Moscow";
 
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
   # Per-interface useDHCP will be mandatory in the future, so this generated config
   # replicates the default behaviour.
   networking.useDHCP = false;
-  # networking.interfaces.ens3.useDHCP = true;
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  # Select internationalisation properties.
-  # i18n.defaultLocale = "en_US.UTF-8";
-  # console = {
-  #   font = "Lat2-Terminus16";
-  #   keyMap = "us";
-  # };
-
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
-  services.xserver.displayManager.sddm.enable = true;
-  services.xserver.desktopManager.plasma5.enable = true;
-
-
-  
-
-  # Configure keymap in X11
-  # services.xserver.layout = "us";
-  # services.xserver.xkbOptions = "eurosign:e";
-
-  # Enable CUPS to print documents.
-  # services.printing.enable = true;
+  networking.networkmanager.enable = true;
 
   # Enable sound.
-  # sound.enable = true;
-  # hardware.pulseaudio.enable = true;
-
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
+  sound.enable = true;
+#  hardware.pulseaudio.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.nixchad = {
     isNormalUser = true;
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "libvirtd" "docker" ];
+    initialPassword = "test";
   };
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
+  programs.git.enable = true;
   environment.systemPackages = with pkgs; [
-    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
-    git
+    htop
+    xorg.xkill
+    neofetch
+    vlc
+    notepadqq
+    anydesk
+    samba
+    cifs-utils
+    lxqt.lxqt-policykit
+    ranger
+    cachix
+    gnome3.dconf
+    tree
+    gtk-engine-murrine
+    gtk_engines
+    gsettings-desktop-schemas
+    lxappearance
+    virt-manager
   ];
-
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
-
-  # List services that you want to enable:
+  programs.qt5ct.enable = true;
+  services.printing.enable = true;
+  services.avahi.enable = true;
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;

@@ -40,13 +40,14 @@
           ./hosts/blueberry
           ./users/user.nix
           ./profiles/all.nix
+          ./modules/grub-efi.nix
           nixos-hardware.nixosModules.common-pc-ssd
           nixos-hardware.nixosModules.common-cpu-intel
           nixos-hardware.nixosModules.common-pc
           "${secrets}/smb.nix"
         ];
 
-        nixos = buildSystem "x86_64-linux" unstable 
+        blackberry = buildSystem "x86_64-linux" unstable 
         [
           ./hosts/blackberry
           ./users/nixchad.nix
@@ -54,7 +55,6 @@
           nixos-hardware.nixosModules.common-pc-ssd
           nixos-hardware.nixosModules.common-cpu-intel
           nixos-hardware.nixosModules.common-pc
-          nixos-hardware.nixosModules.common-gpu-nvidia
         ];
       };
     };
