@@ -1,9 +1,12 @@
 {
+  boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.grub = {
     enable = true;
     version = 2;
     efiSupport = true;
-    devices = [ "nodev" ];
+    device = "nodev";
+    useOSProber = true;
+    enableCryptodisk = true;
   };
   # NixOS bootsplash
   boot.plymouth.enable = true;

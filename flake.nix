@@ -40,7 +40,6 @@
           ./hosts/blueberry
           ./users/user.nix
           ./profiles/all.nix
-          ./modules/grub-efi.nix
           nixos-hardware.nixosModules.common-pc-ssd
           nixos-hardware.nixosModules.common-cpu-intel
           nixos-hardware.nixosModules.common-pc

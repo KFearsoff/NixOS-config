@@ -5,10 +5,10 @@
 
 {
   imports =
-    [ (modulesPath + "/profiles/qemu-guest.nix")
-    ];
+    [ (modulesPath + "/installer/scan/not-detected.nix")
+  ];
 
-  boot.initrd.availableKernelModules = [ "ata_piix" "uhci_hcd" "ehci_pci" "sd_mod" "sr_mod" ];
+  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usb_storage" "usbhid" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
@@ -59,7 +59,7 @@
 
   swapDevices = [{
     device = "/swap/swapfile";
-    size = (1024 * 8) + (1024 * 2);
+    size = (1024 * 16) + (1024 * 2);
   }];
 
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;

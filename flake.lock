@@ -68,7 +68,7 @@
       "inputs": {
         "flake-compat": "flake-compat",
         "neovim-flake": "neovim-flake",
-        "nixpkgs": "nixpkgs_2"
+        "nixpkgs": "nixpkgs_3"
       },
       "locked": {
         "lastModified": 1638346476,
@@ -88,10 +88,7 @@
     "neovim-flake": {
       "inputs": {
         "flake-utils": "flake-utils_2",
-        "nixpkgs": [
-          "neovim",
-          "nixpkgs"
-        ]
+        "nixpkgs": "nixpkgs_2"
       },
       "locked": {
         "dir": "contrib",
@@ -141,6 +138,22 @@
     },
     "nixpkgs_2": {
       "locked": {
+        "lastModified": 1638986258,
+        "narHash": "sha256-OceRdctKZRSgqQxVRvvNB0MaEnFMzQqjUffecoDE9eI=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "581d2d6c9cd5c289002203581d8aa0861963a933",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_3": {
+      "locked": {
         "lastModified": 1638286143,
         "narHash": "sha256-A+rgjbIpz3uPRKHPXwdmouVcVn5pZqLnaZHymjkraG4=",
         "owner": "nixos",
@@ -155,7 +168,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_3": {
+    "nixpkgs_4": {
       "locked": {
         "lastModified": 1638366165,
         "narHash": "sha256-GEhB3RBkc9dooaeuFtizZPeVL8+fV9yDM3ADnEEEygQ=",
@@ -192,7 +205,7 @@
         "home-manager": "home-manager",
         "neovim": "neovim",
         "nixos-hardware": "nixos-hardware",
-        "nixpkgs": "nixpkgs_3",
+        "nixpkgs": "nixpkgs_4",
         "nur": "nur",
         "secrets": "secrets",
         "unstable": "unstable",

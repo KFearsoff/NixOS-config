@@ -7,6 +7,12 @@ test:
 boot:
 	sudo nixos-rebuild --flake '.#' boot -v
 
+vm:
+	sudo nixos-rebuild --flake '.#' build-vm -v
+
+vm-boot:
+	sudo nixos-rebuild --flake '.#' build-vm-with-bootloader -v
+
 gc:
 	sudo nix-collect-garbage --delete-older-than 7d
 

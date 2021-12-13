@@ -14,9 +14,8 @@
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.supportedFilesystems = [ "btrfs" ];
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  services.xserver.videoDrivers = [ "nvidia" ];
+  boot.blacklistedKernelModules = [ "nvidia" "nouveau" ];
+  boot.initrd.luks.devices.root.device = "/dev/disk/by-partlabel/root";
 
   virtualisation.docker.enable = true;
 
@@ -42,7 +41,7 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.nixchad = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "libvirtd" "docker" ];
+    extraGroups = [ "wheel" "libvirtd" "docker" "video" ];
     initialPassword = "test";
   };
 
@@ -67,6 +66,7 @@
     gsettings-desktop-schemas
     lxappearance
     virt-manager
+    brightnessctl
   ];
   programs.qt5ct.enable = true;
   services.printing.enable = true;
