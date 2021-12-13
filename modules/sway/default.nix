@@ -12,18 +12,18 @@ in
     input = { "type:keyboard" = import ./keymap.nix; };
 
     output = {
-      HDMI-A-1 = {
-        pos = "0 0";
-        bg = "${wallpaper} fill";
-      };
 #      HDMI-A-1 = {
 #        pos = "0 0";
 #        bg = "${wallpaper} fill";
 #      };
-#      HDMI-A-2 = {
-#        pos = "1920 0";
-#        bg = "${wallpaper} fill";
-#      };
+      HDMI-A-1 = {
+        pos = "0 0";
+        bg = "${wallpaper} fill";
+      };
+      HDMI-A-2 = {
+        pos = "1920 0";
+        bg = "${wallpaper} fill";
+      };
     };
 
     gaps = { inner = 5; };

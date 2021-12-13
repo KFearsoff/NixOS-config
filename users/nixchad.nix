@@ -1,8 +1,5 @@
 { lib, pkgs, inputs, system, zsh-autosuggestions, zsh-you-should-use, zsh-history-substring-search, zsh-nix-shell, ... }:
 
-let
-  inherit (inputs.neovim.packages."${system}") neovim;
-in
 {
   imports = [ inputs.home-manager.nixosModules.home-manager ];
   config = {
@@ -67,7 +64,6 @@ in
       
         neovim = {
           enable = true;
-          package = neovim;
           viAlias = true;
           vimAlias = true;
           vimdiffAlias = true;
@@ -109,7 +105,7 @@ in
       };
       
       wayland.windowManager.sway = import ../modules/sway { inherit lib pkgs; };
-      
+
       gtk = import ../modules/gtk.nix { inherit pkgs; };
       home.sessionVariables = { 
         # don't remember, let it be for now
@@ -124,7 +120,9 @@ in
         _JAWA_AWT_WM_NONREPARENTING = "1";
         # required for Qt apps to run properly
         QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
-	QT_QPA_PLATFORM = "wayland-egl";
+        QT_QPA_PLATFORM = "wayland-egl";
+
+        EDITOR = "nvim";
       };
       qt = {
         enable = true;

@@ -27,11 +27,11 @@
   # Per-interface useDHCP will be mandatory in the future, so this generated config
   # replicates the default behaviour.
   networking.useDHCP = false;
-  networking.interfaces.eno1.useDHCP = true;
+  #networking.interfaces.eno1.useDHCP = true;
+  networking.networkmanager.enable = true;
 
   # Enable sound.
   sound.enable = true;
-#  hardware.pulseaudio.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.user = {
@@ -39,6 +39,7 @@
     extraGroups = [ "wheel" "libvirtd" "docker" ];
     initialPassword = "test";
   };
+  security.sudo.wheelNeedsPassword = false;
 
   programs.git.enable = true;
   environment.systemPackages = with pkgs; [
@@ -68,6 +69,7 @@
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
+  programs.ssh.startAgent = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];

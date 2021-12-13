@@ -5,10 +5,10 @@
   nix = {
     trustedUsers = [ "@wheel" ];
     autoOptimiseStore = true;
-    package = pkgs.nixFlakes;
+    package = pkgs.nixUnstable;
     # keep-outputs and keep-derivations options are great for development shells
     extraOptions = ''
-      experimental-features = nix-command flakes
+      experimental-features = nix-command flakes ca-derivations 
       keep-outputs = true
       keep-derivations = true
     '';

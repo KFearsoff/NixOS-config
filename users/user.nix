@@ -1,8 +1,5 @@
 { lib, pkgs, inputs, system, zsh-autosuggestions, zsh-you-should-use, zsh-history-substring-search, zsh-nix-shell, ... }:
 
-let
-  inherit (inputs.neovim.packages."${system}") neovim;
-in
 {
   imports = [ inputs.home-manager.nixosModules.home-manager ];
   config = {
@@ -41,7 +38,8 @@ in
             feh
             statix
 	    rnix-lsp
-	    nodejs-12_x # required for rnix-lsp
+            nodejs-12_x # required for rnix-lsp
+            ansible
           ];
       };
       
@@ -67,7 +65,6 @@ in
       
         neovim = {
           enable = true;
-          package = neovim;
           viAlias = true;
           vimAlias = true;
           vimdiffAlias = true;
@@ -124,7 +121,9 @@ in
         _JAWA_AWT_WM_NONREPARENTING = "1";
         # required for Qt apps to run properly
         QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
-	QT_QPA_PLATFORM = "wayland-egl";
+        QT_QPA_PLATFORM = "wayland-egl";
+
+        EDITOR = "nvim";
       };
       qt = {
         enable = true;
