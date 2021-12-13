@@ -5,10 +5,7 @@
 
   networking.hostName = "blackberry"; # Define your hostname.
 
-  # virtualbox
-  virtualisation.virtualbox.host.enable = true;
-  users.extraGroups.vboxusers.members = [ "user-with-access-to-virtualbox" ];
-  virtualisation.virtualbox.host.enableExtensionPack = true;
+  # virt-manager
   virtualisation.libvirtd.enable = true;
   programs.dconf.enable = true;
 
