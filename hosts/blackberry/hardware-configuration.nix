@@ -16,7 +16,7 @@
   fileSystems."/" =
     { device = "/dev/disk/by-label/root";
       fsType = "btrfs";
-      options = [ "subvol=root" "compress=zstd" "noatime" ];
+      options = [ "subvol=root" "compress-force=zstd" "noatime" ];
     };
 
   boot.initrd.luks.devices."root".device = "/dev/disk/by-partlabel/root";
@@ -24,31 +24,31 @@
   fileSystems."/home" =
     { device = "/dev/disk/by-label/root";
       fsType = "btrfs";
-      options = [ "subvol=home" "compress=zstd" "noatime" ];
+      options = [ "subvol=home" "compress-force=zstd" "noatime" ];
     };
 
   fileSystems."/nix" =
     { device = "/dev/disk/by-label/root";
       fsType = "btrfs";
-      options = [ "subvol=nix" "compress=zstd" "noatime" ];
+      options = [ "subvol=nix" "compress-force=zstd" "noatime" ];
     };
 
   fileSystems."/persist" =
     { device = "/dev/disk/by-label/root";
       fsType = "btrfs";
-      options = [ "subvol=persist" "compress=zstd" "noatime" ];
+      options = [ "subvol=persist" "compress-force=zstd" "noatime" ];
     };
 
   fileSystems."/swap" =
     { device = "/dev/disk/by-label/root";
       fsType = "btrfs";
-      options = [ "subvol=swap" "compress=zstd" "noatime" ];
+      options = [ "subvol=swap" "compress-force=zstd" "noatime" ];
     };
 
   fileSystems."/var/log" =
     { device = "/dev/disk/by-label/root";
       fsType = "btrfs";
-      options = [ "subvol=log" "compress=zstd" "noatime" ];
+      options = [ "subvol=log" "compress-force=zstd" "noatime" ];
       neededForBoot = true;
     };
 

@@ -9,10 +9,11 @@
   virtualisation.libvirtd.enable = true;
   programs.dconf.enable = true;
 
+#  boot.loader.systemd-boot.enable = true;
+#  boot.loader.efi.canTouchEfiVariables = true;
+
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.supportedFilesystems = [ "btrfs" ];
-  boot.blacklistedKernelModules = [ "nvidia" "nouveau" ];
-  boot.initrd.luks.devices.root.device = "/dev/disk/by-partlabel/root";
 
   virtualisation.docker.enable = true;
 
@@ -41,6 +42,7 @@
     extraGroups = [ "wheel" "libvirtd" "docker" "video" ];
     initialPassword = "test";
   };
+  security.sudo.wheelNeedsPassword = false;
 
   programs.git.enable = true;
   environment.systemPackages = with pkgs; [
@@ -64,10 +66,14 @@
     lxappearance
     virt-manager
     brightnessctl
+    wineWowPackages.unstable
+    winetricks
+    mono
   ];
   programs.qt5ct.enable = true;
-  services.printing.enable = true;
-  services.avahi.enable = true;
+  programs.steam.enable = true;
+  hardware.opengl.driSupport32Bit = true;
+  nixpkgs.config.chromium.commandLineArgs = "--enable-features=UseOzonePlatform --ozone-platform=wayland";
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;

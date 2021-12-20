@@ -27,4 +27,6 @@ in
   { command = "telegram-desktop"; }
   { command = "alacritty"; }
   { command = "freetube"; }
+  { command = "element-desktop"; }
+  { command = "discord"; }
 ]

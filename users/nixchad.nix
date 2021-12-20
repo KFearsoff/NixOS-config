@@ -15,7 +15,6 @@
             obsidian
             discord
             dolphin
-            dmenu
             swaylock
             swayidle
             waybar
@@ -38,7 +37,11 @@
             feh
             statix
 	    rnix-lsp
-	    nodejs-12_x # required for rnix-lsp
+            nodejs-12_x # required for rnix-lsp
+            lutris
+            element-desktop-wayland
+            shellcheck
+            testdisk
           ];
       };
       
@@ -87,6 +90,7 @@
 
           extraConfig = ''
             set langmap=ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz
+            set clipboard+=unnamedplus
             '';
         };
       
