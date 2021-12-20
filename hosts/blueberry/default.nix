@@ -4,6 +4,7 @@
   imports = [ ./hardware-configuration.nix ];
 
   networking.hostName = "nixos"; # Define your hostname.
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   # virt-manager
   virtualisation.libvirtd.enable = true;
@@ -16,6 +17,7 @@
 
   programs.zsh.enable = true;
   users.defaultUserShell = pkgs.zsh;
+  services.udisks2.enable = true;
 
   # Set your time zone.
   time.timeZone = "Europe/Moscow";

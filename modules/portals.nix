@@ -5,8 +5,7 @@
     portal = {
       enable = true;
       extraPortals = with pkgs; [
-        xdg-desktop-portal
-        xdg-desktop-portal-wlr
+        libsForQt5.xdg-desktop-portal-kde
       ];
       wlr.enable = true;
       gtkUsePortal = true;

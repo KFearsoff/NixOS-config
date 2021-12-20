@@ -40,6 +40,7 @@
 	    rnix-lsp
             nodejs-12_x # required for rnix-lsp
             ansible
+            udiskie
           ];
       };
       
@@ -97,6 +98,7 @@
           nix-direnv.enable = true;
         };
 
+
         rofi = {
           enable = true;
           package = pkgs.nur.repos.kira-bruneau.rofi-wayland;
@@ -104,6 +106,8 @@
           terminal = "alacritty";      
         };
       };
+
+      services.udiskie.enable = true;
       
       wayland.windowManager.sway = import ../modules/sway { inherit lib pkgs; };
       
