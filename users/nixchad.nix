@@ -1,10 +1,11 @@
-{ lib, pkgs, inputs, system, zsh-autosuggestions, zsh-you-should-use, zsh-history-substring-search, zsh-nix-shell, ... }:
+{ lib, pkgs, inputs, system, zsh-autosuggestions, zsh-you-should-use, zsh-history-substring-search, zsh-nix-shell, nix-colors, ... }:
 
 {
   imports = [ inputs.home-manager.nixosModules.home-manager ];
   config = {
     home-manager.useGlobalPkgs = true;
     home-manager.useUserPackages = true;
+    home-manager.extraSpecialArgs = { inherit nix-colors; };
     home-manager.users.nixchad = {
       home = {
         packages = with pkgs; [
@@ -46,10 +47,50 @@
           ];
       };
       
-      programs = {
+      imports = [ nix-colors.homeManagerModule ];
+
+      colorscheme = nix-colors.colorSchemes.dracula;
+      
+      programs = let colorscheme = nix-colors.colorSchemes.dracula; in {
         alacritty = {
           enable = true;
           settings = {
+            colors = {
+              primary = {
+                background = "0x${colorscheme.colors.base00}";
+                foreground = "0x${colorscheme.colors.base05}";
+              };
+
+              cursor = {
+                text = "0x${colorscheme.colors.base00}";
+                cursor = "0x${colorscheme.colors.base05}";
+              };
+
+              normal = {
+                black = "0x${colorscheme.colors.base00}";
+                red = "0x${colorscheme.colors.base08}";
+                green = "0x${colorscheme.colors.base0B}";
+                yellow = "0x${colorscheme.colors.base0A}";
+                blue = "0x${colorscheme.colors.base0D}";
+                magenta = "0x${colorscheme.colors.base0E}";
+                cyan = "0x${colorscheme.colors.base0C}";
+                white = "0x${colorscheme.colors.base05}";
+              };
+
+              bright = {
+                black = "0x${colorscheme.colors.base03}";
+                red = "0x${colorscheme.colors.base09}";
+                green = "0x${colorscheme.colors.base01}";
+                yellow = "0x${colorscheme.colors.base02}";
+                blue = "0x${colorscheme.colors.base04}";
+                magenta = "0x${colorscheme.colors.base06}";
+                cyan = "0x${colorscheme.colors.base0F}";
+                white = "0x${colorscheme.colors.base07}";
+              };
+
+              draw_bold_test_with_bright_colors = false;
+            };
+
             font.size = 14.0;
             background_opacity = 0.85;
           };
@@ -92,6 +133,8 @@
           extraConfig = ''
             set langmap=ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz
             set clipboard+=unnamedplus
+            syntax enable
+            colorscheme dracula
             '';
         };
       
@@ -109,9 +152,9 @@
         };
       };
 
-      services.udiskie.enable = true;
-      
       wayland.windowManager.sway = import ../modules/sway { inherit lib pkgs; };
+      
+      services.udiskie.enable = true;
 
       gtk = import ../modules/gtk.nix { inherit pkgs; };
       home.sessionVariables = { 

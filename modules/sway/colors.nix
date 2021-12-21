@@ -1,39 +1,43 @@
+{ config, nix-colors, ... }:
+
+let colorscheme = nix-colors.colorSchemes.dracula;
+in
 {
-      background = "#1E272B";
+      background = "#${colorscheme.colors.base07}";
 
       focused = {
-        border = "#EAD49B"; 
-        background = "#1E272B"; 
-        text = "#EAD49B"; 
-        indicator = "#9D6A47"; 
-        childBorder = "#9D6A47"; 
-      };
-      unfocused = { 
-        border = "#EAD49B"; 
-        background = "#1E272B"; 
-        text = "#EAD49B"; 
-        indicator = "#78824B"; 
-        childBorder = "#78824B"; 
+        border = "#${colorscheme.colors.base05}";
+        background = "#${colorscheme.colors.base0D}";
+        text = "#${colorscheme.colors.base00}";
+        indicator = "#${colorscheme.colors.base0D}";
+        childBorder = "#${colorscheme.colors.base0D}";
       };
       focusedInactive = { 
-        border = "#EAD49B"; 
-        background = "#1E272B"; 
-        text = "#EAD49B"; 
-        indicator = "#78824B"; 
-        childBorder = "#78824B"; 
+        border = "#${colorscheme.colors.base01}";
+        background = "#${colorscheme.colors.base01}";
+        text = "#${colorscheme.colors.base05}";
+        indicator = "#${colorscheme.colors.base03}";
+        childBorder = "#${colorscheme.colors.base01}";
+      };
+      unfocused = { 
+        border = "#${colorscheme.colors.base01}";
+        background = "#${colorscheme.colors.base00}";
+        text = "#${colorscheme.colors.base05}";
+        indicator = "#${colorscheme.colors.base01}";
+        childBorder = "#${colorscheme.colors.base01}";
       };
       urgent = { 
-        border = "#EAD49B"; 
-        background = "#1E272B"; 
-        text = "#EAD49B"; 
-        indicator = "#78824B"; 
-        childBorder = "#78824B"; 
+        border = "#${colorscheme.colors.base08}";
+        background = "#${colorscheme.colors.base08}";
+        text = "#${colorscheme.colors.base00}";
+        indicator = "#${colorscheme.colors.base08}";
+        childBorder = "#${colorscheme.colors.base08}";
       };
       placeholder = { 
-        border = "#EAD49B"; 
-        background = "#1E272B"; 
-        text = "#EAD49B"; 
-        indicator = "#78824B"; 
-        childBorder = "#78824B"; 
+        border = "#${colorscheme.colors.base00}";
+        background = "#${colorscheme.colors.base00}";
+        text = "#${colorscheme.colors.base05}";
+        indicator = "#${colorscheme.colors.base00}";
+        childBorder = "#${colorscheme.colors.base00}";
       };
   }

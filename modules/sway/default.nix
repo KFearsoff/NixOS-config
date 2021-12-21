@@ -1,7 +1,7 @@
 { lib, pkgs, ... }:
 
 let wallpaper = ../../assets/nix-wallpaper-nineish-dark-gray.png;
-in
+in 
 {
   enable = true;
   wrapperFeatures.gtk = true;
