@@ -9,16 +9,10 @@
   virtualisation.libvirtd.enable = true;
   programs.dconf.enable = true;
 
-#  boot.loader.systemd-boot.enable = true;
-#  boot.loader.efi.canTouchEfiVariables = true;
-
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.supportedFilesystems = [ "btrfs" ];
 
   virtualisation.docker.enable = true;
-
-  programs.sway.enable = true;
-  programs.sway.wrapperFeatures.gtk = true;
 
   programs.zsh.enable = true;
   users.defaultUserShell = pkgs.zsh;

@@ -12,9 +12,6 @@
 
   virtualisation.docker.enable = true;
 
-  programs.sway.enable = true;
-  programs.sway.wrapperFeatures.gtk = true;
-
   programs.zsh.enable = true;
   users.defaultUserShell = pkgs.zsh;
   services.udisks2.enable = true;
@@ -65,6 +62,7 @@
   programs.qt5ct.enable = true;
   services.printing.enable = true;
   services.avahi.enable = true;
+  nixpkgs.config.chromium.commandLineArgs = "--enable-features=UseOzonePlatform --ozone-platform=wayland";
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;

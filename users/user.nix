@@ -1,4 +1,4 @@
-{ lib, pkgs, inputs, system, zsh-autosuggestions, zsh-you-should-use, zsh-history-substring-search, zsh-nix-shell, ... }:
+{ lib, pkgs, inputs, system, zsh-autosuggestions, zsh-you-should-use, zsh-history-substring-search, zsh-nix-shell, nix-colors, ... }:
 
 {
   imports = [ inputs.home-manager.nixosModules.home-manager ];
@@ -41,13 +41,55 @@
             nodejs-12_x # required for rnix-lsp
             ansible
             udiskie
+            shellcheck
+            element-desktop-wayland
           ];
-      };
+        };
+
+      imports = [ nix-colors.homeManagerModule ];
+
+      colorscheme = nix-colors.colorSchemes.dracula;
       
-      programs = {
+      programs = let colorscheme = nix-colors.colorSchemes.dracula; in {
         alacritty = {
           enable = true;
           settings = {
+            colors = {
+              primary = {
+                background = "0x${colorscheme.colors.base00}";
+                foreground = "0x${colorscheme.colors.base05}";
+              };
+
+              cursor = {
+                text = "0x${colorscheme.colors.base00}";
+                cursor = "0x${colorscheme.colors.base00}";
+              };
+
+              normal = {
+                black = "0x${colorscheme.colors.base00}";
+                red = "0x${colorscheme.colors.base00}";
+                green = "0x${colorscheme.colors.base00}";
+                yellow = "0x${colorscheme.colors.base00}";
+                blue = "0x${colorscheme.colors.base00}";
+                magenta = "0x${colorscheme.colors.base00}";
+                cyan = "0x${colorscheme.colors.base00}";
+                white = "0x${colorscheme.colors.base00}";
+              };
+
+              bright = {
+                black = "0x${colorscheme.colors.base00}";
+                red = "0x${colorscheme.colors.base00}";
+                green = "0x${colorscheme.colors.base00}";
+                yellow = "0x${colorscheme.colors.base00}";
+                blue = "0x${colorscheme.colors.base00}";
+                magenta = "0x${colorscheme.colors.base00}";
+                cyan = "0x${colorscheme.colors.base00}";
+                white = "0x${colorscheme.colors.base00}";
+              };
+
+              draw_bold_test_with_bright_colors = false;
+            };
+
             font.size = 14.0;
             background_opacity = 0.85;
           };
@@ -89,6 +131,9 @@
 
           extraConfig = ''
             set langmap=ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz
+            set clipboard+=unnamedplus
+            syntax enable
+            colorscheme dracula
             '';
         };
       
@@ -113,20 +158,6 @@
       
       gtk = import ../modules/gtk.nix { inherit pkgs; };
       home.sessionVariables = { 
-        # don't remember, let it be for now
-        DESKTOP_SESSION = "sway";
-        SDL_VIDEODRIVER = "wayland";
-        GTK_BACKEND = "wayland";
-        XDG_CURRENT_DESKTOP = "sway";
-        XDG_SESSION_TYPE = "sway";
-        # Nouveau fix
-        WLR_DRM_NO_MODIFIERS = "1";
-        # required for some Java apps to work on Wayland
-        _JAWA_AWT_WM_NONREPARENTING = "1";
-        # required for Qt apps to run properly
-        QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
-        QT_QPA_PLATFORM = "wayland-egl";
-
         EDITOR = "nvim";
       };
       qt = {

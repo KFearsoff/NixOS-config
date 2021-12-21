@@ -9,8 +9,18 @@
   history.extended = true;
   oh-my-zsh = {
     enable = true;
+    theme = "dracula";
   };
   plugins = [
+  {
+	  name = "dracula";
+	  src = pkgs.fetchFromGitHub {
+	  owner = "dracula";
+	  repo = "zsh";
+	  rev = "086955abf00f0d95c18175dde66b4820a4c99f5d";
+	  sha256 = "Dc4wEHf25I7jo/IP5WbRUbznobr0oK1cZGraCn3gwiw=";
+  };
+}
     {
       name = "zsh-autosuggestions";
       src = zsh-autosuggestions;

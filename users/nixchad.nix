@@ -39,6 +39,7 @@
 	    rnix-lsp
             nodejs-12_x # required for rnix-lsp
             lutris
+            udiskie
             element-desktop-wayland
             shellcheck
             testdisk
@@ -107,6 +108,8 @@
           terminal = "alacritty";      
         };
       };
+
+      services.udiskie.enable = true;
       
       wayland.windowManager.sway = import ../modules/sway { inherit lib pkgs; };
 
