@@ -1,7 +1,7 @@
 { lib, pkgs, inputs, system, zsh-autosuggestions, zsh-you-should-use, zsh-history-substring-search, zsh-nix-shell, nix-colors, ... }:
 
 {
-  imports = [ inputs.home-manager.nixosModules.home-manager ];
+  imports = [ inputs.home-manager.nixosModules.home-manager ../modules/sway ];
   config = {
     home-manager.useGlobalPkgs = true;
     home-manager.useUserPackages = true;

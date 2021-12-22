@@ -5,7 +5,7 @@ let
 in 
   {
     home-manager.users.user.wayland.windowManager.sway.enable = true;
-  home-manager.users.user.wayland.windowManager.sway.gtk = true;
+  home-manager.users.user.wayland.windowManager.sway.wrapperFeatures.gtk = true;
   home-manager.users.user.wayland.windowManager.sway.config = {
     modifier = "Mod4";
     bindkeysToCode = true;
