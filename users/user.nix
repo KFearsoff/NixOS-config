@@ -5,7 +5,7 @@
   config = {
     home-manager.useGlobalPkgs = true;
     home-manager.useUserPackages = true;
-    home-manager.users.user = {
+    home-manager.users.user = rec {
       home = {
         packages = with pkgs; [
             libreoffice
@@ -45,12 +45,12 @@
             element-desktop-wayland
           ];
         };
-
+        
       imports = [ nix-colors.homeManagerModule ];
 
       colorscheme = nix-colors.colorSchemes.dracula;
       
-      programs = let colorscheme = nix-colors.colorSchemes.dracula; in {
+      programs = {
         alacritty = {
           enable = true;
           settings = {
@@ -108,6 +108,7 @@
       
         neovim = {
           enable = true;
+          package = pkgs.neovim-nightly;
           viAlias = true;
           vimAlias = true;
           vimdiffAlias = true;
@@ -127,6 +128,7 @@
             dracula-vim
 	    coc-nvim
             vim-nix
+            nvim-lspconfig
           ];
 
           extraConfig = ''
@@ -153,8 +155,6 @@
       };
 
       services.udiskie.enable = true;
-      
-      wayland.windowManager.sway = import ../modules/sway { inherit lib pkgs; };
       
       gtk = import ../modules/gtk.nix { inherit pkgs; };
       home.sessionVariables = { 

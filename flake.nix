@@ -11,7 +11,8 @@
     secrets.flake = false;
     secrets.url = "path:/secrets";
     
-    neovim.url = "github:nix-community/neovim-nightly-overlay/master";
+    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+    neovim-lsp.url = "github:neovim/nvim-lspconfig";
 
     zsh-autosuggestions.url = "github:zsh-users/zsh-autosuggestions";
     zsh-autosuggestions.flake = false;
@@ -25,12 +26,12 @@
     nix-colors.url = "github:misterio77/nix-colors";
   };
 
-  outputs = inputs@{ self, nixpkgs, unstable, flake-utils, nixos-hardware, home-manager, secrets, neovim, nur, ... }:
+  outputs = inputs@{ self, nixpkgs, unstable, flake-utils, nixos-hardware, home-manager, secrets, neovim-nightly-overlay, nur, ... }:
   let
     buildSystem = system: pkgs: extraModules: pkgs.lib.nixosSystem {
       inherit system;
       specialArgs = with self.inputs; { inherit system inputs zsh-autosuggestions zsh-you-should-use zsh-history-substring-search zsh-nix-shell nix-colors; };
-      modules = [ { nixpkgs.overlays = [ nur.overlay ]; }
+      modules = [ { nixpkgs.overlays = [ nur.overlay neovim-nightly-overlay.overlay ]; }
       ] ++ extraModules;
     };
   in

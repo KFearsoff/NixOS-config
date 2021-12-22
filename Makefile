@@ -7,6 +7,9 @@ test:
 boot:
 	sudo nixos-rebuild --flake '.#' boot -v
 
+dry:
+	sudo nixos-rebuild --flake '.#' dry-activate -v
+
 vm:
 	sudo nixos-rebuild --flake '.#' build-vm -v
 

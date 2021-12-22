@@ -1,43 +1,41 @@
-{ config, nix-colors, ... }:
+{ config, ... }:
 
-let colorscheme = nix-colors.colorSchemes.dracula;
-in
-{
-      background = "#${colorscheme.colors.base07}";
+with config.home-manager.users.user.colorscheme.colors; {
+  background = "#${base07}";
 
-      focused = {
-        border = "#${colorscheme.colors.base05}";
-        background = "#${colorscheme.colors.base0D}";
-        text = "#${colorscheme.colors.base00}";
-        indicator = "#${colorscheme.colors.base0D}";
-        childBorder = "#${colorscheme.colors.base0D}";
-      };
-      focusedInactive = { 
-        border = "#${colorscheme.colors.base01}";
-        background = "#${colorscheme.colors.base01}";
-        text = "#${colorscheme.colors.base05}";
-        indicator = "#${colorscheme.colors.base03}";
-        childBorder = "#${colorscheme.colors.base01}";
-      };
-      unfocused = { 
-        border = "#${colorscheme.colors.base01}";
-        background = "#${colorscheme.colors.base00}";
-        text = "#${colorscheme.colors.base05}";
-        indicator = "#${colorscheme.colors.base01}";
-        childBorder = "#${colorscheme.colors.base01}";
-      };
-      urgent = { 
-        border = "#${colorscheme.colors.base08}";
-        background = "#${colorscheme.colors.base08}";
-        text = "#${colorscheme.colors.base00}";
-        indicator = "#${colorscheme.colors.base08}";
-        childBorder = "#${colorscheme.colors.base08}";
-      };
-      placeholder = { 
-        border = "#${colorscheme.colors.base00}";
-        background = "#${colorscheme.colors.base00}";
-        text = "#${colorscheme.colors.base05}";
-        indicator = "#${colorscheme.colors.base00}";
-        childBorder = "#${colorscheme.colors.base00}";
-      };
-  }
+  focused = {
+    border = "#${base05}";
+    background = "#${base0D}";
+    text = "#${base00}";
+    indicator = "#${base0D}";
+    childBorder = "#${base0D}";
+  };
+  focusedInactive = { 
+    border = "#${base01}";
+    background = "#${base01}";
+    text = "#${base05}";
+    indicator = "#${base03}";
+    childBorder = "#${base01}";
+  };
+  unfocused = { 
+    border = "#${base01}";
+    background = "#${base00}";
+    text = "#${base05}";
+    indicator = "#${base01}";
+    childBorder = "#${base01}";
+  };
+  urgent = { 
+    border = "#${base08}";
+    background = "#${base08}";
+    text = "#${base00}";
+    indicator = "#${base08}";
+    childBorder = "#${base08}";
+  };
+  placeholder = { 
+    border = "#${base00}";
+    background = "#${base00}";
+    text = "#${base05}";
+    indicator = "#${base00}";
+    childBorder = "#${base00}";
+  };
+}

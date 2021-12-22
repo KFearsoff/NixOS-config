@@ -5,8 +5,7 @@
   config = {
     home-manager.useGlobalPkgs = true;
     home-manager.useUserPackages = true;
-    home-manager.extraSpecialArgs = { inherit nix-colors; };
-    home-manager.users.nixchad = {
+    home-manager.users.nixchad = rec {
       home = {
         packages = with pkgs; [
             libreoffice
@@ -51,7 +50,7 @@
 
       colorscheme = nix-colors.colorSchemes.dracula;
       
-      programs = let colorscheme = nix-colors.colorSchemes.dracula; in {
+      programs = {
         alacritty = {
           enable = true;
           settings = {
@@ -109,6 +108,7 @@
       
         neovim = {
           enable = true;
+          package = pkgs.neovim-nightly;
           viAlias = true;
           vimAlias = true;
           vimdiffAlias = true;
@@ -128,6 +128,7 @@
             dracula-vim
 	    coc-nvim
             vim-nix
+            nvim-lspconfig
           ];
 
           extraConfig = ''
@@ -151,27 +152,11 @@
           terminal = "alacritty";      
         };
       };
-
-      wayland.windowManager.sway = import ../modules/sway { inherit lib pkgs; };
       
       services.udiskie.enable = true;
 
       gtk = import ../modules/gtk.nix { inherit pkgs; };
       home.sessionVariables = { 
-        # don't remember, let it be for now
-        DESKTOP_SESSION = "sway";
-        SDL_VIDEODRIVER = "wayland";
-        GTK_BACKEND = "wayland";
-        XDG_CURRENT_DESKTOP = "sway";
-        XDG_SESSION_TYPE = "sway";
-        # Nouveau fix
-        WLR_DRM_NO_MODIFIERS = "1";
-        # required for some Java apps to work on Wayland
-        _JAWA_AWT_WM_NONREPARENTING = "1";
-        # required for Qt apps to run properly
-        QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
-        QT_QPA_PLATFORM = "wayland-egl";
-
         EDITOR = "nvim";
       };
       qt = {
