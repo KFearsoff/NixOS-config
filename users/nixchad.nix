@@ -17,7 +17,6 @@
             dolphin
             swaylock
             swayidle
-            waybar
             wl-clipboard
             mako
             gimp
@@ -29,6 +28,9 @@
             du-dust # alternative to du
             duf # alternative to df
             fd # alternative to find
+            exa # alternative to ls
+            tokei # list used programming languages
+            procs # alternative to ps
             nix-prefetch-github
             gh
             zathura
@@ -92,6 +94,8 @@
             background_opacity = 0.85;
           };
         };
+        
+        waybar.enable = true;
 
         git = {
           enable = true;
@@ -112,8 +116,10 @@
           vimdiffAlias = true;
       
           plugins = with pkgs.vimPlugins; [
+            vim-airline
             dracula-vim
             nvim-lspconfig
+            vim-nix
           ];
 
           extraConfig = ''
