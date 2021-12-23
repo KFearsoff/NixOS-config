@@ -35,7 +35,6 @@
             feh
             statix
 	    rnix-lsp
-            nodejs-12_x # required for rnix-lsp
             lutris
             udiskie
             element-desktop-wayland
@@ -111,22 +110,9 @@
           viAlias = true;
           vimAlias = true;
           vimdiffAlias = true;
-          coc = {
-            enable = true;
-            settings = {
-              languageserver = {
-                nix = {
-                  command = "rnix-lsp";
-                  filetypes = [ "nix" ];
-                };
-              };
-            };
-          };
       
           plugins = with pkgs.vimPlugins; [
             dracula-vim
-	    coc-nvim
-            vim-nix
             nvim-lspconfig
           ];
 
@@ -135,6 +121,9 @@
             set clipboard+=unnamedplus
             syntax enable
             colorscheme dracula
+
+	    lua << EOF
+	    require'lspconfig'.rnix.setup{}
             '';
         };
       

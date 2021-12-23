@@ -36,7 +36,6 @@
             feh
             statix
 	    rnix-lsp
-            nodejs-12_x # required for rnix-lsp
             ansible
             udiskie
             shellcheck
@@ -111,23 +110,10 @@
           viAlias = true;
           vimAlias = true;
           vimdiffAlias = true;
-          coc = {
-            enable = true;
-            settings = {
-              languageserver = {
-                nix = {
-                  command = "rnix-lsp";
-                  filetypes = [ "nix" ];
-                };
-              };
-            };
-          };
       
           plugins = with pkgs.vimPlugins; [
             dracula-vim
-	    coc-nvim
-            vim-nix
-            nvim-lspconfig
+	    nvim-lspconfig 
           ];
 
           extraConfig = ''
@@ -135,6 +121,9 @@
             set clipboard+=unnamedplus
             syntax enable
             colorscheme dracula
+
+	    lua << EOF
+	    require'lspconfig'.rnix.setup{}
             '';
         };
       
