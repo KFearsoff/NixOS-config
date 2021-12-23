@@ -1,12 +1,12 @@
-{ config, lib, pkgs, ... }:
+{ lib, pkgs, colorscheme, ... }:
 
 let 
   wallpaper = ../../assets/nix-wallpaper-nineish-dark-gray.png;
 in 
   {
-    home-manager.users.user.wayland.windowManager.sway.enable = true;
-  home-manager.users.user.wayland.windowManager.sway.wrapperFeatures.gtk = true;
-  home-manager.users.user.wayland.windowManager.sway.config = {
+    enable = true;
+  wrapperFeatures.gtk = true;
+  config = {
     modifier = "Mod4";
     bindkeysToCode = true;
 
@@ -33,13 +33,13 @@ in
 
     bars = [{ command = "waybar"; }];
 
-    colors = import ./colors.nix { inherit config; };
+    colors = import ./colors.nix { inherit colorscheme; };
     keybindings = import ./keybindings.nix { inherit lib pkgs; mod = "Mod4"; };
     startup = import ./startup.nix { inherit pkgs; };
     assigns = import ./assigns.nix;
   };
 
-  home-manager.users.user.wayland.windowManager.sway.extraSessionCommands = ''
+  extraSessionCommands = ''
     # don't remember, let it be for now
     export DESKTOP_SESSION=sway;
     export SDL_VIDEODRIVER=wayland;

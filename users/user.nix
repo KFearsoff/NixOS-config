@@ -1,7 +1,7 @@
 { lib, pkgs, inputs, system, zsh-autosuggestions, zsh-you-should-use, zsh-history-substring-search, zsh-nix-shell, nix-colors, ... }:
 
 {
-  imports = [ inputs.home-manager.nixosModules.home-manager ../modules/sway ];
+  imports = [ inputs.home-manager.nixosModules.home-manager ];
   config = {
     home-manager.useGlobalPkgs = true;
     home-manager.useUserPackages = true;
@@ -33,8 +33,6 @@
             nix-prefetch-github
             gh
             zathura
-            grim
-            slurp
             feh
             statix
 	    rnix-lsp
@@ -43,6 +41,7 @@
             udiskie
             shellcheck
             element-desktop-wayland
+            sway-contrib.grimshot
           ];
         };
         
@@ -153,6 +152,8 @@
           terminal = "alacritty";      
         };
       };
+
+      wayland.windowManager.sway = import ../modules/sway { inherit lib pkgs colorscheme; };
 
       services.udiskie.enable = true;
       

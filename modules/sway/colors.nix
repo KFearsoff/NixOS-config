@@ -1,6 +1,6 @@
-{ config, ... }:
+{ colorscheme, ... }:
 
-with config.home-manager.users.user.colorscheme.colors; {
+with colorscheme.colors; {
   background = "#${base07}";
 
   focused = {
