@@ -61,6 +61,22 @@
         "type": "github"
       }
     },
+    "hardware": {
+      "locked": {
+        "lastModified": 1639986101,
+        "narHash": "sha256-Ow0+pkY7qMw6lMAvR1mEdUT9svJnrkbaRoqp4bkMTpg=",
+        "owner": "NixOS",
+        "repo": "nixos-hardware",
+        "rev": "3f92db38374b2977aea8daf4c4fe2fa0eddbd60c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "master",
+        "repo": "nixos-hardware",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": "nixpkgs"
@@ -76,6 +92,21 @@
       "original": {
         "owner": "nix-community",
         "repo": "home-manager",
+        "type": "github"
+      }
+    },
+    "impermanence": {
+      "locked": {
+        "lastModified": 1630511294,
+        "narHash": "sha256-Rb0YwHkH1XoGR/2MXXMsgS9EvQwlwcyRB6mImfj0vgo=",
+        "owner": "RiscadoA",
+        "repo": "impermanence",
+        "rev": "80fc82343acff2cf040c16d2a71fccb1f270ccc4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "RiscadoA",
+        "repo": "impermanence",
         "type": "github"
       }
     },
@@ -151,22 +182,6 @@
       "original": {
         "owner": "misterio77",
         "repo": "nix-colors",
-        "type": "github"
-      }
-    },
-    "nixos-hardware": {
-      "locked": {
-        "lastModified": 1639986101,
-        "narHash": "sha256-Ow0+pkY7qMw6lMAvR1mEdUT9svJnrkbaRoqp4bkMTpg=",
-        "owner": "NixOS",
-        "repo": "nixos-hardware",
-        "rev": "3f92db38374b2977aea8daf4c4fe2fa0eddbd60c",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "master",
-        "repo": "nixos-hardware",
         "type": "github"
       }
     },
@@ -264,11 +279,12 @@
     "root": {
       "inputs": {
         "flake-utils": "flake-utils",
+        "hardware": "hardware",
         "home-manager": "home-manager",
+        "impermanence": "impermanence",
         "neovim-lsp": "neovim-lsp",
         "neovim-nightly-overlay": "neovim-nightly-overlay",
         "nix-colors": "nix-colors",
-        "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_5",
         "nur": "nur",
         "secrets": "secrets",

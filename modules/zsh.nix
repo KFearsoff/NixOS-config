@@ -5,6 +5,7 @@
   enableAutosuggestions = true;
   enableCompletion = true;
   enableSyntaxHighlighting = true;
+  autocd = true;
   history.expireDuplicatesFirst = true;
   history.extended = true;
   oh-my-zsh = {

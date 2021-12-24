@@ -1,68 +1,27 @@
-{ config, pkgs,  ... }:
+{ config, pkgs, inputs, ... }:
 
 {
-  imports = [ ./hardware-configuration.nix ];
+  imports = [
+    ./hardware-configuration.nix
+    ../common
+    ../common/virtualisation.nix
+    inputs.hardware.nixosModules.common-cpu-intel
+    inputs.hardware.nixosModules.common-pc-ssd
+    inputs.hardware.nixosModules.common-pc
+  ];
 
   networking.hostName = "nixos"; # Define your hostname.
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  # virt-manager
-  virtualisation.libvirtd.enable = true;
   programs.dconf.enable = true;
 
-  virtualisation.docker.enable = true;
-
-  programs.zsh.enable = true;
-  users.defaultUserShell = pkgs.zsh;
   services.udisks2.enable = true;
 
-  # Set your time zone.
-  time.timeZone = "Europe/Moscow";
-
-  # The global useDHCP flag is deprecated, therefore explicitly set to false here.
-  # Per-interface useDHCP will be mandatory in the future, so this generated config
-  # replicates the default behaviour.
-  networking.useDHCP = false;
-  #networking.interfaces.eno1.useDHCP = true;
-  networking.networkmanager.enable = true;
-
-  # Enable sound.
-  sound.enable = true;
-
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.user = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" "libvirtd" "docker" ];
-    initialPassword = "test";
-  };
   security.sudo.wheelNeedsPassword = false;
 
-  programs.git.enable = true;
-  environment.systemPackages = with pkgs; [
-    wget
-    htop
-    xorg.xkill
-    neofetch
-    vlc
-    notepadqq
-    anydesk
-    samba
-    cifs-utils
-    lxqt.lxqt-policykit
-    ranger
-    cachix
-    gnome3.dconf
-    tree
-    gtk-engine-murrine
-    gtk_engines
-    gsettings-desktop-schemas
-    lxappearance
-    virt-manager
-  ];
-  programs.qt5ct.enable = true;
   services.printing.enable = true;
   services.avahi.enable = true;
-  nixpkgs.config.chromium.commandLineArgs = "--enable-features=UseOzonePlatform --ozone-platform=wayland";
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;

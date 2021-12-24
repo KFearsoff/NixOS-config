@@ -4,7 +4,7 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/release-21.05";
     unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    hardware.url = "github:NixOS/nixos-hardware/master";
     flake-utils.url = "github:numtide/flake-utils";
     home-manager.url = "github:nix-community/home-manager";
 
@@ -24,9 +24,10 @@
     zsh-nix-shell.flake = false;
     nur.url = "github:nix-community/NUR";
     nix-colors.url = "github:misterio77/nix-colors";
+    impermanence.url = "github:RiscadoA/impermanence";
   };
 
-  outputs = inputs@{ self, nixpkgs, unstable, flake-utils, nixos-hardware, home-manager, secrets, neovim-nightly-overlay, nur, ... }:
+  outputs = inputs@{ self, nixpkgs, unstable, flake-utils, hardware, home-manager, secrets, neovim-nightly-overlay, nur, ... }:
   let
     buildSystem = system: pkgs: extraModules: pkgs.lib.nixosSystem {
       inherit system;
@@ -42,9 +43,6 @@
           ./hosts/blueberry
           ./users/user.nix
           ./profiles/all.nix
-          nixos-hardware.nixosModules.common-pc-ssd
-          nixos-hardware.nixosModules.common-cpu-intel
-          nixos-hardware.nixosModules.common-pc
           "${secrets}/smb.nix"
         ];
 
@@ -53,9 +51,6 @@
           ./hosts/blackberry
           ./users/nixchad.nix
           ./profiles/all.nix
-          nixos-hardware.nixosModules.common-pc-ssd
-          nixos-hardware.nixosModules.common-cpu-intel
-          nixos-hardware.nixosModules.common-pc
         ];
       };
     };
