@@ -23,7 +23,7 @@
   security.sudo.wheelNeedsPassword = false;
 
   services.printing.enable = true;
-  services.avahi.enable = true;
+  nixpkgs.config.chromium.commandLineArgs = "--enable-features=UseOzonePlatform --ozone-platform=wayland";
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;

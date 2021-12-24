@@ -32,14 +32,19 @@
     buildSystem = system: pkgs: extraModules: pkgs.lib.nixosSystem {
       inherit system;
       specialArgs = with self.inputs; { inherit system inputs zsh-autosuggestions zsh-you-should-use zsh-history-substring-search zsh-nix-shell nix-colors; };
-      modules = [ { nixpkgs.overlays = [ nur.overlay neovim-nightly-overlay.overlay ]; }
+      modules = [ 
       ] ++ extraModules;
     };
   in
-    {
+  {
+    overlays = [
+      nur.overlay
+      neovim-nightly-overlay.overlay
+    ];
       nixosConfigurations = {
         nixos = buildSystem "x86_64-linux" unstable 
         [
+          { nixpkgs.overlays = self.overlays; }
           ./hosts/blueberry
           ./users/user.nix
           ./profiles/all.nix
@@ -48,6 +53,7 @@
 
         blackberry = buildSystem "x86_64-linux" unstable 
         [
+          { nixpkgs.overlays = self.overlays; }
           ./hosts/blackberry
           ./users/nixchad.nix
           ./profiles/all.nix

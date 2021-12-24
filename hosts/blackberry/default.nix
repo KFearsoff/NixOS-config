@@ -20,9 +20,6 @@
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.supportedFilesystems = [ "btrfs" ];
 
-  # Enable sound.
-  sound.enable = true;
-
   security.sudo.wheelNeedsPassword = false;
 
   programs.steam.enable = true;
