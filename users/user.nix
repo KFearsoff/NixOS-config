@@ -61,7 +61,7 @@
       colorscheme = nix-colors.colorSchemes.dracula;
       
       programs = {
-        alacritty = import ../modules/alacritty.nix;
+        alacritty = import ../modules/alacritty.nix { inherit colorscheme; };
         waybar.enable = true;
 
         git = {

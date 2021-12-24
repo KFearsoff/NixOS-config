@@ -6,6 +6,8 @@
     ../common
     ../common/swap-btrfs.nix
     ../common/virtualisation.nix
+    ../common/nixconf.nix
+    ../common/pipewire.nix
     inputs.hardware.nixosModules.common-cpu-intel
     inputs.hardware.nixosModules.common-pc-ssd
     inputs.hardware.nixosModules.common-pc
@@ -21,12 +23,6 @@
   # Enable sound.
   sound.enable = true;
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.nixchad = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" "libvirtd" "docker" "video" ];
-    initialPassword = "test";
-  };
   security.sudo.wheelNeedsPassword = false;
 
   programs.steam.enable = true;

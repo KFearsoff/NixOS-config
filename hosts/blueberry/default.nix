@@ -5,6 +5,8 @@
     ./hardware-configuration.nix
     ../common
     ../common/virtualisation.nix
+    ../common/nixconf.nix
+    ../common/pipewire.nix
     inputs.hardware.nixosModules.common-cpu-intel
     inputs.hardware.nixosModules.common-pc-ssd
     inputs.hardware.nixosModules.common-pc

@@ -3,6 +3,12 @@
 {
   imports = [ inputs.home-manager.nixosModules.home-manager ];
   config = {
+    # Define a user account. Don't forget to set a password with ‘passwd’.
+    users.users.nixchad = {
+      isNormalUser = true;
+      extraGroups = [ "wheel" "libvirtd" "docker" "video" ];
+      initialPassword = "test";
+    };
     home-manager.useGlobalPkgs = true;
     home-manager.useUserPackages = true;
     home-manager.users.nixchad = rec {
