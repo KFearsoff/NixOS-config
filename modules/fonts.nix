@@ -3,7 +3,7 @@
 {
   fonts = {
     enableDefaultFonts = true;
-    fontconfig = { 
+    fontconfig = {
       enable = true;
       defaultFonts = {
         serif = [ "Iosevka Term Slab" ];

@@ -15,7 +15,7 @@
     dracula-vim
 
     # LSP
-    nvim-lspconfig 
+    nvim-lspconfig
 
     # cmp plugins
     nvim-cmp # completion plugin
@@ -371,5 +371,5 @@
           -- please take a look at the readme of the extension you want to configure
         },
       }
-      '';
+  '';
 }

@@ -1,10 +1,10 @@
 { lib, pkgs, colorscheme, ... }:
 
-let 
+let
   wallpaper = ../../assets/nix-wallpaper-nineish-dark-gray.png;
-in 
-  {
-    enable = true;
+in
+{
+  enable = true;
   wrapperFeatures.gtk = true;
   config = {
     modifier = "Mod4";
@@ -13,10 +13,10 @@ in
     input = { "type:keyboard" = import ./keymap.nix; };
 
     output = {
-#      HDMI-A-1 = {
-#        pos = "0 0";
-#        bg = "${wallpaper} fill";
-#      };
+      #      HDMI-A-1 = {
+      #        pos = "0 0";
+      #        bg = "${wallpaper} fill";
+      #      };
       HDMI-A-2 = {
         pos = "0 0";
         bg = "${wallpaper} fill";

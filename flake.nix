@@ -7,7 +7,7 @@
     hardware.url = "github:NixOS/nixos-hardware/master";
     flake-utils.url = "github:numtide/flake-utils";
     home-manager.url = "github:nix-community/home-manager";
-    
+
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
     neovim-lsp.url = "github:neovim/nvim-lspconfig";
 
@@ -25,35 +25,35 @@
   };
 
   outputs = inputs@{ self, nixpkgs, unstable, flake-utils, hardware, home-manager, neovim-nightly-overlay, nur, ... }:
-  let
-    buildSystem = system: pkgs: extraModules: pkgs.lib.nixosSystem {
-      inherit system;
-      specialArgs = with self.inputs; { inherit system inputs zsh-autosuggestions zsh-you-should-use zsh-history-substring-search zsh-nix-shell nix-colors; };
-      modules = [ 
-      ] ++ extraModules;
-    };
-  in
-  {
-    overlays = [
-      nur.overlay
-      neovim-nightly-overlay.overlay
-    ];
+    let
+      buildSystem = system: pkgs: extraModules: pkgs.lib.nixosSystem {
+        inherit system;
+        specialArgs = with self.inputs; { inherit system inputs zsh-autosuggestions zsh-you-should-use zsh-history-substring-search zsh-nix-shell nix-colors; };
+        modules = [
+        ] ++ extraModules;
+      };
+    in
+    {
+      overlays = [
+        nur.overlay
+        neovim-nightly-overlay.overlay
+      ];
       nixosConfigurations = {
-        nixos = buildSystem "x86_64-linux" unstable 
-        [
-          { nixpkgs.overlays = self.overlays; }
-          ./hosts/blueberry
-          ./users/user.nix
-          ./profiles/all.nix
-        ];
+        nixos = buildSystem "x86_64-linux" unstable
+          [
+            { nixpkgs.overlays = self.overlays; }
+            ./hosts/blueberry
+            ./users/user.nix
+            ./profiles/all.nix
+          ];
 
-        blackberry = buildSystem "x86_64-linux" unstable 
-        [
-          { nixpkgs.overlays = self.overlays; }
-          ./hosts/blackberry
-          ./users/nixchad.nix
-          ./profiles/all.nix
-        ];
+        blackberry = buildSystem "x86_64-linux" unstable
+          [
+            { nixpkgs.overlays = self.overlays; }
+            ./hosts/blackberry
+            ./users/nixchad.nix
+            ./profiles/all.nix
+          ];
       };
     };
 }

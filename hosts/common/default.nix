@@ -27,35 +27,35 @@
   ];
 
   services = {
-      openssh = {
+    openssh = {
+      enable = true;
+      passwordAuthentication = false;
+      permitRootLogin = "no";
+      forwardX11 = true;
+      # Persist host ssh keys
+      hostKeys = [
+        {
+          path = "/data/etc/ssh/ssh_host_ed25519_key";
+          type = "ed25519";
+        }
+        {
+          path = "/data/etc/ssh/ssh_host_rsa_key";
+          type = "rsa";
+          bits = "4096";
+        }
+      ];
+    };
+    avahi = {
+      enable = true;
+      nssmdns = true;
+      publish = {
         enable = true;
-        passwordAuthentication = false;
-        permitRootLogin = "no";
-        forwardX11 = true;
-        # Persist host ssh keys
-        hostKeys = [
-          {
-            path = "/data/etc/ssh/ssh_host_ed25519_key";
-            type = "ed25519";
-          }
-          {
-            path = "/data/etc/ssh/ssh_host_rsa_key";
-            type = "rsa";
-            bits = "4096";
-          }
-        ];
-      };
-      avahi = {
-        enable = true;
-        nssmdns = true;
-        publish = {
-          enable = true;
-          domain = true;
-          workstation = true;
-          userServices = true;
-        };
+        domain = true;
+        workstation = true;
+        userServices = true;
       };
     };
+  };
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];

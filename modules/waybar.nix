@@ -8,12 +8,12 @@
     layer = "top";
     position = "top";
     height = 30;
-    modules-left = [ 
-     "sway/workspaces"
-     "sway/mode"
-     "custom/right-arrow-dark" 
+    modules-left = [
+      "sway/workspaces"
+      "sway/mode"
+      "custom/right-arrow-dark"
     ];
-    modules-center = [ 
+    modules-center = [
       "custom/left-arrow-dark"
       "clock#1"
       "custom/left-arrow-light"
@@ -126,81 +126,82 @@
       };
     };
   }];
-  style = let colors = colorscheme.colors; in ''
-    * {
-    	font-size: 20;
-    	font-family: Iosevka;
-    }
+  style = let colors = colorscheme.colors; in
+    ''
+      * {
+        font-size: 20;
+        font-family: Iosevka;
+      }
     
-    window#waybar {
-    	color: #${colors.base05};
-    	background: #${colors.base00};
-      border-bottom: 2px solid #${colors.base0C};
-    }
+      window#waybar {
+        color: #${colors.base05};
+        background: #${colors.base00};
+        border-bottom: 2px solid #${colors.base0C};
+      }
     
-    #custom-right-arrow-dark,
-    #custom-left-arrow-dark {
-    	color: #${colors.base05};
-    }
-    #custom-right-arrow-light,
-    #custom-left-arrow-light {
-    	color: #${colors.base00};
-    	background: #${colors.base05};
-    }
+      #custom-right-arrow-dark,
+      #custom-left-arrow-dark {
+        color: #${colors.base05};
+      }
+      #custom-right-arrow-light,
+      #custom-left-arrow-light {
+        color: #${colors.base00};
+        background: #${colors.base05};
+      }
     
-    #workspaces,
-    #clock.1,
-    #clock.2,
-    #clock.3,
-    #pulseaudio,
-    #memory,
-    #cpu,
-    #battery,
-    #disk,
-    #tray {
-    	background: #1a1a1a;
-    }
+      #workspaces,
+      #clock.1,
+      #clock.2,
+      #clock.3,
+      #pulseaudio,
+      #memory,
+      #cpu,
+      #battery,
+      #disk,
+      #tray {
+        background: #1a1a1a;
+      }
     
-    #workspaces button {
-    	padding: 0 2px;
-    	color: #fdf6e3;
-    }
-    #workspaces button.focused {
-    	color: #268bd2;
-    }
-    #workspaces button:hover {
-    	box-shadow: inherit;
-    	text-shadow: inherit;
-    }
-    #workspaces button:hover {
-    	background: #1a1a1a;
-    	border: #1a1a1a;
-    	padding: 0 3px;
-    }
+      #workspaces button {
+        padding: 0 2px;
+        color: #fdf6e3;
+      }
+      #workspaces button.focused {
+        color: #268bd2;
+      }
+      #workspaces button:hover {
+        box-shadow: inherit;
+        text-shadow: inherit;
+      }
+      #workspaces button:hover {
+        background: #1a1a1a;
+        border: #1a1a1a;
+        padding: 0 3px;
+      }
     
-    #pulseaudio {
-    	color: #268bd2;
-    }
-    #memory {
-    	color: #2aa198;
-    }
-    #cpu {
-    	color: #6c71c4;
-    }
-    #battery {
-    	color: #859900;
-    }
-    #disk {
-    	color: #b58900;
-    }
+      #pulseaudio {
+        color: #268bd2;
+      }
+      #memory {
+        color: #2aa198;
+      }
+      #cpu {
+        color: #6c71c4;
+      }
+      #battery {
+        color: #859900;
+      }
+      #disk {
+        color: #b58900;
+      }
     
-    #clock,
-    #pulseaudio,
-    #memory,
-    #cpu,
-    #battery,
-    #disk {
-    	padding: 0 10px;
-    }
-  '';
+      #clock,
+      #pulseaudio,
+      #memory,
+      #cpu,
+      #battery,
+      #disk {
+        padding: 0 10px;
+      }
+    '';
 }

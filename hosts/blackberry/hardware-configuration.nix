@@ -5,8 +5,9 @@
 
 {
   imports =
-    [ (modulesPath + "/installer/scan/not-detected.nix")
-  ];
+    [
+      (modulesPath + "/installer/scan/not-detected.nix")
+    ];
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usb_storage" "usbhid" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
@@ -14,7 +15,8 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-label/root";
+    {
+      device = "/dev/disk/by-label/root";
       fsType = "btrfs";
       options = [ "subvol=root" "compress-force=zstd" "noatime" ];
     };
@@ -22,38 +24,44 @@
   boot.initrd.luks.devices."root".device = "/dev/disk/by-partlabel/root";
 
   fileSystems."/home" =
-    { device = "/dev/disk/by-label/root";
+    {
+      device = "/dev/disk/by-label/root";
       fsType = "btrfs";
       options = [ "subvol=home" "compress-force=zstd" "noatime" ];
     };
 
   fileSystems."/nix" =
-    { device = "/dev/disk/by-label/root";
+    {
+      device = "/dev/disk/by-label/root";
       fsType = "btrfs";
       options = [ "subvol=nix" "compress-force=zstd" "noatime" ];
     };
 
   fileSystems."/persist" =
-    { device = "/dev/disk/by-label/root";
+    {
+      device = "/dev/disk/by-label/root";
       fsType = "btrfs";
       options = [ "subvol=persist" "compress-force=zstd" "noatime" ];
     };
 
   fileSystems."/swap" =
-    { device = "/dev/disk/by-label/root";
+    {
+      device = "/dev/disk/by-label/root";
       fsType = "btrfs";
       options = [ "subvol=swap" "compress-force=zstd" "noatime" ];
     };
 
   fileSystems."/var/log" =
-    { device = "/dev/disk/by-label/root";
+    {
+      device = "/dev/disk/by-label/root";
       fsType = "btrfs";
       options = [ "subvol=log" "compress-force=zstd" "noatime" ];
       neededForBoot = true;
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-partlabel/boot";
+    {
+      device = "/dev/disk/by-partlabel/boot";
       fsType = "vfat";
     };
 
