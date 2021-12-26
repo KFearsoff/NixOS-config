@@ -6,10 +6,10 @@
     fontconfig = { 
       enable = true;
       defaultFonts = {
-        serif = [ "Iosevka" ];
-        emoji = [ "Iosevka" ];
+        serif = [ "Iosevka Term Slab" ];
+        emoji = [ "Iosevka Term" ];
         monospace = [ "Iosevka Term" ];
-        sansSerif = [ "Iosevka Slab" ];
+        sansSerif = [ "Iosevka Term" ];
       };
     };
     fonts = with pkgs; [

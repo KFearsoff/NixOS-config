@@ -49,6 +49,8 @@
             feh
             statix
 	          rnix-lsp
+            terraform-ls
+            nodePackages.bash-language-server
             lutris
             udiskie
             element-desktop-wayland
@@ -65,6 +67,7 @@
       programs = {
         alacritty = import ../modules/alacritty.nix { inherit colorscheme; };
         
+        #waybar = import ../modules/waybar.nix { inherit colorscheme; };
         waybar.enable = true;
 
         git = {

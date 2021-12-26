@@ -8,20 +8,17 @@
   autocd = true;
   history.expireDuplicatesFirst = true;
   history.extended = true;
-  oh-my-zsh = {
-    enable = true;
-    theme = "dracula";
-  };
   plugins = [
   {
-	  name = "dracula";
-	  src = pkgs.fetchFromGitHub {
-	  owner = "dracula";
-	  repo = "zsh";
-	  rev = "086955abf00f0d95c18175dde66b4820a4c99f5d";
-	  sha256 = "Dc4wEHf25I7jo/IP5WbRUbznobr0oK1cZGraCn3gwiw=";
-  };
-}
+	  name = "zsh-powerlevel10k";
+    src = pkgs.zsh-powerlevel10k;
+    file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
+  }
+{
+    name = "powerlevel10k-config";
+    src = lib.cleanSource ./p10k-config;
+    file = "p10k.zsh";
+  }
     {
       name = "zsh-autosuggestions";
       src = zsh-autosuggestions;

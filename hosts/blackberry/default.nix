@@ -24,6 +24,7 @@
 
   programs.steam.enable = true;
   hardware.opengl.driSupport32Bit = true;
+  services.flatpak.enable = true;
   nixpkgs.config.chromium.commandLineArgs = "--enable-features=UseOzonePlatform --ozone-platform=wayland";
 
   # Enable the OpenSSH daemon.
