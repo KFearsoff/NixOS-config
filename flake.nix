@@ -7,9 +7,6 @@
     hardware.url = "github:NixOS/nixos-hardware/master";
     flake-utils.url = "github:numtide/flake-utils";
     home-manager.url = "github:nix-community/home-manager";
-
-    secrets.flake = false;
-    secrets.url = "path:/secrets";
     
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
     neovim-lsp.url = "github:neovim/nvim-lspconfig";
@@ -27,7 +24,7 @@
     impermanence.url = "github:RiscadoA/impermanence";
   };
 
-  outputs = inputs@{ self, nixpkgs, unstable, flake-utils, hardware, home-manager, secrets, neovim-nightly-overlay, nur, ... }:
+  outputs = inputs@{ self, nixpkgs, unstable, flake-utils, hardware, home-manager, neovim-nightly-overlay, nur, ... }:
   let
     buildSystem = system: pkgs: extraModules: pkgs.lib.nixosSystem {
       inherit system;
@@ -48,7 +45,6 @@
           ./hosts/blueberry
           ./users/user.nix
           ./profiles/all.nix
-          "${secrets}/smb.nix"
         ];
 
         blackberry = buildSystem "x86_64-linux" unstable 

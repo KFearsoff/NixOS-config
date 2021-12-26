@@ -65,14 +65,22 @@
     set cursorline
     set scrolloff=7
 
-          set completeopt=menu,menuone,noselect,noinsert
-          let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
+    set completeopt=menu,menuone,noselect,noinsert
+    let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
     :lua << EOF
     -- LSP --
-    require'lspconfig'.rnix.setup{}
-    require'lspconfig'.bashls.setup{}
-    require'lspconfig'.terraformls.setup{}
+    local capabilities = vim.lsp.protocol.make_client_capabilities()
+    capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
+    local lspconfig = require('lspconfig')
+
+    local servers = { 'rnix', 'bashls', 'terraformls' }
+      for _, lsp in ipairs(servers) do
+        lspconfig[lsp].setup {
+          -- on_attach = my_custom_on_attach,
+          capabilities = capabilities,
+        }
+      end
 
     -- Mappings --
       local opts = { noremap = true, silent = true }
@@ -144,7 +152,7 @@
         return
       end
 
-      local snip_status_ok, cmp = pcall(require, "cmp")
+      local snip_status_ok, luasnip = pcall(require, "luasnip")
       if not snip_status_ok then
         return
       end
