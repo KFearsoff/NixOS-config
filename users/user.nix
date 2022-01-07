@@ -97,6 +97,23 @@
 
       services.udiskie.enable = true;
 
+      services.kanshi = {
+        enable = true;
+        profiles = {
+          home = {
+            outputs = [
+              {
+                criteria = "HDMI-A-2";
+              }
+              {
+                criteria = "HDMI-A-3";
+                position = "1920,0";
+              }
+            ];
+          };
+        };
+      };
+
       gtk = import ../modules/gtk.nix { inherit pkgs; };
       home.sessionVariables = {
         EDITOR = "nvim";
