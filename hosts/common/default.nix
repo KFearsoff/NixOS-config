@@ -21,6 +21,9 @@
   networking.useDHCP = false;
   networking.networkmanager.enable = true;
 
+  hardware.opengl.enable = true;
+  security.pam.services.swaylock = {};
+
   programs.git.enable = true;
   environment.systemPackages = with pkgs; [
     wget
@@ -31,15 +34,15 @@
       enable = true;
       passwordAuthentication = false;
       permitRootLogin = "no";
-      forwardX11 = true;
+      challengeResponseAuthentication = false;
       # Persist host ssh keys
       hostKeys = [
         {
-          path = "/data/etc/ssh/ssh_host_ed25519_key";
+          path = "/persist/etc/ssh/ssh_host_ed25519_key";
           type = "ed25519";
         }
         {
-          path = "/data/etc/ssh/ssh_host_rsa_key";
+          path = "/persist/etc/ssh/ssh_host_rsa_key";
           type = "rsa";
           bits = "4096";
         }
@@ -48,12 +51,6 @@
     avahi = {
       enable = true;
       nssmdns = true;
-      publish = {
-        enable = true;
-        domain = true;
-        workstation = true;
-        userServices = true;
-      };
     };
   };
 

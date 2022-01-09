@@ -93,9 +93,18 @@
         };
       };
 
+      xdg = {
+        enable = true;
+        userDirs = {
+          enable = true;
+          createDirectories = true;
+        };
+      };
       wayland.windowManager.sway = import ../modules/sway { inherit lib pkgs colorscheme; };
 
       services.udiskie.enable = true;
+      services.gammastep = import ../modules/gammastep.nix;
+      services.swayidle = import ../modules/sway/swayidle.nix;
 
       services.kanshi = {
         enable = true;

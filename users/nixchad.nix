@@ -6,7 +6,7 @@
     # Define a user account. Don't forget to set a password with ‘passwd’.
     users.users.nixchad = {
       isNormalUser = true;
-      extraGroups = [ "wheel" "libvirtd" "docker" "video" ];
+      extraGroups = [ "wheel" "libvirtd" "docker" ];
       initialPassword = "test";
     };
     home-manager.useGlobalPkgs = true;
@@ -37,8 +37,6 @@
           qbittorrent
           ripgrep # alternative to grep
           bat # alternative to cat
-          du-dust # alternative to du
-          duf # alternative to df
           fd # alternative to find
           exa # alternative to ls
           tokei # list used programming languages
@@ -98,10 +96,18 @@
         };
       };
 
-      xdg.enable = true;
+      xdg = {
+        enable = true;
+        userDirs = {
+          enable = true;
+          createDirectories = true;
+        };
+      };
       wayland.windowManager.sway = import ../modules/sway { inherit lib pkgs colorscheme; };
 
       services.udiskie.enable = true;
+      services.gammastep = import ../modules/gammastep.nix;
+      services.swayidle = import ../modules/sway/swayidle.nix;
 
       services.kanshi = {
         enable = true;

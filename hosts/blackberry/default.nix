@@ -19,6 +19,11 @@
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.supportedFilesystems = [ "btrfs" ];
+  services.beesd.filesystems.root = {
+    spec = "LABEL=root";
+    extraOptions = [ "--workaround-btrfs-send" ];
+  };
+  services.btrfs.autoScrub.enable = true;
 
   security.sudo.wheelNeedsPassword = false;
 
@@ -28,7 +33,6 @@
   nixpkgs.config.chromium.commandLineArgs = "--enable-features=UseOzonePlatform --ozone-platform=wayland";
 
   # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
   programs.ssh.startAgent = true;
 
   # Open ports in the firewall.

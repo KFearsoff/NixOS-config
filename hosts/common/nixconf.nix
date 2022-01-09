@@ -4,7 +4,6 @@
   nixpkgs.config.allowUnfree = true;
   nix = {
     trustedUsers = [ "@wheel" ];
-    autoOptimiseStore = true;
     package = pkgs.nixUnstable;
     # keep-outputs and keep-derivations options are great for development shells
     # also empty the registry: it will allow you to not redownload 100MBs every time

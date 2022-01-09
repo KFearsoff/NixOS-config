@@ -29,5 +29,4 @@ in
   { command = "freetube"; }
   { command = "element-desktop"; }
   { command = "discord"; }
-  { command = "swayidle -w timeout 600 'swaymsg \"output * dpms off\"' resume 'swaymsg \"output * dpms on\"'"; always = true; }
 ]
