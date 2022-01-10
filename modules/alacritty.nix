@@ -1,6 +1,9 @@
-{ colorscheme, ... }:
+{ config, username, ... }:
 
+let colorscheme = config.home-manager.users."${username}".colorscheme; in
 {
+  config.home-manager.users."${username}" = {
+    programs.alacritty = {
   enable = true;
   settings = {
     colors = {
@@ -42,4 +45,6 @@
     font.size = 14.0;
     background_opacity = 0.85;
   };
+};
+};
 }

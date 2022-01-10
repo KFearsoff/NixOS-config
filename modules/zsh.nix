@@ -1,6 +1,8 @@
-{ lib, pkgs, zsh-autosuggestions, zsh-you-should-use, zsh-history-substring-search, zsh-nix-shell, ... }:
+{ lib, pkgs, username, zsh-autosuggestions, zsh-you-should-use, zsh-history-substring-search, zsh-nix-shell, ... }:
 
 {
+  config.home-manager.users."${username}" = {
+    programs.zsh = {
   enable = true;
   enableAutosuggestions = true;
   enableCompletion = true;
@@ -8,17 +10,22 @@
   autocd = true;
   history.expireDuplicatesFirst = true;
   history.extended = true;
+  shellAliases = {
+    ls = "exa";
+    cat = "bat -p";
+    l = "exa -la";
+  };
   plugins = [
-    {
-      name = "zsh-powerlevel10k";
-      src = pkgs.zsh-powerlevel10k;
-      file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
-    }
-    {
-      name = "powerlevel10k-config";
-      src = lib.cleanSource ./p10k-config;
-      file = "p10k.zsh";
-    }
+#    {
+#      name = "zsh-powerlevel10k";
+#      src = pkgs.zsh-powerlevel10k;
+#      file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
+#    }
+#    {
+#      name = "powerlevel10k-config";
+#      src = lib.cleanSource ./p10k-config;
+#      file = "p10k.zsh";
+#    }
     {
       name = "zsh-autosuggestions";
       src = zsh-autosuggestions;
@@ -40,5 +47,7 @@
       src = zsh-history-substring-search;
     }
   ];
+};
+};
 }
 

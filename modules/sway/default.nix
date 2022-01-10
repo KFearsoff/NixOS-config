@@ -1,36 +1,13 @@
-{ lib, pkgs, colorscheme, ... }:
+{ lib, pkgs, config, username, ... }:
 
 let
   wallpaper = ../../assets/nix-wallpaper-nineish-dark-gray.png;
+  colorscheme = config.home-manager.users."${username}".colorscheme;
 in
-{
-  enable = true;
-  wrapperFeatures.gtk = true;
-  config = {
-    modifier = "Mod4";
-    bindkeysToCode = true;
-
-    input = { "type:keyboard" = import ./keymap.nix; };
-
-    output = {
-      "*" = {
-        bg = "${wallpaper} fill";
-      };
-    };
-
-    gaps = { inner = 5; };
-    gaps.smartBorders = "on";
-    gaps.smartGaps = true;
-
-    bars = [{ command = "waybar"; }];
-
-    colors = import ./colors.nix { inherit colorscheme; };
-    keybindings = import ./keybindings.nix { inherit lib pkgs; mod = "Mod4"; };
-    startup = import ./startup.nix { inherit pkgs; };
-    assigns = import ./assigns.nix;
-  };
-
-  extraSessionCommands = ''
+  {
+    config.programs.sway.enable = true;
+    config.programs.sway.wrapperFeatures.gtk = true;
+    config.programs.sway.extraSessionCommands = ''
     # don't remember, let it be for now
     export DESKTOP_SESSION=sway;
     export SDL_VIDEODRIVER=wayland;
@@ -43,6 +20,35 @@ in
     export _JAWA_AWT_WM_NONREPARENTING=1;
     # required for Qt apps to run properly
     export QT_WAYLAND_DISABLE_WINDOWDECORATION=1;
-    export QT_QPA_PLATFORM=wayland-egl;
-  '';
+      export QT_QPA_PLATFORM=wayland-egl;
+      '';
+    config.home-manager.users."${username}" = {
+      wayland.windowManager.sway = {
+        enable = true;
+        package = null;
+  config = {
+    modifier = "Mod4";
+    bindkeysToCode = true;
+
+    input = { "type:keyboard" = import ./keymap.nix; };
+
+      output = {
+      "*" = {
+        bg = "${wallpaper} fill";
+      };
+    };
+
+    gaps = { inner = 5; };
+    gaps.smartBorders = "on";
+    gaps.smartGaps = true;
+
+    bars = [ ];
+
+    colors = import ./colors.nix { inherit colorscheme; };
+    keybindings = import ./keybindings.nix { inherit lib pkgs; mod = "Mod4"; };
+    startup = import ./startup.nix { inherit pkgs; };
+    assigns = import ./assigns.nix;
+  };
+};
+};
 }
