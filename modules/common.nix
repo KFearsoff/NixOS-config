@@ -73,7 +73,7 @@
       rofi = {
         enable = true;
         package = pkgs.nur.repos.kira-bruneau.rofi-wayland;
-        theme = "siderbar";
+        theme = "purple";
         terminal = "alacritty";
       };
     };
