@@ -6,14 +6,16 @@
     fontconfig = {
       enable = true;
       defaultFonts = {
-        serif = [ "Iosevka Term Slab" ];
-        emoji = [ "Iosevka Term" ];
-        monospace = [ "Iosevka Term" ];
-        sansSerif = [ "Iosevka Term" ];
+        serif = [ "Iosevka" ];
+        emoji = [ "Iosevka" ];
+        monospace = [ "Iosevka" ];
+        sansSerif = [ "Iosevka" ];
       };
     };
     fonts = with pkgs; [
-      nerdfonts
+      (nerdfonts.override { fonts = [ "Iosevka" ]; })
+      vistafonts
+      corefonts
     ];
   };
 }

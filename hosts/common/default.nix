@@ -5,14 +5,6 @@
 
   # environment.persistence."/persist".directories = [ ];
 
-  programs.zsh = {
-    enable = true;
-    enableCompletion = true;
-    autosuggestions.enable = true;
-    syntaxHighlighting.enable = true;
-  };
-  users.defaultUserShell = pkgs.zsh;
-
   time.timeZone = "Europe/Moscow";
 
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
@@ -20,9 +12,6 @@
   # replicates the default behaviour.
   networking.useDHCP = false;
   networking.networkmanager.enable = true;
-
-  hardware.opengl.enable = true;
-  security.pam.services.swaylock = {};
 
   programs.git.enable = true;
   environment.systemPackages = with pkgs; [

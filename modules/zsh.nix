@@ -1,7 +1,16 @@
 { lib, pkgs, username, zsh-autosuggestions, zsh-you-should-use, zsh-history-substring-search, zsh-nix-shell, ... }:
 
 {
-  config.home-manager.users."${username}" = {
+  config = {
+  programs.zsh = {
+    enable = true;
+    enableCompletion = true;
+    autosuggestions.enable = true;
+    syntaxHighlighting.enable = true;
+  };
+  users.defaultUserShell = pkgs.zsh;
+
+  home-manager.users."${username}" = {
     programs.zsh = {
   enable = true;
   enableAutosuggestions = true;
@@ -47,6 +56,7 @@
       src = zsh-history-substring-search;
     }
   ];
+};
 };
 };
 }

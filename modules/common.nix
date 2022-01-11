@@ -1,7 +1,7 @@
 { username, config, pkgs, lib, ... }:
 
 {
-  config.home-manager.users."${username}" = {
+  config.home-manager.users."${username}" = { lib, ... }: {
     home = {
       packages = with pkgs; [
         neofetch
@@ -27,8 +27,6 @@
         qbittorrent
         ripgrep # alternative to grep
         bat # alternative to cat
-        du-dust # alternative to du
-        duf # alternative to df
         fd # alternative to find
         exa # alternative to ls
         tokei # list used programming languages
@@ -39,6 +37,8 @@
         feh
         statix
         rnix-lsp
+                  terraform-ls
+          nodePackages.bash-language-server
         ansible
         udiskie
         shellcheck
@@ -47,6 +47,15 @@
         nixpkgs-fmt
       ];
     };
+
+    home.activation = {
+      reloadKanshi = lib.hm.dag.entryAnywhere ''
+        $DRY_RUN_CMD systemctl --user restart kanshi.service
+        '';
+        reloadWaybar = lib.hm.dag.entryAnywhere ''
+          $DRY_RUN_CMD systemctl --user restart waybar.service
+          '';
+      };
 
     programs = {
       waybar = {

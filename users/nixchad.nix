@@ -30,8 +30,6 @@ in
     home-manager.useUserPackages = true;
     home-manager.users.user = {
       home.packages = with pkgs; [
-                  terraform-ls
-          nodePackages.bash-language-server
           lutris
           testdisk
         ];
