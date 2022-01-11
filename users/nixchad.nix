@@ -30,17 +30,9 @@ in
     home-manager.useUserPackages = true;
     home-manager.users.user = {
       home.packages = with pkgs; [
-        <<<<<<< HEAD
         lutris
         testdisk
       ];
-      =======
-      terraform-ls
-        nodePackages.bash-language-server
-        lutris
-        testdisk
-        ];
-        >>>>>>> 326ad11 (improve readibility: statix fix and nixpkgs-fmt)
         services.kanshi = {
         enable = true;
         profiles = {
