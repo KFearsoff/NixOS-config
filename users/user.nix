@@ -3,14 +3,14 @@
 let
   args = {
     username = "user";
-    nix-colors = inputs.nix-colors;
+    inherit (inputs) nix-colors;
     inherit pkgs;
     inherit config;
     inherit lib;
   };
 in
 {
-  imports = [ 
+  imports = [
     inputs.home-manager.nixosModules.home-manager
     (import ../modules/colors.nix args)
     (import ../modules/sway args)
@@ -29,7 +29,7 @@ in
     home-manager.useGlobalPkgs = true;
     home-manager.useUserPackages = true;
     home-manager.users.user = {
-            services.kanshi = {
+      services.kanshi = {
         enable = true;
         profiles = {
           home = {

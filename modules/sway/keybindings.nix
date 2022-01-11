@@ -5,7 +5,7 @@ let
   workspaces = [ "" "" "" "" "" "" "" "" "" ];
   numbers = map toString (lib.range 1 9);
   workspaceNumbers = lib.zipListsWith (x: y: x + "" + y) numbers workspaces;
-  useWithModifier = mod: lib.mapAttrs' (k: v: lib.nameValuePair (mod + "+" + k) v);
+  useWithModifier = mod: lib.mapAttrs' (k: lib.nameValuePair (mod + "+" + k));
   appendExecToCommand = lib.mapAttrs' (k: v: lib.nameValuePair k ("exec " + v));
   swap = pkgs.writeShellScript "swap-workspaces" (builtins.readFile ./swap-workspaces.sh);
 

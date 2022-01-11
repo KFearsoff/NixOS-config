@@ -3,14 +3,14 @@
 let
   args = {
     username = "nixchad";
-    nix-colors = inputs.nix-colors;
+    inherit (inputs) nix-colors;
     inherit pkgs;
     inherit config;
     inherit lib;
   };
 in
 {
-  imports = [ 
+  imports = [
     inputs.home-manager.nixosModules.home-manager
     (import ../modules/colors.nix args)
     (import ../modules/sway args)
@@ -30,10 +30,18 @@ in
     home-manager.useUserPackages = true;
     home-manager.users.user = {
       home.packages = with pkgs; [
-          lutris
-          testdisk
+        <<<<<<< HEAD
+        lutris
+        testdisk
+      ];
+      =======
+      terraform-ls
+        nodePackages.bash-language-server
+        lutris
+        testdisk
         ];
-      services.kanshi = {
+        >>>>>>> 326ad11 (improve readibility: statix fix and nixpkgs-fmt)
+        services.kanshi = {
         enable = true;
         profiles = {
           home = {

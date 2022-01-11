@@ -37,8 +37,8 @@
         feh
         statix
         rnix-lsp
-                  terraform-ls
-          nodePackages.bash-language-server
+        terraform-ls
+        nodePackages.bash-language-server
         ansible
         udiskie
         shellcheck
@@ -51,11 +51,11 @@
     home.activation = {
       reloadKanshi = lib.hm.dag.entryAnywhere ''
         $DRY_RUN_CMD systemctl --user restart kanshi.service
-        '';
-        reloadWaybar = lib.hm.dag.entryAnywhere ''
-          $DRY_RUN_CMD systemctl --user restart waybar.service
-          '';
-      };
+      '';
+      reloadWaybar = lib.hm.dag.entryAnywhere ''
+        $DRY_RUN_CMD systemctl --user restart waybar.service
+      '';
+    };
 
     programs = {
       waybar = {
@@ -71,7 +71,7 @@
 
       obs-studio.enable = true;
 
-       neovim = import ./neovim.nix { inherit pkgs; };
+      neovim = import ./neovim.nix { inherit pkgs; };
 
       direnv = {
         enable = true;

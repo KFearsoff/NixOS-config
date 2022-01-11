@@ -126,7 +126,7 @@
       };
     };
   }];
-  style = let colors = colorscheme.colors; in
+  style = let inherit (colorscheme) colors; in
     ''
       * {
         font-size: 20;

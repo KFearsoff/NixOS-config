@@ -2,12 +2,12 @@
 
 let
   wallpaper = ../../assets/nix-wallpaper-nineish-dark-gray.png;
-  colorscheme = config.home-manager.users."${username}".colorscheme;
+  inherit (config.home-manager.users."${username}") colorscheme;
 in
-  {
-    config.programs.sway.enable = true;
-    config.programs.sway.wrapperFeatures.gtk = true;
-    config.programs.sway.extraSessionCommands = ''
+{
+  config.programs.sway.enable = true;
+  config.programs.sway.wrapperFeatures.gtk = true;
+  config.programs.sway.extraSessionCommands = ''
     # don't remember, let it be for now
     export DESKTOP_SESSION=sway;
     export SDL_VIDEODRIVER=wayland;
@@ -21,34 +21,34 @@ in
     # required for Qt apps to run properly
     export QT_WAYLAND_DISABLE_WINDOWDECORATION=1;
       export QT_QPA_PLATFORM=wayland-egl;
-      '';
-    config.home-manager.users."${username}" = {
-      wayland.windowManager.sway = {
-        enable = true;
-        package = null;
-  config = {
-    modifier = "Mod4";
-    bindkeysToCode = true;
+  '';
+  config.home-manager.users."${username}" = {
+    wayland.windowManager.sway = {
+      enable = true;
+      package = null;
+      config = {
+        modifier = "Mod4";
+        bindkeysToCode = true;
 
-    input = { "type:keyboard" = import ./keymap.nix; };
+        input = { "type:keyboard" = import ./keymap.nix; };
 
-      output = {
-      "*" = {
-        bg = "${wallpaper} fill";
+        output = {
+          "*" = {
+            bg = "${wallpaper} fill";
+          };
+        };
+
+        gaps = { inner = 5; };
+        gaps.smartBorders = "on";
+        gaps.smartGaps = true;
+
+        bars = [ ];
+
+        colors = import ./colors.nix { inherit colorscheme; };
+        keybindings = import ./keybindings.nix { inherit lib pkgs; mod = "Mod4"; };
+        startup = import ./startup.nix { inherit pkgs; };
+        assigns = import ./assigns.nix;
       };
     };
-
-    gaps = { inner = 5; };
-    gaps.smartBorders = "on";
-    gaps.smartGaps = true;
-
-    bars = [ ];
-
-    colors = import ./colors.nix { inherit colorscheme; };
-    keybindings = import ./keybindings.nix { inherit lib pkgs; mod = "Mod4"; };
-    startup = import ./startup.nix { inherit pkgs; };
-    assigns = import ./assigns.nix;
   };
-};
-};
 }
