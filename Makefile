@@ -21,3 +21,6 @@ gc:
 
 update:
 	sudo nix flake update
+
+diff:
+	nix profile diff-closures --profile /nix/var/nix/profiles/system | less
