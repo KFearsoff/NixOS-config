@@ -22,7 +22,7 @@
         shellAliases = {
           ls = "exa";
           cat = "bat -p";
-          l = "exa -la";
+          l = "exa -lag";
         };
         plugins = [
           #    {

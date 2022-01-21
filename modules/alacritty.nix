@@ -30,14 +30,23 @@ let inherit (config.home-manager.users."${username}") colorscheme; in
 
           bright = {
             black = "0x${colorscheme.colors.base03}";
-            red = "0x${colorscheme.colors.base09}";
-            green = "0x${colorscheme.colors.base01}";
-            yellow = "0x${colorscheme.colors.base02}";
-            blue = "0x${colorscheme.colors.base04}";
-            magenta = "0x${colorscheme.colors.base06}";
-            cyan = "0x${colorscheme.colors.base0F}";
+            red = "0x${colorscheme.colors.base08}";
+            green = "0x${colorscheme.colors.base0B}";
+            yellow = "0x${colorscheme.colors.base0A}";
+            blue = "0x${colorscheme.colors.base0D}";
+            magenta = "0x${colorscheme.colors.base0E}";
+            cyan = "0x${colorscheme.colors.base0C}";
             white = "0x${colorscheme.colors.base07}";
           };
+
+          indexed_colors = [
+            { index = 16; color = "0x${colorscheme.colors.base09}"; }
+            { index = 17; color = "0x${colorscheme.colors.base0F}"; }
+            { index = 18; color = "0x${colorscheme.colors.base01}"; }
+            { index = 19; color = "0x${colorscheme.colors.base02}"; }
+            { index = 20; color = "0x${colorscheme.colors.base04}"; }
+            { index = 21; color = "0x${colorscheme.colors.base06}"; }
+          ];
 
           draw_bold_test_with_bright_colors = false;
         };

@@ -38,7 +38,7 @@ in
           };
         };
 
-        gaps = { inner = 5; };
+        gaps = { inner = 1; };
         gaps.smartBorders = "on";
         gaps.smartGaps = true;
 

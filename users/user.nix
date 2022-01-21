@@ -19,6 +19,7 @@ in
     (import ../modules/gammastep.nix args)
     (import ../modules/starship.nix args)
     (import ../modules/common.nix args)
+    (import ../modules/mako.nix args)
   ];
   config = {
     users.users."user" = {
