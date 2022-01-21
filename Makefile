@@ -24,3 +24,6 @@ update:
 
 diff:
 	nix profile diff-closures --profile /nix/var/nix/profiles/system | less
+
+preview:
+	sudo nixos-rebuild --flake '.#' build -v && nix store diff-closures /var/run/current-system ./result

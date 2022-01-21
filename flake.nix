@@ -30,6 +30,20 @@
         inherit system;
         specialArgs = with self.inputs; { inherit system inputs zsh-autosuggestions zsh-you-should-use zsh-history-substring-search zsh-nix-shell nix-colors; };
         modules = [
+          {
+            nix = {
+              extraOptions = ''
+                flake-registry = /etc/nix/registry.json
+              '';
+              registry = {
+                self.flake = inputs.self;
+                nixpkgs = {
+                  from = { id = "nixpkgs"; type = "indirect"; };
+                  flake = pkgs;
+                };
+              };
+            };
+          }
         ] ++ extraModules;
       };
     in
