@@ -28,7 +28,7 @@ in
     };
     home-manager.useGlobalPkgs = true;
     home-manager.useUserPackages = true;
-    home-manager.users.user = {
+    home-manager.users."nixchad" = {
       home.packages = with pkgs; [
         lutris
         testdisk
