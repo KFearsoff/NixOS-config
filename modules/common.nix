@@ -6,7 +6,7 @@
       packages = with pkgs; [
         neofetch
         vlc
-        anydesk
+        docker-compose
         virt-manager
         libreoffice
         gnumake
@@ -22,7 +22,6 @@
         wl-clipboard
         mako
         gimp
-        cmake
         bottom # htop alternative
         qbittorrent
         ripgrep # alternative to grep
