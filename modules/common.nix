@@ -44,6 +44,7 @@
         element-desktop-wayland
         sway-contrib.grimshot
         nixpkgs-fmt
+        tldr
       ];
     };
 

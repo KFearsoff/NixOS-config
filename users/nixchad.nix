@@ -24,7 +24,7 @@ in
   config = {
     users.users."nixchad" = {
       isNormalUser = true;
-      extraGroups = [ "wheel" "libvirtd" "docker" ];
+      extraGroups = [ "wheel" "libvirtd" "docker" "networkmanager" ];
       initialPassword = "test";
     };
     home-manager.useGlobalPkgs = true;

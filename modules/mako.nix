@@ -7,11 +7,12 @@ let inherit (config.home-manager.users."${username}") colorscheme; in
       enable = true;
 
       backgroundColor = "#${colorscheme.colors.base00}";
-      borderColor = "#${colorscheme.colors.base05}";
-      textColor = "#${colorscheme.colors.base0D}";
+      textColor = "#${colorscheme.colors.base05}";
+      borderColor = "#${colorscheme.colors.base0D}";
+
       extraConfig = ''
         [urgency=low]
-        backgroud-color=#${colorscheme.colors.base00}
+        background-color=#${colorscheme.colors.base00}
         text-color=#${colorscheme.colors.base0A}
         border-color=#${colorscheme.colors.base0D}
 
