@@ -19,10 +19,6 @@
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.supportedFilesystems = [ "btrfs" ];
-  services.beesd.filesystems.root = {
-    spec = "LABEL=root";
-    extraOptions = [ "--workaround-btrfs-send" ];
-  };
   services.btrfs.autoScrub.enable = true;
 
   security.sudo.wheelNeedsPassword = false;
