@@ -20,6 +20,7 @@ in
     (import ../modules/starship.nix args)
     (import ../modules/common.nix args)
     (import ../modules/mako.nix args)
+    (import ../modules/neovim args)
   ];
   config = {
     users.users."user" = {

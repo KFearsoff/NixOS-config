@@ -71,8 +71,6 @@
 
       obs-studio.enable = true;
 
-      neovim = import ./neovim.nix { inherit pkgs; };
-
       direnv = {
         enable = true;
         enableZshIntegration = true;
