@@ -20,16 +20,17 @@ in
     (import ../modules/starship.nix args)
     (import ../modules/common.nix args)
     (import ../modules/mako.nix args)
+    (import ../modules/neovim args)
   ];
   config = {
     users.users."user" = {
       isNormalUser = true;
-      extraGroups = [ "wheel" "libvirtd" "docker" ];
+      extraGroups = [ "wheel" "libvirtd" "docker" "networkmanager" ];
       initialPassword = "test";
     };
     home-manager.useGlobalPkgs = true;
     home-manager.useUserPackages = true;
-    home-manager.users.user = {
+    home-manager.users."user" = {
       services.kanshi = {
         enable = true;
         profiles = {

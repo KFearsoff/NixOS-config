@@ -44,6 +44,7 @@
         element-desktop-wayland
         sway-contrib.grimshot
         nixpkgs-fmt
+        tldr
       ];
     };
 
@@ -70,8 +71,6 @@
       };
 
       obs-studio.enable = true;
-
-      neovim = import ./neovim.nix { inherit pkgs; };
 
       direnv = {
         enable = true;

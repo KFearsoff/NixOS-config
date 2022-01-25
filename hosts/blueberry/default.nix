@@ -30,7 +30,6 @@
   services.printing.enable = true;
   nixpkgs.config.chromium.commandLineArgs = "--enable-features=UseOzonePlatform --ozone-platform=wayland";
 
-  nix.autoOptimiseStore = true;
   # Enable the OpenSSH daemon.
   programs.ssh.startAgent = true;
 
