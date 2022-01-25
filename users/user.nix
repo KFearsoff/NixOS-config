@@ -21,6 +21,7 @@ in
     (import ../modules/common.nix args)
     (import ../modules/mako.nix args)
     (import ../modules/neovim args)
+    (import ../modules/zathura.nix args)
   ];
   config = {
     users.users."user" = {

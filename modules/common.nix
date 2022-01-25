@@ -32,7 +32,6 @@
         procs # alternative to ps
         nix-prefetch-github
         gh
-        zathura
         feh
         statix
         rnix-lsp
