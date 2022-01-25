@@ -19,8 +19,8 @@ let
 in
 [
   # fix for https://github.com/swaywm/sway/issues/5732
-  { command = "systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK"; }
-  { command = "dbus-update-activation-environment 2>/dev/null && dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK"; }
+  #{ command = "systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK"; }
+  #{ command = "dbus-update-activation-environment 2>/dev/null && dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK"; }
   { command = "${importGsettings}"; }
   { command = "keepassxc"; }
   { command = "chromium"; }

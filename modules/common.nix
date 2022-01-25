@@ -47,14 +47,15 @@
       ];
     };
 
-    home.activation = {
-      reloadKanshi = lib.hm.dag.entryAnywhere ''
-        $DRY_RUN_CMD systemctl --user restart kanshi.service
-      '';
-      reloadWaybar = lib.hm.dag.entryAnywhere ''
-        $DRY_RUN_CMD systemctl --user restart waybar.service
-      '';
-    };
+    systemd.user.startServices = "sd-switch";
+    #home.activation = {
+    #  reloadKanshi = lib.hm.dag.entryAnywhere ''
+    #    $DRY_RUN_CMD systemctl --user restart kanshi.service
+    #  '';
+    #  reloadWaybar = lib.hm.dag.entryAnywhere ''
+    #    $DRY_RUN_CMD systemctl --user restart waybar.service
+    #  '';
+    #};
 
     programs = {
       waybar = {

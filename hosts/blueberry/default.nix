@@ -13,6 +13,10 @@
     inputs.hardware.nixosModules.common-pc
   ];
 
+  networking.extraHosts = ''
+    127.0.0.1 local.develop.vshgu.edu.devspark.ru
+  '';
+
   networking.hostName = "nixos"; # Define your hostname.
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
