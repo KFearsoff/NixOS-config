@@ -23,7 +23,7 @@
       enable = true;
       passwordAuthentication = false;
       permitRootLogin = "no";
-      challengeResponseAuthentication = false;
+      kbdInteractiveAuthentication = false;
       # Persist host ssh keys
       hostKeys = [
         {

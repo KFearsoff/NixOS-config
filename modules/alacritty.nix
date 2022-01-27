@@ -52,7 +52,7 @@ let inherit (config.home-manager.users."${username}") colorscheme; in
         };
 
         font.size = 14.0;
-        background_opacity = 0.85;
+        window.opacity = 0.85;
       };
     };
   };

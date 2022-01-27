@@ -3,9 +3,11 @@
 {
   nixpkgs.config.allowUnfree = true;
   nix = {
-    trustedUsers = [ "@wheel" ];
     package = pkgs.nixUnstable;
-    autoOptimiseStore = true;
+    settings = {
+      auto-optimise-store = true;
+      trusted-users = [ "@wheel" ];
+    };
     # keep-outputs and keep-derivations options are great for development shells
     # also empty the registry: it will allow you to not redownload 100MBs every time
     # you collect garbage, but those 100MBs will be stored on the disk
