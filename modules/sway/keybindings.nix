@@ -36,9 +36,9 @@ let
     "Shift+q" = "kill";
     "Return" = "exec DRI_PRIME=1 alacritty";
     "Shift+Return" = "exec ee";
-    "d" = "exec rofi -combi-mode drun -show drun -matching fuzzy -icon-theme \"Papirus\" -show-icons";
+    "d" = "exec rofi -combi-mode drun -show drun -icon-theme \"Papirus\" -show-icons";
     "Caps_Lock" = "exec swaylock -i ~/NixOS-config/assets/nix-wallpaper-nineish-dark-gray.png";
-    "Shift+e" = "exec swaynag -t warning -m 'Do you want to exit sway?' -b 'Yes' 'swaymsg exit'";
+    "Shift+e" = "exec wlogout";
     "Shift+r" = "reload";
     "r" = "mode resize";
 

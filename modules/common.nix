@@ -40,7 +40,7 @@
         ansible
         udiskie
         shellcheck
-        element-desktop-wayland
+        element-desktop
         sway-contrib.grimshot
         nixpkgs-fmt
         tldr
@@ -58,12 +58,6 @@
     #};
 
     programs = {
-      waybar = {
-        enable = true;
-        systemd.enable = true;
-        systemd.target = "sway-session.target";
-      };
-
       git = {
         enable = true;
         delta.enable = true;

@@ -22,6 +22,7 @@ in
     (import ../modules/mako.nix args)
     (import ../modules/neovim args)
     (import ../modules/zathura.nix args)
+    (import ../modules/waybar.nix args)
   ];
   config = {
     users.users."nixchad" = {

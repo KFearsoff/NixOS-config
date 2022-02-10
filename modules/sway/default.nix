@@ -23,6 +23,7 @@ in
       export QT_QPA_PLATFORM=wayland-egl;
   '';
   config.home-manager.users."${username}" = {
+    home.packages = [ pkgs.wlogout ];
     wayland.windowManager.sway = {
       enable = true;
       package = null;
@@ -31,7 +32,7 @@ in
         bindkeysToCode = true;
 
         input = { "type:keyboard" = import ./keymap.nix; };
-
+        seat = { "*" = { hide_cursor = "10000"; }; };
         output = {
           "*" = {
             bg = "${wallpaper} fill";
