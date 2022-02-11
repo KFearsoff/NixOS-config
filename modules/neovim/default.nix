@@ -10,7 +10,6 @@ in
   # https://github.com/LunarVim/Neovim-from-scratch/
   enable = true;
   package = pkgs.neovim-nightly;
-  viAlias = true;
   vimAlias = true;
   vimdiffAlias = true;
   withNodeJs = true;
@@ -38,22 +37,29 @@ in
     friendly-snippets # a bunch of snippets to use
 
     telescope-nvim
-    vim-nix
+    #vim-nix
+    indentLine
 
     nvim-autopairs
 
     (nvim-treesitter.withPlugins (plugins: pkgs.tree-sitter.allGrammars))
   ];
 
-  # needed for nvim-treesitter
-  extraPackages = with pkgs; [ gcc ];
+  extraPackages = with pkgs; 
+  [
+    gcc # needed for nvim-treesitter
+    rnix-lsp
+    terraform-ls
+    nodePackages.bash-language-server
+    sumneko-lua-language-server
+  ];
 
-    #syntax on
-    #colorscheme nix-${colorscheme.slug}
     extraConfig = ''
       :lua << EOF
       ${builtins.readFile ./options.lua} 
       ${builtins.readFile ./keymaps.lua}
+      ${builtins.readFile ./cmp.lua}
+      ${builtins.readFile ./lsp/lsp.lua}
       ${builtins.readFile ./treesitter.lua}
       ${builtins.readFile ./autopairs.lua}
   '';

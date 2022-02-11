@@ -34,9 +34,6 @@
         gh
         feh
         statix
-        rnix-lsp
-        terraform-ls
-        nodePackages.bash-language-server
         ansible
         udiskie
         shellcheck
