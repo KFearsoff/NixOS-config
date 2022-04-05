@@ -1,4 +1,4 @@
-{ lib, pkgs, username, zsh-autosuggestions, zsh-you-should-use, zsh-history-substring-search, zsh-nix-shell, ... }:
+{ lib, pkgs, username, zsh-autosuggestions, zsh-you-should-use, zsh-history-substring-search, ... }:
 
 {
   config = {
@@ -27,16 +27,6 @@
           ps = "procs";
         };
         plugins = [
-          #    {
-          #      name = "zsh-powerlevel10k";
-          #      src = pkgs.zsh-powerlevel10k;
-          #      file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
-          #    }
-          #    {
-          #      name = "powerlevel10k-config";
-          #      src = lib.cleanSource ./p10k-config;
-          #      file = "p10k.zsh";
-          #    }
           {
             name = "zsh-autosuggestions";
             src = zsh-autosuggestions;

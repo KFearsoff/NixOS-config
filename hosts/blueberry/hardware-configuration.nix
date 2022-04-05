@@ -10,15 +10,18 @@
 
   fileSystems."/" = {
     device = "/dev/disk/by-label/nixos";
-    fsType = "ext4";
-  };
+    fsType = "ext4"; };
 
   fileSystems."/boot" = {
     device = "/dev/disk/by-label/boot";
     fsType = "vfat";
   };
 
+  zramSwap = {
+    enable = true;
+    algorithm = "zstd";
+  };
   swapDevices = [{ device = "/dev/disk/by-label/swap"; }];
 
-  powerManagement.cpuFreqGovernor = lib.mkDefault "performance";
+  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }

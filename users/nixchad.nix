@@ -1,28 +1,19 @@
-{ inputs, config, lib, pkgs, zsh-autosuggestions, zsh-you-should-use, zsh-history-substring-search, zsh-nix-shell, username, ... }:
+{ inputs, config, lib, pkgs, username, ... }:
 
-let
-  args = {
-    username = "${username}";
-    inherit (inputs) nix-colors;
-    inherit pkgs;
-    inherit config;
-    inherit lib;
-  };
-in
 {
   imports = [
     inputs.home-manager.nixosModules.home-manager
-    (import ../modules/colors.nix args)
-    (import ../modules/sway args)
-    (import ../modules/alacritty.nix args)
-    (import ../modules/zsh.nix (args // { inherit zsh-autosuggestions zsh-you-should-use zsh-history-substring-search zsh-nix-shell; }))
-    (import ../modules/gammastep.nix args)
-    (import ../modules/starship.nix args)
-    (import ../modules/common.nix args)
-    (import ../modules/mako.nix args)
-    (import ../modules/neovim args)
-    (import ../modules/zathura.nix args)
-    (import ../modules/waybar.nix args)
+    ../modules/colors.nix
+    ../modules/sway
+    ../modules/alacritty.nix
+    ../modules/zsh.nix
+    ../modules/gammastep.nix
+    ../modules/starship.nix
+    ../modules/common.nix
+    ../modules/mako.nix
+    ../modules/neovim
+    ../modules/zathura.nix
+    ../modules/waybar.nix
   ];
   config = {
     users.users."${username}" = {

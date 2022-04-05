@@ -1,4 +1,4 @@
-{ nix-colors, username, ... }:
+{ username, nix-colors, ... }:
 
 {
   config.home-manager.users."${username}" = {

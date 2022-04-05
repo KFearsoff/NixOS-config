@@ -57,7 +57,7 @@
         neovim-nightly-overlay.overlay
       ];
       nixosConfigurations = {
-        nixos = buildSystem "x86_64-linux" unstable
+        blueberry = buildSystem "x86_64-linux" unstable
           [
             { nixpkgs.overlays = self.overlays; }
             ./hosts/blueberry
@@ -70,6 +70,7 @@
             { nixpkgs.overlays = self.overlays; }
             ./hosts/blackberry
             ./users/nixchad.nix
+	    ./modules/grub-efi.nix
             ./profiles/all.nix
           ];
       };

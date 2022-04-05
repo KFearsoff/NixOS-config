@@ -7,28 +7,31 @@
     ../common/virtualisation.nix
     ../common/nixconf.nix
     ../common/pipewire.nix
-    /secrets/smb.nix
     inputs.hardware.nixosModules.common-cpu-intel
-    inputs.hardware.nixosModules.common-pc-ssd
-    inputs.hardware.nixosModules.common-pc
+    inputs.hardware.nixosModules.common-pc-laptop-ssd
+    inputs.hardware.nixosModules.common-pc-laptop
+    inputs.hardware.nixosModules.laptop-acpi_call
   ];
 
-  networking.extraHosts = ''
-    127.0.0.1 local.develop.vshgu.edu.devspark.ru
-  '';
+  networking = {
+    hostName = "blueberry"; # Define your hostname.
+    interfaces.enp108s0.ipv4.addresses = [{
+      address = "192.168.1.101";
+      prefixLength = 24;
+    }];
+    defaultGateway = "192.168.1.1";
+    nameservers = [ "8.8.8.8" "8.8.4.4" "1.1.1.1" ];
+    firewall.checkReversePath = false;
+  };
 
-  networking.hostName = "nixos"; # Define your hostname.
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   programs.dconf.enable = true;
-
-  services.udisks2.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   security.sudo.wheelNeedsPassword = false;
 
   services.printing.enable = true;
-  nixpkgs.config.chromium.commandLineArgs = "--enable-features=UseOzonePlatform --ozone-platform=wayland";
 
   # Enable the OpenSSH daemon.
   programs.ssh.startAgent = true;
