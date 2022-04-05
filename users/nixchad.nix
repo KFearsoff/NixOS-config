@@ -1,8 +1,8 @@
-{ inputs, config, lib, pkgs, zsh-autosuggestions, zsh-you-should-use, zsh-history-substring-search, zsh-nix-shell, ... }:
+{ inputs, config, lib, pkgs, zsh-autosuggestions, zsh-you-should-use, zsh-history-substring-search, zsh-nix-shell, username, ... }:
 
 let
   args = {
-    username = "nixchad";
+    username = "${username}";
     inherit (inputs) nix-colors;
     inherit pkgs;
     inherit config;
@@ -25,14 +25,15 @@ in
     (import ../modules/waybar.nix args)
   ];
   config = {
-    users.users."nixchad" = {
+    users.users."${username}" = {
       isNormalUser = true;
       extraGroups = [ "wheel" "libvirtd" "docker" "networkmanager" ];
       initialPassword = "test";
     };
     home-manager.useGlobalPkgs = true;
     home-manager.useUserPackages = true;
-    home-manager.users."nixchad" = {
+    home-manager.extraSpecialArgs = { inherit username; };
+    home-manager.users."${username}" = {
       home.packages = with pkgs; [
         lutris
         testdisk

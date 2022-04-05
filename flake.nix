@@ -7,9 +7,13 @@
     hardware.url = "github:NixOS/nixos-hardware/master";
     flake-utils.url = "github:numtide/flake-utils";
     home-manager.url = "github:nix-community/home-manager";
+    home-manager.inputs.nixpkgs.follows = "unstable";
 
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+    neovim-nightly-overlay.inputs.nixpkgs.follows = "unstable";
     neovim-lsp.url = "github:neovim/nvim-lspconfig";
+    neovim-lsp.inputs.nixpkgs.follows = "unstable";
+    neovim-lsp.inputs.flake-utils.follows = "flake-utils";
 
     zsh-autosuggestions.url = "github:zsh-users/zsh-autosuggestions";
     zsh-autosuggestions.flake = false;
@@ -21,14 +25,14 @@
     zsh-nix-shell.flake = false;
     nur.url = "github:nix-community/NUR";
     nix-colors.url = "github:misterio77/nix-colors";
-    impermanence.url = "github:RiscadoA/impermanence";
+    impermanence.url = "github:nix-community/impermanence";
   };
 
   outputs = inputs@{ self, nixpkgs, unstable, flake-utils, hardware, home-manager, neovim-nightly-overlay, nur, ... }:
     let
       buildSystem = system: pkgs: extraModules: pkgs.lib.nixosSystem {
         inherit system;
-        specialArgs = with self.inputs; { inherit system inputs zsh-autosuggestions zsh-you-should-use zsh-history-substring-search zsh-nix-shell nix-colors; };
+        specialArgs = with self.inputs; { inherit system inputs zsh-autosuggestions zsh-you-should-use zsh-history-substring-search zsh-nix-shell nix-colors; username = "nixchad"; };
         modules = [
           {
             nix = {
