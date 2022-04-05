@@ -70,7 +70,7 @@
             { nixpkgs.overlays = self.overlays; }
             ./hosts/blackberry
             ./users/nixchad.nix
-	    ./modules/grub-efi.nix
+            ./modules/grub-efi.nix
             ./profiles/all.nix
           ];
       };
