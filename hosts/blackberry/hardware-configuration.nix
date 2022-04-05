@@ -65,6 +65,7 @@
       fsType = "vfat";
     };
 
+  zramSwap.enable = true;
   swapDevices = [{
     device = "/swap/swapfile";
     size = (1024 * 2);

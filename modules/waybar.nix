@@ -93,7 +93,7 @@ let inherit (config.home-manager.users."${username}") colorscheme; in
             scroll-step = 1;
             format = "{icon}{volume}% {format_source}";
             format-bluetooth = "{icon}{volume}% {format_source}";
-            format-muted = " {format_source}";
+            format-muted = " {format_source}";
             format-source = "{volume}%";
             format-source-muted = "";
             format-icons = {
@@ -140,9 +140,9 @@ let inherit (config.home-manager.users."${username}") colorscheme; in
           "network" = {
             interval = 5;
             format-wifi = "{signalStrength}%";
-            format-ethernet = "";
-            tooltip-format = "{ifname} via {gwaddr}";
-            format-linked = "";
+            format-ethernet = "";
+            tooltip-format = "{ifname}: {ipaddr}/{cidr}";
+            format-linked = "";
             format-disconnected = "⚠";
             format-alt = "{ifname}: {ipaddr}/{cidr}";
           };

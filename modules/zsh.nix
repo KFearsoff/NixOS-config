@@ -8,7 +8,7 @@
       autosuggestions.enable = true;
       syntaxHighlighting.enable = true;
     };
-    users.defaultUserShell = pkgs.zsh;
+    users.users."${username}".shell = pkgs.zsh;
 
     home-manager.users."${username}" = {
       programs.zsh = {
@@ -20,9 +20,11 @@
         history.expireDuplicatesFirst = true;
         history.extended = true;
         shellAliases = {
-          ls = "exa";
+          ls = "exa -lg --color=always --group-directories-first";
+          la = "exa -lag --color=always --group-directories-first";
           cat = "bat -p";
-          l = "exa -lag";
+          md = "mkdir -vp";
+          ps = "procs";
         };
         plugins = [
           #    {

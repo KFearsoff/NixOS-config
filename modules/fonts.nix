@@ -13,7 +13,7 @@
       };
     };
     fonts = with pkgs; [
-      (nerdfonts.override { fonts = [ "Iosevka" ]; })
+      (nerdfonts.override { fonts = [ "Iosevka" "Noto" ]; })
       vistafonts
       corefonts
     ];

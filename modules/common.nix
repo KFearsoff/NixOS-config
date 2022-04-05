@@ -22,6 +22,7 @@
         wl-clipboard
         mako
         gimp
+        htop
         bottom # htop alternative
         qbittorrent
         ripgrep # alternative to grep
@@ -41,6 +42,15 @@
         sway-contrib.grimshot
         nixpkgs-fmt
         tldr
+        ascii-image-converter
+        vscodium-fhs
+        rnix-lsp
+        calyx-vpn
+        riseup-vpn
+        tor-browser-bundle-bin
+        wireguard-tools
+        cinnamon.nemo
+        newsboat
       ];
     };
 

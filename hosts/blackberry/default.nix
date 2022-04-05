@@ -13,7 +13,16 @@
     inputs.hardware.nixosModules.common-pc
   ];
 
-  networking.hostName = "blackberry"; # Define your hostname.
+  networking = {
+    hostName = "blackberry"; # Define your hostname.
+    interfaces.enp108s0.ipv4.addresses = [{
+      address = "192.168.1.100";
+      prefixLength = 24;
+    }];
+    defaultGateway = "192.168.1.1";
+    nameservers = [ "8.8.8.8" "8.8.4.4" "1.1.1.1" ];
+    firewall.checkReversePath = false;
+  };
 
   programs.dconf.enable = true;
 
