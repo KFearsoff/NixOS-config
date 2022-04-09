@@ -9,18 +9,19 @@ in
   config.programs.sway.wrapperFeatures.gtk = true;
   config.programs.sway.extraSessionCommands = ''
     # don't remember, let it be for now
-    export DESKTOP_SESSION=sway;
-    export SDL_VIDEODRIVER=wayland;
-    export GTK_BACKEND=wayland;
-    export XDG_CURRENT_DESKTOP=sway;
-    export XDG_SESSION_TYPE=sway;
+    export DESKTOP_SESSION=sway
+    export SDL_VIDEODRIVER=wayland
+    export GTK_BACKEND=wayland
+    export XDG_CURRENT_DESKTOP=sway
+    export XDG_SESSION_TYPE=sway
     # Nouveau fix
-    export WLR_DRM_NO_MODIFIERS=1;
+    export WLR_DRM_NO_MODIFIERS=1
     # required for some Java apps to work on Wayland
-    export _JAWA_AWT_WM_NONREPARENTING=1;
-    # required for Qt apps to run properly
-    export QT_WAYLAND_DISABLE_WINDOWDECORATION=1;
-      export QT_QPA_PLATFORM=wayland-egl;
+    export _JAWA_AWT_WM_NONREPARENTING=1
+    # Qt settings
+    export QT_QPA_PLATFORM=wayland
+    export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
+    export QT_AUTO_SCREEN_SCALE_FACTOR=1
   '';
   config.home-manager.users."${username}" = {
     home.packages = [ pkgs.wlogout ];
@@ -31,7 +32,13 @@ in
         modifier = "Mod4";
         bindkeysToCode = true;
 
-        input = { "type:keyboard" = import ./keymap.nix; };
+        input = { 
+          "type:keyboard" = import ./keymap.nix;
+          "type:touchpad" = {
+              tap = "enabled";
+              natural_scroll = "enabled";
+            };
+        };
         seat = { "*" = { hide_cursor = "10000"; }; };
         output = {
           "*" = {

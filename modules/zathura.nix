@@ -46,13 +46,16 @@ let inherit (config.home-manager.users."${username}") colorscheme; in
         completion-highlight-bg = "#${colorscheme.colors.base0D}";
         completion-highlight-fg = "#${colorscheme.colors.base07}";
 
-        recolor = true;
+        # recoloring is bugged with mupdf:
+        # https://git.pwmt.org/pwmt/zathura/-/issues/184
+        # recolor = true;
         recolor-lightcolor = "#${colorscheme.colors.base00}";
         recolor-darkcolor = "#${colorscheme.colors.base06}";
         recolor-reverse-video = true;
         recolor-keephue = true;
 
         render-loading = false;
+        selection-clipboard = "clipboard";
       };
       extraConfig = ''
         unmap f

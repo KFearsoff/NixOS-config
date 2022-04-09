@@ -3,6 +3,7 @@
 {
   imports = [
     ./hardware-configuration.nix
+    ./kanshi.nix
     ../common
     ../common/virtualisation.nix
     ../common/nixconf.nix
@@ -10,28 +11,25 @@
     inputs.hardware.nixosModules.common-cpu-intel
     inputs.hardware.nixosModules.common-pc-laptop-ssd
     inputs.hardware.nixosModules.common-pc-laptop
-    inputs.hardware.nixosModules.laptop-acpi_call
+    inputs.hardware.nixosModules.common-pc-laptop-acpi_call
   ];
 
   networking = {
     hostName = "blueberry"; # Define your hostname.
-    interfaces.enp108s0.ipv4.addresses = [{
-      address = "192.168.1.101";
-      prefixLength = 24;
-    }];
-    defaultGateway = "192.168.1.1";
-    nameservers = [ "8.8.8.8" "8.8.4.4" "1.1.1.1" ];
-    firewall.checkReversePath = false;
   };
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   programs.dconf.enable = true;
+  programs.light.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   security.sudo.wheelNeedsPassword = false;
 
   services.printing.enable = true;
+  users.mutableUsers = false;
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true; 
 
   # Enable the OpenSSH daemon.
   programs.ssh.startAgent = true;

@@ -18,7 +18,7 @@
   config = {
     users.users."${username}" = {
       isNormalUser = true;
-      extraGroups = [ "wheel" "libvirtd" "docker" "networkmanager" ];
+      extraGroups = [ "wheel" "libvirtd" "docker" "networkmanager" "video" ];
       initialPassword = "test";
     };
     home-manager.useGlobalPkgs = true;

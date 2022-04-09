@@ -3,6 +3,7 @@
 {
   imports = [
     ./hardware-configuration.nix
+    ./kanshi.nix
     ../common
     ../common/swap-btrfs.nix
     ../common/virtualisation.nix

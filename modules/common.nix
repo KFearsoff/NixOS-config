@@ -38,7 +38,7 @@
         ansible
         udiskie
         shellcheck
-        element-desktop
+        element-desktop-wayland
         sway-contrib.grimshot
         nixpkgs-fmt
         tldr

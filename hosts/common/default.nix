@@ -14,6 +14,8 @@
   networking.networkmanager.enable = true;
 
   programs.git.enable = true;
+  nixpkgs.config.chromium.commandLineArgs = "--enable-features=UseOzonePlatform --ozone-platform=wayland";
+
   environment.systemPackages = with pkgs; [
     wget
   ];

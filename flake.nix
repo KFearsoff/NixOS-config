@@ -68,7 +68,7 @@
           [
             { nixpkgs.overlays = self.overlays; }
             ./hosts/blueberry
-            ./users/user.nix
+            ./users/nixchad.nix
             ./profiles/all.nix
           ];
 
