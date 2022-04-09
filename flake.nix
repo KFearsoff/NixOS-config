@@ -4,6 +4,7 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/release-21.05";
     unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    flake-compat = { url = "github:edolstra/flake-compat"; flake = false; };
     hardware.url = "github:NixOS/nixos-hardware/master";
     flake-utils.url = "github:numtide/flake-utils";
     home-manager.url = "github:nix-community/home-manager";
@@ -11,6 +12,12 @@
 
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
     neovim-nightly-overlay.inputs.nixpkgs.follows = "unstable";
+    neovim-flake.url = "github:neovim/neovim?dir=contrib";
+    neovim-flake.inputs.nixpkgs.follows = "unstable";
+    neovim-flake.inputs.flake-utils.follows = "flake-utils";
+    neovim-nightly-overlay.inputs.flake-compat.follows = "flake-compat";
+    neovim-nightly-overlay.inputs.neovim-flake.follows = "neovim-flake";
+
     neovim-lsp.url = "github:neovim/nvim-lspconfig";
     neovim-lsp.inputs.nixpkgs.follows = "unstable";
     neovim-lsp.inputs.flake-utils.follows = "flake-utils";

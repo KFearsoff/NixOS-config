@@ -31,21 +31,6 @@
         "type": "github"
       }
     },
-    "flake-utils_2": {
-      "locked": {
-        "lastModified": 1644229661,
-        "narHash": "sha256-1YdnJAsNy69bpcjuoKdOYQX0YxZBiCYZo4Twxerqv7k=",
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "rev": "3cecb5b042f7f209c56ffd8371b2711a290ec797",
-        "type": "github"
-      },
-      "original": {
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "type": "github"
-      }
-    },
     "hardware": {
       "locked": {
         "lastModified": 1648141026,
@@ -99,19 +84,20 @@
     },
     "neovim-flake": {
       "inputs": {
-        "flake-utils": "flake-utils_2",
+        "flake-utils": [
+          "flake-utils"
+        ],
         "nixpkgs": [
-          "neovim-nightly-overlay",
-          "nixpkgs"
+          "unstable"
         ]
       },
       "locked": {
         "dir": "contrib",
-        "lastModified": 1649120448,
-        "narHash": "sha256-x9WDekkKfkclTlm1fHtc4x3RODJ/BK9tPhi/RwnATlU=",
+        "lastModified": 1649513614,
+        "narHash": "sha256-VDRcuV1uuUkqKk4tFk1xbypQSX4wMp/A9RFEAR6Nmb0=",
         "owner": "neovim",
         "repo": "neovim",
-        "rev": "e135adcb8c4f32332ba87ea6681f41330b909e1c",
+        "rev": "f3183a4d7c051e8062d28cfc9905b21e13bb7775",
         "type": "github"
       },
       "original": {
@@ -146,8 +132,12 @@
     },
     "neovim-nightly-overlay": {
       "inputs": {
-        "flake-compat": "flake-compat",
-        "neovim-flake": "neovim-flake",
+        "flake-compat": [
+          "flake-compat"
+        ],
+        "neovim-flake": [
+          "neovim-flake"
+        ],
         "nixpkgs": [
           "unstable"
         ]
@@ -214,10 +204,12 @@
     },
     "root": {
       "inputs": {
+        "flake-compat": "flake-compat",
         "flake-utils": "flake-utils",
         "hardware": "hardware",
         "home-manager": "home-manager",
         "impermanence": "impermanence",
+        "neovim-flake": "neovim-flake",
         "neovim-lsp": "neovim-lsp",
         "neovim-nightly-overlay": "neovim-nightly-overlay",
         "nix-colors": "nix-colors",
