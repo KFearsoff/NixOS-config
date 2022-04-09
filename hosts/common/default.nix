@@ -18,6 +18,21 @@
     wget
   ];
 
+  environment.persistence."/persist" = {
+      hideMounts = true;
+      directories = [
+      "/var/log"
+      "/var/lib/systemd/coredump"
+      "/etc/NetworkManager/system-connections"
+      ];
+      files = [
+      "/etc/machine-id"
+      "/etc/ssh/ssh_host_ed25519_key"
+      "/etc/ssh/ssh_host_ed25519_key.pub"
+      "/etc/ssh/ssh_host_rsa_key"
+      "/etc/ssh/ssh_host_rsa_key.pub"
+      ];
+    };
   services = {
     openssh = {
       enable = true;
@@ -27,11 +42,11 @@
       # Persist host ssh keys
       hostKeys = [
         {
-          path = "/persist/etc/ssh/ssh_host_ed25519_key";
+          path = "/etc/ssh/ssh_host_ed25519_key";
           type = "ed25519";
         }
         {
-          path = "/persist/etc/ssh/ssh_host_rsa_key";
+          path = "/etc/ssh/ssh_host_rsa_key";
           type = "rsa";
           bits = "4096";
         }
