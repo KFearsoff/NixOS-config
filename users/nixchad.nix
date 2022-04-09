@@ -14,6 +14,7 @@
     ../modules/neovim
     ../modules/zathura.nix
     ../modules/waybar.nix
+    ../modules/vscodium.nix
   ];
   config = {
     users.users."${username}" = {

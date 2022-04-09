@@ -43,7 +43,6 @@
         nixpkgs-fmt
         tldr
         ascii-image-converter
-        vscodium-fhs
         rnix-lsp
         calyx-vpn
         riseup-vpn

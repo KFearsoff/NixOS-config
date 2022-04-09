@@ -27,6 +27,8 @@ let
     "XF86AudioLowerVolume" = "--no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5%";
     "XF86AudioMute" = "--no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle";
     "XF86AudioMicMute" = "--no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle";
+    "XF86MonBrightnessUp" = "light -A 5";
+    "XF86MonBrightnessDown" = "light -U 5";
     "Print" = "grimshot copy area";
     "${mod}+Print" = "grimshot save area";
   };

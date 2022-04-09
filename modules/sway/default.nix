@@ -24,7 +24,7 @@ in
     export QT_AUTO_SCREEN_SCALE_FACTOR=1
   '';
   config.home-manager.users."${username}" = {
-    home.packages = [ pkgs.wlogout ];
+    home.packages = [ pkgs.wlogout pkgs.autotiling ];
     wayland.windowManager.sway = {
       enable = true;
       package = null;

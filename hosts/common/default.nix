@@ -13,6 +13,8 @@
   networking.useDHCP = false;
   networking.networkmanager.enable = true;
 
+  hardware.video.hidpi.enable = true;
+
   programs.git.enable = true;
   nixpkgs.config.chromium.commandLineArgs = "--enable-features=UseOzonePlatform --ozone-platform=wayland";
 
@@ -28,7 +30,7 @@
       "/etc/NetworkManager/system-connections"
       ];
       files = [
-      "/etc/machine-id"
+      # "/etc/machine-id"
       "/etc/ssh/ssh_host_ed25519_key"
       "/etc/ssh/ssh_host_ed25519_key.pub"
       "/etc/ssh/ssh_host_rsa_key"

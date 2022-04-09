@@ -22,6 +22,7 @@ in
   #{ command = "systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK"; }
   #{ command = "dbus-update-activation-environment 2>/dev/null && dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK"; }
   { command = "${importGsettings}"; }
+  { command = "autotiling"; always = true; }
   { command = "keepassxc"; }
   { command = "chromium"; }
   { command = "telegram-desktop"; }
