@@ -8,6 +8,7 @@
     ../common/virtualisation.nix
     ../common/nixconf.nix
     ../common/pipewire.nix
+    ../common/syncthing.nix
     inputs.hardware.nixosModules.common-cpu-intel
     inputs.hardware.nixosModules.common-pc-laptop-ssd
     inputs.hardware.nixosModules.common-pc-laptop
@@ -29,7 +30,7 @@
   services.printing.enable = true;
   users.mutableUsers = false;
   boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true; 
+  boot.loader.efi.canTouchEfiVariables = true;
 
   # Enable the OpenSSH daemon.
   programs.ssh.startAgent = true;

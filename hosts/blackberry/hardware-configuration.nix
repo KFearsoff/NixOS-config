@@ -44,21 +44,6 @@
       options = [ "subvol=persist" "compress-force=zstd" "noatime" ];
     };
 
-  fileSystems."/swap" =
-    {
-      device = "/dev/disk/by-label/root";
-      fsType = "btrfs";
-      options = [ "subvol=swap" "compress-force=zstd" "noatime" ];
-    };
-
-  fileSystems."/var/log" =
-    {
-      device = "/dev/disk/by-label/root";
-      fsType = "btrfs";
-      options = [ "subvol=log" "compress-force=zstd" "noatime" ];
-      neededForBoot = true;
-    };
-
   fileSystems."/boot" =
     {
       device = "/dev/disk/by-partlabel/boot";
@@ -66,10 +51,7 @@
     };
 
   zramSwap.enable = true;
-  swapDevices = [{
-    device = "/swap/swapfile";
-    size = 1024 * 2;
-  }];
+  swapDevices = [ ];
 
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }

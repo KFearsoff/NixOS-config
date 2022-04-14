@@ -5,7 +5,8 @@
 
 {
   imports =
-    [ (modulesPath + "/installer/scan/not-detected.nix")
+    [
+      (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "usb_storage" "sd_mod" "sdhci_pci" ];
@@ -18,27 +19,35 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/859fe7e9-6eca-4516-86f7-4acd2bd1b60d";
+    {
+      device = "/dev/disk/by-uuid/859fe7e9-6eca-4516-86f7-4acd2bd1b60d";
       fsType = "ext4";
+      options = [ "noatime" ];
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/B0C4-C3C5";
+    {
+      device = "/dev/disk/by-uuid/B0C4-C3C5";
       fsType = "vfat";
     };
 
   fileSystems."/home/nixchad" =
-    { device = "/dev/disk/by-uuid/7d75f41c-48b4-4b83-b186-f04ed19dd2f7";
+    {
+      device = "/dev/disk/by-uuid/7d75f41c-48b4-4b83-b186-f04ed19dd2f7";
       fsType = "ext4";
+      options = [ "noatime" ];
     };
 
   fileSystems."/persist" =
-    { device = "/dev/disk/by-uuid/9dd6e11c-d563-4957-9af1-a41b83071d75";
+    {
+      device = "/dev/disk/by-uuid/9dd6e11c-d563-4957-9af1-a41b83071d75";
       fsType = "ext4";
+      options = [ "noatime" ];
       neededForBoot = true;
     };
 
-  swapDevices = [{ device = "/dev/disk/by-uuid/2a933952-7efa-471f-befb-d69fabd1b37b"; }];
+  zramSwap.enable = true;
+  swapDevices = [ ];
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
