@@ -42,6 +42,7 @@
       device = "/dev/disk/by-label/root";
       fsType = "btrfs";
       options = [ "subvol=persist" "compress-force=zstd" "noatime" ];
+      neededForBoot = true;
     };
 
   fileSystems."/boot" =
