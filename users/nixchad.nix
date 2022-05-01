@@ -21,16 +21,18 @@
     users.users."${username}" = {
       isNormalUser = true;
       extraGroups = [ "wheel" "libvirtd" "docker" "networkmanager" "video" ];
-      initialPassword = "test";
+      initialPassword = "123";
     };
     home-manager.useGlobalPkgs = true;
     home-manager.useUserPackages = true;
     home-manager.extraSpecialArgs = { inherit username; };
     home-manager.users."${username}" = {
       home.packages = with pkgs; [
-        lutris
-        testdisk
+        du-dust
+        duf
       ];
+
+      home.stateVersion = "22.05";
     };
   };
 }

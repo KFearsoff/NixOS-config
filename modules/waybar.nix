@@ -56,124 +56,122 @@ let inherit (config.home-manager.users."${username}") colorscheme; in
           "tray"
         ];
 
-        modules = {
-          "custom/left-arrow-dark" = {
-            format = "";
-            tooltip = false;
-          };
-          "custom/left-arrow-light" = {
-            format = "";
-            tooltip = false;
-          };
-          "custom/right-arrow-dark" = {
-            format = "";
-            tooltip = false;
-          };
-          "custom/right-arrow-light" = {
-            format = "";
-            tooltip = false;
-          };
-          "sway/workspaces" = {
-            disable-scroll = true;
-            format = "{name}";
-          };
-          "clock#1" = {
-            format = "{:%a}";
-            tooltip = false;
-          };
-          "clock#2" = {
-            format = "{:%H:%M}";
-            tooltip = false;
-          };
-          "clock#3" = {
-            format = "{:%m-%d}";
-            tooltip = false;
-          };
-          "pulseaudio" = {
-            scroll-step = 1;
-            format = "{icon}{volume}% {format_source}";
-            format-bluetooth = "{icon}{volume}% {format_source}";
-            format-muted = " {format_source}";
-            format-source = "{volume}%";
-            format-source-muted = "";
-            format-icons = {
-              headphones = "";
-              hands-free = "";
-              headset = "";
-              phone = "";
-              portable = "";
-              car = "";
-              default = [
-                ""
-                ""
-                ""
-              ];
-            };
-            on-click = "pavucontrol";
-          };
-          "mpd" = {
-            format = "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{artist} - {album} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ⸨{songPosition}|{queueLength}⸩ {volume}% ";
-            format-disconnected = "Disconnected ";
-            format-stopped = "{consumeIcon}{randomIcon}{repeatIcon}{singleIcon}Stopped ";
-            unknown-tag = "N/A";
-            interval = 2;
-            consume-icons = {
-              on = " ";
-            };
-            random-icons = {
-              off = "<span color=\"#f53c3c\"></span> ";
-              on = " ";
-            };
-            repeat-icons = {
-              on = " ";
-            };
-            single-icons = {
-              on = "1 ";
-            };
-            state-icons = {
-              paused = "";
-              playing = "";
-            };
-            tooltip-format = "MPD (connected)";
-            tooltip-format-disconnected = "MPD (disconnected)";
-          };
-          "network" = {
-            interval = 5;
-            format-wifi = "{signalStrength}%";
-            format-ethernet = "";
-            tooltip-format = "{ifname}: {ipaddr}/{cidr}";
-            format-linked = "";
-            format-disconnected = "⚠";
-            format-alt = "{ifname}: {ipaddr}/{cidr}";
-          };
-          "backlight" = {
-            format = "{percent}% {icon}";
-            format-icons = [ "" "" ];
-          };
-          "sway/language" = {
-            format = "{short}";
-          };
-          "battery" = {
-            states = {
-              warning = 30;
-              critical = 15;
-            };
-            format = "{icon}{capacity}%";
-            format-charging = "{capacity}%";
-            format-plugged = "{capacity}%";
-            format-full = "OK";
-            format-icons = [
-              ""
-              ""
-              ""
-              ""
-              ""
+        "custom/left-arrow-dark" = {
+          format = "";
+          tooltip = false;
+        };
+        "custom/left-arrow-light" = {
+          format = "";
+          tooltip = false;
+        };
+        "custom/right-arrow-dark" = {
+          format = "";
+          tooltip = false;
+        };
+        "custom/right-arrow-light" = {
+          format = "";
+          tooltip = false;
+        };
+        "sway/workspaces" = {
+          disable-scroll = true;
+          format = "{name}";
+        };
+        "clock#1" = {
+          format = "{:%a}";
+          tooltip = false;
+        };
+        "clock#2" = {
+          format = "{:%H:%M}";
+          tooltip = false;
+        };
+        "clock#3" = {
+          format = "{:%m-%d}";
+          tooltip = false;
+        };
+        "pulseaudio" = {
+          scroll-step = 1;
+          format = "{icon}{volume}% {format_source}";
+          format-bluetooth = "{icon}{volume}% {format_source}";
+          format-muted = " {format_source}";
+          format-source = "{volume}%";
+          format-source-muted = "";
+          format-icons = {
+            headphones = "";
+            hands-free = "";
+            headset = "";
+            phone = "";
+            portable = "";
+            car = "";
+            default = [
+              ""
+              ""
+              ""
             ];
           };
-          "tray" = {
-            icon-size = 20;
-            spacing = 5;
+          on-click = "pavucontrol";
+        };
+        "mpd" = {
+          format = "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{artist} - {album} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ⸨{songPosition}|{queueLength}⸩ {volume}% ";
+          format-disconnected = "Disconnected ";
+          format-stopped = "{consumeIcon}{randomIcon}{repeatIcon}{singleIcon}Stopped ";
+          unknown-tag = "N/A";
+          interval = 2;
+          consume-icons = {
+            on = " ";
           };
+          random-icons = {
+            off = "<span color=\"#f53c3c\"></span> ";
+            on = " ";
+          };
+          repeat-icons = {
+            on = " ";
+          };
+          single-icons = {
+            on = "1 ";
+          };
+          state-icons = {
+            paused = "";
+            playing = "";
+          };
+          tooltip-format = "MPD (connected)";
+          tooltip-format-disconnected = "MPD (disconnected)";
+        };
+        "network" = {
+          interval = 5;
+          format-wifi = "{signalStrength}%";
+          format-ethernet = "";
+          tooltip-format = "{ifname}: {ipaddr}/{cidr}";
+          format-linked = "";
+          format-disconnected = "⚠";
+          format-alt = "{ifname}: {ipaddr}/{cidr}";
+        };
+        "backlight" = {
+          format = "{percent}% {icon}";
+          format-icons = [ "" "" ];
+        };
+        "sway/language" = {
+          format = "{short}";
+        };
+        "battery" = {
+          states = {
+            warning = 30;
+            critical = 15;
+          };
+          format = "{icon}{capacity}%";
+          format-charging = "{capacity}%";
+          format-plugged = "{capacity}%";
+          format-full = "OK";
+          format-icons = [
+            ""
+            ""
+            ""
+            ""
+            ""
+          ];
+        };
+        "tray" = {
+          icon-size = 20;
+          spacing = 5;
         };
       }];
       style = let inherit (colorscheme) colors; in

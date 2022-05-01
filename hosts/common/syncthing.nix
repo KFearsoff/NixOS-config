@@ -12,8 +12,8 @@
       "blackberry" = { id = "S3S7WIB-2J2YK4E-VIKFG4K-FZ7N4OI-43RXU3D-T5FX3AD-PQCJPSX-LNQNRA5"; addresses = [ "tcp://192.168.1.100" "quic://192.168.1.100" ]; };
     };
     folders = {
-      ".newsboat" = {
-        path = "/home/nixchad/.newsboat";
+      ".config/newsboat" = {
+        path = "/home/nixchad/.config/newsboat";
         devices = [ "blueberry" "blackberry" ];
       };
       "Sync" = {

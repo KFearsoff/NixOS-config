@@ -96,6 +96,23 @@
       };
     };
 
+    systemd.user.services.newsboat-update = {
+      Unit = {
+        Description = "Update Newsboat feeds";
+      };
+
+      Service = {
+        ExecStart = "${pkgs.newsboat}/bin/newsboat -x reload";
+        Type = "simple";
+      };
+    };
+    systemd.user.timers.newsboat-update = {
+      Timer = { OnCalendar = "hourly"; };
+
+      Install = {
+        WantedBy = [ "timers.target" ];
+      };
+    };
     services.udiskie.enable = true;
     services.swayidle = import ../modules/sway/swayidle.nix;
 
