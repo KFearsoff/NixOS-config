@@ -52,6 +52,8 @@
       ];
     };
 
+    home.file.".icons/default".source = "${pkgs.vanilla-dmz}/share/icons/Vanilla-DMZ";
+
     systemd.user.startServices = "sd-switch";
     #home.activation = {
     #  reloadKanshi = lib.hm.dag.entryAnywhere ''
