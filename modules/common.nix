@@ -49,6 +49,8 @@
         wireguard-tools
         cinnamon.nemo
         newsboat
+        obsidian
+        easyeffects
       ];
     };
 
