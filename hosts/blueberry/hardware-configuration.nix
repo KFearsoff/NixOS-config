@@ -12,7 +12,7 @@
   boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "usb_storage" "sd_mod" "sdhci_pci" ];
   boot.initrd.kernelModules = [ "dm-snapshot" ];
   boot.initrd.luks.devices.crypt = {
-    device = "/dev/disk/by-uuid/bf0a2a4f-09a3-4f55-ad09-5b6723137062";
+    device = "/dev/disk/by-partlabel/root";
     preLVM = true;
   };
   boot.kernelModules = [ "kvm-intel" ];
@@ -20,27 +20,34 @@
 
   fileSystems."/" =
     {
-      device = "/dev/disk/by-uuid/859fe7e9-6eca-4516-86f7-4acd2bd1b60d";
+      device = "/dev/disk/by-label/root";
+      fsType = "ext4";
+      options = [ "noatime" ];
+    };
+
+  fileSystems."/nix" =
+    {
+      device = "/dev/disk/by-label/nix";
       fsType = "ext4";
       options = [ "noatime" ];
     };
 
   fileSystems."/boot" =
     {
-      device = "/dev/disk/by-uuid/B0C4-C3C5";
+      device = "/dev/disk/by-label/boot";
       fsType = "vfat";
     };
 
   fileSystems."/home/nixchad" =
     {
-      device = "/dev/disk/by-uuid/7d75f41c-48b4-4b83-b186-f04ed19dd2f7";
+      device = "/dev/disk/by-label/home";
       fsType = "ext4";
       options = [ "noatime" ];
     };
 
   fileSystems."/persist" =
     {
-      device = "/dev/disk/by-uuid/9dd6e11c-d563-4957-9af1-a41b83071d75";
+      device = "/dev/disk/by-label/persist";
       fsType = "ext4";
       options = [ "noatime" ];
       neededForBoot = true;
