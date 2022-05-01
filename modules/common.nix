@@ -5,7 +5,6 @@
     home = {
       packages = with pkgs; [
         neofetch
-        vlc
         docker-compose
         virt-manager
         libreoffice

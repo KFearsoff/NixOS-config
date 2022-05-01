@@ -15,6 +15,7 @@
     ../modules/zathura.nix
     ../modules/waybar.nix
     ../modules/vscodium.nix
+    ../modules/mpv.nix
   ];
   config = {
     users.users."${username}" = {
