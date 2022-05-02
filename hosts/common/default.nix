@@ -22,15 +22,28 @@
     wget
   ];
 
+  boot.cleanTmpDir = true;
+  programs.fuse.userAllowOther = true;
+  security.sudo.extraConfig = ''
+    Defaults lecture = never
+    Defaults insults
+  '';
+  environment.etc."machine-id".source = "/persist/etc/machine-id";
   environment.persistence."/persist" = {
     hideMounts = true;
     directories = [
       "/var/log"
       "/var/lib/systemd/coredump"
+      "/var/lib/systemd/backlight"
+      "/var/lib/systemd/timers"
+      "/var/lib/libvirt"
+      "/var/lib/postgresql"
+      "/var/lib/docker"
       "/etc/NetworkManager/system-connections"
+      "/etc/lvm/archive"
+      "/etc/lvm/backup"
     ];
     files = [
-      # "/etc/machine-id"
       "/etc/ssh/ssh_host_ed25519_key"
       "/etc/ssh/ssh_host_ed25519_key.pub"
       "/etc/ssh/ssh_host_rsa_key"
@@ -43,7 +56,6 @@
       passwordAuthentication = false;
       permitRootLogin = "no";
       kbdInteractiveAuthentication = false;
-      # Persist host ssh keys
       hostKeys = [
         {
           path = "/etc/ssh/ssh_host_ed25519_key";

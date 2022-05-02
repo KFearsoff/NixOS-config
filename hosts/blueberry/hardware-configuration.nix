@@ -20,9 +20,9 @@
 
   fileSystems."/" =
     {
-      device = "/dev/disk/by-label/root";
-      fsType = "ext4";
-      options = [ "noatime" ];
+      device = "none";
+      fsType = "tmpfs";
+      options = [ "defaults" "size=2G" "mode=755" ];
     };
 
   fileSystems."/nix" =
