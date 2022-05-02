@@ -1,7 +1,7 @@
 { username, config, pkgs, lib, ... }:
 
 {
-  config.home-manager.users."${username}" = { lib, ... }: {
+  config.home-manager.users."${username}" = { config, lib, ... }: {
     home = {
       packages = with pkgs; [
         neofetch
@@ -73,6 +73,7 @@
       };
 
       obs-studio.enable = true;
+      nix-index.enable = true;
 
       direnv = {
         enable = true;
@@ -115,6 +116,18 @@
     };
     services.udiskie.enable = true;
     services.swayidle = import ../modules/sway/swayidle.nix;
+    services.mpd = {
+      enable = true;
+      network.startWhenNeeded = true;
+      dataDir = "${config.home.homeDirectory}/.config/mpd";
+      musicDirectory = "${config.home.homeDirectory}/Music";
+      extraConfig = ''
+        audio_output {
+            type "pipewire"
+            name "Pipewire"
+          }
+      '';
+    };
 
     gtk = import ../modules/gtk.nix { inherit pkgs; };
     home.sessionVariables = {
