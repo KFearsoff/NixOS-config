@@ -32,21 +32,17 @@ in
         modifier = "Mod4";
         bindkeysToCode = true;
 
-        input = { 
+        input = {
           "type:keyboard" = import ./keymap.nix;
           "type:touchpad" = {
-              tap = "enabled";
-              natural_scroll = "enabled";
-            };
-        };
-        seat = { "*" = { hide_cursor = "10000"; }; };
-        output = {
-          "*" = {
-            bg = "${wallpaper} fill";
+            tap = "enabled";
+            natural_scroll = "enabled";
           };
         };
+        seat = { "*" = { hide_cursor = "10000"; }; };
+        output = { "*" = { bg = "${wallpaper} fill"; }; };
 
-        gaps = { inner = 1; };
+        gaps = { inner = 10; };
         gaps.smartBorders = "on";
         gaps.smartGaps = true;
 

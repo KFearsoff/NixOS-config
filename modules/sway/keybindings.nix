@@ -22,6 +22,7 @@ let
     numbers
     workspaceNumbers);
 
+
   functionKeys = appendExecToCommand {
     "XF86AudioRaiseVolume" = "--no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%";
     "XF86AudioLowerVolume" = "--no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5%";
@@ -32,6 +33,7 @@ let
     "Print" = "grimshot copy area";
     "${mod}+Print" = "grimshot save area";
   };
+
 
   general = useWithModifier mod {
     "Tab" = "workspace back_and_forth";
@@ -71,8 +73,8 @@ let
     "Shift+Up" = "move up";
     "Shift+Right" = "move right";
 
-    "Shift+plus" = "gaps inner current plus 5";
-    "Shift+minus" = "gaps inner current minus 5";
+    "Shift+equal" = "gaps inner current plus 1";
+    "Shift+minus" = "gaps inner current minus 1";
 
     "f" = "fullscreen toggle";
   };
