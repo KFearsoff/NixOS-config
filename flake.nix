@@ -33,9 +33,13 @@
     nur.url = "github:nix-community/NUR";
     nix-colors.url = "github:misterio77/nix-colors";
     impermanence.url = "github:nix-community/impermanence";
+
+    pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
+    pre-commit-hooks.inputs.nixpkgs.follows = "unstable";
+    pre-commit-hooks.inputs.flake-utils.follows = "flake-utils";
   };
 
-  outputs = inputs@{ self, nixpkgs, unstable, flake-utils, hardware, home-manager, neovim-nightly-overlay, nur, ... }:
+  outputs = inputs@{ self, nixpkgs, unstable, flake-utils, hardware, home-manager, neovim-nightly-overlay, nur, pre-commit-hooks, ... }:
     let
       buildSystem = system: pkgs: extraModules: pkgs.lib.nixosSystem {
         inherit system;
@@ -81,5 +85,20 @@
             ./profiles/all.nix
           ];
       };
-    };
+    } //
+    flake-utils.lib.eachDefaultSystem (system: {
+      checks = {
+        pre-commit-check = pre-commit-hooks.lib.${system}.run {
+          src = ./.;
+          hooks = {
+            statix.enable = true;
+            nixpkgs-fmt.enable = true;
+          };
+        };
+      };
+
+      devShell = unstable.legacyPackages.${system}.mkShell {
+        inherit (self.checks.${system}.pre-commit-check) shellHook;
+      };
+    });
 }
