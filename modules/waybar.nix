@@ -16,59 +16,59 @@ let inherit (config.home-manager.users."${username}") colorscheme; in
         modules-left = [
           "sway/workspaces"
           "sway/mode"
-          "custom/right-arrow-dark"
-          "custom/right-arrow-light"
-          "custom/right-arrow-dark"
+          "custom/right-arrow"
+          "custom/right-arrow-inverse"
+          "custom/right-arrow"
         ];
         modules-center = [
-          "custom/left-arrow-dark"
+          "custom/left-arrow"
           "clock#1"
-          "custom/left-arrow-light"
-          "custom/left-arrow-dark"
+          "custom/left-arrow-inverse"
+          "custom/left-arrow"
           "clock#2"
-          "custom/right-arrow-dark"
-          "custom/right-arrow-light"
+          "custom/right-arrow"
+          "custom/right-arrow-inverse"
           "clock#3"
-          "custom/right-arrow-dark"
+          "custom/right-arrow"
         ];
         modules-right = [
-          "custom/left-arrow-dark"
-          "custom/left-arrow-light"
-          "custom/left-arrow-dark"
+          "custom/left-arrow"
+          "custom/left-arrow-inverse"
+          "custom/left-arrow"
           "pulseaudio"
-          "custom/left-arrow-light"
-          "custom/left-arrow-dark"
+          "custom/left-arrow-inverse"
+          "custom/left-arrow"
           "mpd"
-          "custom/left-arrow-light"
-          "custom/left-arrow-dark"
+          "custom/left-arrow-inverse"
+          "custom/left-arrow"
           "network"
-          "custom/left-arrow-light"
-          "custom/left-arrow-dark"
+          "custom/left-arrow-inverse"
+          "custom/left-arrow"
           "backlight"
-          "custom/left-arrow-light"
-          "custom/left-arrow-dark"
+          "custom/left-arrow-inverse"
+          "custom/left-arrow"
           "sway/language"
-          "custom/left-arrow-light"
-          "custom/left-arrow-dark"
+          "custom/left-arrow-inverse"
+          "custom/left-arrow"
           "battery"
-          "custom/left-arrow-light"
-          "custom/left-arrow-dark"
+          "custom/left-arrow-inverse"
+          "custom/left-arrow"
           "tray"
         ];
 
-        "custom/left-arrow-dark" = {
+        "custom/left-arrow" = {
           format = "";
           tooltip = false;
         };
-        "custom/left-arrow-light" = {
+        "custom/left-arrow-inverse" = {
           format = "";
           tooltip = false;
         };
-        "custom/right-arrow-dark" = {
+        "custom/right-arrow" = {
           format = "";
           tooltip = false;
         };
-        "custom/right-arrow-light" = {
+        "custom/right-arrow-inverse" = {
           format = "";
           tooltip = false;
         };
@@ -120,7 +120,7 @@ let inherit (config.home-manager.users."${username}") colorscheme; in
             on = " ";
           };
           random-icons = {
-            off = "<span color=\"#f53c3c\"></span> ";
+            off = "<span color=\"#${colorscheme.colors.base08}\"></span> ";
             on = " ";
           };
           repeat-icons = {
@@ -177,23 +177,25 @@ let inherit (config.home-manager.users."${username}") colorscheme; in
       style = let inherit (colorscheme) colors; in
         ''
           * {
-            font-size: 16;
+            border: none;
+            border-radius: 0;
+            font-size: 16px;
             font-family: Iosevka;
+            min-height: 0;
           }
     
           window#waybar {
             color: #${colors.base05};
             background: #${colors.base00};
-            border-bottom: 2px solid #${colors.base0D};
           }
     
-          #custom-right-arrow-dark,
-          #custom-left-arrow-dark {
+          #custom-right-arrow,
+          #custom-left-arrow {
             color: #${colors.base03};
             background: #${colors.base00};
           }
-          #custom-right-arrow-light,
-          #custom-left-arrow-light {
+          #custom-right-arrow-inverse,
+          #custom-left-arrow-inverse {
             color: #${colors.base00};
             background: #${colors.base03};
           }
@@ -249,19 +251,14 @@ let inherit (config.home-manager.users."${username}") colorscheme; in
     
           #workspaces button {
             padding: 0 2px;
-            color: #${colors.base0C};
+            color: #${colors.base05};
           }
           #workspaces button.focused {
-            color: #268bd2;
+            color: #${colors.base0D};
           }
           #workspaces button:hover {
-            box-shadow: inherit;
-            text-shadow: inherit;
-          }
-          #workspaces button:hover {
-            background: #1a1a1a;
-            border: #1a1a1a;
-            padding: 0 3px;
+            background: #${colors.base03};
+            border: #${colors.base05};
           }
         '';
     };
