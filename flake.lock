@@ -240,9 +240,6 @@
         "nur": "nur",
         "pre-commit-hooks": "pre-commit-hooks",
         "unstable": "unstable",
-        "zsh-autosuggestions": "zsh-autosuggestions",
-        "zsh-history-substring-search": "zsh-history-substring-search",
-        "zsh-nix-shell": "zsh-nix-shell",
         "zsh-you-should-use": "zsh-you-should-use"
       }
     },
@@ -259,54 +256,6 @@
         "owner": "nixos",
         "ref": "nixos-unstable",
         "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "zsh-autosuggestions": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1622844304,
-        "narHash": "sha256-KLUYpUu4DHRumQZ3w59m9aTW6TBKMCXl2UcKi4uMd7w=",
-        "owner": "zsh-users",
-        "repo": "zsh-autosuggestions",
-        "rev": "a411ef3e0992d4839f0732ebeb9823024afaaaa8",
-        "type": "github"
-      },
-      "original": {
-        "owner": "zsh-users",
-        "repo": "zsh-autosuggestions",
-        "type": "github"
-      }
-    },
-    "zsh-history-substring-search": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1627971553,
-        "narHash": "sha256-8kiPBtgsjRDqLWt0xGJ6vBBLqCWEIyFpYfd+s1prHWk=",
-        "owner": "zsh-users",
-        "repo": "zsh-history-substring-search",
-        "rev": "4abed97b6e67eb5590b39bcd59080aa23192f25d",
-        "type": "github"
-      },
-      "original": {
-        "owner": "zsh-users",
-        "repo": "zsh-history-substring-search",
-        "type": "github"
-      }
-    },
-    "zsh-nix-shell": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1648749800,
-        "narHash": "sha256-BjgMhILEL/qdgfno4LR64LSB8n9pC9R+gG7IQWwgyfQ=",
-        "owner": "chisui",
-        "repo": "zsh-nix-shell",
-        "rev": "af6f8a266ea1875b9a3e86e14796cadbe1cfbf08",
-        "type": "github"
-      },
-      "original": {
-        "owner": "chisui",
-        "repo": "zsh-nix-shell",
         "type": "github"
       }
     },

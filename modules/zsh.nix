@@ -1,4 +1,4 @@
-{ lib, pkgs, username, zsh-autosuggestions, zsh-you-should-use, zsh-history-substring-search, ... }:
+{ lib, pkgs, username, zsh-you-should-use, ... }:
 
 {
   config = {
@@ -16,36 +16,39 @@
         enableAutosuggestions = true;
         enableCompletion = true;
         enableSyntaxHighlighting = true;
-        autocd = true;
         history.expireDuplicatesFirst = true;
         history.extended = true;
         shellAliases = {
-          ls = "exa -lg --color=always --group-directories-first";
-          la = "exa -lag --color=always --group-directories-first";
-          cat = "bat -p";
-          md = "mkdir -vp";
-          ps = "procs";
+          sudo = "sudo "; # enable aliases when using sudo 
+          newsboat = "newsboat -q";
+          ls = "exa -lg --color=always --group-directories-first ";
+          la = "exa -lag --color=always --group-directories-first ";
+          cat = "bat -p ";
+          md = "mkdir -vp ";
+          ps = "procs ";
+          ".." = "cd ..";
+          "..." = "cd ../..";
+          "...." = "cd ../../..";
+          ".2" = "cd ../..";
+          ".3" = "cd ../../..";
+          ".4" = "cd ../../../..";
+          ".5" = "cd ../../../../..";
+          ".6" = "cd ../../../../../..";
+          g = "git";
+          gco = "git checkout";
+          gst = "git status";
         };
+        initExtra = ''
+          # Search Files and Edit
+          fe() {
+            rg --files ''${1:-.} | fzf --preview 'bat -f {}' | xargs $EDITOR
+          }
+            zstyle ":completion:*:*:vim:*:*files" ignored-patterns '*.lock'
+        '';
         plugins = [
-          {
-            name = "zsh-autosuggestions";
-            src = zsh-autosuggestions;
-          }
-          {
-            name = "nix-zsh-completions";
-            src = "${pkgs.nix-zsh-completions}/share/zsh/site-functions";
-          }
-          {
-            name = "fast-syntax-highlighting";
-            src = "${pkgs.zsh-fast-syntax-highlighting}/share/zsh/site-functions";
-          }
           {
             name = "you-should-use";
             src = zsh-you-should-use;
-          }
-          {
-            name = "zsh-history-substring-search";
-            src = zsh-history-substring-search;
           }
         ];
       };

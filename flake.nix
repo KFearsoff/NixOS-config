@@ -22,14 +22,8 @@
     neovim-lsp.inputs.nixpkgs.follows = "unstable";
     neovim-lsp.inputs.flake-utils.follows = "flake-utils";
 
-    zsh-autosuggestions.url = "github:zsh-users/zsh-autosuggestions";
-    zsh-autosuggestions.flake = false;
     zsh-you-should-use.url = "github:MichaelAquilina/zsh-you-should-use";
     zsh-you-should-use.flake = false;
-    zsh-history-substring-search.url = "github:zsh-users/zsh-history-substring-search";
-    zsh-history-substring-search.flake = false;
-    zsh-nix-shell.url = "github:chisui/zsh-nix-shell";
-    zsh-nix-shell.flake = false;
     nur.url = "github:nix-community/NUR";
     nix-colors.url = "github:misterio77/nix-colors";
     impermanence.url = "github:nix-community/impermanence";
@@ -43,7 +37,7 @@
     let
       buildSystem = system: pkgs: extraModules: pkgs.lib.nixosSystem {
         inherit system;
-        specialArgs = with self.inputs; { inherit system inputs zsh-autosuggestions zsh-you-should-use zsh-history-substring-search zsh-nix-shell nix-colors; username = "nixchad"; };
+        specialArgs = with self.inputs; { inherit system inputs zsh-you-should-use nix-colors; username = "nixchad"; };
         modules = [
           {
             nix = {

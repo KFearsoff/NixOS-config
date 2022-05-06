@@ -51,6 +51,7 @@
         newsboat
         obsidian
         easyeffects
+        fzf
       ];
     };
 
