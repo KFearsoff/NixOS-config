@@ -11,6 +11,10 @@
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usb_storage" "usbhid" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
+  boot.initrd.luks.devices."crypt" = {
+    device = "/dev/disk/by-partlabel/root";
+    bypassWorkqueues = true; # increase SSD performance
+  };
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
@@ -20,8 +24,6 @@
       fsType = "btrfs";
       options = [ "subvol=root" "compress-force=zstd" "noatime" ];
     };
-
-  boot.initrd.luks.devices."root".device = "/dev/disk/by-partlabel/root";
 
   fileSystems."/home" =
     {

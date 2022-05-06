@@ -11,9 +11,10 @@
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "usb_storage" "sd_mod" "sdhci_pci" ];
   boot.initrd.kernelModules = [ "dm-snapshot" ];
-  boot.initrd.luks.devices.crypt = {
+  boot.initrd.luks.devices."crypt" = {
     device = "/dev/disk/by-partlabel/root";
-    preLVM = true;
+    bypassWorkqueues = true; # increase SSD performance
+    preLVM = true; # true by default
   };
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
@@ -22,7 +23,7 @@
     {
       device = "none";
       fsType = "tmpfs";
-      options = [ "defaults" "size=2G" "mode=755" ];
+      options = [ "defaults" "mode=755" ];
     };
 
   fileSystems."/nix" =
