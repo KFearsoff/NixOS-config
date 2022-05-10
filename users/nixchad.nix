@@ -16,6 +16,7 @@
     ../modules/waybar.nix
     ../modules/vscodium.nix
     ../modules/mpv.nix
+    ../modules/newsboat.nix
   ];
   config = {
     users.users."${username}" = {

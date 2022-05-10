@@ -7,7 +7,7 @@
     flake-compat = { url = "github:edolstra/flake-compat"; flake = false; };
     hardware.url = "github:NixOS/nixos-hardware/master";
     flake-utils.url = "github:numtide/flake-utils";
-    home-manager.url = "github:nix-community/home-manager";
+    home-manager.url = "github:nix-community/home-manager/a2ba21275e154a4877522cb408a620850cf39395";
     home-manager.inputs.nixpkgs.follows = "unstable";
 
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
