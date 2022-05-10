@@ -48,7 +48,7 @@ let inherit (config.home-manager.users."${username}") colorscheme; in
             { index = 21; color = "0x${colorscheme.colors.base06}"; }
           ];
 
-          draw_bold_test_with_bright_colors = false;
+          draw_bold_text_with_bright_colors = false;
         };
 
         font.size = 14.0;

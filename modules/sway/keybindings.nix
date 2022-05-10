@@ -38,7 +38,7 @@ let
   general = useWithModifier mod {
     "Tab" = "workspace back_and_forth";
     "Shift+q" = "kill";
-    "Return" = "exec DRI_PRIME=1 alacritty";
+    "Return" = "exec alacritty";
     "Shift+Return" = "exec ee";
     "d" = "exec rofi -combi-mode drun -show drun -icon-theme \"Papirus\" -show-icons";
     "Caps_Lock" = "exec swaylock -i ~/NixOS-config/assets/nix-wallpaper-nineish-dark-gray.png";
