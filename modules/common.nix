@@ -40,6 +40,8 @@
         easyeffects
         du-dust
         duf
+        jq
+        xdg-utils
       ];
     };
 

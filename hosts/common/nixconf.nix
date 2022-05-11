@@ -14,6 +14,7 @@
         experimental-features = nix-command flakes ca-derivations 
         keep-outputs = true
         keep-derivations = true
+        warn-dirty = false
       '';
   };
 }

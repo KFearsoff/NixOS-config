@@ -4,6 +4,12 @@
   time.timeZone = lib.mkDefault "Europe/Moscow";
   boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
 
+  boot = {
+    kernelParams = [ "quiet" "udev.log_priority=3" "vt.global_cursor_default=0" ];
+    consoleLogLevel = 0;
+    initrd.verbose = false;
+  };
+
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
   # Per-interface useDHCP will be mandatory in the future, so this generated config
   # replicates the default behaviour.
@@ -44,6 +50,7 @@
       "/etc/ssh/ssh_host_rsa_key.pub"
     ];
   };
+
   services = {
     openssh = {
       enable = true;

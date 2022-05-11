@@ -43,6 +43,8 @@ in
       nvim-autopairs
 
       (nvim-treesitter.withPlugins (plugins: pkgs.tree-sitter.allGrammars))
+
+      vim-lastplace
     ];
 
     extraPackages = with pkgs;

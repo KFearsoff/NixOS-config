@@ -31,7 +31,16 @@
 
   services.printing.enable = true;
   users.mutableUsers = false;
-  boot.loader.systemd-boot.enable = true;
+  boot.loader.systemd-boot = {
+    enable = true;
+    consoleMode = "max";
+    editor = false;
+  };
   boot.loader.efi.canTouchEfiVariables = true;
+
+  services.logind = {
+    lidSwitch = "suspend";
+    lidSwitchExternalPower = "ignore";
+  };
 }
 
