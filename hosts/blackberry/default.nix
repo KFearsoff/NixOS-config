@@ -14,6 +14,11 @@
     inputs.hardware.nixosModules.common-pc
   ];
 
+  sops.secrets.password = {
+    sopsFile = ../../secrets/blueberry/default.yaml;
+    neededForUsers = true;
+  };
+
   networking = {
     hostName = "blackberry"; # Define your hostname.
     interfaces.enp108s0.ipv4.addresses = [{

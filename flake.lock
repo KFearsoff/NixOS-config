@@ -240,8 +240,29 @@
         "nixpkgs": "nixpkgs",
         "nur": "nur",
         "pre-commit-hooks": "pre-commit-hooks",
+        "sops-nix": "sops-nix",
         "unstable": "unstable",
         "zsh-you-should-use": "zsh-you-should-use"
+      }
+    },
+    "sops-nix": {
+      "inputs": {
+        "nixpkgs": [
+          "unstable"
+        ]
+      },
+      "locked": {
+        "lastModified": 1649756291,
+        "narHash": "sha256-KTll8bCINAzIUGaaMrbn9wb5nfhkXRLgmFrWGR/Dku0=",
+        "owner": "Mic92",
+        "repo": "sops-nix",
+        "rev": "c2614c4fe61943b3d280ac1892fcebe6e8eaf8c8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Mic92",
+        "repo": "sops-nix",
+        "type": "github"
       }
     },
     "unstable": {

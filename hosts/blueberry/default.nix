@@ -15,6 +15,11 @@
     inputs.hardware.nixosModules.common-pc-laptop-acpi_call
   ];
 
+  sops.secrets.password = {
+    sopsFile = ../../secrets/blueberry/default.yaml;
+    neededForUsers = true;
+  };
+
   networking = {
     hostName = "blueberry"; # Define your hostname.
   };

@@ -1,0 +1,23 @@
+keys:
+  - &nixchad_blueberry age1262s3k5k32mk8cnm8p7v6nsyaaftjn3zyzlej5z5jqjqsy8kmctsvv9hjy
+  - &server_blueberry age1jmxvlpum4c9amt337wu4y0n5r0pkvahwy9k5edukhx34m8sr3yust0nj9u
+  - &nixchad_blackberry age17getl6w9f04feedks6vj56fzw5jddwh3lckjc92fl7q0stpy054qklk42z
+  - &server_blackberry age1s07n4270r8mrpws0kyx0deq8uvq2huutqqrg6jzdhwk0t5mgaytsszd2gs
+creation_rules:
+  - path_regex: secrets/[^/]+\.yaml$
+    key_groups:
+      - age:
+        - *nixchad_blueberry
+        - *server_blueberry
+        - *nixchad_blackberry 
+        - *server_blackberry
+  - path_regex: secrets/blueberry/[^/]+\.yaml$
+    key_groups:
+      - age:
+        - *nixchad_blueberry 
+        - *server_blueberry
+  - path_regex: secrets/blackberry/[^/]+\.yaml$
+    key_groups:
+      - age:
+        - *nixchad_blackberry 
+        - *server_blackberry

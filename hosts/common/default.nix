@@ -1,6 +1,7 @@
-{ lib, pkgs, ... }:
+{ lib, pkgs, username, ... }:
 
 {
+  users.mutableUsers = false;
   time.timeZone = lib.mkDefault "Europe/Moscow";
   boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
 
@@ -51,6 +52,11 @@
     ];
   };
 
+  users.users."${username}".openssh.authorizedKeys.keys = [
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKnUBxbvoSGs+Q+hhSUrwqNkVzmtnEc03Tt203PEJWBE nixchad@blueberry"
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEQ77pbUwzNYJzu/vEg9MqtuLQmjgRtf5b4K+qsZ0o7v nixchad@blackberry"
+  ];
+
   services = {
     openssh = {
       enable = true;
@@ -74,6 +80,10 @@
       nssmdns = true;
     };
   };
+
+  sops.defaultSopsFile = ../../secrets/default.yaml;
+  sops.age.keyFile = "/var/lib/sops-nix/key.txt";
+  sops.age.generateKey = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

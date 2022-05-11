@@ -31,9 +31,12 @@
     pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
     pre-commit-hooks.inputs.nixpkgs.follows = "unstable";
     pre-commit-hooks.inputs.flake-utils.follows = "flake-utils";
+
+    sops-nix.url = "github:Mic92/sops-nix";
+    sops-nix.inputs.nixpkgs.follows = "unstable";
   };
 
-  outputs = inputs@{ self, nixpkgs, unstable, flake-utils, hardware, home-manager, neovim-nightly-overlay, nur, nix-colors, pre-commit-hooks, impermanence, ... }:
+  outputs = inputs@{ self, nixpkgs, unstable, flake-utils, hardware, home-manager, neovim-nightly-overlay, nur, nix-colors, pre-commit-hooks, impermanence, sops-nix, ... }:
     let
       buildSystem = system: pkgs: extraModules: pkgs.lib.nixosSystem {
         inherit system;
@@ -41,6 +44,7 @@
         modules = [
           home-manager.nixosModules.home-manager
           impermanence.nixosModules.impermanence
+          sops-nix.nixosModules.sops
           {
             nix = {
               extraOptions = ''
@@ -94,6 +98,10 @@
 
       devShell = unstable.legacyPackages.${system}.mkShell {
         inherit (self.checks.${system}.pre-commit-check) shellHook;
+
+        buildInputs = with unstable.legacyPackages.${system}.pkgs; [
+          sops
+        ];
       };
     });
 }
