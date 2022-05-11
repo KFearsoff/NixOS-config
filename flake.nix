@@ -33,12 +33,14 @@
     pre-commit-hooks.inputs.flake-utils.follows = "flake-utils";
   };
 
-  outputs = inputs@{ self, nixpkgs, unstable, flake-utils, hardware, home-manager, neovim-nightly-overlay, nur, pre-commit-hooks, ... }:
+  outputs = inputs@{ self, nixpkgs, unstable, flake-utils, hardware, home-manager, neovim-nightly-overlay, nur, nix-colors, pre-commit-hooks, impermanence, ... }:
     let
       buildSystem = system: pkgs: extraModules: pkgs.lib.nixosSystem {
         inherit system;
-        specialArgs = with self.inputs; { inherit system inputs zsh-you-should-use nix-colors; username = "nixchad"; };
+        specialArgs = { inherit inputs nix-colors; username = "nixchad"; };
         modules = [
+          home-manager.nixosModules.home-manager
+          impermanence.nixosModules.impermanence
           {
             nix = {
               extraOptions = ''
@@ -57,14 +59,14 @@
       };
     in
     {
-      overlays = [
-        nur.overlay
-        neovim-nightly-overlay.overlay
-      ];
+      overlays = {
+        nur = nur.overlay;
+        neovim-nightly-overlay = neovim-nightly-overlay.overlay;
+      };
       nixosConfigurations = {
         blueberry = buildSystem "x86_64-linux" unstable
           [
-            { nixpkgs.overlays = self.overlays; }
+            { nixpkgs.overlays = builtins.attrValues self.overlays; }
             ./hosts/blueberry
             ./users/nixchad.nix
             ./profiles/all.nix
@@ -72,10 +74,9 @@
 
         blackberry = buildSystem "x86_64-linux" unstable
           [
-            { nixpkgs.overlays = self.overlays; }
+            { nixpkgs.overlays = builtins.attrValues self.overlays; }
             ./hosts/blackberry
             ./users/nixchad.nix
-            ./modules/grub-efi.nix
             ./profiles/all.nix
           ];
       };

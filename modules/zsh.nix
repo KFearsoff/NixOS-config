@@ -1,4 +1,4 @@
-{ lib, pkgs, username, zsh-you-should-use, ... }:
+{ inputs, pkgs, username, ... }:
 
 {
   config = {
@@ -48,7 +48,7 @@
         plugins = [
           {
             name = "you-should-use";
-            src = zsh-you-should-use;
+            src = inputs.zsh-you-should-use;
           }
         ];
       };

@@ -1,8 +1,7 @@
-{ inputs, config, lib, pkgs, username, ... }:
+{ config, pkgs, username, ... }:
 
 {
   imports = [
-    inputs.home-manager.nixosModules.home-manager
     ../modules/colors.nix
     ../modules/sway
     ../modules/alacritty.nix
@@ -27,13 +26,6 @@
     home-manager.useGlobalPkgs = true;
     home-manager.useUserPackages = true;
     home-manager.extraSpecialArgs = { inherit username; };
-    home-manager.users."${username}" = {
-      home.packages = with pkgs; [
-        du-dust
-        duf
-      ];
-
-      home.stateVersion = "22.05";
-    };
+    home-manager.users."${username}".home.stateVersion = "22.05";
   };
 }

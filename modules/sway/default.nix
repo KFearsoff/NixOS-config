@@ -24,7 +24,15 @@ in
     export QT_AUTO_SCREEN_SCALE_FACTOR=1
   '';
   config.home-manager.users."${username}" = {
-    home.packages = [ pkgs.wlogout pkgs.autotiling ];
+    home.packages = with pkgs; [
+      wlogout
+      autotiling
+      swaylock
+      swayidle
+      wl-clipboard
+      mako
+      sway-contrib.grimshot
+    ];
     wayland.windowManager.sway = {
       enable = true;
       package = null;
@@ -32,13 +40,7 @@ in
         modifier = "Mod4";
         bindkeysToCode = true;
 
-        input = {
-          "type:keyboard" = import ./keymap.nix;
-          "type:touchpad" = {
-            tap = "enabled";
-            natural_scroll = "enabled";
-          };
-        };
+        input = import ./input.nix;
         seat = { "*" = { hide_cursor = "10000"; }; };
         output = { "*" = { bg = "${wallpaper} fill"; }; };
 

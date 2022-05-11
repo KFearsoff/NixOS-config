@@ -1,4 +1,4 @@
-{ config, username, pkgs, ... }:
+{ config, username, ... }:
 
 let inherit (config.home-manager.users."${username}") colorscheme; in
 {

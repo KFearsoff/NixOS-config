@@ -1,11 +1,10 @@
-{ username, config, pkgs, lib, ... }:
+{ username, config, pkgs, ... }:
 
 {
-  config.home-manager.users."${username}" = { config, lib, ... }: {
+  config.home-manager.users."${username}" = { config, ... }: {
     home = {
       packages = with pkgs; [
         neofetch
-        docker-compose
         virt-manager
         libreoffice
         gnumake
@@ -16,10 +15,6 @@
         keepassxc
         discord
         ranger
-        swaylock
-        swayidle
-        wl-clipboard
-        mako
         gimp
         htop
         bottom # htop alternative
@@ -31,40 +26,28 @@
         tokei # list used programming languages
         procs # alternative to ps
         nix-prefetch-github
-        gh
-        feh
         statix
-        ansible
         udiskie
         shellcheck
         element-desktop-wayland
-        sway-contrib.grimshot
         nixpkgs-fmt
         tldr
         ascii-image-converter
         rnix-lsp
-        calyx-vpn
-        riseup-vpn
         tor-browser-bundle-bin
         wireguard-tools
         cinnamon.nemo
         obsidian
         easyeffects
         fzf
+        du-dust
+        duf
       ];
     };
 
     home.file.".icons/default".source = "${pkgs.vanilla-dmz}/share/icons/Vanilla-DMZ";
 
     systemd.user.startServices = "sd-switch";
-    #home.activation = {
-    #  reloadKanshi = lib.hm.dag.entryAnywhere ''
-    #    $DRY_RUN_CMD systemctl --user restart kanshi.service
-    #  '';
-    #  reloadWaybar = lib.hm.dag.entryAnywhere ''
-    #    $DRY_RUN_CMD systemctl --user restart waybar.service
-    #  '';
-    #};
 
     programs = {
       git = {
