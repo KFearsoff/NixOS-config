@@ -20,7 +20,6 @@
         bottom # htop alternative
         qbittorrent
         ripgrep # alternative to grep
-        bat # alternative to cat
         fd # alternative to find
         exa # alternative to ls
         tokei # list used programming languages
@@ -39,7 +38,6 @@
         cinnamon.nemo
         obsidian
         easyeffects
-        fzf
         du-dust
         duf
       ];
@@ -50,9 +48,42 @@
     systemd.user.startServices = "sd-switch";
 
     programs = {
+      fzf = {
+        enable = true;
+        defaultCommand = "fd --type f --follow --hidden --exclude .git --exclude .direnv --exclude lost+found --color=always";
+        defaultOptions = [ "--ansi" ];
+        changeDirWidgetCommand = "fd --type f --follow --hidden --exclude .git --exclude .direnv --exclude lost+found --color=always";
+        changeDirWidgetOptions = [ "--layout=reverse" "--height=40%" "--ansi" "--select-1" "--exit-0" ];
+        fileWidgetCommand = "fd --type f --follow --hidden --exclude .git --exclude .direnv --exclude lost+found --color=always";
+        fileWidgetOptions = [ "--layout=reverse" "--height=40%" "--ansi" "--select-1" "--exit-0" ];
+        historyWidgetOptions = [ "--ansi" "--exact" ];
+      };
+      bat = {
+        enable = true;
+        config = {
+          theme = "base16";
+          style = "plain";
+        };
+      };
       git = {
         enable = true;
-        delta.enable = true;
+        extraConfig = {
+          merge = {
+            conflictStyle = "diff3";
+          };
+          diff = {
+            colorMoved = "default";
+          };
+        };
+        delta = {
+          enable = true;
+          options = {
+            navigate = true;
+            line-numbers = true;
+            syntax-theme = "base16";
+            # side-by-side = true;
+          };
+        };
       };
 
       obs-studio.enable = true;
@@ -98,6 +129,7 @@
     gtk = import ../modules/gtk.nix { inherit pkgs; };
     home.sessionVariables = {
       EDITOR = "nvim";
+      MANPAGER = "sh -c 'col -bx | bat -l man -p'";
     };
     qt = {
       enable = true;
