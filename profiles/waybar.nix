@@ -1,6 +1,6 @@
 {
-  config,
   username,
+  config,
   ...
 }: let
   inherit (config.home-manager.users."${username}") colorscheme;

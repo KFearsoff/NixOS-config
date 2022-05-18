@@ -33,18 +33,17 @@
     "XF86AudioMicMute" = "--no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle";
     "XF86MonBrightnessUp" = "light -A 5";
     "XF86MonBrightnessDown" = "light -U 5";
-    "Print" = "grimshot copy area";
-    "${mod}+Print" = "grimshot save area";
+    "Print" = "${pkgs.sway-contrib.grimshot} copy area";
+    "${mod}+Print" = "${pkgs.sway-contrib.grimshot} save area";
   };
 
   general = useWithModifier mod {
     "Tab" = "workspace back_and_forth";
     "Shift+q" = "kill";
-    "Return" = "exec alacritty";
-    "Shift+Return" = "exec ee";
-    "d" = "exec rofi -combi-mode drun -show drun -icon-theme \"Papirus\" -show-icons";
-    "Caps_Lock" = "exec swaylock -i ~/NixOS-config/assets/nix-wallpaper-nineish-dark-gray.png";
-    "Shift+e" = "exec wlogout";
+    "Return" = "exec ${pkgs.alacritty}/bin/alacritty";
+    "d" = "exec ${pkgs.nur.repos.kira-bruneau.rofi-wayland}/bin/rofi -combi-mode drun -show drun -icon-theme \"Papirus\" -show-icons";
+    "Caps_Lock" = "exec ${pkgs.swaylock}/bin/swaylock -i ~/NixOS-config/assets/nix-wallpaper-nineish-dark-gray.png";
+    "Shift+e" = "exec ${pkgs.wlogout}/bin/wlogout";
     "Shift+r" = "reload";
     "r" = "mode resize";
 

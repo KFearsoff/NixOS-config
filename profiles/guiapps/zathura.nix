@@ -1,11 +1,11 @@
 {
-  config,
   username,
+  config,
   ...
 }: let
   inherit (config.home-manager.users."${username}") colorscheme;
 in {
-  config.home-manager.users."${username}" = {
+  home-manager.users."${username}" = {
     programs.zathura = {
       enable = true;
       #package = pkgs.zathura.override { useMupdf = false; }; # https://git.pwmt.org/pwmt/zathura/-/issues/184

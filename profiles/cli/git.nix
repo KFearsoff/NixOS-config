@@ -1,5 +1,9 @@
-{username, ...}: {
-  config.home-manager.users."${username}" = {
+{
+  username,
+  pkgs,
+  ...
+}: {
+  home-manager.users."${username}" = {
     programs.git = {
       enable = true;
       extraConfig = {
@@ -8,7 +12,7 @@
         };
         diff = {
           colorMoved = "default";
-          sopsdiffer.textconv = "sops -d";
+          sopsdiffer.textconv = "${pkgs.sops}/bin/sops -d";
         };
       };
       delta = {

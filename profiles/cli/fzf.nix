@@ -1,11 +1,11 @@
 {
-  pkgs,
   username,
+  pkgs,
   ...
 }: let
-  inherit (pkgs) fd;
+  fd = "${pkgs.fd}/bin/fd";
 in {
-  config.home-manager.users."${username}" = {
+  home-manager.users."${username}" = {
     programs.fzf = {
       enable = true;
       defaultCommand = "${fd} --type f --follow --hidden --exclude .git --exclude .direnv --exclude lost+found --color=always";

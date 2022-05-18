@@ -1,5 +1,5 @@
 {username, ...}: {
-  config.home-manager.users."${username}" = {
+  home-manager.users."${username}" = {
     services.gammastep = {
       enable = true;
       latitude = 55.7;

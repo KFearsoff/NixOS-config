@@ -1,9 +1,14 @@
 {
+  username,
   inputs,
   pkgs,
-  username,
   ...
-}: {
+}: let
+  exa = "${pkgs.exa}/bin/exa";
+  rg = "${pkgs.ripgrep}/bin/rg";
+  fzf = "${pkgs.fzf}/bin/fzf";
+  bat = "${pkgs.bat}/bin/bat";
+in {
   config = {
     programs.zsh = {
       enable = true;
@@ -32,39 +37,39 @@
           ".5" = "cd ../../../../..";
           ".6" = "cd ../../../../../..";
 
-          ls = "exa -lg --color=always --group-directories-first ";
-          la = "exa -lag --color=always --group-directories-first ";
-          lt = "exa -lagT --color=always --group-directories-first ";
-          "l." = "exa -a | egrep \"^\\.\"";
+          ls = "${exa} -lg --color=always --group-directories-first ";
+          la = "${exa} -lag --color=always --group-directories-first ";
+          lt = "${exa} -lagT --color=always --group-directories-first ";
+          "l." = "${exa} -a | egrep \"^\\.\" ";
 
-          grep = "grep --color=auto";
-          egrep = "egrep --color=auto";
-          fgrep = "fgrep --color=auto";
+          grep = "grep --color=auto ";
+          egrep = "egrep --color=auto ";
+          fgrep = "fgrep --color=auto ";
 
           md = "mkdir -vp ";
-          ps = "procs ";
-          cat = "batcopy";
-          tail = "battail";
+          ps = "${pkgs.procs}/bin/procs ";
+          cat = "batcopy ";
+          tail = "battail ";
 
-          gco = "git checkout";
-          gst = "git status";
-          newsboat = "newsboat -q";
+          gco = "git checkout ";
+          gst = "git status ";
+          newsboat = "newsboat -q ";
         };
         initExtra = ''
           # Search Files and Edit
           fe() {
-            rg --files ''${1:-.} | fzf --preview 'bat -fp {}' | xargs $EDITOR
+            ${rg} --files ''${1:-.} | ${fzf} --preview '${bat} -fp {}' | xargs $EDITOR
           }
 
           # Search content and Edit
           se() {
-            fileline=$(rg -n ''${1:-.} | fzf | awk '{print $1}' | sed 's/.$//')
+            fileline=$(${rg} -n ''${1:-.} | ${fzf} | awk '{print $1}' | sed 's/.$//')
             $EDITOR ''${fileline%%:*} +''${fileline##*:}
           }
 
           # Search git log, preview shows subject, body, and diff
           fl() {
-            git log --oneline --color=always | fzf --ansi --preview="echo {} | cut -d ' ' -f 1 | xargs -I @ sh -c 'git log --pretty=medium -n 1 @; git diff @^ @' | bat --color=always" | cut -d ' ' -f 1 | xargs git log --pretty=short -n 1
+            git log --oneline --color=always | ${fzf} --ansi --preview="echo {} | cut -d ' ' -f 1 | xargs -I @ sh -c 'git log --pretty=medium -n 1 @; git diff @^ @' | ${bat} --color=always" | cut -d ' ' -f 1 | xargs git log --pretty=short -n 1
           }
 
           # Autocomplete "flake" to "flake.nix"
@@ -72,15 +77,15 @@
 
           # Highlight --help with bat
           help() {
-              "$@" --help 2>&1 | bat -pl help
+              "$@" --help 2>&1 | ${bat} -pl help
             }
 
           batcopy() {
-            bat "$@" | wl-copy
+            bat "$@" | ${pkgs.wl-clipboard}/bin/wl-copy
             }
 
           battail() {
-              tail -f "$@" | bat --paging=never -pl log
+              tail -f "$@" | ${bat} --paging=never -pl log
             }
 
 
@@ -102,16 +107,16 @@
                                    tar xvf "$n"       ;;
                       *.lzma)      unlzma ./"$n"      ;;
                       *.bz2)       bunzip2 ./"$n"     ;;
-                      *.cbr|*.rar)       unrar x -ad ./"$n" ;;
+                      *.cbr|*.rar)       ${pkgs.unrar}/bin/unrar x -ad ./"$n" ;;
                       *.gz)        gunzip ./"$n"      ;;
-                      *.cbz|*.epub|*.zip)       unzip ./"$n"       ;;
+                      *.cbz|*.epub|*.zip)       ${pkgs.unzip}/bin/unzip ./"$n"       ;;
                       *.z)         uncompress ./"$n"  ;;
                       *.7z|*.arj|*.cab|*.cb7|*.chm|*.deb|*.dmg|*.iso|*.lzh|*.msi|*.pkg|*.rpm|*.udf|*.wim|*.xar)
-                                   7z x ./"$n"        ;;
+                                   ${pkgs.p7zip}/bin/7z x ./"$n"        ;;
                       *.xz)        unxz ./"$n"        ;;
-                      *.exe)       cabextract ./"$n"  ;;
+                      *.exe)       ${pkgs.cabextract}/bin/cabextract ./"$n"  ;;
                       *.cpio)      cpio -id < ./"$n"  ;;
-                      *.cba|*.ace)      unace x ./"$n"      ;;
+                      # *.cba|*.ace)      unace x ./"$n"      ;;
                       *)
                                    echo "extract: '$n' - unknown archive method"
                                    return 1

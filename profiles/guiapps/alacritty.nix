@@ -1,11 +1,11 @@
 {
-  config,
   username,
+  config,
   ...
 }: let
   inherit (config.home-manager.users."${username}") colorscheme;
 in {
-  config.home-manager.users."${username}" = {
+  home-manager.users."${username}" = {
     programs.alacritty = {
       enable = true;
       settings = {

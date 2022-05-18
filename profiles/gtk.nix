@@ -1,6 +1,6 @@
 {
-  pkgs,
   username,
+  pkgs,
   ...
 }: {
   config.home-manager.users."${username}" = {

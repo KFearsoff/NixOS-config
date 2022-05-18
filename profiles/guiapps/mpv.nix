@@ -1,5 +1,5 @@
 {username, ...}: {
-  config.home-manager.users."${username}" = {
+  home-manager.users."${username}" = {
     programs.mpv = {
       enable = true;
       config = {

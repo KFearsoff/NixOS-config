@@ -3,7 +3,7 @@
   pkgs,
   ...
 }: {
-  config.home-manager.users."${username}" = {
+  home-manager.users."${username}" = {
     programs.bat = {
       enable = true;
       config = {
@@ -12,7 +12,7 @@
       };
     };
     home.sessionVariables = {
-      MANPAGER = "sh -c 'col -bx | ${pkgs.bat} -l man -p'";
+      MANPAGER = "sh -c 'col -bx | ${pkgs.bat}/bin/bat -l man -p'";
     };
   };
 }
