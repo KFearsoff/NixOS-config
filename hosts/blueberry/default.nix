@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ inputs, lib, ... }:
 
 {
   imports = [
@@ -15,6 +15,9 @@
     inputs.hardware.nixosModules.common-pc-laptop-acpi_call
   ];
 
+  networking.nameservers = [ "8.8.8.8" "8.8.4.4." "1.1.1.1" ];
+  networking.networkmanager.dns = "unbound";
+  services.mullvad-vpn.enable = true;
   sops.secrets.password = {
     sopsFile = ../../secrets/blueberry/default.yaml;
     neededForUsers = true;

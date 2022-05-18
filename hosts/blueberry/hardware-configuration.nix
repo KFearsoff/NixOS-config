@@ -11,6 +11,7 @@
   boot.initrd.luks.devices."crypt" = {
     device = "/dev/disk/by-partlabel/root";
     bypassWorkqueues = true; # increase SSD performance
+    allowDiscards = true; # allow fstrim; it might reveal information about the filesystem
     preLVM = true; # true by default
   };
   boot.kernelModules = [ "kvm-intel" ];

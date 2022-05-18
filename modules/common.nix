@@ -42,6 +42,8 @@
         duf
         jq
         xdg-utils
+        mullvad-vpn
+        openconnect
         sops
       ];
     };
