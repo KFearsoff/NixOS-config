@@ -4,7 +4,10 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/release-21.05";
     unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-    flake-compat = { url = "github:edolstra/flake-compat"; flake = false; };
+    flake-compat = {
+      url = "github:edolstra/flake-compat";
+      flake = false;
+    };
     hardware.url = "github:NixOS/nixos-hardware/master";
     flake-utils.url = "github:numtide/flake-utils";
     home-manager.url = "github:nix-community/home-manager/a2ba21275e154a4877522cb408a620850cf39395";
@@ -36,62 +39,88 @@
     sops-nix.inputs.nixpkgs.follows = "unstable";
   };
 
-  outputs = inputs@{ self, nixpkgs, unstable, flake-utils, hardware, home-manager, neovim-nightly-overlay, nur, nix-colors, pre-commit-hooks, impermanence, sops-nix, ... }:
-    let
-      buildSystem = system: pkgs: extraModules: pkgs.lib.nixosSystem {
+  outputs = inputs @ {
+    self,
+    nixpkgs,
+    unstable,
+    flake-utils,
+    hardware,
+    home-manager,
+    neovim-nightly-overlay,
+    nur,
+    nix-colors,
+    pre-commit-hooks,
+    impermanence,
+    sops-nix,
+    ...
+  }: let
+    buildSystem = system: pkgs: extraModules:
+      pkgs.lib.nixosSystem {
         inherit system;
-        specialArgs = { inherit inputs nix-colors; username = "nixchad"; };
-        modules = [
-          home-manager.nixosModules.home-manager
-          impermanence.nixosModules.impermanence
-          sops-nix.nixosModules.sops
-          {
-            nix = {
-              extraOptions = ''
-                flake-registry = /etc/nix/registry.json
-              '';
-              registry = {
-                self.flake = inputs.self;
-                nixpkgs = {
-                  from = { id = "nixpkgs"; type = "indirect"; };
-                  flake = pkgs;
+        specialArgs = {
+          inherit inputs nix-colors;
+          username = "nixchad";
+        };
+        modules =
+          [
+            home-manager.nixosModules.home-manager
+            impermanence.nixosModules.impermanence
+            sops-nix.nixosModules.sops
+            {
+              nix = {
+                extraOptions = ''
+                  flake-registry = /etc/nix/registry.json
+                '';
+                registry = {
+                  self.flake = inputs.self;
+                  nixpkgs = {
+                    from = {
+                      id = "nixpkgs";
+                      type = "indirect";
+                    };
+                    flake = pkgs;
+                  };
                 };
               };
-            };
-          }
-        ] ++ extraModules;
+            }
+          ]
+          ++ extraModules;
       };
-    in
+  in
     {
       overlays = {
         nur = nur.overlay;
         neovim-nightly-overlay = neovim-nightly-overlay.overlay;
       };
       nixosConfigurations = {
-        blueberry = buildSystem "x86_64-linux" unstable
+        blueberry =
+          buildSystem "x86_64-linux" unstable
           [
-            { nixpkgs.overlays = builtins.attrValues self.overlays; }
+            {nixpkgs.overlays = builtins.attrValues self.overlays;}
             ./hosts/blueberry
             ./users/nixchad.nix
             ./profiles/all.nix
           ];
 
-        blackberry = buildSystem "x86_64-linux" unstable
+        blackberry =
+          buildSystem "x86_64-linux" unstable
           [
-            { nixpkgs.overlays = builtins.attrValues self.overlays; }
+            {nixpkgs.overlays = builtins.attrValues self.overlays;}
             ./hosts/blackberry
             ./users/nixchad.nix
             ./profiles/all.nix
           ];
       };
-    } //
-    flake-utils.lib.eachDefaultSystem (system: {
+    }
+    // flake-utils.lib.eachDefaultSystem (system: {
+      formatter = unstable.legacyPackages.${system}.alejandra;
+
       checks = {
         pre-commit-check = pre-commit-hooks.lib.${system}.run {
           src = ./.;
           hooks = {
             statix.enable = true;
-            nixpkgs-fmt.enable = true;
+            alejandra.enable = true;
           };
         };
       };

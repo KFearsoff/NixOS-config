@@ -1,6 +1,8 @@
-{ config, username, ... }:
-
 {
+  config,
+  username,
+  ...
+}: {
   config.home-manager.users."${username}" = {
     services.kanshi = {
       enable = true;

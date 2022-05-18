@@ -1,6 +1,8 @@
-{ pkgs, username, ... }:
-
 {
+  pkgs,
+  username,
+  ...
+}: {
   config.home-manager.users."${username}" = {
     programs.newsboat = {
       enable = true;
@@ -30,17 +32,17 @@
     };
 
     systemd.user.services.newsboat-update = {
-      Unit = { Description = "Update Newsboat feeds"; };
-      Service = { ExecStart = "${pkgs.newsboat}/bin/newsboat -x reload"; };
+      Unit = {Description = "Update Newsboat feeds";};
+      Service = {ExecStart = "${pkgs.newsboat}/bin/newsboat -x reload";};
     };
 
     systemd.user.timers.newsboat-update = {
-      Unit = { Description = "Update Newsboat feeds"; };
+      Unit = {Description = "Update Newsboat feeds";};
       Timer = {
         OnCalendar = "hourly";
         Unit = "newsboat-update.service";
       };
-      Install = { WantedBy = [ "timers.target" ]; };
+      Install = {WantedBy = ["timers.target"];};
     };
   };
 }

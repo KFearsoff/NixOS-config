@@ -1,6 +1,4 @@
-{ pkgs, ... }:
-
-{
+{pkgs, ...}: {
   environment.systemPackages = with pkgs; [
     pavucontrol
     pulseaudio
@@ -20,7 +18,7 @@
 
     config.pipewire = {
       "context.properties" = {
-        "default.clock.allowed-rates" = [ 48000 44100 ];
+        "default.clock.allowed-rates" = [48000 44100];
       };
     };
   };

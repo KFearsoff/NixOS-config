@@ -1,6 +1,4 @@
-{ username, ... }:
-
-{
+{username, ...}: {
   config.home-manager.users."${username}" = {
     services.gammastep = {
       enable = true;

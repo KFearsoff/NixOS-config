@@ -1,6 +1,9 @@
-{ inputs, pkgs, username, ... }:
-
 {
+  inputs,
+  pkgs,
+  username,
+  ...
+}: {
   config = {
     programs.zsh = {
       enable = true;
@@ -19,7 +22,7 @@
         history.expireDuplicatesFirst = true;
         history.extended = true;
         shellAliases = {
-          sudo = "sudo "; # enable aliases when using sudo 
+          sudo = "sudo "; # enable aliases when using sudo
 
           ".." = "cd ..";
           "..." = "cd ../..";
@@ -67,7 +70,7 @@
           # Autocomplete "flake" to "flake.nix"
             zstyle ":completion:*:*:vim:*:*files" ignored-patterns '*.lock'
 
-          # Highlight --help with bat 
+          # Highlight --help with bat
           help() {
               "$@" --help 2>&1 | bat -pl help
             }
@@ -134,4 +137,3 @@
     };
   };
 }
-

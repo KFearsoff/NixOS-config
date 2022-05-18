@@ -1,12 +1,15 @@
-{ lib, pkgs, username, ... }:
-
 {
+  lib,
+  pkgs,
+  username,
+  ...
+}: {
   users.mutableUsers = false;
   time.timeZone = lib.mkDefault "Europe/Moscow";
   boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
 
   boot = {
-    kernelParams = [ "quiet" "udev.log_priority=3" "vt.global_cursor_default=0" ];
+    kernelParams = ["quiet" "udev.log_priority=3" "vt.global_cursor_default=0"];
     consoleLogLevel = 0;
     initrd.verbose = false;
   };
@@ -82,8 +85,8 @@
   };
 
   sops.defaultSopsFile = ../../secrets/default.yaml;
-  sops.age.sshKeyPaths = [ "/persist/etc/ssh/ssh_host_ed25519_key" ];
-  sops.gnupg.sshKeyPaths = lib.mkForce [ ];
+  sops.age.sshKeyPaths = ["/persist/etc/ssh/ssh_host_ed25519_key"];
+  sops.gnupg.sshKeyPaths = lib.mkForce [];
   sops.age.keyFile = "/var/lib/sops-nix/key.txt";
   sops.age.generateKey = true;
 
@@ -95,4 +98,3 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = lib.mkDefault "21.11"; # Did you read the comment?
 }
-

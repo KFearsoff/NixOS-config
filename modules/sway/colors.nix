@@ -1,5 +1,4 @@
-{ colorscheme, ... }:
-
+{colorscheme, ...}:
 with colorscheme.colors; {
   background = "#${base07}";
 

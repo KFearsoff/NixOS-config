@@ -1,7 +1,10 @@
-{ username, config, pkgs, ... }:
-
 {
-  config.home-manager.users."${username}" = { config, ... }: {
+  username,
+  config,
+  pkgs,
+  ...
+}: {
+  config.home-manager.users."${username}" = {config, ...}: {
     home = {
       packages = with pkgs; [
         neofetch
@@ -56,12 +59,12 @@
       fzf = {
         enable = true;
         defaultCommand = "fd --type f --follow --hidden --exclude .git --exclude .direnv --exclude lost+found --color=always";
-        defaultOptions = [ "--ansi" ];
+        defaultOptions = ["--ansi"];
         changeDirWidgetCommand = "fd --type f --follow --hidden --exclude .git --exclude .direnv --exclude lost+found --color=always";
-        changeDirWidgetOptions = [ "--layout=reverse" "--height=40%" "--ansi" "--select-1" "--exit-0" ];
+        changeDirWidgetOptions = ["--layout=reverse" "--height=40%" "--ansi" "--select-1" "--exit-0"];
         fileWidgetCommand = "fd --type f --follow --hidden --exclude .git --exclude .direnv --exclude lost+found --color=always";
-        fileWidgetOptions = [ "--layout=reverse" "--height=40%" "--ansi" "--select-1" "--exit-0" ];
-        historyWidgetOptions = [ "--ansi" "--exact" ];
+        fileWidgetOptions = ["--layout=reverse" "--height=40%" "--ansi" "--select-1" "--exit-0"];
+        historyWidgetOptions = ["--ansi" "--exact"];
       };
       bat = {
         enable = true;
@@ -132,7 +135,7 @@
       '';
     };
 
-    gtk = import ../modules/gtk.nix { inherit pkgs; };
+    gtk = import ../modules/gtk.nix {inherit pkgs;};
     home.sessionVariables = {
       EDITOR = "nvim";
       MANPAGER = "sh -c 'col -bx | bat -l man -p'";

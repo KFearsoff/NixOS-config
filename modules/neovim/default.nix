@@ -1,10 +1,13 @@
-{ pkgs, config, username, nix-colors, ... }:
-
-let
-  inherit (nix-colors.lib { inherit pkgs; }) vimThemeFromScheme;
-  inherit (config.home-manager.users."${username}") colorscheme;
-in
 {
+  pkgs,
+  config,
+  username,
+  nix-colors,
+  ...
+}: let
+  inherit (nix-colors.lib {inherit pkgs;}) vimThemeFromScheme;
+  inherit (config.home-manager.users."${username}") colorscheme;
+in {
   config.home-manager.users."${username}".programs.neovim = {
     # very much inspired by this:
     # https://github.com/LunarVim/Neovim-from-scratch/
@@ -16,7 +19,7 @@ in
 
     plugins = with pkgs.vimPlugins; [
       {
-        plugin = vimThemeFromScheme { scheme = colorscheme; };
+        plugin = vimThemeFromScheme {scheme = colorscheme;};
         config = "colorscheme nix-${colorscheme.slug}";
       }
       vim-airline
@@ -47,18 +50,17 @@ in
       vim-lastplace
     ];
 
-    extraPackages = with pkgs;
-      [
-        gcc # needed for nvim-treesitter
-        rnix-lsp
-        terraform-ls
-        nodePackages.bash-language-server
-        sumneko-lua-language-server
-      ];
+    extraPackages = with pkgs; [
+      gcc # needed for nvim-treesitter
+      rnix-lsp
+      terraform-ls
+      nodePackages.bash-language-server
+      sumneko-lua-language-server
+    ];
 
     extraConfig = ''
       :lua << EOF
-      ${builtins.readFile ./options.lua} 
+      ${builtins.readFile ./options.lua}
       ${builtins.readFile ./keymaps.lua}
       ${builtins.readFile ./cmp.lua}
       ${builtins.readFile ./lsp/lsp.lua}

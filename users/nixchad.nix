@@ -1,6 +1,9 @@
-{ config, pkgs, username, ... }:
-
 {
+  config,
+  pkgs,
+  username,
+  ...
+}: {
   imports = [
     ../modules/colors.nix
     ../modules/sway
@@ -20,12 +23,12 @@
   config = {
     users.users."${username}" = {
       isNormalUser = true;
-      extraGroups = [ "wheel" "libvirtd" "docker" "networkmanager" "video" ];
+      extraGroups = ["wheel" "libvirtd" "docker" "networkmanager" "video"];
       passwordFile = config.sops.secrets.password.path;
     };
     home-manager.useGlobalPkgs = true;
     home-manager.useUserPackages = true;
-    home-manager.extraSpecialArgs = { inherit username; };
+    home-manager.extraSpecialArgs = {inherit username;};
     home-manager.users."${username}".home.stateVersion = "22.05";
   };
 }

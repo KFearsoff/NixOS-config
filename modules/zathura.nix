@@ -1,7 +1,10 @@
-{ config, username, ... }:
-
-let inherit (config.home-manager.users."${username}") colorscheme; in
 {
+  config,
+  username,
+  ...
+}: let
+  inherit (config.home-manager.users."${username}") colorscheme;
+in {
   config.home-manager.users."${username}" = {
     programs.zathura = {
       enable = true;
@@ -16,8 +19,6 @@ let inherit (config.home-manager.users."${username}") colorscheme; in
 
         zoom-min = 10;
         guioptions = "";
-
-
 
         default-bg = "#${colorscheme.colors.base00}";
         default-fg = "#${colorscheme.colors.base01}";

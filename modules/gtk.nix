@@ -1,6 +1,4 @@
-{ pkgs, ... }:
-
-{
+{pkgs, ...}: {
   enable = true;
   iconTheme.package = pkgs.papirus-icon-theme;
   iconTheme.name = "Papirus-Dark";

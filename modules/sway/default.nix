@@ -1,14 +1,17 @@
-{ lib, pkgs, config, username, ... }:
-
-let
+{
+  lib,
+  pkgs,
+  config,
+  username,
+  ...
+}: let
   wallpaper = ../../assets/nix-wallpaper-nineish-dark-gray.png;
   inherit (config.home-manager.users."${username}") colorscheme;
-in
-{
+in {
   config.programs.sway.enable = true;
   config.programs.sway.wrapperFeatures.gtk = true;
   config.programs.sway.extraSessionCommands = ''
-    MOZ_ENABLE_WAYLAND=1 
+    MOZ_ENABLE_WAYLAND=1
     # Qt5
     export QT_QPA_PLATFORM=wayland-egl
     export QT_AUTO_SCREEN_SCALE_FACTOR=1 # QT_WAYLAND_FORCE_DPI=physical forces some Qt apps to scale twice, is undesirable
@@ -46,18 +49,21 @@ in
         bindkeysToCode = true;
 
         input = import ./input.nix;
-        seat = { "*" = { hide_cursor = "10000"; }; };
-        output = { "*" = { bg = "${wallpaper} fill"; }; };
+        seat = {"*" = {hide_cursor = "10000";};};
+        output = {"*" = {bg = "${wallpaper} fill";};};
 
-        gaps = { inner = 10; };
+        gaps = {inner = 10;};
         gaps.smartBorders = "on";
         gaps.smartGaps = true;
 
-        bars = [ ];
+        bars = [];
 
-        colors = import ./colors.nix { inherit colorscheme; };
-        keybindings = import ./keybindings.nix { inherit lib pkgs; mod = "Mod4"; };
-        startup = import ./startup.nix { inherit pkgs; };
+        colors = import ./colors.nix {inherit colorscheme;};
+        keybindings = import ./keybindings.nix {
+          inherit lib pkgs;
+          mod = "Mod4";
+        };
+        startup = import ./startup.nix {inherit pkgs;};
         assigns = import ./assigns.nix;
       };
     };

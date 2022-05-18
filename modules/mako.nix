@@ -1,7 +1,10 @@
-{ config, username, ... }:
-
-let inherit (config.home-manager.users."${username}") colorscheme; in
 {
+  config,
+  username,
+  ...
+}: let
+  inherit (config.home-manager.users."${username}") colorscheme;
+in {
   config.home-manager.users."${username}" = {
     programs.mako = {
       enable = true;
@@ -24,7 +27,6 @@ let inherit (config.home-manager.users."${username}") colorscheme; in
 
       defaultTimeout = 5000; # ms
       ignoreTimeout = true;
-
     };
   };
 }

@@ -1,27 +1,30 @@
-{ lib, pkgs, mod, ... }:
-
-let
+{
+  lib,
+  pkgs,
+  mod,
+  ...
+}: let
   # TODO: rename workspaces to get extra style points
-  workspaces = [ "" "" "" "" "" "" "" "" "" ];
+  workspaces = ["" "" "" "" "" "" "" "" ""];
   numbers = map toString (lib.range 1 9);
   workspaceNumbers = lib.zipListsWith (x: y: x + "" + y) numbers workspaces;
   useWithModifier = mod: lib.mapAttrs' (k: lib.nameValuePair (mod + "+" + k));
   appendExecToCommand = lib.mapAttrs' (k: v: lib.nameValuePair k ("exec " + v));
   swap = pkgs.writeShellScript "swap-workspaces" (builtins.readFile ./swap-workspaces.sh);
 
-
-  /* On the basic level, this magic spell maps workspace-related hotkeys to the numbers on the keyboard.
-    It does so by applying a function inside the squiggly brackets to hotkeys and workspaces to produce
-    attribute sets, then by merging those attribute sets together.
-    func -> nul -> (number -> workspace -> attrSet) -> attrSetForAllNumbers */
-  navigation = lib.foldl (old: new: old // new) { } (lib.zipListsWith
+  /*
+    On the basic level, this magic spell maps workspace-related hotkeys to the numbers on the keyboard.
+   It does so by applying a function inside the squiggly brackets to hotkeys and workspaces to produce
+   attribute sets, then by merging those attribute sets together.
+   func -> nul -> (number -> workspace -> attrSet) -> attrSetForAllNumbers
+   */
+  navigation = lib.foldl (old: new: old // new) {} (lib.zipListsWith
     (number: workspace: {
       "${mod}+${number}" = "exec --no-startup-id ${swap} ${workspace}";
       "${mod}+Shift+${number}" = "move container to workspace ${workspace}; workspace ${workspace}";
     })
     numbers
     workspaceNumbers);
-
 
   functionKeys = appendExecToCommand {
     "XF86AudioRaiseVolume" = "--no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%";
@@ -33,7 +36,6 @@ let
     "Print" = "grimshot copy area";
     "${mod}+Print" = "grimshot save area";
   };
-
 
   general = useWithModifier mod {
     "Tab" = "workspace back_and_forth";
@@ -79,4 +81,4 @@ let
     "f" = "fullscreen toggle";
   };
 in
-general // navigation // functionKeys
+  general // navigation // functionKeys

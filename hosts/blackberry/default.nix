@@ -1,6 +1,4 @@
-{ inputs, ... }:
-
-{
+{inputs, ...}: {
   imports = [
     ./hardware-configuration.nix
     ./kanshi.nix
@@ -21,18 +19,20 @@
 
   networking = {
     hostName = "blackberry"; # Define your hostname.
-    interfaces.enp108s0.ipv4.addresses = [{
-      address = "192.168.1.100";
-      prefixLength = 24;
-    }];
+    interfaces.enp108s0.ipv4.addresses = [
+      {
+        address = "192.168.1.100";
+        prefixLength = 24;
+      }
+    ];
     defaultGateway = "192.168.1.1";
-    nameservers = [ "8.8.8.8" "8.8.4.4" "1.1.1.1" ];
+    nameservers = ["8.8.8.8" "8.8.4.4" "1.1.1.1"];
     firewall.checkReversePath = false;
   };
 
   programs.dconf.enable = true;
 
-  boot.supportedFilesystems = [ "btrfs" ];
+  boot.supportedFilesystems = ["btrfs"];
   services.btrfs.autoScrub.enable = true;
   boot.loader.grub = {
     enable = true;
@@ -47,4 +47,3 @@
   services.flatpak.enable = true;
   nixpkgs.config.chromium.commandLineArgs = "--enable-features=UseOzonePlatform --ozone-platform=wayland";
 }
-

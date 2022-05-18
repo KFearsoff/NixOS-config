@@ -1,7 +1,10 @@
-{ config, username, ... }:
-
-let inherit (config.home-manager.users."${username}") colorscheme; in
 {
+  config,
+  username,
+  ...
+}: let
+  inherit (config.home-manager.users."${username}") colorscheme;
+in {
   config.home-manager.users."${username}" = {
     programs.kitty = {
       enable = true;
