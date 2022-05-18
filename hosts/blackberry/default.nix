@@ -15,7 +15,7 @@
   ];
 
   sops.secrets.password = {
-    sopsFile = ../../secrets/blueberry/default.yaml;
+    sopsFile = ../../secrets/blackberry/default.yaml;
     neededForUsers = true;
   };
 

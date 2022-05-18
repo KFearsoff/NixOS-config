@@ -42,6 +42,7 @@
         duf
         jq
         xdg-utils
+        sops
       ];
     };
 
@@ -75,6 +76,7 @@
           };
           diff = {
             colorMoved = "default";
+            sopsdiffer.textconv = "sops -d";
           };
         };
         delta = {

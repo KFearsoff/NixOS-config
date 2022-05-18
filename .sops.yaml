@@ -21,3 +21,5 @@ creation_rules:
       - age:
         - *nixchad_blackberry 
         - *server_blackberry
+  # Workaround for git diff: https://github.com/mozilla/sops/issues/884
+  - path_regex: .*
