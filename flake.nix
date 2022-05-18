@@ -99,7 +99,7 @@
             {nixpkgs.overlays = builtins.attrValues self.overlays;}
             ./hosts/blueberry
             ./users/nixchad.nix
-            ./profiles/all.nix
+            ./suites
           ];
 
         blackberry =
@@ -108,7 +108,7 @@
             {nixpkgs.overlays = builtins.attrValues self.overlays;}
             ./hosts/blackberry
             ./users/nixchad.nix
-            ./profiles/all.nix
+            ./suites
           ];
       };
     }

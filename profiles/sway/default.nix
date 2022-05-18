@@ -8,6 +8,8 @@
   wallpaper = ../../assets/nix-wallpaper-nineish-dark-gray.png;
   inherit (config.home-manager.users."${username}") colorscheme;
 in {
+  imports = [./swayidle.nix];
+
   config.programs.sway.enable = true;
   config.programs.sway.wrapperFeatures.gtk = true;
   config.programs.sway.extraSessionCommands = ''
@@ -41,6 +43,9 @@ in {
       mako
       sway-contrib.grimshot
     ];
+
+    home.file.".icons/default".source = "${pkgs.vanilla-dmz}/share/icons/Vanilla-DMZ";
+
     wayland.windowManager.sway = {
       enable = true;
       package = null;

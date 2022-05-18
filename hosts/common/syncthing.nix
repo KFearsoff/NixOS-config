@@ -1,4 +1,8 @@
 {username, ...}: {
+  home-manager.users."${username}".xdg.userDirs.extraConfig = {
+    XDG_SYNC_DIR = "$HOME/Sync";
+  };
+
   services.syncthing = {
     enable = true;
     overrideDevices = true;

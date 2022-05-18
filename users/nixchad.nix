@@ -4,22 +4,6 @@
   username,
   ...
 }: {
-  imports = [
-    ../modules/colors.nix
-    ../modules/sway
-    ../modules/alacritty.nix
-    ../modules/zsh.nix
-    ../modules/gammastep.nix
-    ../modules/starship.nix
-    ../modules/common.nix
-    ../modules/mako.nix
-    ../modules/neovim
-    ../modules/zathura.nix
-    ../modules/waybar.nix
-    ../modules/vscodium.nix
-    ../modules/mpv.nix
-    ../modules/newsboat.nix
-  ];
   config = {
     users.users."${username}" = {
       isNormalUser = true;
@@ -29,6 +13,16 @@
     home-manager.useGlobalPkgs = true;
     home-manager.useUserPackages = true;
     home-manager.extraSpecialArgs = {inherit username;};
-    home-manager.users."${username}".home.stateVersion = "22.05";
+    home-manager.users."${username}" = {
+      systemd.user.startServices = "sd-switch";
+      xdg = {
+        enable = true;
+        userDirs = {
+          enable = true;
+          createDirectories = true;
+        };
+      };
+      home.stateVersion = "22.05";
+    };
   };
 }
