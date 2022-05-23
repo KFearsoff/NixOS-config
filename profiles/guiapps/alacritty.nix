@@ -1,11 +1,17 @@
 {
   username,
   config,
+  pkgs,
   ...
 }: let
   inherit (config.home-manager.users."${username}") colorscheme;
 in {
   home-manager.users."${username}" = {
+    terminal = {
+      enable = true;
+      package = pkgs.alacritty;
+    };
+
     programs.alacritty = {
       enable = true;
       settings = {

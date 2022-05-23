@@ -1,4 +1,5 @@
 {
+  config,
   lib,
   pkgs,
   mod,
@@ -33,14 +34,14 @@
     "XF86AudioMicMute" = "--no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle";
     "XF86MonBrightnessUp" = "light -A 5";
     "XF86MonBrightnessDown" = "light -U 5";
-    "Print" = "${pkgs.sway-contrib.grimshot} copy area";
-    "${mod}+Print" = "${pkgs.sway-contrib.grimshot} save area";
+    "Print" = "${pkgs.sway-contrib.grimshot}/bin/grimshot copy area";
+    "${mod}+Print" = "${pkgs.sway-contrib.grimshot}/bin/grimshot save area";
   };
 
   general = useWithModifier mod {
     "Tab" = "workspace back_and_forth";
     "Shift+q" = "kill";
-    "Return" = "exec ${pkgs.alacritty}/bin/alacritty";
+    "Return" = "exec ${config.terminal.binaryPath}";
     "d" = "exec ${pkgs.nur.repos.kira-bruneau.rofi-wayland}/bin/rofi -combi-mode drun -show drun -icon-theme \"Papirus\" -show-icons";
     "Caps_Lock" = "exec ${pkgs.swaylock}/bin/swaylock -i ~/NixOS-config/assets/nix-wallpaper-nineish-dark-gray.png";
     "Shift+e" = "exec ${pkgs.wlogout}/bin/wlogout";

@@ -1,11 +1,17 @@
 {
   username,
   config,
+  pkgs,
   ...
 }: let
   inherit (config.home-manager.users."${username}") colorscheme;
 in {
   home-manager.users."${username}" = {
+    terminal = {
+      enable = true;
+      package = pkgs.kitty;
+    };
+
     programs.kitty = {
       enable = true;
       font = {
@@ -62,7 +68,7 @@ in {
         cursor_blink_interval = 0;
         enable_audio_bell = "no";
         window_alert_on_bell = "no";
-        shell_integration = "disabled";
+        shell_integration = "enabled";
       };
     };
   };

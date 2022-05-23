@@ -37,7 +37,7 @@ in {
       '';
     };
 
-    home-manager.users."${username}" = {
+    home-manager.users."${username}" = {config, ...}: {
       home.packages = with pkgs; [
         swaylock
         wl-clipboard
@@ -66,10 +66,10 @@ in {
 
           colors = import ./colors.nix {inherit colorscheme;};
           keybindings = import ./keybindings.nix {
-            inherit lib pkgs;
+            inherit lib pkgs config;
             mod = "Mod4";
           };
-          startup = import ./startup.nix {inherit pkgs;};
+          startup = import ./startup.nix {inherit pkgs config;};
           assigns = import ./assigns.nix;
         };
       };
