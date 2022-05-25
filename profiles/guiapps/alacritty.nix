@@ -10,6 +10,7 @@ in {
     terminal = {
       enable = true;
       package = pkgs.alacritty;
+      windowName = "Alacritty";
     };
 
     programs.alacritty = {

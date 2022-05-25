@@ -36,9 +36,6 @@
     ];
   };
 
-  programs.dconf.enable = true;
-  programs.light.enable = true;
-
   services.printing.enable = true;
   users.mutableUsers = false;
   boot.loader.systemd-boot = {

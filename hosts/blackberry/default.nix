@@ -30,8 +30,6 @@
     firewall.checkReversePath = false;
   };
 
-  programs.dconf.enable = true;
-
   boot.supportedFilesystems = ["btrfs"];
   services.btrfs.autoScrub.enable = true;
   boot.loader.grub = {
@@ -43,7 +41,6 @@
   };
 
   programs.steam.enable = true;
-  hardware.opengl.driSupport32Bit = true;
   services.flatpak.enable = true;
   nixpkgs.config.chromium.commandLineArgs = "--enable-features=UseOzonePlatform --ozone-platform=wayland";
 }

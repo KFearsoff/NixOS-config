@@ -32,8 +32,8 @@
     "XF86AudioLowerVolume" = "--no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5%";
     "XF86AudioMute" = "--no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle";
     "XF86AudioMicMute" = "--no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle";
-    "XF86MonBrightnessUp" = "light -A 5";
-    "XF86MonBrightnessDown" = "light -U 5";
+    "XF86MonBrightnessUp" = "${pkgs.light}/bin/light -A 5";
+    "XF86MonBrightnessDown" = "${pkgs.light}/bin/light -U 5";
     "Print" = "${pkgs.sway-contrib.grimshot}/bin/grimshot copy area";
     "${mod}+Print" = "${pkgs.sway-contrib.grimshot}/bin/grimshot save area";
   };
