@@ -197,62 +197,62 @@ in {
 
         #custom-right-arrow,
         #custom-left-arrow {
-          color: #${colors.base03};
+          color: #${colors.base02};
           background: #${colors.base00};
         }
         #custom-right-arrow-inverse,
         #custom-left-arrow-inverse {
           color: #${colors.base00};
-          background: #${colors.base03};
+          background: #${colors.base02};
         }
 
         #workspaces {
             color: #${colors.base05};
-            background: #${colors.base03};
+            background: #${colors.base02};
           }
         #clock.1 {
             color: #${colors.base05};
-            background: #${colors.base03};
+            background: #${colors.base02};
           }
         #clock.2 {
             color: #${colors.base05};
-            background: #${colors.base03};
+            background: #${colors.base02};
           }
         #clock.3 {
             color: #${colors.base05};
-            background: #${colors.base03};
+            background: #${colors.base02};
           }
         #idle_inhibitor {
             color: #${colors.base05};
-            background: #${colors.base03};
+            background: #${colors.base02};
           }
         #pulseaudio {
             color: #${colors.base05};
-            background: #${colors.base03};
+            background: #${colors.base02};
           }
         #mpd {
             color: #${colors.base05};
-            background: #${colors.base03};
+            background: #${colors.base02};
           }
         #network {
             color: #${colors.base05};
-            background: #${colors.base03};
+            background: #${colors.base02};
           }
         #backlight {
             color: #${colors.base05};
-            background: #${colors.base03};
+            background: #${colors.base02};
           }
         #language {
             color: #${colors.base05};
-            background: #${colors.base03};
+            background: #${colors.base02};
           }
         #battery {
             color: #${colors.base05};
-            background: #${colors.base03};
+            background: #${colors.base02};
           }
         #tray {
             color: #${colors.base05};
-            background: #${colors.base03};
+            background: #${colors.base02};
           }
 
         #workspaces button {
@@ -263,7 +263,7 @@ in {
           color: #${colors.base0D};
         }
         #workspaces button:hover {
-          background: #${colors.base03};
+          background: #${colors.base02};
           border: #${colors.base05};
         }
       '';

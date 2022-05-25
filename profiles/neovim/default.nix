@@ -45,12 +45,12 @@ in {
         friendly-snippets # a bunch of snippets to use
 
         telescope-nvim
-        #vim-nix
+        vim-nix
         indentLine
 
         nvim-autopairs
 
-        (nvim-treesitter.withPlugins (plugins: pkgs.tree-sitter.allGrammars))
+        #(nvim-treesitter.withPlugins (plugins: pkgs.tree-sitter.allGrammars))
 
         vim-lastplace
       ];
@@ -63,13 +63,13 @@ in {
         sumneko-lua-language-server
       ];
 
+      #${builtins.readFile ./treesitter.lua}
       extraConfig = ''
         :lua << EOF
         ${builtins.readFile ./options.lua}
         ${builtins.readFile ./keymaps.lua}
         ${builtins.readFile ./cmp.lua}
         ${builtins.readFile ./lsp/lsp.lua}
-        ${builtins.readFile ./treesitter.lua}
         ${builtins.readFile ./autopairs.lua}
       '';
     };
