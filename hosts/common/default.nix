@@ -58,6 +58,7 @@
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKnUBxbvoSGs+Q+hhSUrwqNkVzmtnEc03Tt203PEJWBE nixchad@blueberry"
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEQ77pbUwzNYJzu/vEg9MqtuLQmjgRtf5b4K+qsZ0o7v nixchad@blackberry"
   ];
+  programs.ssh.knownHosts.blackberry.publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJFuPxeQsCC2PkR21MSxgkAYDFqJ6sARXZLZRHuy99oq";
 
   services = {
     openssh = {
@@ -88,6 +89,9 @@
   sops.gnupg.sshKeyPaths = lib.mkForce [];
   sops.age.keyFile = "/var/lib/sops-nix/key.txt";
   sops.age.generateKey = true;
+
+  services.smartd.enable = true;
+  services.smartd.defaults.monitored = "-a -o on -s (S/../01/./03|L/(01|07)/.././03)";
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
