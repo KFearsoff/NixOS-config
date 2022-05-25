@@ -49,6 +49,7 @@
   };
 
   zramSwap.enable = true;
+  zramSwap.memoryPercent = 100;
   swapDevices = [];
 
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;

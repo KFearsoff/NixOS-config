@@ -42,9 +42,8 @@
     hideMounts = true;
     directories = [
       "/var/log"
-      "/var/lib/systemd/coredump"
-      "/var/lib/systemd/backlight"
-      "/var/lib/systemd/timers"
+      "/var/lib/nixos" # persist UIDs and GIDs
+      "/var/lib/systemd"
       "/etc/NetworkManager/system-connections"
     ];
     files = [

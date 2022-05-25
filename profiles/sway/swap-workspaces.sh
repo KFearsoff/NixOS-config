@@ -28,6 +28,8 @@
 # current output without affecting the other workspace
 # -----------------------------------------------
 
+set -euo pipefail
+
 declare ws_target  # $1 == target workspace
 declare ws_visible # whether ws_target is visible
 declare op_current # current output

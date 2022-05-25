@@ -7,6 +7,7 @@
     ./bat.nix
     ./fzf.nix
     ./git.nix
+    ./nix-index.nix
   ];
 
   config.home-manager.users."${username}" = {

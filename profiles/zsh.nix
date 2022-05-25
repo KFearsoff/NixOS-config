@@ -2,6 +2,7 @@
   username,
   inputs,
   pkgs,
+  lib,
   ...
 }: let
   exa = "${pkgs.exa}/bin/exa";
@@ -18,7 +19,7 @@ in {
     };
     users.users."${username}".shell = pkgs.zsh;
 
-    home-manager.users."${username}" = {
+    home-manager.users."${username}" = {config, ...}: {
       programs.zsh = {
         enable = true;
         enableAutosuggestions = true;
@@ -26,8 +27,14 @@ in {
         enableSyntaxHighlighting = true;
         history.expireDuplicatesFirst = true;
         history.extended = true;
+        completionInit = ''
+          autoload -U +X compinit && compinit
+          autoload -U +X bashcompinit && bashcompinit
+        '';
         shellAliases = {
-          sudo = "sudo "; # enable aliases when using sudo
+          sudo = "sudo -E "; # enable aliases when using sudo
+          su = "sudo -i";
+          ssh = lib.mkIf (config.terminal.enable && config.terminal.package == pkgs.kitty) "${pkgs.kitty} +kitten ssh ";
 
           ".." = "cd ..";
           "..." = "cd ../..";

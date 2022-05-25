@@ -1,6 +1,7 @@
 {username, ...}: {
   home-manager.users."${username}".xdg.userDirs.extraConfig = {
     XDG_SYNC_DIR = "$HOME/Sync";
+    XDG_PROJ_DIR = "$HOME/Projects";
   };
 
   services.syncthing = {
@@ -26,6 +27,10 @@
       };
       "Sync" = {
         path = "/home/${username}/Sync";
+        devices = ["blueberry" "blackberry"];
+      };
+      "Projects" = {
+        path = "/home/${username}/Projects";
         devices = ["blueberry" "blackberry"];
       };
     };
