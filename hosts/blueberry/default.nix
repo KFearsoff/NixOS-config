@@ -1,6 +1,7 @@
 {
   inputs,
   lib,
+  pkgs,
   ...
 }: {
   imports = [
@@ -24,6 +25,21 @@
     sopsFile = ../../secrets/blueberry/default.yaml;
     neededForUsers = true;
   };
+  services.postgresql = {
+    enable = true;
+    package = pkgs.postgresql_13;
+  };
+  networking.extraHosts = ''
+    10.220.32.224 vcenter.lab.itkey.com
+    192.168.1.100 blackberry
+    10.10.30.9 keycloak-overcloud9.private.infra.devmail.ru
+    10.10.30.9 overcloud9.private.infra.devmail.ru
+    10.10.30.9 sso-overcloud9.private.infra.devmail.ru
+    10.10.30.9 admin-overcloud9.private.infra.devmail.ru
+    10.10.30.31 deploy
+    10.10.30.191 box2
+  '';
+  services.openvpn3.client.enable = true;
 
   networking = {
     hostName = "blueberry"; # Define your hostname.

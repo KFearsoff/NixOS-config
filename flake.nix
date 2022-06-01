@@ -2,8 +2,8 @@
   description = "NixOS configuration with flakes";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/release-21.05";
-    unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    # unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    unstable.url = "github:nixos/nixpkgs/b7493e35504d5f5ec5fa73db0ebfc1e731741016";
     flake-compat = {
       url = "github:edolstra/flake-compat";
       flake = false;

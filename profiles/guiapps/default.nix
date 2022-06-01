@@ -8,6 +8,7 @@
     ./kitty.nix
     ./mako.nix
     ./mpv.nix
+    ./myteam.nix
     ./vscodium.nix
     ./zathura.nix
   ];
