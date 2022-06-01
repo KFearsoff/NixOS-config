@@ -39,6 +39,7 @@
         redhat.telemetry.enabled = false;
         explorer.confirmDelete = false;
         git.confirmSync = false;
+        files.trimTrailingWhitespace = true;
       };
     };
   };

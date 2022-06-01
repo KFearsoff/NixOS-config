@@ -37,6 +37,13 @@ keymap("n", "<C-Right>", ":vertical resize +2<CR>", opts)
 keymap("n", "<S-l>", ":bnext<CR>", opts)
 keymap("n", "<S-h>", ":bprevious<CR>", opts)
 
+-- Navigate one line at a time 
+keymap("n", "j", "gj", opts)
+keymap("n", "k", "gk", opts)
+keymap("n", "0", "g0", opts)
+keymap("n", "^", "g^", opts)
+keymap("n", "$", "g$", opts)
+
 -- Insert --
 -- Press jk fast to enter
 keymap("i", "jk", "<ESC>", opts)

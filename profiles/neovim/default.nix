@@ -28,6 +28,7 @@ in {
           config = "colorscheme nix-${colorscheme.slug}";
         }
         vim-airline
+        editorconfig-nvim
 
         # LSP
         nvim-lspconfig
