@@ -5,4 +5,17 @@
   "4" = [{app_id = "FreeTube";}];
   "5" = [{app_id = "org.keepassxc.KeePassXC";}];
   "6" = [{app_id = "obsidian";}];
+  "7" = [
+    # General Gaming
+    {app_id = "lutris";}
+    # Riot Games
+    {class = "riotclientux.exe";}
+    # LoR
+    {class = "Wine";}
+    # LoL
+    {class = "explorer.exe";}
+    {class = "leagueclient.exe";}
+    {class = "leagueclientux.exe";}
+    {class = "league of legends.exe";}
+  ];
 }

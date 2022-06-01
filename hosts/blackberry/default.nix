@@ -40,7 +40,5 @@
     efiInstallAsRemovable = true;
   };
 
-  programs.steam.enable = true;
-  services.flatpak.enable = true;
   nixpkgs.config.chromium.commandLineArgs = "--enable-features=UseOzonePlatform --ozone-platform=wayland";
 }
