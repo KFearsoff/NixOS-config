@@ -7,6 +7,11 @@
     command = "${pkgs.autotiling}/bin/autotiling";
     always = true;
   }
+  {
+    # https://github.com/nix-community/home-manager/issues/2797
+    command = "${pkgs.systemd}/bin/systemctl --user try-reload-or-restart kanshi.service";
+    always = true;
+  }
   {command = "${pkgs.keepassxc}/bin/keepassxc";}
   {command = "${pkgs.ungoogled-chromium}/bin/chromium";}
   {command = "${pkgs.tdesktop}/bin/telegram-desktop";}

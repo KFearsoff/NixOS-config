@@ -30,11 +30,12 @@ in {
         completionInit = ''
           autoload -U +X compinit && compinit
           autoload -U +X bashcompinit && bashcompinit
+          source ${pkgs.openvpn3}/share/bash-completion/completions/openvpn3
         '';
         shellAliases = {
           sudo = "sudo -E "; # enable aliases when using sudo
           su = "sudo -i";
-          ssh = lib.mkIf (config.terminal.enable && config.terminal.package == pkgs.kitty) "${pkgs.kitty} +kitten ssh ";
+          ssh = lib.mkIf (config.terminal.enable && config.terminal.package == pkgs.kitty) "${pkgs.kitty}/bin/kitty +kitten ssh ";
 
           ".." = "cd ..";
           "..." = "cd ../..";

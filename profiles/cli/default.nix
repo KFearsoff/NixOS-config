@@ -12,10 +12,6 @@
 
   config.home-manager.users."${username}" = {
     home = {
-      sessionVariables = {
-        LS_COLORS = "1";
-      };
-
       packages = with pkgs; [
         neofetch
         gnumake

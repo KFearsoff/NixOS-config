@@ -3,7 +3,7 @@
   pkgs,
   ...
 }: {
-  config.home-manager.users."${username}" = {
+  home-manager.users."${username}" = {
     programs.newsboat = {
       enable = true;
       autoReload = true;
