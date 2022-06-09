@@ -2,16 +2,20 @@
   description = "NixOS configuration with flakes";
 
   inputs = {
-    # unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-    unstable.url = "github:nixos/nixpkgs/b7493e35504d5f5ec5fa73db0ebfc1e731741016";
+    unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    unstable-openvpn3.url = "github:nixos/nixpkgs/90986a500bd63124fbdd3c827f180f19d1aa0b3c";
     flake-compat = {
       url = "github:edolstra/flake-compat";
       flake = false;
     };
     hardware.url = "github:NixOS/nixos-hardware/master";
     flake-utils.url = "github:numtide/flake-utils";
-    home-manager.url = "github:nix-community/home-manager/a2ba21275e154a4877522cb408a620850cf39395";
+    home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "unstable";
+    home-manager.inputs.utils.follows = "flake-utils";
+    home-manager.inputs.flake-compat.follows = "flake-compat";
+    home-manager-newsboat.url = "github:nix-community/home-manager/fb82568aa899f947a26d4d0c01cb30960f53f182";
+    home-manager-newsboat.inputs.nixpkgs.follows = "unstable";
 
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
     neovim-nightly-overlay.inputs.nixpkgs.follows = "unstable";

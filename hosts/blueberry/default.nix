@@ -16,7 +16,13 @@
     inputs.hardware.nixosModules.common-pc-laptop-ssd
     inputs.hardware.nixosModules.common-pc-laptop
     inputs.hardware.nixosModules.common-pc-laptop-acpi_call
+
+    "${inputs.unstable-openvpn3}/nixos/modules/programs/openvpn3.nix"
   ];
+  nixpkgs.config.packageOverrides = {
+    openvpn3 = pkgs.callPackage "${inputs.unstable-openvpn3}/pkgs/tools/networking/openvpn3" {};
+  };
+  programs.openvpn3.enable = true;
 
   networking.nameservers = ["8.8.8.8" "8.8.4.4." "1.1.1.1"];
   networking.networkmanager.dns = "unbound";
@@ -39,7 +45,6 @@
     10.10.30.31 deploy
     10.10.30.191 box2
   '';
-  services.openvpn3.client.enable = true;
 
   networking = {
     hostName = "blueberry"; # Define your hostname.

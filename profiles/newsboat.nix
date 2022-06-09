@@ -1,9 +1,19 @@
 {
   username,
   pkgs,
+  inputs,
+  config,
   ...
 }: {
   home-manager.users."${username}" = {
+    # https://github.com/nix-community/home-manager/issues/602
+    disabledModules = [
+      "programs/newsboat.nix"
+    ];
+    imports = [
+      "${inputs.home-manager-newsboat}/modules/programs/newsboat.nix"
+    ];
+
     programs.newsboat = {
       enable = true;
       autoReload = true;
