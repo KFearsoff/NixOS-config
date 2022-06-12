@@ -46,6 +46,8 @@
     10.10.30.191 box2
   '';
   programs.wireshark.enable = true;
+  hardware.bluetooth.enable = true;
+  services.blueman.enable = true;
 
   networking = {
     hostName = "blueberry"; # Define your hostname.
