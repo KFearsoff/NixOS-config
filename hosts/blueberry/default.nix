@@ -45,6 +45,7 @@
     10.10.30.31 deploy
     10.10.30.191 box2
   '';
+  programs.wireshark.enable = true;
 
   networking = {
     hostName = "blueberry"; # Define your hostname.

@@ -33,6 +33,7 @@
         cinnamon.nemo
         obsidian
         easyeffects
+        wireshark
       ];
     };
 
