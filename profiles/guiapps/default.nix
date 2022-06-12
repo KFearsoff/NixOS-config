@@ -9,6 +9,7 @@
     ./mako.nix
     ./mpv.nix
     ./myteam.nix
+    ./theming.nix
     ./vscodium.nix
     ./zathura.nix
   ];
