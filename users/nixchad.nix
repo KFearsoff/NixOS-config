@@ -6,7 +6,7 @@
 }: {
   users.users."${username}" = {
     isNormalUser = true;
-    extraGroups = ["wheel" "libvirtd" "docker" "networkmanager" "video"];
+    extraGroups = ["wheel" "libvirtd" "networkmanager" "video"];
     passwordFile = config.sops.secrets.password.path;
   };
   home-manager.useGlobalPkgs = true;

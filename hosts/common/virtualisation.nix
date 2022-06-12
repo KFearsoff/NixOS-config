@@ -2,10 +2,13 @@
   environment.persistence."/persist" = {
     directories = [
       "/var/lib/libvirt"
-      "/var/lib/docker"
+      "/var/lib/containers"
     ];
   };
 
   virtualisation.libvirtd.enable = true;
-  virtualisation.docker.enable = true;
+  virtualisation.podman = {
+    enable = true;
+    dockerCompat = true;
+  };
 }
