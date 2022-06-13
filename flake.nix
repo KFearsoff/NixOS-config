@@ -93,6 +93,7 @@
   in
     {
       overlays = {
+        default = import ./overlays;
         nur = nur.overlay;
         neovim-nightly-overlay = neovim-nightly-overlay.overlay;
       };
