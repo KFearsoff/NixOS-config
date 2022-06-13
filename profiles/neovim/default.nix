@@ -5,7 +5,7 @@
   nix-colors,
   ...
 }: let
-  inherit (nix-colors.lib {inherit pkgs;}) vimThemeFromScheme;
+  inherit (nix-colors.lib-contrib {inherit pkgs;}) vimThemeFromScheme;
   inherit (config.home-manager.users."${username}") colorscheme;
 in {
   config.home-manager.users."${username}" = {

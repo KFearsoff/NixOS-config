@@ -42,7 +42,7 @@
     "Tab" = "workspace back_and_forth";
     "Shift+q" = "kill";
     "Return" = "exec ${config.terminal.binaryPath}";
-    "d" = "exec ${pkgs.nur.repos.kira-bruneau.rofi-wayland}/bin/rofi -combi-mode drun -show drun -icon-theme \"Papirus\" -show-icons";
+    "d" = "exec ${pkgs.rofi-wayland}/bin/rofi -combi-mode drun -show drun -icon-theme \"Papirus\" -show-icons";
     "Caps_Lock" = "exec ${pkgs.swaylock}/bin/swaylock -i ~/NixOS-config/assets/nix-wallpaper-nineish-dark-gray.png";
     "Shift+e" = "exec ${pkgs.wlogout}/bin/wlogout";
     "Shift+r" = "reload";

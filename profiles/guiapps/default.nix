@@ -41,7 +41,7 @@
       obs-studio.enable = true;
       rofi = {
         enable = true;
-        package = pkgs.nur.repos.kira-bruneau.rofi-wayland;
+        package = pkgs.rofi-wayland;
         theme = "purple";
         terminal = "alacritty";
       };

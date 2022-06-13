@@ -11,6 +11,7 @@ in {
   imports = [./swayidle.nix];
 
   config = {
+    environment.sessionVariables.NIXOS_OZONE_WL = "1";
     security.polkit.enable = true;
     security.pam.services.swaylock = {};
     hardware.opengl.enable = lib.mkDefault true;

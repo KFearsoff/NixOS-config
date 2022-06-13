@@ -3,7 +3,6 @@
 
   inputs = {
     unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-    unstable-openvpn3.url = "github:nixos/nixpkgs/90986a500bd63124fbdd3c827f180f19d1aa0b3c";
     flake-compat = {
       url = "github:edolstra/flake-compat";
       flake = false;

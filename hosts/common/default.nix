@@ -23,7 +23,6 @@
   hardware.video.hidpi.enable = true;
 
   programs.git.enable = true;
-  nixpkgs.config.chromium.commandLineArgs = "--enable-features=UseOzonePlatform --ozone-platform=wayland";
 
   environment.systemPackages = with pkgs; [
     wget
@@ -99,5 +98,5 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = lib.mkDefault "21.11"; # Did you read the comment?
+  system.stateVersion = lib.mkDefault "22.05"; # Did you read the comment?
 }
