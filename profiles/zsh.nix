@@ -5,11 +5,11 @@
   lib,
   ...
 }: let
-  exa = "${pkgs.exa}/bin/exa";
   rg = "${pkgs.ripgrep}/bin/rg";
   fzf = "${pkgs.fzf}/bin/fzf";
   bat = "${pkgs.bat}/bin/bat";
 in {
+  imports = [./aliases.nix];
   config = {
     programs.zsh = {
       enable = true;
@@ -32,37 +32,6 @@ in {
           autoload -U +X bashcompinit && bashcompinit
           source ${pkgs.openvpn3}/share/bash-completion/completions/openvpn3
         '';
-        shellAliases = {
-          sudo = "sudo -E "; # enable aliases when using sudo
-          su = "sudo -i";
-          ssh = lib.mkIf (config.terminal.enable && config.terminal.package == pkgs.kitty) "${pkgs.kitty}/bin/kitty +kitten ssh ";
-
-          ".." = "cd ..";
-          "..." = "cd ../..";
-          ".2" = "cd ../..";
-          ".3" = "cd ../../..";
-          ".4" = "cd ../../../..";
-          ".5" = "cd ../../../../..";
-          ".6" = "cd ../../../../../..";
-
-          ls = "${exa} -lg --color=always --group-directories-first ";
-          la = "${exa} -lag --color=always --group-directories-first ";
-          lt = "${exa} -lagT --color=always --group-directories-first ";
-          "l." = "${exa} -a | egrep \"^\\.\" ";
-
-          grep = "grep --color=auto ";
-          egrep = "egrep --color=auto ";
-          fgrep = "fgrep --color=auto ";
-
-          md = "mkdir -vp ";
-          ps = "${pkgs.procs}/bin/procs ";
-          cat = "batcopy ";
-          tail = "battail ";
-
-          gco = "git checkout ";
-          gst = "git status ";
-          newsboat = "newsboat -q ";
-        };
         initExtra = ''
           # Search Files and Edit
           fe() {
