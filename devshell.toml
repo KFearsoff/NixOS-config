@@ -1,0 +1,50 @@
+[devshell]
+name = "devshell"
+packages = [
+  "sops"
+]
+
+[[env]]
+name = "DEVSHELL_NO_MOTD"
+value = 1
+
+
+[[commands]]
+name = "switch"
+command = "nixos-rebuild --use-remote-sudo --flake '.#' switch -v"
+
+[[commands]]
+name = "test"
+command = "nixos-rebuild --use-remote-sudo --flake '.#' test -v"
+
+[[commands]]
+name = "boot"
+command = "nixos-rebuild --use-remote-sudo --flake '.#' boot -v"
+
+[[commands]]
+name = "dry"
+command = "nixos-rebuild --use-remote-sudo --flake '.#' dry-activate -v"
+
+[[commands]]
+name = "vm"
+command = "nixos-rebuild --use-remote-sudo --flake '.#' build-vm -v"
+
+[[commands]]
+name = "vm-boot"
+command = "nixos-rebuild --use-remote-sudo --flake '.#' build-vm-with-bootloader -v"
+
+[[commands]]
+name = "nix-gc"
+command = "sudo nix-collect-garbage --delete-older-than 7d"
+
+[[commands]]
+name = "update"
+command = "nix flake update"
+
+[[commands]]
+name = "diff"
+command = "nix profile diff-closures --profile /nix/var/nix/profiles/system | less"
+
+[[commands]]
+name = "preview"
+command = "nixos-rebuild --use-remote-sudo --flake '.#' build -v && nix store diff-closures /var/run/current-system ./result"
