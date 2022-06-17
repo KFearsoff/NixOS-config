@@ -133,7 +133,8 @@
         inherit (self.checks.${system}.pre-commit-check) shellHook;
 
         buildInputs = with unstable.legacyPackages.${system}.pkgs; [
-          # sops
+          sops
+          gnumake
         ];
       };
     });

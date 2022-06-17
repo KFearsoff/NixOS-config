@@ -56,7 +56,11 @@
   };
 
   services.printing.enable = true;
-  users.mutableUsers = false;
+  services.avahi = {
+    enable = true;
+    nssmdns = true;
+  };
+
   boot.loader.systemd-boot = {
     enable = true;
     consoleMode = "max";

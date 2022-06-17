@@ -14,22 +14,24 @@ in {
     programs.zsh = {
       enable = true;
       enableCompletion = true;
-      autosuggestions.enable = true;
+      enableBashCompletion = true;
+      autosuggestions = {
+        enable = true;
+        async = true;
+      };
+      vteIntegration = true;
+      zsh-autoenv.enable = true;
       syntaxHighlighting.enable = true;
     };
-    users.users."${username}".shell = pkgs.zsh;
+    users.defaultUserShell = pkgs.zsh;
 
     home-manager.users."${username}" = {config, ...}: {
       programs.zsh = {
         enable = true;
-        enableAutosuggestions = true;
-        enableCompletion = true;
-        enableSyntaxHighlighting = true;
+        autocd = true;
         history.expireDuplicatesFirst = true;
         history.extended = true;
         completionInit = ''
-          autoload -U +X compinit && compinit
-          autoload -U +X bashcompinit && bashcompinit
           source ${pkgs.openvpn3}/share/bash-completion/completions/openvpn3
         '';
         initExtra = ''

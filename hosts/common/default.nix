@@ -20,12 +20,6 @@
   networking.useDHCP = false;
   networking.networkmanager.enable = true;
 
-  hardware.video.hidpi.enable = true;
-
-  environment.systemPackages = with pkgs; [
-    wget
-  ];
-
   boot.cleanTmpDir = true;
   programs.fuse.userAllowOther = true;
 
@@ -74,10 +68,6 @@
           bits = "4096";
         }
       ];
-    };
-    avahi = {
-      enable = true;
-      nssmdns = true;
     };
   };
 

@@ -8,7 +8,10 @@
   wallpaper = ../../assets/nix-wallpaper-nineish-dark-gray.png;
   inherit (config.home-manager.users."${username}") colorscheme;
 in {
-  imports = [./swayidle.nix];
+  imports = [
+    ./swayidle.nix
+    ./mako.nix
+  ];
 
   config = {
     environment.sessionVariables.NIXOS_OZONE_WL = "1";
@@ -18,17 +21,21 @@ in {
     fonts.enableDefaultFonts = lib.mkDefault true;
     programs.dconf.enable = lib.mkDefault true;
     programs.light.enable = lib.mkDefault true;
-    xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-wlr];
+    xdg.portal = {
+      enable = true;
+      wlr.enable = true; # installs xdg-desktop-portal-wlr
+      gtkUsePortal = true; # only sets GTK_USE_PORTAL=1, doesn't install the portal itself
+      extraPortals = [pkgs.xdg-desktop-portal-gtk];
+    };
 
     home-manager.users."${username}" = {config, ...}: {
-      home.packages = with pkgs; [
-        swaylock
-        wl-clipboard
-        mako
-        sway-contrib.grimshot
-      ];
+      home.packages = [pkgs.wl-clipboard];
 
-      home.file.".icons/default".source = "${pkgs.vanilla-dmz}/share/icons/Vanilla-DMZ";
+      home.pointerCursor = {
+        package = pkgs.vanilla-dmz;
+        name = "Vanilla-DMZ";
+        gtk.enable = true;
+      };
 
       wayland.windowManager.sway = {
         enable = true;

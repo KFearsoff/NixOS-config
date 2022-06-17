@@ -6,7 +6,6 @@
 }: {
   imports = [
     ./kitty.nix
-    ./mako.nix
     ./mpv.nix
     ./myteam.nix
     ./theming.nix
@@ -27,7 +26,6 @@
         ranger
         gimp
         qbittorrent
-        udiskie
         element-desktop-wayland
         tor-browser-bundle-bin
         cinnamon.nemo

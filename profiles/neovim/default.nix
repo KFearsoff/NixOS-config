@@ -57,7 +57,7 @@ in {
       ];
 
       extraPackages = with pkgs; [
-        gcc # needed for nvim-treesitter
+        # gcc # needed for nvim-treesitter
         rnix-lsp
         terraform-ls
         nodePackages.bash-language-server
