@@ -42,6 +42,7 @@ in {
       gsr = "git stash pop ";
       gsl = "git stash list ";
       gc = "git commit ";
+      gca = "git commit --amend ";
       gr = "git rebase ";
       gpa = "git pull --all";
       ga = "git add";
