@@ -8,7 +8,6 @@
     ./kitty.nix
     ./mpv.nix
     ./myteam.nix
-    ./theming.nix
     ./vscodium.nix
     ./zathura.nix
   ];
@@ -16,7 +15,6 @@
   config.home-manager.users."${username}" = {config, ...}: {
     home = {
       packages = with pkgs; [
-        virt-manager
         libreoffice
         ungoogled-chromium
         freetube
@@ -31,7 +29,7 @@
         cinnamon.nemo
         obsidian
         easyeffects
-        wireshark
+        xdg-utils
       ];
     };
 

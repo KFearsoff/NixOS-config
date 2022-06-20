@@ -70,6 +70,7 @@
             impermanence.nixosModules.impermanence
             sops-nix.nixosModules.sops
             (./users + "/${username}.nix")
+            {nixpkgs.overlays = builtins.attrValues self.overlays;}
           ]
           ++ extraModules;
       };
@@ -83,7 +84,6 @@
       nixosConfigurations = {
         blueberry = buildSystem {
           extraModules = [
-            {nixpkgs.overlays = builtins.attrValues self.overlays;}
             ./hosts/blueberry
             ./suites
           ];
@@ -91,7 +91,6 @@
 
         blackberry = buildSystem {
           extraModules = [
-            {nixpkgs.overlays = builtins.attrValues self.overlays;}
             ./hosts/blackberry
             ./suites
           ];

@@ -1,7 +1,8 @@
 {
   imports = [
     ./cli.nix
-    ./graphical.nix
     ./games.nix
+    ./graphical.nix
+    ./sway.nix
   ];
 }

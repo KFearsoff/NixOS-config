@@ -37,12 +37,6 @@
       "/var/lib/systemd"
       "/etc/NetworkManager/system-connections"
     ];
-    files = [
-      "/etc/ssh/ssh_host_ed25519_key"
-      "/etc/ssh/ssh_host_ed25519_key.pub"
-      "/etc/ssh/ssh_host_rsa_key"
-      "/etc/ssh/ssh_host_rsa_key.pub"
-    ];
   };
 
   users.users."${username}".openssh.authorizedKeys.keys = [
@@ -59,11 +53,11 @@
       kbdInteractiveAuthentication = false;
       hostKeys = [
         {
-          path = "/etc/ssh/ssh_host_ed25519_key";
+          path = "/persist/etc/ssh/ssh_host_ed25519_key";
           type = "ed25519";
         }
         {
-          path = "/etc/ssh/ssh_host_rsa_key";
+          path = "/persist/etc/ssh/ssh_host_rsa_key";
           type = "rsa";
           bits = "4096";
         }

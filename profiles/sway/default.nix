@@ -10,7 +10,6 @@
 in {
   imports = [
     ./swayidle.nix
-    ./mako.nix
   ];
 
   config = {

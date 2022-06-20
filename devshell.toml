@@ -10,41 +10,41 @@ value = 1
 
 
 [[commands]]
-name = "switch"
+name = "nswitch"
 command = "nixos-rebuild --use-remote-sudo --flake '.#' switch -v"
 
 [[commands]]
-name = "test"
+name = "ntest"
 command = "nixos-rebuild --use-remote-sudo --flake '.#' test -v"
 
 [[commands]]
-name = "boot"
+name = "nboot"
 command = "nixos-rebuild --use-remote-sudo --flake '.#' boot -v"
 
 [[commands]]
-name = "dry"
+name = "ndry"
 command = "nixos-rebuild --use-remote-sudo --flake '.#' dry-activate -v"
 
 [[commands]]
-name = "vm"
+name = "nvm"
 command = "nixos-rebuild --use-remote-sudo --flake '.#' build-vm -v"
 
 [[commands]]
-name = "vm-boot"
+name = "nvm-boot"
 command = "nixos-rebuild --use-remote-sudo --flake '.#' build-vm-with-bootloader -v"
 
 [[commands]]
-name = "nix-gc"
+name = "ngc"
 command = "sudo nix-collect-garbage --delete-older-than 7d"
 
 [[commands]]
-name = "update"
+name = "nupdate"
 command = "nix flake update"
 
 [[commands]]
-name = "diff"
+name = "ndiff"
 command = "nix profile diff-closures --profile /nix/var/nix/profiles/system | less"
 
 [[commands]]
-name = "preview"
+name = "npreview"
 command = "nixos-rebuild --use-remote-sudo --flake '.#' build -v && nix store diff-closures /var/run/current-system ./result"

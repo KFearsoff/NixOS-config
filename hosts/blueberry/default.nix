@@ -2,6 +2,7 @@
   inputs,
   lib,
   pkgs,
+  username,
   ...
 }: {
   imports = [
@@ -40,13 +41,15 @@
     10.10.30.31 deploy
     10.10.30.191 box2
   '';
+
   programs.wireshark.enable = true;
+  home-manager.users.${username}.home.packages = [pkgs.wireshark];
+  users.users.${username}.extraGroups = ["wireshark"];
+
   hardware.bluetooth.enable = true;
   services.blueman.enable = true;
 
-  networking = {
-    hostName = "blueberry"; # Define your hostname.
-  };
+  networking.hostName = "blueberry"; # Define your hostname.
 
   environment.persistence."/persist" = {
     directories = [

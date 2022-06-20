@@ -22,7 +22,6 @@
       du-dust
       duf
       jq
-      xdg-utils
       nix-tree
       dig
       mtr
