@@ -2,11 +2,15 @@
   username,
   config,
   pkgs,
+  lib,
   ...
 }: let
   inherit (config.home-manager.users."${username}") colorscheme;
 in {
   home-manager.users."${username}" = {
+    home.sessionVariables = lib.mkIf (config.services.xserver.enable) {
+      TERM = "xterm-256color";
+    };
     terminal = {
       enable = true;
       package = pkgs.kitty;

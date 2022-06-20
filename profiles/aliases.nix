@@ -10,7 +10,7 @@ in {
     home.shellAliases = {
       sudo = "sudo -E "; # enable aliases when using sudo
       su = "sudo -i";
-      ssh = lib.mkIf (config.terminal.enable && config.terminal.package == pkgs.kitty) "${pkgs.kitty}/bin/kitty +kitten ssh ";
+      ssh = lib.mkIf (config.terminal.enable && config.terminal.package == pkgs.kitty) "TERM=\"xterm-256color\" ${pkgs.kitty}/bin/kitty +kitten ssh ";
 
       ".." = "cd ..";
       "..." = "cd ../..";
