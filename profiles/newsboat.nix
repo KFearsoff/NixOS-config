@@ -18,7 +18,6 @@
       enable = true;
       autoReload = true;
       browser = "\"${pkgs.xdg-utils}/bin/xdg-open &>/dev/null\""; # Don't write browser logs in stdin while in newsboat
-      declarativeUrls = false;
       extraConfig = ''
         color background         default default
         color listnormal         default default
