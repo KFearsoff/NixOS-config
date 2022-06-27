@@ -13,6 +13,7 @@
   config = {
     programs.mtr.enable = true;
     programs.wireshark.enable = true;
+    users.users."${username}".extraGroups = ["wireshark"];
 
     environment.systemPackages = with pkgs; [
       neofetch # the system won't boot without it
@@ -32,8 +33,6 @@
     ];
 
     home-manager.users."${username}" = {
-      extraGroups = ["wireshark"];
-
       home = {
         packages = with pkgs; [
           bottom # htop alternative
