@@ -6,18 +6,28 @@
 }: {
   users.mutableUsers = false;
   time.timeZone = lib.mkDefault "Europe/Moscow";
-  boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
 
+  boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
   boot = {
     kernelParams = ["quiet" "udev.log_priority=3" "vt.global_cursor_default=0"];
     consoleLogLevel = 0;
     initrd.verbose = false;
   };
 
-  # The global useDHCP flag is deprecated, therefore explicitly set to false here.
-  # Per-interface useDHCP will be mandatory in the future, so this generated config
-  # replicates the default behaviour.
-  networking.useDHCP = false;
+  services.resolved = {
+    enable = true;
+    domains = ["kfearsoff.gmail.com.beta.tailscale.net"];
+    fallbackDns = ["9.9.9.9" "8.8.8.8" "1.1.1.1"];
+    extraConfig = ''
+      DNSOverTLS=yes
+    '';
+  };
+  networking.nameservers = ["9.9.9.9#dns.quad9.net"];
+
+  # https://libredd.it/r/NixOS/comments/vdz86j/how_to_remove_boot_dependency_on_network_for_a/
+  systemd.targets.network-online.wantedBy = pkgs.lib.mkForce []; # Normally ["multi-user.target"]
+  systemd.services.NetworkManager-wait-online.wantedBy = pkgs.lib.mkForce []; # Normally ["network-online.target"]
+
   networking.networkmanager.enable = true;
 
   boot.cleanTmpDir = true;

@@ -19,10 +19,8 @@
     inputs.hardware.nixosModules.common-pc-laptop-acpi_call
   ];
   programs.openvpn3.enable = true;
-
-  networking.nameservers = ["8.8.8.8" "8.8.4.4." "1.1.1.1"];
-  networking.networkmanager.dns = "unbound";
   services.mullvad-vpn.enable = true;
+
   sops.secrets.password = {
     sopsFile = ../../secrets/blueberry/default.yaml;
     neededForUsers = true;
