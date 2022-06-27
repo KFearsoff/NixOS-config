@@ -29,6 +29,9 @@
   systemd.services.NetworkManager-wait-online.wantedBy = pkgs.lib.mkForce []; # Normally ["network-online.target"]
 
   networking.networkmanager.enable = true;
+  services.tailscale.enable = true;
+  networking.firewall.allowedTCPPorts = [5900];
+  networking.firewall.allowedUDPPorts = [5900];
 
   boot.cleanTmpDir = true;
   programs.fuse.userAllowOther = true;
@@ -46,6 +49,7 @@
       "/var/lib/nixos" # persist UIDs and GIDs
       "/var/lib/systemd"
       "/etc/NetworkManager/system-connections"
+      "/var/lib/tailscale"
     ];
   };
 
@@ -53,7 +57,6 @@
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKnUBxbvoSGs+Q+hhSUrwqNkVzmtnEc03Tt203PEJWBE nixchad@blueberry"
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEQ77pbUwzNYJzu/vEg9MqtuLQmjgRtf5b4K+qsZ0o7v nixchad@blackberry"
   ];
-  programs.ssh.knownHosts.blackberry.publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJFuPxeQsCC2PkR21MSxgkAYDFqJ6sARXZLZRHuy99oq";
 
   services = {
     openssh = {

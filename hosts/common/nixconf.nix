@@ -13,6 +13,7 @@
         speedFactor = 100;
         supportedFeatures = ["nixos-test" "benchmark" "big-parallel" "kvm"];
         mandatoryFeatures = [];
+        publicHostKey = "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUpGdVB4ZVFzQ0MyUGtSMjFNU3hna0FZREZxSjZzQVJYWkxaUkh1eTk5b3Egcm9vdEBibGFja2JlcnJ5Cg==%";
       }
     ];
     settings = {
