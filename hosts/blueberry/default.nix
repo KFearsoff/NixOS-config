@@ -42,10 +42,6 @@
     10.10.30.191 box2
   '';
 
-  programs.wireshark.enable = true;
-  home-manager.users.${username}.home.packages = [pkgs.wireshark];
-  users.users.${username}.extraGroups = ["wireshark"];
-
   hardware.bluetooth.enable = true;
   services.blueman.enable = true;
 

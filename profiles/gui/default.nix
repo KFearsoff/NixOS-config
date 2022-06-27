@@ -30,6 +30,7 @@
         obsidian
         easyeffects
         xdg-utils
+        wireshark
       ];
     };
 
