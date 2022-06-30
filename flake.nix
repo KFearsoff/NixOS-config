@@ -26,6 +26,7 @@
     nur.url = "github:nix-community/NUR";
     nix-colors.url = "github:misterio77/nix-colors";
     impermanence.url = "github:nix-community/impermanence";
+    #impermanence.url = "path:/home/nixchad/Projects/impermanence";
 
     devshell.url = "github:numtide/devshell";
     devshell.inputs.nixpkgs.follows = "nixpkgs";
