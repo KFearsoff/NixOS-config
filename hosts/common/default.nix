@@ -2,6 +2,7 @@
   lib,
   pkgs,
   username,
+  config,
   ...
 }: {
   users.mutableUsers = false;
@@ -51,6 +52,8 @@
       "/var/lib/systemd"
       "/etc/NetworkManager/system-connections"
       "/var/lib/tailscale"
+      #("/var/lib" + "${config.services.prometheus.stateDir}")
+      #"${config.services.grafana.dataDir}"
     ];
   };
 
