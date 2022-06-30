@@ -2,8 +2,6 @@
   environment.systemPackages = with pkgs; [
     pavucontrol
     pulseaudio
-    alsaUtils
-    alsa-lib
   ];
 
   security.rtkit.enable = true;

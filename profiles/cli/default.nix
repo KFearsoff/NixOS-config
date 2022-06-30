@@ -30,6 +30,7 @@
       dig
       nmap
       killall
+      ncdu
     ];
 
     home-manager.users."${username}" = {

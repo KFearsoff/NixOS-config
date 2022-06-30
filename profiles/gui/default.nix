@@ -31,6 +31,7 @@
         easyeffects
         xdg-utils
         wireshark
+        anydesk
       ];
     };
 

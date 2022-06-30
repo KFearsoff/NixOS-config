@@ -39,7 +39,7 @@ in {
 
     windowName = mkOption {
       type = types.str;
-      default = "${cfg.package.pname}";
+      default = "${cfg.name}";
       defaultText = literalExpression "kitty";
       description = ''
         The terminal window's name. Useful when you want to pin a terminal to the workspace with Sway/i3.

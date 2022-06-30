@@ -32,6 +32,7 @@
   services.tailscale.enable = true;
   networking.firewall.allowedTCPPorts = [5900];
   networking.firewall.allowedUDPPorts = [5900];
+  networking.firewall.checkReversePath = "loose";
 
   boot.cleanTmpDir = true;
   programs.fuse.userAllowOther = true;
@@ -86,6 +87,7 @@
 
   services.smartd.enable = true;
   services.smartd.defaults.monitored = "-a -o on -s (S/../01/./03|L/(01|07)/.././03)";
+  services.fwupd.enable = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
