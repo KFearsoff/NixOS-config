@@ -14,11 +14,11 @@
   swap = pkgs.writeShellScript "swap-workspaces" (builtins.readFile ./swap-workspaces.sh);
 
   /*
-    On the basic level, this magic spell maps workspace-related hotkeys to the numbers on the keyboard.
-   It does so by applying a function inside the squiggly brackets to hotkeys and workspaces to produce
-   attribute sets, then by merging those attribute sets together.
-   func -> nul -> (number -> workspace -> attrSet) -> attrSetForAllNumbers
-   */
+  On the basic level, this magic spell maps workspace-related hotkeys to the numbers on the keyboard.
+  It does so by applying a function inside the squiggly brackets to hotkeys and workspaces to produce
+  attribute sets, then by merging those attribute sets together.
+  func -> nul -> (number -> workspace -> attrSet) -> attrSetForAllNumbers
+  */
   navigation = lib.foldl (old: new: old // new) {} (lib.zipListsWith
     (number: workspace: {
       "${mod}+${number}" = "exec --no-startup-id ${swap} ${workspace}";

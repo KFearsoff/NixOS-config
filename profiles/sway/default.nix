@@ -23,7 +23,6 @@ in {
     xdg.portal = {
       enable = true;
       wlr.enable = true; # installs xdg-desktop-portal-wlr
-      gtkUsePortal = true; # only sets GTK_USE_PORTAL=1, doesn't install the portal itself
       extraPortals = [pkgs.xdg-desktop-portal-gtk];
     };
 
