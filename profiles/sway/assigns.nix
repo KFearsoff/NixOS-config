@@ -6,7 +6,6 @@
   "5" = [{app_id = "org.keepassxc.KeePassXC";}];
   "6" = [{app_id = "obsidian";}];
   "7" = [
-    {class = "myteam";}
     # General Gaming
     {app_id = "lutris";}
     # Riot Games

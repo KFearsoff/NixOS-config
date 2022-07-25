@@ -7,7 +7,6 @@
   imports = [
     ./kitty.nix
     ./mpv.nix
-    ./myteam.nix
     ./vscodium.nix
     ./zathura.nix
   ];
@@ -21,11 +20,9 @@
         tdesktop
         keepassxc
         discord
-        ranger
         gimp
         qbittorrent
         element-desktop-wayland
-        tor-browser-bundle-bin
         cinnamon.nemo
         obsidian
         easyeffects
