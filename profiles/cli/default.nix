@@ -31,6 +31,7 @@
       nmap
       killall
       ncdu
+      speedtest-cli
     ];
 
     home-manager.users."${username}" = {

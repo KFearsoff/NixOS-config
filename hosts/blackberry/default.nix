@@ -18,6 +18,7 @@
   };
 
   networking.hostName = "blackberry"; # Define your hostname.
+  time.timeZone = "Asia/Tbilisi";
 
   boot.supportedFilesystems = ["btrfs"];
   services.btrfs.autoScrub.enable = true;

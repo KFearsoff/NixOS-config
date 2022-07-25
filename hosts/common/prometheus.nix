@@ -1,4 +1,10 @@
-{pkgs, config, ...}: {
+{
+  pkgs,
+  config,
+  ...
+}: let
+  hostname = config.networking.hostname;
+in {
   services.prometheus.exporters = {
     node = {
       enable = true;
@@ -12,9 +18,11 @@
     scrapeConfigs = [
       {
         job_name = "node";
-        static_configs = [{
-          targets = ["blueberry:${toString config.services.prometheus.exporters.node.port}"];
-        }];
+        static_configs = [
+          {
+            targets = ["${hostname}:${toString config.services.prometheus.exporters.node.port}"];
+          }
+        ];
         scrape_interval = "15s";
       }
     ];
@@ -23,11 +31,13 @@
     enable = true;
     provision = {
       enable = true;
-      datasources = [{
-        name = "blueberry";
-        type = "prometheus";
-        url = "http://blueberry:9090";
-      }];
+      datasources = [
+        {
+          name = "${hostname}";
+          type = "prometheus";
+          url = "http://${hostname}:9090";
+        }
+      ];
     };
   };
 }

@@ -51,7 +51,7 @@ in {
 
         nvim-autopairs
 
-        #(nvim-treesitter.withPlugins (plugins: pkgs.tree-sitter.allGrammars))
+        (nvim-treesitter.withPlugins (plugins: pkgs.tree-sitter.allGrammars))
 
         vim-lastplace
       ];
