@@ -5,7 +5,7 @@
   ...
 }: {
   imports = [
-    ./kitty.nix
+    ./alacritty.nix
     ./mpv.nix
     ./vscodium.nix
     ./zathura.nix
