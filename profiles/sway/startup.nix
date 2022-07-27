@@ -20,5 +20,4 @@
   {command = "${pkgs.element-desktop-wayland}/bin/element-desktop";}
   {command = "${pkgs.obsidian}/bin/obsidian --enable-features=UseOzonePlatform --ozone-platform=wayland";}
   {command = "${pkgs.easyeffects}/bin/easyeffects --gapplication-service";}
-  {command = "QT_QPA_PLATFORM=xcb ${pkgs.myteam}/bin/myteam";}
 ]
