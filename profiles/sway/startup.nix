@@ -4,7 +4,7 @@
   ...
 }: [
   {
-    command = "${pkgs.autotiling}/bin/autotiling";
+    command = "${pkgs.autotiling}/bin/autotiling -w 1 5 7 8 9";
     always = true;
   }
   {
