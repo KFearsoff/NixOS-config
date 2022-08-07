@@ -280,6 +280,22 @@
         "type": "github"
       }
     },
+    "nushell-066": {
+      "locked": {
+        "lastModified": 1659703690,
+        "narHash": "sha256-NwNyLmszYLBYmiucA1teOs2bLpxHHNN5LCqBES8sQOM=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "e9109ed3989ca791a0ff9a0fd99f5ff38e1777a6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "e9109ed3989ca791a0ff9a0fd99f5ff38e1777a6",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "devshell": "devshell",
@@ -294,6 +310,7 @@
         "nix-colors": "nix-colors",
         "nixpkgs": "nixpkgs",
         "nur": "nur",
+        "nushell-066": "nushell-066",
         "sops-nix": "sops-nix",
         "zsh-you-should-use": "zsh-you-should-use"
       }

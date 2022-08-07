@@ -6,6 +6,6 @@
     ../profiles/tty.nix
     ../profiles/neovim
     ../profiles/starship.nix
-    ../profiles/zsh.nix
+    ../profiles/nushell
   ];
 }
