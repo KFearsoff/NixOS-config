@@ -89,7 +89,7 @@ in {
             tooltip = false;
           };
           "clock#3" = {
-            format = "{:%m-%d}";
+            format = "{:%d-%m}";
             tooltip = false;
           };
           "pulseaudio" = {
