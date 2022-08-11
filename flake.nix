@@ -97,6 +97,15 @@
             ./suites
           ];
         };
+
+        virtberry = buildSystem {
+          extraModules = [
+            {nixpkgs.overlays = builtins.attrValues self.overlays;}
+            ./hosts/virtberry
+            ./suites/cli.nix
+            ./suites/graphical.nix
+          ];
+        };
       };
     }
     // flake-utils.lib.eachDefaultSystem (system: let

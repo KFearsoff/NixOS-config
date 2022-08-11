@@ -23,23 +23,27 @@
         id = "74LQXWB-GVD5FVU-7CYZUFK-MNIIYA4-X3ZJCHR-VQM7UM7-HBNL4VM-PUNYTAW";
         addresses = ["tcp://100.107.161.19" "quic://100.107.161.19"];
       };
+      "virtberry" = {
+        id = "LIT3MIA-VEPVHWZ-SC4Z76E-V5YFUV7-IF4TKR2-VOVI3E5-BKXIHFB-TYQE3QH";
+        addresses = ["tcp://100.94.96.106" "quic://100.94.96.106"];
+      };
     };
     folders = {
       ".config/newsboat" = {
         path = "/home/${username}/.config/newsboat";
-        devices = ["blueberry" "blackberry"];
+        devices = ["blueberry" "blackberry" "virtberry"];
       };
       "Sync" = {
         path = "/home/${username}/Sync";
-        devices = ["blueberry" "blackberry"];
+        devices = ["blueberry" "blackberry" "virtberry"];
       };
       "Projects" = {
         path = "/home/${username}/Projects";
-        devices = ["blueberry" "blackberry"];
+        devices = ["blueberry" "blackberry" "virtberry"];
       };
       "Notes" = {
         path = "/home/${username}/Documents/Notes";
-        devices = ["blueberry" "blackberry" "pixel-4a"];
+        devices = ["blueberry" "blackberry" "pixel-4a" "virtberry"];
       };
       "Photos" = {
         path = "/home/${username}/Pictures/Photos";

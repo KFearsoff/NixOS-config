@@ -60,6 +60,7 @@
   users.users."${username}".openssh.authorizedKeys.keys = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKnUBxbvoSGs+Q+hhSUrwqNkVzmtnEc03Tt203PEJWBE nixchad@blueberry"
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEQ77pbUwzNYJzu/vEg9MqtuLQmjgRtf5b4K+qsZ0o7v nixchad@blackberry"
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIORoV0u1i+XkxjbAJDlrmHLazgwXOUBncUch6ngGE+Km nixchad@virtberry"
   ];
 
   services = {
