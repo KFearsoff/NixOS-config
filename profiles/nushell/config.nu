@@ -498,3 +498,41 @@ let-env config = {
 }
 
 source ~/.cache/starship/init.nu
+
+alias .. = cd ..
+alias ... = cd ../..
+alias .2 = cd ../..
+alias .3 = cd ../../..
+alias .4 = cd ../../../..
+alias .5 = cd ../../../../..
+alias .6 = cd ../../../../../..
+
+alias su = sudo -i
+alias sudo = sudo -E
+
+alias grep = grep --color=auto
+alias egrep = egrep --color=auto
+alias fgrep = fgrep --color=auto
+
+alias ll = (ls -al | sort-by type)
+alias l. = (ls -a | egrep "^\.")
+alias la = (ls -a | sort-by type)
+alias ls = (ls | sort-by type)
+alias md = mkdir -vp
+
+alias ga = git add
+alias gc = git commit
+alias gca = git commit --amend
+alias gd = git diff
+alias gdc = git diff --cached
+alias gl = git log --graph --color --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+alias gpa = git pull --all
+alias gr = git rebase
+alias gre = git restore
+alias grs = git restore --staged
+alias gsa = git stash push
+alias gsl = git stash list
+alias gsr = git stash pop
+alias gst = git status
+
+alias newsboat = newsboat -q

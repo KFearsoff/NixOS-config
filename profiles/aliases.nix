@@ -31,8 +31,6 @@ in {
 
       md = "mkdir -vp ";
       ps = "${pkgs.procs}/bin/procs ";
-      cat = "batcopy ";
-      tail = "battail ";
 
       newsboat = "newsboat -q ";
     };
