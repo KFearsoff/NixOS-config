@@ -1,7 +1,12 @@
 {
   imports = [
-    ../profiles/games
-    ../profiles/games/league-of-legends.nix
-    ../profiles/games/legends-of-runeterra.nix
+    ../modules/games
   ];
+
+  config = {
+    nixchad.games.enable = true;
+    nixchad.games.gamemode.enable = true;
+    nixchad.games.league-of-legends.enable = true;
+    nixchad.games.legends-of-runeterra.enable = true;
+  };
 }

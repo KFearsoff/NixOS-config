@@ -1,8 +1,13 @@
 {
-  username,
+  config,
+  lib,
   pkgs,
+  username,
   ...
-}: let
+}:
+with lib; let
+  cfg = config.nixchad.games;
+
   # https://libredd.it/r/leagueoflinux/comments/ultxfo/cannot_enter_in_game_after_champ_select_error/
   league-launcher-script = pkgs.writeShellScriptBin "league-launcher-script" ''
     clean_up() {
@@ -32,11 +37,19 @@
     main
   '';
 in {
-  home-manager.users."${username}".xdg.desktopEntries = {
-    LoL = {
-      name = "League of Legends";
-      genericName = "A Riot game";
-      exec = "${league-launcher-script}/bin/league-launcher-script";
+  options.nixchad.games = {
+    league-of-legends.enable = mkEnableOption "League of Legends";
+  };
+
+  config = mkIf cfg.league-of-legends.enable {
+    nixchad.games.lutrisPackages = with pkgs; [openssl wineWowPackages.full];
+
+    home-manager.users."${username}".xdg.desktopEntries = {
+      LoL = {
+        name = "League of Legends";
+        genericName = "A Riot game";
+        exec = "${league-launcher-script}/bin/league-launcher-script";
+      };
     };
   };
 }
