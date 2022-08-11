@@ -92,6 +92,7 @@
   services.smartd.enable = true;
   services.smartd.defaults.monitored = "-a -o on -s (S/../01/./03|L/(01|07)/.././03)";
   services.fwupd.enable = true;
+  services.gvfs.enable = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

@@ -242,7 +242,7 @@ let-env config = {
   footer_mode: "25" # always, never, number_of_rows, auto
   quick_completions: true  # set this to false to prevent auto-selecting completions when only one remains
   partial_completions: true  # set this to false to prevent partial filling of the prompt
-  completion_algorithm: "fuzzy"  # prefix, fuzzy
+  completion_algorithm: "prefix"  # prefix, fuzzy
   float_precision: 2
   # buffer_editor: "emacs" # command that will be used to edit the current line buffer with ctrl+o, if unset fallback to $env.EDITOR and $env.VISUAL
   use_ansi_coloring: true
