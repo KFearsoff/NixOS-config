@@ -13,7 +13,6 @@
     ../common/nixconf.nix
     ../common/pipewire.nix
     ../common/syncthing.nix
-    ../common/prometheus.nix
     inputs.hardware.nixosModules.common-cpu-intel
     inputs.hardware.nixosModules.common-pc-laptop-ssd
     inputs.hardware.nixosModules.common-pc-laptop
