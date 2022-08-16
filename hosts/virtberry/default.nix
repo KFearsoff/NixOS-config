@@ -25,9 +25,6 @@
     neededForUsers = true;
   };
 
-  # Set your time zone.
-  time.timeZone = "Europe/Moscow";
-
   # Enable the X11 windowing system.
   services.xserver.enable = true;
   services.xserver.desktopManager.plasma5.enable = true;

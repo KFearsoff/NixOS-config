@@ -6,7 +6,6 @@
   ...
 }: {
   users.mutableUsers = false;
-  time.timeZone = lib.mkDefault "Europe/Moscow";
 
   boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
   boot = {

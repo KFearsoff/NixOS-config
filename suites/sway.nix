@@ -1,6 +1,5 @@
 {
   imports = [
-    ../profiles/gammastep.nix
     ../profiles/greetd.nix
     ../profiles/mako.nix
     ../profiles/theming.nix
