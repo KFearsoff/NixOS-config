@@ -25,7 +25,12 @@ in {
       plugins = with pkgs.vimPlugins; [
         {
           plugin = vimThemeFromScheme {scheme = colorscheme;};
-          config = "colorscheme nix-${colorscheme.slug}";
+          # .vim files were deprecated, this is a workaround
+          # https://github.com/neovim/neovim/issues/14090#issuecomment-1177933661
+          config = ''
+            let g:do_legacy_filetype = 1
+            colorscheme nix-${colorscheme.slug}
+          '';
         }
         vim-airline
         editorconfig-nvim
