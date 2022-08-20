@@ -10,6 +10,7 @@ in {
     ./grafana.nix
     ./invidious.nix
     ./libreddit.nix
+    ./nitter.nix
     ./prometheus.nix
   ];
 
