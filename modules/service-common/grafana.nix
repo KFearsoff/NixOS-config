@@ -31,6 +31,10 @@ in {
     };
 
     services.nginx.virtualHosts."${grafanaDomain}" = {
+      forceSSL = true;
+      sslCertificate = "/var/lib/self-signed/${grafanaDomain}/cert.pem";
+      sslCertificateKey = "/var/lib/self-signed/${grafanaDomain}/key.pem";
+
       locations."/" = {
         proxyPass = "http://localhost:${grafanaPort}";
         proxyWebsockets = true;

@@ -40,6 +40,10 @@ in {
     };
 
     services.nginx.virtualHosts."${prometheusDomain}" = {
+      forceSSL = true;
+      sslCertificate = "/var/lib/self-signed/${prometheusDomain}/cert.pem";
+      sslCertificateKey = "/var/lib/self-signed/${prometheusDomain}/key.pem";
+
       locations."/" = {
         proxyPass = "http://localhost:${prometheusPort}";
         proxyWebsockets = true;
