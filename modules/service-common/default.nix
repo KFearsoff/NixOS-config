@@ -8,6 +8,7 @@ with lib; let
 in {
   imports = [
     ./grafana.nix
+    ./invidious.nix
     ./prometheus.nix
   ];
 
