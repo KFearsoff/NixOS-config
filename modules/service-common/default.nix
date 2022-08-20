@@ -9,6 +9,7 @@ in {
   imports = [
     ./grafana.nix
     ./invidious.nix
+    ./libreddit.nix
     ./prometheus.nix
   ];
 

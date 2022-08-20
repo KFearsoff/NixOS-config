@@ -6,5 +6,6 @@
     nixchad.prometheus.enable = true;
     nixchad.grafana.enable = true;
     nixchad.invidious.enable = true;
+    nixchad.libreddit.enable = true;
   };
 }
