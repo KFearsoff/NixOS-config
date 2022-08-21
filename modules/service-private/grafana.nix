@@ -5,7 +5,6 @@
 }:
 with lib; let
   cfg = config.nixchad.grafana;
-  server = "blackberry";
   hostname = config.networking.hostName;
   grafanaPort = toString config.services.grafana.port;
   grafanaDomain = "grafana.${hostname}.me";
@@ -22,9 +21,9 @@ in {
         enable = true;
         datasources = [
           {
-            name = "${server}";
+            name = "Prometheus";
             type = "prometheus";
-            url = "http://${server}:9090";
+            url = "http://localhost:9090";
           }
         ];
       };

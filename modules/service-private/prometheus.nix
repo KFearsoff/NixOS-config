@@ -15,26 +15,20 @@ in {
   };
 
   config = mkIf cfg.enable {
-    services.prometheus.exporters = {
-      node = {
-        enable = true;
-        enabledCollectors = ["systemd"];
-        openFirewall = true;
-        #firewallFilter = "-i br0 -p tcp -m tcp --dport 9100";
-      };
-    };
-
     services.prometheus = {
       enable = true;
       scrapeConfigs = [
         {
-          job_name = "node";
+          job_name = "blackberry";
           static_configs = [
             {
-              targets = ["${hostname}:${nodePort}"];
+              targets = [
+                "blackberry:33000" # node exporter
+                "blackberry:33001" # nginx
+                "blackberry:33002" # postgresql
+              ];
             }
           ];
-          scrape_interval = "15s";
         }
       ];
     };

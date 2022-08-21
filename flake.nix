@@ -65,7 +65,10 @@
     }:
       pkgs.lib.nixosSystem {
         inherit system;
-        specialArgs = {inherit inputs nix-colors username;};
+        specialArgs = {
+          inherit inputs nix-colors username;
+          servername = "blackberry";
+        };
         modules =
           [
             home-manager.nixosModules.home-manager
@@ -95,6 +98,7 @@
           extraModules = [
             ./hosts/blackberry
             ./suites
+            ./suites/service-private.nix
           ];
         };
 
