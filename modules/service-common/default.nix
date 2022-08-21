@@ -12,6 +12,7 @@ in {
     ./libreddit.nix
     ./nitter.nix
     ./prometheus.nix
+    ./vaultwarden.nix
   ];
 
   options.nixchad.nginx = {

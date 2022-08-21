@@ -8,5 +8,6 @@
     nixchad.invidious.enable = true;
     nixchad.libreddit.enable = true;
     nixchad.nitter.enable = true;
+    nixchad.vaultwarden.enable = true;
   };
 }
