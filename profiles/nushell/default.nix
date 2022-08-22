@@ -5,7 +5,7 @@
   ...
 }: {
   nixpkgs.config.packageOverrides = {
-    nushell = pkgs.callPackage "${inputs.nushell-066}/pkgs/shells/nushell" {
+    nushell = pkgs.callPackage "${inputs.nushell-067}/pkgs/shells/nushell" {
       inherit (pkgs.darwin.apple_sdk.frameworks) AppKit Foundation Security;
       inherit (pkgs.darwin.apple_sdk) sdk;
     };

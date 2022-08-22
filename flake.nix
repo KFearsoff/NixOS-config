@@ -3,7 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nushell-066.url = "github:nixos/nixpkgs/a778cafada011ad62229d1987eb085d732fd6110";
+    nushell-067.url = "github:nixos/nixpkgs/067b760f1ae27b8c33e6327f3059e7ede305d6fa";
     flake-utils.url = "github:numtide/flake-utils";
     hardware.url = "github:NixOS/nixos-hardware/master";
 
