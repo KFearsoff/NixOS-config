@@ -26,6 +26,7 @@ in {
                 "blackberry:33000" # node exporter
                 "blackberry:33001" # nginx
                 "blackberry:33002" # postgresql
+                "blackberry:33004" # systemd exporter
               ];
             }
           ];
