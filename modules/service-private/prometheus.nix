@@ -19,7 +19,7 @@ in {
       enable = true;
       scrapeConfigs = [
         {
-          job_name = "blackberry";
+          job_name = "Prometheus";
           static_configs = [
             {
               targets = [
@@ -29,6 +29,14 @@ in {
                 "blackberry:33004" # systemd exporter
                 "blackberry:33100" # loki
                 "blackberry:33101" # promtail
+
+                "blueberry:33000" # node exporter
+                "blueberry:33004" # systemd exporter
+                "blueberry:33101" # promtail
+
+                "virtberry:33000" # node exporter
+                "virtberry:33004" # systemd exporter
+                "virtberry:33101" # promtail
               ];
             }
           ];
