@@ -27,6 +27,8 @@ in {
                 "blackberry:33001" # nginx
                 "blackberry:33002" # postgresql
                 "blackberry:33004" # systemd exporter
+                "blackberry:33100" # loki
+                "blackberry:33101" # promtail
               ];
             }
           ];

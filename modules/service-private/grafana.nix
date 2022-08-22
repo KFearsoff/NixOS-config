@@ -25,6 +25,11 @@ in {
             type = "prometheus";
             url = "http://localhost:9090";
           }
+          {
+            name = "Loki";
+            type = "loki";
+            url = "http://localhost:33100";
+          }
         ];
       };
     };

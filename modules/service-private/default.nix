@@ -12,6 +12,7 @@ in {
     ./grafana.nix
     ./invidious.nix
     ./libreddit.nix
+    ./loki.nix
     ./nitter.nix
     ./postgres-exporter.nix
     ./prometheus.nix
