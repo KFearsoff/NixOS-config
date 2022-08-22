@@ -15,6 +15,10 @@ in {
       enable = true;
       openFirewall = true;
       port = 33002;
+      dataSourceName = "user=postgres-exporter database=postgres host=/run/postgresql sslmode=disable";
+      extraFlags = ["--auto-discover-databases"];
     };
+
+    services.postgresql.ensureUsers = [{name = "postgres-exporter";}];
   };
 }
