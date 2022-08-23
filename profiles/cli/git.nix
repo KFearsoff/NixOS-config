@@ -33,6 +33,7 @@
       extraConfig = {
         init.defaultBranch = "main";
         merge.conflictStyle = "diff3";
+        push.autoSetupRemote = "true";
         diff = {
           colorMoved = "default";
           sopsdiffer.textconv = "${pkgs.sops}/bin/sops -d";
@@ -55,7 +56,7 @@
           navigate = true;
           line-numbers = true;
           syntax-theme = "base16";
-          # side-by-side = true;
+          side-by-side = true;
         };
       };
     };
