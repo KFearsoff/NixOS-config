@@ -83,7 +83,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   services.logind = {
-    lidSwitch = "suspend";
+    lidSwitch = "ignore";
     lidSwitchExternalPower = "ignore";
   };
 }
