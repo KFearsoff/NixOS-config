@@ -35,7 +35,6 @@
   programs.dconf.enable = true;
   networking.extraHosts = ''
     10.220.32.224 vcenter.lab.itkey.com
-    192.168.1.100 blackberry
     10.10.30.9 keycloak-overcloud9.private.infra.devmail.ru
     10.10.30.9 overcloud9.private.infra.devmail.ru
     10.10.30.9 sso-overcloud9.private.infra.devmail.ru

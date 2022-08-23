@@ -1,6 +1,7 @@
 {
   username,
   config,
+  pkgs,
   ...
 }: let
   inherit (config.home-manager.users."${username}") colorscheme;
@@ -112,7 +113,7 @@ in {
                 ""
               ];
             };
-            on-click = "pavucontrol";
+            on-click = "${pkgs.pavucontrol}/bin/pavucontrol";
           };
           "mpd" = {
             format = "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{artist} - {album} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ⸨{songPosition}|{queueLength}⸩ {volume}% ";

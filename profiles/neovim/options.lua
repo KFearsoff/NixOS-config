@@ -34,5 +34,6 @@ vim.opt.scrolloff = 8                           -- is one of my fav
 vim.opt.sidescrolloff = 8
 vim.opt.guifont = "monospace:h17"               -- the font used in graphical neovim applications
 vim.opt.langmap = "ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz"
+vim.opt.colorcolumn = "81"
 
 vim.cmd [[set iskeyword+=-]]                    -- hyphen is pard of a word for stuff like "dw"
