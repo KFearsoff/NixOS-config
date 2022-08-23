@@ -106,8 +106,11 @@
           extraModules = [
             {nixpkgs.overlays = builtins.attrValues self.overlays;}
             ./hosts/virtberry
+            ./modules/location.nix
+            {nixchad.location.enable = true;}
             ./suites/cli.nix
             ./suites/graphical.nix
+            ./suites/service-common.nix
           ];
         };
       };

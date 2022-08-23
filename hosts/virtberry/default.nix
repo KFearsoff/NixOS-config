@@ -29,12 +29,9 @@
   services.xserver.enable = true;
   services.xserver.desktopManager.plasma5.enable = true;
   services.xserver.xkbModel = "pc105";
-  services.xserver.displayManager.sddm.settings = {
-    Autologin = {
-      Session = "plasma.desktop";
-      User = "nixchad";
-    };
-  };
+  services.xserver.displayManager.lightdm.enable = true;
+  services.xserver.displayManager.autoLogin.enable = true;
+  services.xserver.displayManager.autoLogin.user = "nixchad";
   programs.dconf.enable = true;
   networking.extraHosts = ''
     10.220.32.224 vcenter.lab.itkey.com
