@@ -1,4 +1,8 @@
-{inputs, ...}: {
+{
+  inputs,
+  pkgs,
+  ...
+}: {
   imports = [
     ./hardware-configuration.nix
     ./kanshi.nix
@@ -16,6 +20,11 @@
     sopsFile = ../../secrets/blackberry/default.yaml;
     neededForUsers = true;
   };
+  hardware.firmware = [
+    pkgs.rtl8761b-firmware
+  ];
+  hardware.bluetooth.enable = true;
+  services.blueman.enable = true;
 
   networking.hostName = "blackberry"; # Define your hostname.
   nixchad.location = {
