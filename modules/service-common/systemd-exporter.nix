@@ -13,9 +13,10 @@ in {
   config = mkIf cfg.enable {
     services.prometheus.exporters.systemd = {
       enable = true;
-      openFirewall = true;
       port = 33004;
       extraFlags = ["--systemd.collector.enable-restart-count" "--systemd.collector.enable-file-descriptor-size" "--systemd.collector.enable-ip-accounting"];
     };
+
+    networking.firewall.interfaces.tailscale0.allowedTCPPorts = [33004];
   };
 }

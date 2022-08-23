@@ -14,8 +14,9 @@ in {
     services.prometheus.exporters.node = {
       enable = true;
       enabledCollectors = ["processes" "systemd"];
-      openFirewall = true;
       port = 33000;
     };
+
+    networking.firewall.interfaces.tailscale0.allowedTCPPorts = [33000];
   };
 }
