@@ -47,11 +47,10 @@ in {
 
     services.prometheus.exporters.nginx = {
       enable = true;
-      openFirewall = true;
       port = 33001;
     };
 
-    networking.firewall.allowedTCPPorts = [80 443];
+    networking.firewall.interfaces.tailscale0.allowedTCPPorts = [80 443];
 
     environment.persistence."/persist" = {
       hideMounts = true;

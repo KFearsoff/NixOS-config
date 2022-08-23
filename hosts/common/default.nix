@@ -30,8 +30,6 @@
 
   networking.networkmanager.enable = true;
   services.tailscale.enable = true;
-  networking.firewall.allowedTCPPorts = [5900];
-  networking.firewall.allowedUDPPorts = [5900];
   networking.firewall.checkReversePath = "loose";
 
   boot.cleanTmpDir = true;

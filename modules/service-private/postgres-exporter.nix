@@ -13,7 +13,6 @@ in {
   config = mkIf cfg.enable {
     services.prometheus.exporters.postgres = {
       enable = true;
-      openFirewall = true;
       port = 33002;
       dataSourceName = "user=postgres-exporter database=postgres host=/run/postgresql sslmode=disable";
       extraFlags = ["--auto-discover-databases"];
