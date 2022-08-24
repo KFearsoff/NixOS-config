@@ -18,9 +18,7 @@
     enable = true;
     domains = ["kfearsoff.gmail.com.beta.tailscale.net"];
     fallbackDns = ["9.9.9.9" "8.8.8.8" "1.1.1.1"];
-    extraConfig = ''
-      DNSOverTLS=yes
-    '';
+    dnssec = "false"; # we already DNSSEC on CoreDNS
   };
   networking.nameservers = ["9.9.9.9#dns.quad9.net"];
 
