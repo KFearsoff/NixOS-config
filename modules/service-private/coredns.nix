@@ -55,7 +55,7 @@ in {
 
       config = ''
         . {
-          prometheus localhost:33003
+          prometheus 0.0.0.0:33003
 
           # Expose CoreDNS to localhost, local network and tailscale.
           # We can't bind to 0.0.0.0 (default) because we'll have conflicts with
@@ -91,7 +91,7 @@ in {
         }
 
         me {
-          prometheus localhost:33003
+          prometheus 0.0.0.0:33003
           bind lo ${cfg.interface} tailscale0
           file ${./me.zone}
         }

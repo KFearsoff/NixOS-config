@@ -26,7 +26,7 @@ in {
                 "blackberry:33000" # node exporter
                 "blackberry:33001" # nginx
                 "blackberry:33002" # postgresql
-                "localhost:33003" # coredns
+                "blackberry:33003" # coredns
                 "blackberry:33004" # systemd exporter
                 "blackberry:33100" # loki
                 "blackberry:33101" # promtail
