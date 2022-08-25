@@ -98,6 +98,16 @@ in {
       '';
     };
 
+    systemd.services.coredns = {
+      # Tailscale gets confused if it's launched with CoreDNS in parallel.
+      # It will spam "dns udp query: context deadline exceeded". To make
+      # Tailscale happy, we launch CoreDNS first (failing it, since it needs
+      # interface tailscale0 to be up) and then restart it
+      # TODO: check if issue persists after turning off MagicDNS
+      before = ["tailscaled.service"];
+      serviceConfig.RestartSec = "5s";
+    };
+
     networking.firewall.interfaces.tailscale0 = {
       allowedTCPPorts = [53];
       allowedUDPPorts = [53];
