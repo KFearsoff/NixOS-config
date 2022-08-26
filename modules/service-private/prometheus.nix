@@ -32,10 +32,12 @@ in {
                 "blackberry:33101" # promtail
 
                 "blueberry:33000" # node exporter
+                "blueberry:33003" # coredns
                 "blueberry:33004" # systemd exporter
                 "blueberry:33101" # promtail
 
                 "virtberry:33000" # node exporter
+                "virtberry:33003" # coredns
                 "virtberry:33004" # systemd exporter
                 "virtberry:33101" # promtail
               ];

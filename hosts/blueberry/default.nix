@@ -86,4 +86,6 @@
     lidSwitch = "ignore";
     lidSwitchExternalPower = "ignore";
   };
+
+  nixchad.coredns.interface = "wlp0s20f3";
 }

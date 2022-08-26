@@ -17,7 +17,6 @@ in {
     ./postgres-exporter.nix
     ./prometheus.nix
     ./vaultwarden.nix
-    ./coredns.nix
   ];
 
   options.nixchad.nginx = {

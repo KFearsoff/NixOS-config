@@ -11,6 +11,5 @@
     nixchad.vaultwarden.enable = true;
     nixchad.postgres-exporter.enable = true;
     nixchad.loki.enable = true;
-    nixchad.coredns.enable = true;
   };
 }
