@@ -41,6 +41,10 @@
 
     zsh-you-should-use.url = "github:MichaelAquilina/zsh-you-should-use";
     zsh-you-should-use.flake = false;
+
+    hosts.url = "github:StevenBlack/hosts";
+    hosts.inputs.nixpkgs.follows = "nixpkgs";
+    hosts.inputs.flake-utils.follows = "flake-utils";
   };
 
   outputs = inputs @ {

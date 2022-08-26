@@ -2,6 +2,7 @@
 # https://github.com/ckiee/ckiesite-static/blob/3bbbc4d31691e9554c817d9bd8792e4e13a8e292/public/tailscale-coredns.md
 # https://github.com/ckiee/nixfiles/tree/6d130dd21aab21792d775692218be2e073a6eb81/modules/services/coredns
 {
+  inputs,
   config,
   lib,
   pkgs,
@@ -9,13 +10,49 @@
 }:
 with lib; let
   cfg = config.nixchad.coredns;
+  hostSuffix = ".tailnet.nixchad.dev";
+
+  # Taken from upstream: https://github.com/StevenBlack/hosts/blob/master/flake.nix
+  alternatesList =
+    (
+      if cfg.blockFakenews
+      then ["fakenews"]
+      else []
+    )
+    ++ (
+      if cfg.blockGambling
+      then ["gambling"]
+      else []
+    )
+    ++ (
+      if cfg.blockPorn
+      then ["porn"]
+      else []
+    )
+    ++ (
+      if cfg.blockSocial
+      then ["social"]
+      else []
+    );
+  alternatesPath = "alternates/" + builtins.concatStringsSep "-" alternatesList + "/";
+
+  patchedHosts = builtins.readFile ("${inputs.hosts}/"
+    + (
+      if alternatesList != []
+      then alternatesPath
+      else ""
+    )
+    + "hosts");
   baseHosts = pkgs.writeTextFile {
     name = "coredns-hosts-nixchad";
     text = ''
+      # Custom hosts
+      ${patchedHosts}
+      # Extra hosts
+      ${cfg.extraHosts}
       # Runtime hosts
     '';
   };
-  hostSuffix = ".tailnet.nixchad.dev";
 in {
   options.nixchad.coredns = {
     enable = mkEnableOption "CoreDNS server";
@@ -25,6 +62,17 @@ in {
       type = types.str;
       description = "Local interface on which CoreDNS will bind";
     };
+
+    extraHosts = mkOption {
+      type = types.lines;
+      default = "";
+      description = "Extra hosts separated by lines";
+    };
+
+    blockFakenews = mkEnableOption "Additionally block fakenews hosts.";
+    blockGambling = mkEnableOption "Additionally block gambling hosts.";
+    blockPorn = mkEnableOption "Additionally block porn hosts.";
+    blockSocial = mkEnableOption "Additionally block social hosts.";
   };
 
   config = mkIf cfg.enable {

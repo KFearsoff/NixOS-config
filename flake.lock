@@ -133,6 +133,29 @@
         "type": "github"
       }
     },
+    "hosts": {
+      "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1661464935,
+        "narHash": "sha256-wY7sH+5VN41ojPEM+F7j7JUT12u7DTpa/7ZHiRZqmYY=",
+        "owner": "StevenBlack",
+        "repo": "hosts",
+        "rev": "71dedfa435c8cddfc915cf6b63215d33a6593682",
+        "type": "github"
+      },
+      "original": {
+        "owner": "StevenBlack",
+        "repo": "hosts",
+        "type": "github"
+      }
+    },
     "impermanence": {
       "locked": {
         "lastModified": 1646131459,
@@ -304,6 +327,7 @@
         "hardware": "hardware",
         "home-manager": "home-manager",
         "home-manager-newsboat": "home-manager-newsboat",
+        "hosts": "hosts",
         "impermanence": "impermanence",
         "neovim-flake": "neovim-flake",
         "neovim-nightly-overlay": "neovim-nightly-overlay",
