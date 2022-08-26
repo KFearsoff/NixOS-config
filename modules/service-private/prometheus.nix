@@ -26,20 +26,29 @@ in {
                 "blackberry:33000" # node exporter
                 "blackberry:33001" # nginx
                 "blackberry:33002" # postgresql
-                "blackberry:33003" # coredns
                 "blackberry:33004" # systemd exporter
                 "blackberry:33100" # loki
                 "blackberry:33101" # promtail
 
                 "blueberry:33000" # node exporter
-                "blueberry:33003" # coredns
                 "blueberry:33004" # systemd exporter
                 "blueberry:33101" # promtail
 
                 "virtberry:33000" # node exporter
-                "virtberry:33003" # coredns
                 "virtberry:33004" # systemd exporter
                 "virtberry:33101" # promtail
+              ];
+            }
+          ];
+        }
+        {
+          job_name = "coredns";
+          static_configs = [
+            {
+              targets = [
+                "blackberry:33003" # coredns
+                "blueberry:33003" # coredns
+                "virtberry:33003" # coredns
               ];
             }
           ];
