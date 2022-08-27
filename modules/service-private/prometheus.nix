@@ -41,6 +41,18 @@ in {
             }
           ];
         }
+        {
+          job_name = "coredns";
+          static_configs = [
+            {
+              targets = [
+                "blackberry:33003" # coredns
+                "blueberry:33003" # coredns
+                "virtberry:33003" # coredns
+              ];
+            }
+          ];
+        }
       ];
     };
 

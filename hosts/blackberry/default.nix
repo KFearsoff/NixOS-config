@@ -42,4 +42,5 @@
     device = "nodev";
     efiInstallAsRemovable = true;
   };
+  nixchad.coredns.interface = "enp1s0";
 }

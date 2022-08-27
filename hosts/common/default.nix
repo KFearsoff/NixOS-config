@@ -16,13 +16,11 @@
 
   services.resolved = {
     enable = true;
-    domains = ["kfearsoff.gmail.com.beta.tailscale.net"];
+    domains = ["tailnet.nixchad.dev"];
     fallbackDns = ["9.9.9.9" "8.8.8.8" "1.1.1.1"];
-    extraConfig = ''
-      DNSOverTLS=yes
-    '';
+    dnssec = "false"; # we already DNSSEC on CoreDNS
   };
-  networking.nameservers = ["9.9.9.9#dns.quad9.net"];
+  networking.nameservers = ["127.0.0.1"];
 
   # https://libredd.it/r/NixOS/comments/vdz86j/how_to_remove_boot_dependency_on_network_for_a/
   #systemd.targets.network-online.wantedBy = pkgs.lib.mkForce []; # Normally ["multi-user.target"]
