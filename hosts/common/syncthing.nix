@@ -1,6 +1,8 @@
 {
   username,
   inputs,
+  config,
+  lib,
   ...
 }: {
   disabledModules = [
@@ -39,40 +41,47 @@
         addresses = ["tcp://virtberry" "quic://virtberry"];
       };
     };
-    folders = {
-      ".config/newsboat" = {
-        path = "/home/${username}/.config/newsboat";
-        devices = ["blueberry" "blackberry" "virtberry"];
-      };
-      "Sync" = {
-        path = "/home/${username}/Sync";
-        devices = ["blueberry" "blackberry" "virtberry"];
-      };
-      "Projects" = {
-        path = "/home/${username}/Projects";
-        devices = ["blueberry" "blackberry" "virtberry"];
-      };
-      "Notes" = {
-        path = "/home/${username}/Documents/Notes";
-        devices = ["blueberry" "blackberry" "pixel-4a" "virtberry"];
-      };
-      "Photos" = {
-        path = "/home/${username}/Pictures/Photos";
-        devices = ["blueberry" "blackberry"];
-      };
-      "Photos-phone" = {
-        path = "/home/${username}/Pictures/Photos-phone";
-        devices = ["blueberry" "blackberry" "pixel-4a"];
-        type = "receiveonly";
-        versioning = {
-          type = "trashcan";
-          fsPath = "/home/${username}/Pictures/Photos";
-          params = {
-            cleanoutDays = "0";
-          };
+    folders =
+      {
+        ".config/newsboat" = {
+          path = "/home/${username}/.config/newsboat";
+          devices = ["blueberry" "blackberry" "virtberry"];
         };
-      };
-    };
+        "Sync" = {
+          path = "/home/${username}/Sync";
+          devices = ["blueberry" "blackberry" "virtberry"];
+        };
+        "Projects" = {
+          path = "/home/${username}/Projects";
+          devices = ["blueberry" "blackberry" "virtberry"];
+        };
+        "Notes" = {
+          path = "/home/${username}/Documents/Notes";
+          devices = ["blueberry" "blackberry" "pixel-4a" "virtberry"];
+        };
+      }
+      // (
+        if (config.networking.hostName != "virtberry")
+        then {
+          "Photos" = {
+            path = "/home/${username}/Pictures/Photos";
+            devices = ["blueberry" "blackberry"];
+          };
+          "Photos-phone" = {
+            path = "/home/${username}/Pictures/Photos-phone";
+            devices = ["blueberry" "blackberry" "pixel-4a"];
+            type = "receiveonly";
+            versioning = {
+              type = "trashcan";
+              fsPath = "/home/${username}/Pictures/Photos";
+              params = {
+                cleanoutDays = "0";
+              };
+            };
+          };
+        }
+        else {}
+      );
     extraOptions = {
       gui = {theme = "dark";};
       options = {
