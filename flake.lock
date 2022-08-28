@@ -363,17 +363,17 @@
     },
     "syncthing-fspath": {
       "locked": {
-        "lastModified": 1661688086,
-        "narHash": "sha256-p1rmK/FdEiYbb1mrH+q+BimC2ZshnxX0Ezq8mREPrpE=",
+        "lastModified": 1661693271,
+        "narHash": "sha256-agIdIXm/SgMc7OfkHjXaz567QUcgssKQ4Ojl6izl4wI=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "2383a88b941d099344d181a4821ccbb110c63c17",
+        "rev": "7f227409836dcdd49024dc76417544b407f99e7c",
         "type": "github"
       },
       "original": {
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "2383a88b941d099344d181a4821ccbb110c63c17",
+        "rev": "7f227409836dcdd49024dc76417544b407f99e7c",
         "type": "github"
       }
     },
