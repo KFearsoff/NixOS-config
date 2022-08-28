@@ -46,18 +46,34 @@
         ".config/newsboat" = {
           path = "/home/${username}/.config/newsboat";
           devices = ["blueberry" "blackberry" "virtberry"];
+          versioning = {
+            type = "trashcan";
+            params.cleanoutDays = "30";
+          };
         };
         "Sync" = {
           path = "/home/${username}/Sync";
           devices = ["blueberry" "blackberry" "virtberry"];
+          versioning = {
+            type = "trashcan";
+            params.cleanoutDays = "30";
+          };
         };
         "Projects" = {
           path = "/home/${username}/Projects";
           devices = ["blueberry" "blackberry" "virtberry"];
+          versioning = {
+            type = "trashcan";
+            params.cleanoutDays = "30";
+          };
         };
         "Notes" = {
           path = "/home/${username}/Documents/Notes";
           devices = ["blueberry" "blackberry" "pixel-4a" "virtberry"];
+          versioning = {
+            type = "trashcan";
+            params.cleanoutDays = "30";
+          };
         };
       }
       // (
@@ -74,9 +90,7 @@
             versioning = {
               type = "trashcan";
               fsPath = "/home/${username}/Pictures/Photos";
-              params = {
-                cleanoutDays = "0";
-              };
+              params.cleanoutDays = "0";
             };
           };
         }
