@@ -3,7 +3,6 @@
 
   config = {
     nixchad.node-exporter.enable = true;
-    nixchad.systemd-exporter.enable = true;
     nixchad.promtail.enable = true;
     nixchad.coredns.enable = true;
   };
