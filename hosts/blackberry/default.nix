@@ -42,5 +42,6 @@
     device = "nodev";
     efiInstallAsRemovable = true;
   };
+  nixchad.smartctl-exporter.devices = ["/dev/nvme0n1"];
   nixchad.coredns.interface = "enp1s0";
 }

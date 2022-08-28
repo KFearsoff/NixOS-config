@@ -26,13 +26,16 @@ in {
                 "blackberry:33000" # node exporter
                 "blackberry:33001" # nginx
                 "blackberry:33002" # postgresql
+                "blackberry:33004" # smartctl exporter
                 "blackberry:33100" # loki
                 "blackberry:33101" # promtail
 
                 "blueberry:33000" # node exporter
+                "blueberry:33004" # smartctl exporter
                 "blueberry:33101" # promtail
 
                 "virtberry:33000" # node exporter
+                "virtberry:33004" # smartctl exporter
                 "virtberry:33101" # promtail
               ];
             }
