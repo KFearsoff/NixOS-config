@@ -7,5 +7,6 @@
     nixchad.promtail.enable = true;
     nixchad.coredns.enable = true;
     nixchad.blackbox-exporter.enable = true;
+    nixchad.cadvisor.enable = true;
   };
 }

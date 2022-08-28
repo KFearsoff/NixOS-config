@@ -5,5 +5,6 @@
     ./promtail.nix
     ./coredns
     ./blackbox-exporter.nix
+    ./cadvisor.nix
   ];
 }
