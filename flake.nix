@@ -4,6 +4,7 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nushell-067.url = "github:nixos/nixpkgs/067b760f1ae27b8c33e6327f3059e7ede305d6fa";
+    syncthing-fspath.url = "github:nixos/nixpkgs/7f227409836dcdd49024dc76417544b407f99e7c";
     flake-utils.url = "github:numtide/flake-utils";
     hardware.url = "github:NixOS/nixos-hardware/master";
 
