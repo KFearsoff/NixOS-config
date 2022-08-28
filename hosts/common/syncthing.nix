@@ -1,4 +1,15 @@
-{username, ...}: {
+{
+  username,
+  inputs,
+  ...
+}: {
+  disabledModules = [
+    "services/networking/syncthing.nix"
+  ];
+  imports = [
+    "${inputs.syncthing-fspath}/nixos/modules/services/networking/syncthing.nix"
+  ];
+
   home-manager.users."${username}".xdg.userDirs.extraConfig = {
     XDG_SYNC_DIR = "$HOME/Sync";
     XDG_PROJ_DIR = "$HOME/Projects";
@@ -47,7 +58,19 @@
       };
       "Photos" = {
         path = "/home/${username}/Pictures/Photos";
+        devices = ["blueberry" "blackberry"];
+      };
+      "Photos-phone" = {
+        path = "/home/${username}/Pictures/Photos-phone";
         devices = ["blueberry" "blackberry" "pixel-4a"];
+        type = "receiveonly";
+        versioning = {
+          type = "trashcan";
+          fsPath = "/home/${username}/Pictures/Photos";
+          params = {
+            cleanoutDays = "0";
+          };
+        };
       };
     };
     extraOptions = {

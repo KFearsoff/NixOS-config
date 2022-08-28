@@ -336,6 +336,7 @@
         "nur": "nur",
         "nushell-067": "nushell-067",
         "sops-nix": "sops-nix",
+        "syncthing-fspath": "syncthing-fspath",
         "zsh-you-should-use": "zsh-you-should-use"
       }
     },
@@ -357,6 +358,22 @@
       "original": {
         "owner": "Mic92",
         "repo": "sops-nix",
+        "type": "github"
+      }
+    },
+    "syncthing-fspath": {
+      "locked": {
+        "lastModified": 1661688086,
+        "narHash": "sha256-p1rmK/FdEiYbb1mrH+q+BimC2ZshnxX0Ezq8mREPrpE=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "2383a88b941d099344d181a4821ccbb110c63c17",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "2383a88b941d099344d181a4821ccbb110c63c17",
         "type": "github"
       }
     },
