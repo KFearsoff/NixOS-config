@@ -1,8 +1,10 @@
 {
   imports = [
     ./node-exporter.nix
-    ./systemd-exporter.nix
+    ./smartctl-exporter.nix
     ./promtail.nix
     ./coredns
+    ./blackbox-exporter.nix
+    ./cadvisor.nix
   ];
 }
