@@ -5,13 +5,6 @@
   lib,
   ...
 }: {
-  disabledModules = [
-    "services/networking/syncthing.nix"
-  ];
-  imports = [
-    "${inputs.syncthing-fspath}/nixos/modules/services/networking/syncthing.nix"
-  ];
-
   home-manager.users."${username}".xdg.userDirs.extraConfig = {
     XDG_SYNC_DIR = "$HOME/Sync";
     XDG_PROJ_DIR = "$HOME/Projects";
