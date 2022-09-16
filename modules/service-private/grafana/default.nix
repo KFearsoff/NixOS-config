@@ -31,6 +31,14 @@ in {
           (mkDatasource "prometheus" "http://localhost:9090" {})
           (mkDatasource "loki" "http://localhost:33100" {})
         ];
+        dashboards = [
+          {
+            options = {
+              path = ./dashboards;
+              foldersFromFilesStructure = true;
+            };
+          }
+        ];
       };
     };
 
