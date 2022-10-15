@@ -44,93 +44,87 @@
     hosts.url = "github:StevenBlack/hosts";
     hosts.inputs.nixpkgs.follows = "nixpkgs";
     hosts.inputs.flake-utils.follows = "flake-utils";
+
+    deploy-rs.url = "github:serokell/deploy-rs";
+    deploy-rs.inputs.nixpkgs.follows = "nixpkgs";
+    deploy-rs.inputs.utils.follows = "flake-utils";
+    deploy-rs.inputs.flake-compat.follows = "flake-compat";
   };
 
-  outputs = inputs @ {
-    self,
-    nixpkgs,
-    flake-utils,
-    hardware,
-    home-manager,
-    neovim-nightly-overlay,
-    nur,
-    nix-colors,
-    impermanence,
-    devshell,
-    sops-nix,
-    ...
-  }: let
-    buildSystem = {
-      system ? "x86_64-linux",
-      pkgs ? nixpkgs,
-      username ? "nixchad",
-      extraModules,
-    }:
-      pkgs.lib.nixosSystem {
-        inherit system;
-        specialArgs = {
-          inherit inputs nix-colors username;
-          servername = "blackberry";
-        };
-        modules =
-          [
-            home-manager.nixosModules.home-manager
-            impermanence.nixosModules.impermanence
-            sops-nix.nixosModules.sops
-            (./users + "/${username}.nix")
-            {nixpkgs.overlays = builtins.attrValues self.overlays;}
-          ]
-          ++ extraModules;
-      };
-  in
-    {
-      overlays = {
-        default = import ./overlays;
-        nur = nur.overlay;
-        neovim-nightly-overlay = neovim-nightly-overlay.overlay;
-      };
-      nixosConfigurations = {
-        blueberry = buildSystem {
-          extraModules = [
-            ./hosts/blueberry
-            ./suites
-          ];
+  outputs = inputs:
+    with import ./lib/builders.nix {
+      inherit inputs;
+      overlays = inputs.self.overlays;
+      patches = f:
+        with f; [];
+    };
+      rec {
+        overlays = {
+          default = import ./overlays;
+          nur = nur.overlay;
+          neovim-nightly-overlay = neovim-nightly-overlay.overlay;
         };
 
-        blackberry = buildSystem {
-          extraModules = [
-            ./hosts/blackberry
-            ./suites
-            ./suites/service-private.nix
-          ];
+        nixosConfigurations = {
+          blueberry = buildSystem {
+            hostname = "blueberry";
+            extraModules = [
+              ./hosts/blueberry
+              ./suites
+            ];
+          };
+
+          blackberry = buildSystem {
+            hostname = "blackberry";
+            extraModules = [
+              ./hosts/blackberry
+              ./suites
+              ./suites/service-private.nix
+            ];
+          };
+
+          virtberry = buildSystem {
+            hostname = "virtberry";
+            extraModules = [
+              ./hosts/virtberry
+              ./modules/location.nix
+              {nixchad.location.enable = true;}
+              ./suites/cli.nix
+              ./suites/graphical.nix
+              ./suites/service-common.nix
+            ];
+          };
         };
 
-        virtberry = buildSystem {
-          extraModules = [
-            {nixpkgs.overlays = builtins.attrValues self.overlays;}
-            ./hosts/virtberry
-            ./modules/location.nix
-            {nixchad.location.enable = true;}
-            ./suites/cli.nix
-            ./suites/graphical.nix
-            ./suites/service-common.nix
-          ];
-        };
-      };
-    }
-    // flake-utils.lib.eachDefaultSystem (system: let
-      pkgs = nixpkgs.legacyPackages.${system};
-    in {
-      formatter = pkgs.alejandra;
+        allMachines = let
+          toLink = name: value: {
+            inherit name;
+            path = value.config.system.build.toplevel;
+          };
+          links = pkgs.lib.mapAttrsToList toLink nixosConfigurations;
+        in
+          pkgs.linkFarm "all-machines" links;
 
-      devShell = let
-        pkgs = import nixpkgs {
+        deploy.nodes = with inputs.deploy-rs.lib; {
+          blackberry = {
+            hostname = "blackberry";
+            sshUser = "nixchad";
+            profiles.system.path = x86_64-linux.activate.nixos inputs.self.nixosConfigurations.blackberry;
+          };
+        };
+
+        checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks inputs.self.deploy) inputs.deploy-rs.lib;
+      }
+      // inputs.flake-utils.lib.eachDefaultSystem (system: let
+        pkgs = import inputs.nixpkgs {
           inherit system;
-          overlays = [devshell.overlay];
+          overlays = [inputs.devshell.overlay];
         };
-      in
-        pkgs.devshell.mkShell {
+      in {
+        formatter = pkgs.alejandra;
+
+        devShell = pkgs.devshell.mkShell {
           imports = [(pkgs.devshell.importTOML ./devshell.toml)];
         };
-    });
+      });
 }

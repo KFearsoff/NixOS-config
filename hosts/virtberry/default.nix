@@ -19,7 +19,6 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "virtberry"; # Define your hostname.
   sops.secrets.password = {
     sopsFile = ../../secrets/virtberry/default.yaml;
     neededForUsers = true;
@@ -59,4 +58,5 @@
   system.stateVersion = "22.11"; # Did you read the comment?
 
   nixchad.coredns.interface = "enp1s0";
+  nixchad.smartctl-exporter.enable = lib.mkForce false;
 }

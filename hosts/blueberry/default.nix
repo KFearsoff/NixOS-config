@@ -60,8 +60,6 @@
   hardware.bluetooth.enable = true;
   services.blueman.enable = true;
 
-  networking.hostName = "blueberry"; # Define your hostname.
-
   environment.persistence."/persist" = {
     directories = [
       "/etc/lvm/archive"
