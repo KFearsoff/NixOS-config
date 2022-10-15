@@ -18,8 +18,8 @@ in {
       image = "photoprism/photoprism";
       ports = ["${builtins.toString photoprismPort}:2342"];
       volumes = [
-        "/home/nixchad/Pictures:/photoprism/originals:ro"
-        "/photoprism/storage"
+        "/home/nixchad/Pictures/Photos:/photoprism/originals:ro"
+        "/home/nixchad/Pictures/Photoprism:/photoprism/storage"
       ];
       environment = {
         PHOTOPRISM_UPLOAD_NSFW = "true";
