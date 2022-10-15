@@ -49,6 +49,7 @@
           wireguard-tools
           mullvad-vpn
           openconnect
+          btdu
         ];
 
         file = {
