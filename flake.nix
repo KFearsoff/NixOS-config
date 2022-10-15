@@ -59,78 +59,64 @@
     devshell,
     sops-nix,
     ...
-  }: let
-    buildSystem = {
-      system ? "x86_64-linux",
-      pkgs ? nixpkgs,
-      username ? "nixchad",
-      extraModules,
-    }:
-      pkgs.lib.nixosSystem {
-        inherit system;
-        specialArgs = {
-          inherit inputs nix-colors username;
-          servername = "blackberry";
-        };
-        modules =
-          [
-            home-manager.nixosModules.home-manager
-            impermanence.nixosModules.impermanence
-            sops-nix.nixosModules.sops
-            (./users + "/${username}.nix")
-            {nixpkgs.overlays = builtins.attrValues self.overlays;}
-          ]
-          ++ extraModules;
-      };
-  in
-    {
-      overlays = {
-        default = import ./overlays;
-        nur = nur.overlay;
-        neovim-nightly-overlay = neovim-nightly-overlay.overlay;
-      };
-      nixosConfigurations = {
-        blueberry = buildSystem {
-          extraModules = [
-            ./hosts/blueberry
-            ./suites
-          ];
+  }:
+    with import ./lib/builders.nix {
+      inherit inputs;
+      overlays = self.overlays;
+      patches = f:
+        with f; [];
+    };
+      rec {
+        overlays = {
+          default = import ./overlays;
+          nur = nur.overlay;
+          neovim-nightly-overlay = neovim-nightly-overlay.overlay;
         };
 
-        blackberry = buildSystem {
-          extraModules = [
-            ./hosts/blackberry
-            ./suites
-            ./suites/service-private.nix
-          ];
-        };
+        nixosConfigurations = {
+          blueberry = buildSystem {
+            hostname = "blueberry";
+            extraModules = [
+              ./hosts/blueberry
+              ./suites
+            ];
+          };
 
-        virtberry = buildSystem {
-          extraModules = [
-            {nixpkgs.overlays = builtins.attrValues self.overlays;}
-            ./hosts/virtberry
-            ./modules/location.nix
-            {nixchad.location.enable = true;}
-            ./suites/cli.nix
-            ./suites/graphical.nix
-            ./suites/service-common.nix
-          ];
-        };
-      };
-    }
-    // flake-utils.lib.eachDefaultSystem (system: let
-      pkgs = nixpkgs.legacyPackages.${system};
-    in {
-      formatter = pkgs.alejandra;
+          blackberry = buildSystem {
+            hostname = "blackberry";
+            extraModules = [
+              ./hosts/blackberry
+              ./suites
+              ./suites/service-private.nix
+            ];
+          };
 
-      devShell = let
-        pkgs = import nixpkgs {
-          inherit system;
-          overlays = [devshell.overlay];
+          virtberry = buildSystem {
+            hostname = "virtberry";
+            extraModules = [
+              ./hosts/virtberry
+              ./modules/location.nix
+              {nixchad.location.enable = true;}
+              ./suites/cli.nix
+              ./suites/graphical.nix
+              ./suites/service-common.nix
+            ];
+          };
         };
-      in
-        pkgs.devshell.mkShell {
-          imports = [(pkgs.devshell.importTOML ./devshell.toml)];
-        };
-    });
+      }
+      // flake-utils.lib.eachDefaultSystem (system: let
+        pkgs = nixpkgs.legacyPackages.${system};
+      in {
+        formatter = pkgs.alejandra;
+
+        devShell = let
+          pkgs = import nixpkgs {
+            inherit system;
+            overlays = [devshell.overlay];
+          };
+        in
+          pkgs.devshell.mkShell {
+            imports = [(pkgs.devshell.importTOML ./devshell.toml)];
+          };
+      });
 }

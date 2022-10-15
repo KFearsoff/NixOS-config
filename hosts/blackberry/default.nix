@@ -26,7 +26,6 @@
   hardware.bluetooth.enable = true;
   services.blueman.enable = true;
 
-  networking.hostName = "blackberry"; # Define your hostname.
   nixchad.location = {
     timezone = "Asia/Tbilisi";
     latitude = 41.43;

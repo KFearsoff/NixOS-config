@@ -19,7 +19,6 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "virtberry"; # Define your hostname.
   sops.secrets.password = {
     sopsFile = ../../secrets/virtberry/default.yaml;
     neededForUsers = true;
