@@ -58,4 +58,5 @@
   system.stateVersion = "22.11"; # Did you read the comment?
 
   nixchad.coredns.interface = "enp1s0";
+  nixchad.smartctl-exporter.enable = lib.mkForce false;
 }
