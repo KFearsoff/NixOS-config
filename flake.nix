@@ -61,8 +61,8 @@
       rec {
         overlays = {
           default = import ./overlays;
-          nur = nur.overlay;
-          neovim-nightly-overlay = neovim-nightly-overlay.overlay;
+          nur = inputs.nur.overlay;
+          neovim-nightly-overlay = inputs.neovim-nightly-overlay.overlay;
         };
 
         nixosConfigurations = {
