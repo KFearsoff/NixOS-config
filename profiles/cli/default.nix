@@ -32,6 +32,9 @@
       killall
       ncdu
       speedtest-cli
+      minikube
+      kubectl
+      kubernetes-helm
     ];
 
     home-manager.users."${username}" = {
@@ -46,7 +49,13 @@
           wireguard-tools
           mullvad-vpn
           openconnect
+          btdu
         ];
+
+        file = {
+          # Patch Minikube kvm2 driver, see https://github.com/NixOS/nixpkgs/issues/115878
+          ".minikube/bin/docker-machine-driver-kvm2".source = "${pkgs.docker-machine-kvm2}/bin/docker-machine-driver-kvm2";
+        };
       };
 
       programs = {

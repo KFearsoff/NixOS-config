@@ -67,6 +67,14 @@ in {
               tail -f "$@" | ${bat} --paging=never -pl log
             }
 
+          ns() {
+            nix shell $(printf "nixpkgs#%s " "$@")
+          }
+
+          gri() {
+            git rebase -i "HEAD~$1"
+          }
+
 
 
           SAVEIFS=$IFS

@@ -12,5 +12,6 @@
     nixchad.postgres-exporter.enable = true;
     nixchad.loki.enable = true;
     nixchad.photoprism.enable = true;
+    networking.nat.enable = true;
   };
 }

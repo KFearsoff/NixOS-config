@@ -43,5 +43,16 @@
     efiInstallAsRemovable = true;
   };
   nixchad.smartctl-exporter.devices = ["/dev/nvme0n1"];
-  nixchad.coredns.interface = "enp1s0";
+  nixchad.coredns.interface = "br-libvirt";
+
+  networking.interfaces."br-libvirt".ipv4.addresses = [
+    {
+      address = "192.168.0.104";
+      prefixLength = 24;
+    }
+  ];
+  networking.defaultGateway = "192.168.0.1";
+  networking.bridges."br-libvirt".interfaces = ["enp1s0"];
+  networking.networkmanager.unmanaged = ["interface-name:enp1s0" "interface-name:br-libvirt" "interface-name:tailscale0"];
+  systemd.services.NetworkManager-wait-online.enable = false;
 }
