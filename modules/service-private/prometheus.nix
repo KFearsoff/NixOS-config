@@ -17,6 +17,10 @@ in {
   config = mkIf cfg.enable {
     services.prometheus = {
       enable = true;
+      # The default of 1m is pretty stupid. It breaks Grafana's $__rate_interval.
+      # Explanation can be found here:
+      # https://github.com/rfrail3/grafana-dashboards/issues/72#issuecomment-880484961
+      globalConfig.scrape_interval = "15s";
       scrapeConfigs = [
         {
           job_name = "Prometheus";

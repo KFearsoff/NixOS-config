@@ -9,7 +9,7 @@ with lib; let
   hostname = config.networking.hostName;
 in {
   imports = [
-    ./grafana.nix
+    ./grafana
     ./invidious.nix
     ./libreddit.nix
     ./loki.nix

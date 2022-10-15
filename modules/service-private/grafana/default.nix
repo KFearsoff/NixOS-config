@@ -6,6 +6,14 @@
 with lib; let
   cfg = config.nixchad.grafana;
   hostname = config.networking.hostName;
+  mkDatasource = type: url: extraConfig:
+    {
+      name = type;
+      inherit type;
+      uid = "provisioned_uid_${type}";
+      inherit url;
+    }
+    // extraConfig;
   grafanaPort = toString config.services.grafana.port;
   grafanaDomain = "grafana.${hostname}.me";
 in {
@@ -20,15 +28,15 @@ in {
       provision = {
         enable = true;
         datasources = [
+          (mkDatasource "prometheus" "http://localhost:9090" {})
+          (mkDatasource "loki" "http://localhost:33100" {})
+        ];
+        dashboards = [
           {
-            name = "Prometheus";
-            type = "prometheus";
-            url = "http://localhost:9090";
-          }
-          {
-            name = "Loki";
-            type = "loki";
-            url = "http://localhost:33100";
+            options = {
+              path = ./dashboards;
+              foldersFromFilesStructure = true;
+            };
           }
         ];
       };
