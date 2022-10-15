@@ -51,23 +51,10 @@
     deploy-rs.inputs.flake-compat.follows = "flake-compat";
   };
 
-  outputs = inputs @ {
-    self,
-    nixpkgs,
-    flake-utils,
-    hardware,
-    home-manager,
-    neovim-nightly-overlay,
-    nur,
-    nix-colors,
-    impermanence,
-    devshell,
-    sops-nix,
-    ...
-  }:
+  outputs = inputs:
     with import ./lib/builders.nix {
       inherit inputs;
-      overlays = self.overlays;
+      overlays = inputs.self.overlays;
       patches = f:
         with f; [];
     };
@@ -116,7 +103,7 @@
           };
           links = pkgs.lib.mapAttrsToList toLink nixosConfigurations;
         in
-        pkgs.linkFarm "all-machines" links;
+          pkgs.linkFarm "all-machines" links;
 
         deploy.nodes = with inputs.deploy-rs.lib; {
           blackberry = {
@@ -128,19 +115,16 @@
 
         checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks inputs.self.deploy) inputs.deploy-rs.lib;
       }
-      // flake-utils.lib.eachDefaultSystem (system: let
-        pkgs = nixpkgs.legacyPackages.${system};
+      // inputs.flake-utils.lib.eachDefaultSystem (system: let
+        pkgs = import inputs.nixpkgs {
+          inherit system;
+          overlays = [inputs.devshell.overlay];
+        };
       in {
         formatter = pkgs.alejandra;
 
-        devShell = let
-          pkgs = import nixpkgs {
-            inherit system;
-            overlays = [devshell.overlay];
-          };
-        in
-          pkgs.devshell.mkShell {
-            imports = [(pkgs.devshell.importTOML ./devshell.toml)];
-          };
+        devShell = pkgs.devshell.mkShell {
+          imports = [(pkgs.devshell.importTOML ./devshell.toml)];
+        };
       });
 }
