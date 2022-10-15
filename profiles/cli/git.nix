@@ -17,6 +17,7 @@
       gsa = "git stash push ";
       gsr = "git stash pop ";
       gsl = "git stash list ";
+      gsd = "git stash drop ";
       gc = "git commit ";
       gca = "git commit --amend ";
       gr = "git rebase ";
@@ -24,6 +25,11 @@
       ga = "git add";
       gre = "git restore ";
       grs = "git restore --staged";
+      grc = "git rebase --continue";
+      gra = "git rebase --abort";
+      glp = "git log -p";
+      gcpc = "git cherry-pick --continue";
+      gcpa = "git cherry-pick --abort";
     };
 
     programs.git = {
