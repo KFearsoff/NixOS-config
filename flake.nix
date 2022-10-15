@@ -44,6 +44,11 @@
     hosts.url = "github:StevenBlack/hosts";
     hosts.inputs.nixpkgs.follows = "nixpkgs";
     hosts.inputs.flake-utils.follows = "flake-utils";
+
+    deploy-rs.url = "github:serokell/deploy-rs";
+    deploy-rs.inputs.nixpkgs.follows = "nixpkgs";
+    deploy-rs.inputs.utils.follows = "flake-utils";
+    deploy-rs.inputs.flake-compat.follows = "flake-compat";
   };
 
   outputs = inputs @ {
@@ -103,6 +108,25 @@
             ];
           };
         };
+
+        allMachines = let
+          toLink = name: value: {
+            inherit name;
+            path = value.config.system.build.toplevel;
+          };
+          links = pkgs.lib.mapAttrsToList toLink nixosConfigurations;
+        in
+        pkgs.linkFarm "all-machines" links;
+
+        deploy.nodes = with inputs.deploy-rs.lib; {
+          blackberry = {
+            hostname = "blackberry";
+            sshUser = "nixchad";
+            profiles.system.path = x86_64-linux.activate.nixos inputs.self.nixosConfigurations.blackberry;
+          };
+        };
+
+        checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks inputs.self.deploy) inputs.deploy-rs.lib;
       }
       // flake-utils.lib.eachDefaultSystem (system: let
         pkgs = nixpkgs.legacyPackages.${system};
