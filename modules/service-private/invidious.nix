@@ -21,8 +21,8 @@ in {
     # don't use SSL certs
     services.nginx.virtualHosts."${invidiousDomain}" = {
       forceSSL = true;
-      sslCertificate = "/var/lib/self-signed/${invidiousDomain}/cert.pem";
-      sslCertificateKey = "/var/lib/self-signed/${invidiousDomain}/key.pem";
+      sslCertificate = "/var/lib/self-signed/_.blackberry.me/cert.pem";
+      sslCertificateKey = "/var/lib/self-signed/_.blackberry.me/key.pem";
 
       locations."/" = {
         proxyPass = "http://localhost:${invidiousPort}";

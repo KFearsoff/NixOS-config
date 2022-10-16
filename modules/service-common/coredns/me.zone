@@ -10,13 +10,20 @@ $ORIGIN me.
                         )
 
 ; hosts
-testwikipediamezone IN A 91.198.174.192
-; hot IN A 192.168.100.1 ; isp
-; darcher IN A 192.168.0.1
-; pansear IN A 192.168.0.8
+blackberry IN A 100.109.194.31
+blueberry IN A 100.93.12.47
+virtberry IN A 100.73.210.29
 
 ; services
-testcoredns IN CNAME testwikipediamezone.me.
-; print IN CNAME pansear.me.
-; scan IN CNAME pansear.me.
-; octo IN CNAME pookieix.tailnet.ckie.dev.
+prometheus.blackberry.me IN CNAME blackberry.me.
+vaultwarden.blackberry.me IN CNAME blackberry.me.
+photoprism.blackberry.me IN CNAME blackberry.me.
+nitter.blackberry.me IN CNAME blackberry.me.
+loki.blackberry.me IN CNAME blackberry.me.
+libreddit.blackberry.me IN CNAME blackberry.me.
+invidious.blackberry.me IN CNAME blackberry.me.
+grafana.blackberry.me IN CNAME blackberry.me.
+
+promtail.blackberry.me IN CNAME blackberry.me.
+promtail.blueberry.me IN CNAME blueberry.me.
+promtail.virtberry.me IN CNAME virtberry.me.

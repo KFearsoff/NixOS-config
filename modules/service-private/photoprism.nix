@@ -30,8 +30,8 @@ in {
 
     services.nginx.virtualHosts."${photoprismDomain}" = {
       forceSSL = true;
-      sslCertificate = "/var/lib/self-signed/${photoprismDomain}/cert.pem";
-      sslCertificateKey = "/var/lib/self-signed/${photoprismDomain}/key.pem";
+      sslCertificate = "/var/lib/self-signed/_.blackberry.me/cert.pem";
+      sslCertificateKey = "/var/lib/self-signed/_.blackberry.me/key.pem";
 
       locations."/" = {
         proxyPass = "http://localhost:${builtins.toString photoprismPort}";

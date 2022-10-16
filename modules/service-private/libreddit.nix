@@ -20,8 +20,8 @@ in {
     # don't use SSL certs
     services.nginx.virtualHosts."${libredditDomain}" = {
       forceSSL = true;
-      sslCertificate = "/var/lib/self-signed/${libredditDomain}/cert.pem";
-      sslCertificateKey = "/var/lib/self-signed/${libredditDomain}/key.pem";
+      sslCertificate = "/var/lib/self-signed/_.blackberry.me/cert.pem";
+      sslCertificateKey = "/var/lib/self-signed/_.blackberry.me/key.pem";
 
       locations."/" = {
         proxyPass = "http://localhost:${libredditPort}";

@@ -65,8 +65,8 @@ in {
 
     services.nginx.virtualHosts."${prometheusDomain}" = {
       forceSSL = true;
-      sslCertificate = "/var/lib/self-signed/${prometheusDomain}/cert.pem";
-      sslCertificateKey = "/var/lib/self-signed/${prometheusDomain}/key.pem";
+      sslCertificate = "/var/lib/self-signed/_.blackberry.me/cert.pem";
+      sslCertificateKey = "/var/lib/self-signed/_.blackberry.me/key.pem";
 
       locations."/" = {
         proxyPass = "http://localhost:${prometheusPort}";

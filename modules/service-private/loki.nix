@@ -63,8 +63,8 @@ in {
 
     services.nginx.virtualHosts."${lokiDomain}" = {
       forceSSL = true;
-      sslCertificate = "/var/lib/self-signed/${lokiDomain}/cert.pem";
-      sslCertificateKey = "/var/lib/self-signed/${lokiDomain}/key.pem";
+      sslCertificate = "/var/lib/self-signed/_.blackberry.me/cert.pem";
+      sslCertificateKey = "/var/lib/self-signed/_.blackberry.me/key.pem";
 
       locations."/" = {
         proxyPass = "http://localhost:${lokiHttpPort}";

@@ -23,8 +23,8 @@ in {
     # don't use SSL certs
     services.nginx.virtualHosts."${vaultwardenDomain}" = {
       forceSSL = true;
-      sslCertificate = "/var/lib/self-signed/${vaultwardenDomain}/cert.pem";
-      sslCertificateKey = "/var/lib/self-signed/${vaultwardenDomain}/key.pem";
+      sslCertificate = "/var/lib/self-signed/_.blackberry.me/cert.pem";
+      sslCertificateKey = "/var/lib/self-signed/_.blackberry.me/key.pem";
 
       locations."/" = {
         proxyPass = "http://localhost:${vaultwardenPort}";

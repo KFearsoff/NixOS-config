@@ -21,8 +21,8 @@ in {
     # don't use SSL certs
     services.nginx.virtualHosts."${nitterDomain}" = {
       forceSSL = true;
-      sslCertificate = "/var/lib/self-signed/${nitterDomain}/cert.pem";
-      sslCertificateKey = "/var/lib/self-signed/${nitterDomain}/key.pem";
+      sslCertificate = "/var/lib/self-signed/_.blackberry.me/cert.pem";
+      sslCertificateKey = "/var/lib/self-signed/_.blackberry.me/key.pem";
 
       locations."/" = {
         proxyPass = "http://localhost:${nitterPort}";
