@@ -119,7 +119,6 @@ in {
           errors
           cache {
             prefetch 10
-            serve_stale
           }
         }
 
