@@ -71,9 +71,6 @@ in {
         proxyWebsockets = true;
       };
     };
-    networking.extraHosts = ''
-      127.0.0.1 ${lokiDomain}
-    '';
     networking.firewall.interfaces.tailscale0.allowedTCPPorts = [33100 33110];
 
     environment.persistence."/persist" = {

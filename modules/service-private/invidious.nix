@@ -28,8 +28,5 @@ in {
         proxyPass = "http://localhost:${invidiousPort}";
       };
     };
-    networking.extraHosts = ''
-      127.0.0.1 ${invidiousDomain}
-    '';
   };
 }

@@ -28,8 +28,5 @@ in {
         proxyPass = "http://localhost:${nitterPort}";
       };
     };
-    networking.extraHosts = ''
-      127.0.0.1 ${nitterDomain}
-    '';
   };
 }

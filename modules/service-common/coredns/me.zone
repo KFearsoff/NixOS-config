@@ -15,15 +15,15 @@ blueberry IN A 100.93.12.47
 virtberry IN A 100.73.210.29
 
 ; services
-prometheus.blackberry.me IN CNAME blackberry.me.
-vaultwarden.blackberry.me IN CNAME blackberry.me.
-photoprism.blackberry.me IN CNAME blackberry.me.
-nitter.blackberry.me IN CNAME blackberry.me.
-loki.blackberry.me IN CNAME blackberry.me.
-libreddit.blackberry.me IN CNAME blackberry.me.
-invidious.blackberry.me IN CNAME blackberry.me.
-grafana.blackberry.me IN CNAME blackberry.me.
+prometheus.blackberry IN CNAME blackberry.me.
+vaultwarden.blackberry IN CNAME blackberry.me.
+photoprism.blackberry IN CNAME blackberry.me.
+nitter.blackberry IN CNAME blackberry.me.
+loki.blackberry IN CNAME blackberry.me.
+libreddit.blackberry IN CNAME blackberry.me.
+invidious.blackberry IN CNAME blackberry.me.
+grafana.blackberry IN CNAME blackberry.me.
 
-promtail.blackberry.me IN CNAME blackberry.me.
-promtail.blueberry.me IN CNAME blueberry.me.
-promtail.virtberry.me IN CNAME virtberry.me.
+promtail.blackberry IN CNAME blackberry.me.
+promtail.blueberry IN CNAME blueberry.me.
+promtail.virtberry IN CNAME virtberry.me.
