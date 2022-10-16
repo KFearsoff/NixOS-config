@@ -9,7 +9,7 @@ with lib; let
   hostname = config.networking.hostName;
   lokiHttpPort = "33100";
   lokiGrpcPort = "33110";
-  lokiDomain = "loki.${hostname}.me";
+  lokiDomain = "loki.${hostname}.box";
   alertmanagerPort = config.services.prometheus.alertmanager.port;
   lokiData = config.services.loki.dataDir;
 in {
@@ -63,8 +63,8 @@ in {
 
     services.nginx.virtualHosts."${lokiDomain}" = {
       forceSSL = true;
-      sslCertificate = "/var/lib/self-signed/_.blackberry.me/cert.pem";
-      sslCertificateKey = "/var/lib/self-signed/_.blackberry.me/key.pem";
+      sslCertificate = "/var/lib/self-signed/_.blackberry.box/cert.pem";
+      sslCertificateKey = "/var/lib/self-signed/_.blackberry.box/key.pem";
 
       locations."/" = {
         proxyPass = "http://localhost:${lokiHttpPort}";

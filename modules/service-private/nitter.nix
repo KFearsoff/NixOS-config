@@ -7,7 +7,7 @@ with lib; let
   cfg = config.nixchad.nitter;
   hostname = config.networking.hostName;
   nitterPort = toString config.services.nitter.server.port;
-  nitterDomain = "nitter.${hostname}.me";
+  nitterDomain = "nitter.${hostname}.box";
 in {
   options.nixchad.nitter = {
     enable = mkEnableOption "Nitter Twitter proxying service";
@@ -21,8 +21,8 @@ in {
     # don't use SSL certs
     services.nginx.virtualHosts."${nitterDomain}" = {
       forceSSL = true;
-      sslCertificate = "/var/lib/self-signed/_.blackberry.me/cert.pem";
-      sslCertificateKey = "/var/lib/self-signed/_.blackberry.me/key.pem";
+      sslCertificate = "/var/lib/self-signed/_.blackberry.box/cert.pem";
+      sslCertificateKey = "/var/lib/self-signed/_.blackberry.box/key.pem";
 
       locations."/" = {
         proxyPass = "http://localhost:${nitterPort}";

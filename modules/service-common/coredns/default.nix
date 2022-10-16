@@ -123,10 +123,10 @@ in {
           }
         }
 
-        me {
+        box {
           prometheus 0.0.0.0:33003
           bind lo ${cfg.interface} tailscale0
-          file ${./me.zone}
+          file ${./box.zone}
         }
       '';
     };

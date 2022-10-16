@@ -8,7 +8,7 @@ with lib; let
   nodePort = toString config.services.prometheus.exporters.node.port;
   hostname = config.networking.hostName;
   prometheusPort = toString config.services.prometheus.port;
-  prometheusDomain = "prometheus.${hostname}.me";
+  prometheusDomain = "prometheus.${hostname}.box";
 in {
   options.nixchad.prometheus = {
     enable = mkEnableOption "Prometheus monitoring";
@@ -65,8 +65,8 @@ in {
 
     services.nginx.virtualHosts."${prometheusDomain}" = {
       forceSSL = true;
-      sslCertificate = "/var/lib/self-signed/_.blackberry.me/cert.pem";
-      sslCertificateKey = "/var/lib/self-signed/_.blackberry.me/key.pem";
+      sslCertificate = "/var/lib/self-signed/_.blackberry.box/cert.pem";
+      sslCertificateKey = "/var/lib/self-signed/_.blackberry.box/key.pem";
 
       locations."/" = {
         proxyPass = "http://localhost:${prometheusPort}";
