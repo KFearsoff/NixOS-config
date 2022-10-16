@@ -14,35 +14,18 @@ with lib; let
 
   # Taken from upstream: https://github.com/StevenBlack/hosts/blob/master/flake.nix
   alternatesList =
-    (
-      if cfg.blockFakenews
-      then ["fakenews"]
-      else []
-    )
-    ++ (
-      if cfg.blockGambling
-      then ["gambling"]
-      else []
-    )
-    ++ (
-      if cfg.blockPorn
-      then ["porn"]
-      else []
-    )
-    ++ (
-      if cfg.blockSocial
-      then ["social"]
-      else []
-    );
+    lib.optional cfg.blockFakenews "fakenews"
+    ++ lib.optional cfg.blockGambling "gambling"
+    ++ lib.optional cfg.blockPorn "port"
+    ++ lib.optional cfg.blockSocial "social";
   alternatesPath = "alternates/" + builtins.concatStringsSep "-" alternatesList + "/";
 
-  patchedHosts = builtins.readFile ("${inputs.hosts}/"
-    + (
-      if alternatesList != []
-      then alternatesPath
-      else ""
-    )
+  combinedHosts = builtins.readFile ("${inputs.hosts}/"
+    + lib.optionalString (alternatesList != []) alternatesPath
     + "hosts");
+  excludeHosts = concatStringsSep "|" [".*kameleoon\..+"];
+  patchedHosts = concatStringsSep "\n" (filter (x: isNull (builtins.match excludeHosts x)) (splitString "\n" combinedHosts));
+
   baseHosts = pkgs.writeTextFile {
     name = "coredns-hosts-nixchad";
     text = ''
