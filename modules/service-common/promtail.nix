@@ -9,7 +9,7 @@ with lib; let
   hostname = config.networking.hostName;
   promtailHttpPort = "33101";
   promtailGrpcPort = "33111";
-  promtailDomain = "promtail.${hostname}.me";
+  promtailDomain = "promtail.${hostname}.box";
 in {
   options.nixchad.promtail = {
     enable = mkEnableOption "Promtail log exporter";
@@ -54,16 +54,13 @@ in {
 
     services.nginx.virtualHosts."${promtailDomain}" = {
       forceSSL = true;
-      sslCertificate = "/var/lib/self-signed/${promtailDomain}/cert.pem";
-      sslCertificateKey = "/var/lib/self-signed/${promtailDomain}/key.pem";
+      sslCertificate = "/var/lib/self-signed/_.blackberry.box/cert.pem";
+      sslCertificateKey = "/var/lib/self-signed/_.blackberry.box/key.pem";
 
       locations."/" = {
         proxyPass = "http://localhost:${promtailHttpPort}";
         proxyWebsockets = true;
       };
     };
-    networking.extraHosts = ''
-      127.0.0.1 ${promtailDomain}
-    '';
   };
 }

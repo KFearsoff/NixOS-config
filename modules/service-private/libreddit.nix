@@ -7,7 +7,7 @@ with lib; let
   cfg = config.nixchad.libreddit;
   hostname = config.networking.hostName;
   libredditPort = toString config.services.libreddit.port;
-  libredditDomain = "libreddit.${hostname}.me";
+  libredditDomain = "libreddit.${hostname}.box";
 in {
   options.nixchad.libreddit = {
     enable = mkEnableOption "Libreddit Reddit proxying service";
@@ -20,16 +20,13 @@ in {
     # don't use SSL certs
     services.nginx.virtualHosts."${libredditDomain}" = {
       forceSSL = true;
-      sslCertificate = "/var/lib/self-signed/${libredditDomain}/cert.pem";
-      sslCertificateKey = "/var/lib/self-signed/${libredditDomain}/key.pem";
+      sslCertificate = "/var/lib/self-signed/_.blackberry.box/cert.pem";
+      sslCertificateKey = "/var/lib/self-signed/_.blackberry.box/key.pem";
 
       locations."/" = {
         proxyPass = "http://localhost:${libredditPort}";
         proxyWebsockets = true;
       };
     };
-    networking.extraHosts = ''
-      127.0.0.1 ${libredditDomain}
-    '';
   };
 }

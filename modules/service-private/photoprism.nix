@@ -7,7 +7,7 @@ with lib; let
   cfg = config.nixchad.photoprism;
   hostname = config.networking.hostName;
   photoprismPort = 2342;
-  photoprismDomain = "photoprism.${hostname}.me";
+  photoprismDomain = "photoprism.${hostname}.box";
 in {
   options.nixchad.photoprism = {
     enable = mkEnableOption "Photoprism photo gallery service";
@@ -30,16 +30,13 @@ in {
 
     services.nginx.virtualHosts."${photoprismDomain}" = {
       forceSSL = true;
-      sslCertificate = "/var/lib/self-signed/${photoprismDomain}/cert.pem";
-      sslCertificateKey = "/var/lib/self-signed/${photoprismDomain}/key.pem";
+      sslCertificate = "/var/lib/self-signed/_.blackberry.box/cert.pem";
+      sslCertificateKey = "/var/lib/self-signed/_.blackberry.box/key.pem";
 
       locations."/" = {
         proxyPass = "http://localhost:${builtins.toString photoprismPort}";
         proxyWebsockets = true;
       };
     };
-    networking.extraHosts = ''
-      127.0.0.1 ${photoprismDomain}
-    '';
   };
 }

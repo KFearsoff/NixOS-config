@@ -7,7 +7,7 @@ with lib; let
   cfg = config.nixchad.invidious;
   hostname = config.networking.hostName;
   invidiousPort = toString config.services.invidious.port;
-  invidiousDomain = "invidious.${hostname}.me";
+  invidiousDomain = "invidious.${hostname}.box";
 in {
   options.nixchad.invidious = {
     enable = mkEnableOption "Invidious Youtube proxying service";
@@ -21,15 +21,12 @@ in {
     # don't use SSL certs
     services.nginx.virtualHosts."${invidiousDomain}" = {
       forceSSL = true;
-      sslCertificate = "/var/lib/self-signed/${invidiousDomain}/cert.pem";
-      sslCertificateKey = "/var/lib/self-signed/${invidiousDomain}/key.pem";
+      sslCertificate = "/var/lib/self-signed/_.blackberry.box/cert.pem";
+      sslCertificateKey = "/var/lib/self-signed/_.blackberry.box/key.pem";
 
       locations."/" = {
         proxyPass = "http://localhost:${invidiousPort}";
       };
     };
-    networking.extraHosts = ''
-      127.0.0.1 ${invidiousDomain}
-    '';
   };
 }

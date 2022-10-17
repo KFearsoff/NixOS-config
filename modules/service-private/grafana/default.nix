@@ -15,7 +15,7 @@ with lib; let
     }
     // extraConfig;
   grafanaPort = toString config.services.grafana.port;
-  grafanaDomain = "grafana.${hostname}.me";
+  grafanaDomain = "grafana.${hostname}.box";
 in {
   options.nixchad.grafana = {
     enable = mkEnableOption "Grafana dashboard";
@@ -44,17 +44,14 @@ in {
 
     services.nginx.virtualHosts."${grafanaDomain}" = {
       forceSSL = true;
-      sslCertificate = "/var/lib/self-signed/${grafanaDomain}/cert.pem";
-      sslCertificateKey = "/var/lib/self-signed/${grafanaDomain}/key.pem";
+      sslCertificate = "/var/lib/self-signed/_.blackberry.box/cert.pem";
+      sslCertificateKey = "/var/lib/self-signed/_.blackberry.box/key.pem";
 
       locations."/" = {
         proxyPass = "http://localhost:${grafanaPort}";
         proxyWebsockets = true;
       };
     };
-    networking.extraHosts = ''
-      127.0.0.1 ${grafanaDomain}
-    '';
 
     environment.persistence."/persist" = {
       hideMounts = true;

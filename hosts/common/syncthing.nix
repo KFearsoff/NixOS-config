@@ -4,7 +4,11 @@
   config,
   lib,
   ...
-}: {
+}: let
+  hostname = config.networking.hostName;
+  syncthingHttpPort = "8384";
+  syncthingDomain = "syncthing.${hostname}.box";
+in {
   home-manager.users."${username}".xdg.userDirs.extraConfig = {
     XDG_SYNC_DIR = "$HOME/Sync";
     XDG_PROJ_DIR = "$HOME/Projects";
@@ -70,7 +74,7 @@
         };
       }
       // (
-        if (config.networking.hostName != "virtberry")
+        if (hostname != "virtberry")
         then {
           "Photos" = {
             path = "/home/${username}/Pictures/Photos";
@@ -90,13 +94,27 @@
         else {}
       );
     extraOptions = {
-      gui = {theme = "dark";};
+      gui = {
+        theme = "dark";
+        insecureSkipHostcheck = true; # needed for reverse proxy
+      };
       options = {
         globalAnnounceEnabled = false;
         relaysEnabled = false;
         urAccepted = -1;
         restartOnWakeup = true;
       };
+    };
+  };
+
+  services.nginx.virtualHosts."${syncthingDomain}" = {
+    forceSSL = true;
+    sslCertificate = "/var/lib/self-signed/_.blackberry.box/cert.pem";
+    sslCertificateKey = "/var/lib/self-signed/_.blackberry.box/key.pem";
+
+    locations."/" = {
+      proxyPass = "http://localhost:${syncthingHttpPort}";
+      proxyWebsockets = true;
     };
   };
 }

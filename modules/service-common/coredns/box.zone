@@ -1,0 +1,32 @@
+$TTL 60
+
+$ORIGIN box.
+@       IN      SOA     dns.box. kfearsoff.gmail.com. (
+                        2022082300 ; serial number YYMMDDNN
+                        28800           ; Refresh
+                        7200            ; Retry
+                        864000          ; Expire
+                        86400           ; Min TTL
+                        )
+
+; hosts
+blackberry IN A 100.109.194.31
+blueberry IN A 100.93.12.47
+virtberry IN A 100.73.210.29
+
+; services
+prometheus.blackberry IN CNAME blackberry.box.
+vaultwarden.blackberry IN CNAME blackberry.box.
+photoprism.blackberry IN CNAME blackberry.box.
+nitter.blackberry IN CNAME blackberry.box.
+loki.blackberry IN CNAME blackberry.box.
+libreddit.blackberry IN CNAME blackberry.box.
+invidious.blackberry IN CNAME blackberry.box.
+grafana.blackberry IN CNAME blackberry.box.
+
+promtail.blackberry IN CNAME blackberry.box.
+promtail.blueberry IN CNAME blueberry.box.
+promtail.virtberry IN CNAME virtberry.box.
+syncthing.blackberry IN CNAME blackberry.box.
+syncthing.blueberry IN CNAME blueberry.box.
+syncthing.virtberry IN CNAME virtberry.box.

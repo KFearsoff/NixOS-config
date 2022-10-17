@@ -7,7 +7,7 @@ with lib; let
   cfg = config.nixchad.vaultwarden;
   hostname = config.networking.hostName;
   vaultwardenPort = "32003";
-  vaultwardenDomain = "vaultwarden.${hostname}.me";
+  vaultwardenDomain = "vaultwarden.${hostname}.box";
 in {
   options.nixchad.vaultwarden = {
     enable = mkEnableOption "Vaultwarden";
@@ -23,8 +23,8 @@ in {
     # don't use SSL certs
     services.nginx.virtualHosts."${vaultwardenDomain}" = {
       forceSSL = true;
-      sslCertificate = "/var/lib/self-signed/${vaultwardenDomain}/cert.pem";
-      sslCertificateKey = "/var/lib/self-signed/${vaultwardenDomain}/key.pem";
+      sslCertificate = "/var/lib/self-signed/_.blackberry.box/cert.pem";
+      sslCertificateKey = "/var/lib/self-signed/_.blackberry.box/key.pem";
 
       locations."/" = {
         proxyPass = "http://localhost:${vaultwardenPort}";
@@ -39,8 +39,5 @@ in {
         proxyWebsockets = true;
       };
     };
-    networking.extraHosts = ''
-      127.0.0.1 ${vaultwardenDomain}
-    '';
   };
 }
