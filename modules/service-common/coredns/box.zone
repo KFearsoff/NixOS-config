@@ -27,3 +27,6 @@ grafana.blackberry IN CNAME blackberry.box.
 promtail.blackberry IN CNAME blackberry.box.
 promtail.blueberry IN CNAME blueberry.box.
 promtail.virtberry IN CNAME virtberry.box.
+syncthing.blackberry IN CNAME blackberry.box.
+syncthing.blueberry IN CNAME blueberry.box.
+syncthing.virtberry IN CNAME virtberry.box.
