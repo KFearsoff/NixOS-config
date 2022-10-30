@@ -14,18 +14,18 @@ in {
     XDG_PROJ_DIR = "$HOME/Projects";
   };
 
-  services.syncthing = {
+  services.syncthing = with (import ../default.nix { inherit lib;}); {
     enable = true;
     overrideDevices = true;
     overrideFolders = true;
     user = "${username}";
     dataDir = "/home/${username}";
-    devices = (import ../default.nix { inherit lib; }).syncthingDevicesConfig;
+    devices = syncthingDevicesConfig;
     folders =
       {
         ".config/newsboat" = {
           path = "/home/${username}/.config/newsboat";
-          devices = (import ../default.nix { inherit lib; }).syncthingHostsList;
+          devices = syncthingHostsList;
           versioning = {
             type = "trashcan";
             params.cleanoutDays = "30";
@@ -33,7 +33,7 @@ in {
         };
         "Sync" = {
           path = "/home/${username}/Sync";
-          devices = (import ../default.nix { inherit lib; }).syncthingHostsList;
+          devices = syncthingHostsList;
           versioning = {
             type = "trashcan";
             params.cleanoutDays = "30";
@@ -41,7 +41,7 @@ in {
         };
         "Projects" = {
           path = "/home/${username}/Projects";
-          devices = (import ../default.nix { inherit lib; }).syncthingHostsList;
+          devices = syncthingHostsList;
           versioning = {
             type = "trashcan";
             params.cleanoutDays = "30";
@@ -49,7 +49,7 @@ in {
         };
         "Notes" = {
           path = "/home/${username}/Documents/Notes";
-          devices = (import ../default.nix { inherit lib; }).syncthingAllList;
+          devices = syncthingAllList;
           versioning = {
             type = "trashcan";
             params.cleanoutDays = "30";
@@ -61,11 +61,11 @@ in {
         then {
           "Photos" = {
             path = "/home/${username}/Pictures/Photos";
-            devices = lib.remove "virtberry" (import ../default.nix { inherit lib; }).syncthingHostsList;
+            devices = lib.remove "virtberry" syncthingHostsList;
           };
           "Photos-phone" = {
             path = "/home/${username}/Pictures/Photos-phone";
-            devices = lib.remove "virtberry" (import ../default.nix { inherit lib; }).syncthingAllList;
+            devices = lib.remove "virtberry" syncthingAllList;
             type = "receiveonly";
             versioning = {
               type = "trashcan";
