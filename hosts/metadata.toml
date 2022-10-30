@@ -1,0 +1,18 @@
+[hosts.blackberry]
+ipv4 = "100.109.194.31"
+syncthing.id = "S3S7WIB-2J2YK4E-VIKFG4K-FZ7N4OI-43RXU3D-T5FX3AD-PQCJPSX-LNQNRA5"
+ssh-pubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEQ77pbUwzNYJzu/vEg9MqtuLQmjgRtf5b4K+qsZ0o7v nixchad@blackberry"
+
+[hosts.blueberry]
+ipv4 = "100.93.12.47"
+syncthing.id = "O3BLXFF-YZDZXSU-MZMNFVX-WDQ2OZU-3UZ7SSK-4BEN6DU-COS4LM4-7MP6QAQ"
+ssh-pubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKnUBxbvoSGs+Q+hhSUrwqNkVzmtnEc03Tt203PEJWBE nixchad@blueberry"
+
+[hosts.virtberry]
+ipv4 = "100.73.210.29"
+syncthing.id = "LIT3MIA-VEPVHWZ-SC4Z76E-V5YFUV7-IF4TKR2-VOVI3E5-BKXIHFB-TYQE3QH"
+ssh-pubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIORoV0u1i+XkxjbAJDlrmHLazgwXOUBncUch6ngGE+Km nixchad@virtberry"
+
+[phones.pixel-4a]
+ipv4 = "100.107.161.19"
+syncthing.id = "74LQXWB-GVD5FVU-7CYZUFK-MNIIYA4-X3ZJCHR-VQM7UM7-HBNL4VM-PUNYTAW"
