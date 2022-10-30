@@ -49,7 +49,7 @@ in {
         };
         "Notes" = {
           path = "/home/${username}/Documents/Notes";
-          devices = ["blueberry" "blackberry" "pixel-4a" "virtberry"];
+          devices = (import ../default.nix { inherit lib; }).syncthingAllList;
           versioning = {
             type = "trashcan";
             params.cleanoutDays = "30";
@@ -65,7 +65,7 @@ in {
           };
           "Photos-phone" = {
             path = "/home/${username}/Pictures/Photos-phone";
-            devices = ["blueberry" "blackberry" "pixel-4a"];
+            devices = lib.remove "virtberry" (import ../default.nix { inherit lib; }).syncthingAllList;
             type = "receiveonly";
             versioning = {
               type = "trashcan";

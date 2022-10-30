@@ -10,4 +10,5 @@ in {
   inherit metadata;
   syncthingDevicesConfig = step-4;
   syncthingHostsList = builtins.attrNames (filterAttrs (n: v: builtins.hasAttr "syncthing" v) metadata.hosts);
+  syncthingAllList = builtins.attrNames step-3;
 }
