@@ -25,7 +25,7 @@ in {
       {
         ".config/newsboat" = {
           path = "/home/${username}/.config/newsboat";
-          devices = ["blueberry" "blackberry" "virtberry"];
+          devices = (import ../default.nix { inherit lib; }).syncthingHostsList;
           versioning = {
             type = "trashcan";
             params.cleanoutDays = "30";
@@ -33,7 +33,7 @@ in {
         };
         "Sync" = {
           path = "/home/${username}/Sync";
-          devices = ["blueberry" "blackberry" "virtberry"];
+          devices = (import ../default.nix { inherit lib; }).syncthingHostsList;
           versioning = {
             type = "trashcan";
             params.cleanoutDays = "30";
@@ -41,7 +41,7 @@ in {
         };
         "Projects" = {
           path = "/home/${username}/Projects";
-          devices = ["blueberry" "blackberry" "virtberry"];
+          devices = (import ../default.nix { inherit lib; }).syncthingHostsList;
           versioning = {
             type = "trashcan";
             params.cleanoutDays = "30";
@@ -61,7 +61,7 @@ in {
         then {
           "Photos" = {
             path = "/home/${username}/Pictures/Photos";
-            devices = ["blueberry" "blackberry"];
+            devices = lib.remove "virtberry" (import ../default.nix { inherit lib; }).syncthingHostsList;
           };
           "Photos-phone" = {
             path = "/home/${username}/Pictures/Photos-phone";
