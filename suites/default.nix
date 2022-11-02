@@ -8,7 +8,7 @@
     ../modules/fonts.nix
     ../modules/common-services
     ../modules/games
-    ../modules/graphical
+    ../modules/gui
     ../modules/pipewire.nix
     ../modules/private-services
   ];

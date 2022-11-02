@@ -19,7 +19,6 @@
         tdesktop
         keepassxc
         discord
-        gimp
         qbittorrent
         element-desktop-wayland
         cinnamon.nemo

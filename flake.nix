@@ -74,11 +74,12 @@
               ./suites/cli.nix
               ./suites/sway.nix
               ./suites/games.nix
-              ./suites/graphical.nix
+              ./suites/gui.nix
               ./suites/work.nix
               ./suites/common-services.nix
               ./suites/private-services.nix
               ./suites/office.nix
+              ./suites/graphics.nix
             ];
           };
         };
