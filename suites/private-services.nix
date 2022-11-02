@@ -1,6 +1,4 @@
 {
-  imports = [../modules/private-services];
-
   config = {
     nixchad.nginx.enable = true;
     nixchad.prometheus.enable = true;

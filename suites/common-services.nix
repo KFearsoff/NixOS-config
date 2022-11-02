@@ -1,6 +1,4 @@
 {
-  imports = [../modules/common-services];
-
   config = {
     nixchad.node-exporter.enable = true;
     nixchad.smartctl-exporter.enable = true;

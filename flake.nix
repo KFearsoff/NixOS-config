@@ -71,6 +71,11 @@
             extraModules = [
               ./hosts/blackberry
               ./suites
+              ./suites/cli.nix
+              ./suites/sway.nix
+              ./suites/games.nix
+              ./suites/graphical.nix
+              ./suites/common-services.nix
               ./suites/private-services.nix
             ];
           };

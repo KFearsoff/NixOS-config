@@ -1,8 +1,4 @@
 {
-  imports = [
-    ../modules/games
-  ];
-
   config = {
     nixchad.games.enable = true;
     nixchad.games.gamemode.enable = true;
