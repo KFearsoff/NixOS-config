@@ -70,7 +70,6 @@
             hostname = "blackberry";
             extraModules = [
               ./hosts/blackberry
-              ./suites
               ./suites/cli.nix
               ./suites/sway.nix
               ./suites/games.nix

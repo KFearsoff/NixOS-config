@@ -55,6 +55,7 @@
           inputs.impermanence.nixosModules.impermanence
           inputs.sops-nix.nixosModules.sops
           (../users + "/${username}.nix")
+          ../modules
         ]
         ++ machineSpecificModules
         ++ extraModules;

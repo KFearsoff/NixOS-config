@@ -6,20 +6,18 @@
   ...
 }:
 with lib; let
-  cfg = config.nixchad.gui;
+  cfg = config.nixchad.system;
 in {
   imports = [
-    ./alacritty.nix
-    ./kitty.nix
-    ./mpv.nix
-    ./zathura.nix
-    ./office.nix
-    ./graphics.nix
-    ./vscodium.nix
-    ./newsboat.nix
+    ./containers.nix
+    ./fonts.nix
+    ./libvirt.nix
+    ./location.nix
+    ./nixconf.nix
+    ./pipewire.nix
   ];
 
-  options.nixchad.gui = {
+  options.nixchad.system = {
     enable = mkEnableOption "gui programs";
     obs = mkEnableOption "obs";
     rofi = mkEnableOption "rofi";
