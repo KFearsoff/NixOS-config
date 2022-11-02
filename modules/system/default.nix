@@ -14,7 +14,6 @@ in {
     ./libvirt.nix
     ./location.nix
     ./nixconf.nix
-    ./pipewire.nix
     ./impermanence.nix
     ./networking.nix
   ];
