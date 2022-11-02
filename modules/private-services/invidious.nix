@@ -18,7 +18,13 @@ in {
     services.invidious.port = 32000;
     services.invidious.domain = invidiousDomain;
 
-    # don't use SSL certs
+    # FIXME: Invidious doesn't support subpaths and has no plans to:
+    # https://github.com/iv-org/invidious/issues/2441
+    # Tailscale doesn't support wildcards domains and has no plans to:
+    # https://github.com/tailscale/tailscale/issues/1196
+    # Tailscale will support subdomains later:
+    # https://github.com/tailscale/tailscale/issues/1235#issuecomment-927002943
+    # Wait for it to land, then update Invidious to be exposed through MagicDNS
     services.nginx.virtualHosts."${invidiousDomain}" = {
       forceSSL = true;
       sslCertificate = "/var/lib/self-signed/_.blackberry.box/cert.pem";
