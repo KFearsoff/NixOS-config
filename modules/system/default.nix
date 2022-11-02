@@ -16,20 +16,17 @@ in {
     ./nixconf.nix
     ./impermanence.nix
     ./networking.nix
+    ./boot.nix
   ];
 
   config = {
     nixchad.impermanence.enable = mkDefault true;
     nixchad.networking.enable = mkDefault true;
+    nixchad.boot.enable = mkDefault true;
 
     users.mutableUsers = false;
 
     boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
-    boot = {
-      kernelParams = ["quiet" "udev.log_priority=3" "vt.global_cursor_default=0"];
-      consoleLogLevel = 0;
-      initrd.verbose = false;
-    };
 
     security.sudo.wheelNeedsPassword = lib.mkDefault false;
     users.users."${username}".openssh.authorizedKeys.keys = (import ../../hosts { inherit lib; }).sshPubkeyList;

@@ -28,13 +28,7 @@ in {
 
   boot.supportedFilesystems = ["btrfs"];
   services.btrfs.autoScrub.enable = true;
-  boot.loader.grub = {
-    enable = true;
-    version = 2;
-    efiSupport = true;
-    device = "nodev";
-    efiInstallAsRemovable = true;
-  };
+  nixchad.boot.bootloader = "grub";
   nixchad.smartctl-exporter.devices = ["/dev/nvme0n1"];
   nixchad.coredns.interface = "br-libvirt";
 
