@@ -74,18 +74,6 @@
               ./suites/service-private.nix
             ];
           };
-
-          virtberry = buildSystem {
-            hostname = "virtberry";
-            extraModules = [
-              ./hosts/virtberry
-              ./modules/location.nix
-              {nixchad.location.enable = true;}
-              ./suites/cli.nix
-              ./suites/graphical.nix
-              ./suites/service-common.nix
-            ];
-          };
         };
 
         allMachines = let
