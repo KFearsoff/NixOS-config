@@ -1,10 +1,10 @@
 {
   imports = [
     ../profiles/gui
-    ../profiles/newsboat.nix
   ];
 
   config = {
     nixchad.graphical.enable = true;
+    nixchad.newsboat.enable = true;
   };
 }
