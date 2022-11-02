@@ -27,12 +27,6 @@ in {
   hardware.bluetooth.enable = true;
   services.blueman.enable = true;
 
-  nixchad.location = {
-    timezone = "Asia/Tbilisi";
-    latitude = 41.43;
-    longitude = 44.47;
-  };
-
   boot.supportedFilesystems = ["btrfs"];
   services.btrfs.autoScrub.enable = true;
   boot.loader.grub = {

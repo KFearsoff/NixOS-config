@@ -9,8 +9,4 @@
     ../modules/pipewire.nix
     ../modules/private-services
   ];
-
-  config = {
-    nixchad.location.enable = true;
-  };
 }

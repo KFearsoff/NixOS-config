@@ -8,25 +8,23 @@ with lib; let
   cfg = config.nixchad.location;
 in {
   options.nixchad.location = {
-    enable = mkEnableOption "location-based services";
-
     timezone = mkOption {
       type = types.str;
-      default = "Europe/Moscow";
+      default = "Asia/Tbilisi";
     };
 
     latitude = mkOption {
       type = types.float;
-      default = 55.7;
+      default = 41.43;
     };
 
     longitude = mkOption {
       type = types.float;
-      default = 37.6;
+      default = 44.47;
     };
   };
 
-  config = mkIf cfg.enable {
+  config = {
     time.timeZone = cfg.timezone;
 
     home-manager.users."${username}" = {
