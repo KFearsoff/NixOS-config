@@ -7,6 +7,7 @@
     ./common-services.nix
     ../modules/location.nix
     ../modules/nixconf.nix
+    ../modules/virtualisation.nix
   ];
 
   config = {
