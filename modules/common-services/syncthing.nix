@@ -11,7 +11,6 @@
 in {
   home-manager.users."${username}".xdg.userDirs.extraConfig = {
     XDG_SYNC_DIR = "$HOME/Sync";
-    XDG_PROJ_DIR = "$HOME/Projects";
   };
 
   services.syncthing = with (import ../../hosts { inherit lib;}); {
@@ -39,14 +38,6 @@ in {
             params.cleanoutDays = "30";
           };
         };
-        "Projects" = {
-          path = "/home/${username}/Projects";
-          devices = syncthingHostsList;
-          versioning = {
-            type = "trashcan";
-            params.cleanoutDays = "30";
-          };
-        };
         "Notes" = {
           path = "/home/${username}/Documents/Notes";
           devices = syncthingAllList;
@@ -57,11 +48,11 @@ in {
         };
         "Photos" = {
           path = "/home/${username}/Pictures/Photos";
-          devices = lib.remove "virtberry" syncthingHostsList;
+          devices = syncthingHostsList;
         };
         "Photos-phone" = {
           path = "/home/${username}/Pictures/Photos-phone";
-          devices = lib.remove "virtberry" syncthingAllList;
+          devices = syncthingAllList;
           type = "receiveonly";
           versioning = {
             type = "trashcan";
