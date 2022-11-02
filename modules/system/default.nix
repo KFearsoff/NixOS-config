@@ -17,12 +17,14 @@ in {
     ./impermanence.nix
     ./networking.nix
     ./boot.nix
+    ./filesystem.nix
   ];
 
   config = {
     nixchad.impermanence.enable = mkDefault true;
     nixchad.networking.enable = mkDefault true;
     nixchad.boot.enable = mkDefault true;
+    nixchad.filesystem.enable = mkDefault true;
 
     users.mutableUsers = false;
 

@@ -26,8 +26,6 @@ in {
   hardware.bluetooth.enable = true;
   services.blueman.enable = true;
 
-  boot.supportedFilesystems = ["btrfs"];
-  services.btrfs.autoScrub.enable = true;
   nixchad.boot.bootloader = "grub";
   nixchad.smartctl-exporter.devices = ["/dev/nvme0n1"];
   nixchad.coredns.interface = "br-libvirt";
