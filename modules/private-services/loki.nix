@@ -61,6 +61,8 @@ in {
       };
     };
 
+    # It doesn't seem like Libreddit allows subpaths. Wait for this:
+    # https://github.com/tailscale/tailscale/issues/1235#issuecomment-927002943
     services.nginx.virtualHosts."${lokiDomain}" = {
       forceSSL = true;
       sslCertificate = "/var/lib/self-signed/_.blackberry.box/cert.pem";
