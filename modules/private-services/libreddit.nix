@@ -17,7 +17,8 @@ in {
     services.libreddit.enable = true;
     services.libreddit.port = 32001;
 
-    # don't use SSL certs
+    # It doesn't seem like Libreddit allows subpaths. Wait for this:
+    # https://github.com/tailscale/tailscale/issues/1235#issuecomment-927002943
     services.nginx.virtualHosts."${libredditDomain}" = {
       forceSSL = true;
       sslCertificate = "/var/lib/self-signed/_.blackberry.box/cert.pem";
