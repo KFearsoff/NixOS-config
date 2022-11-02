@@ -6,5 +6,6 @@
     ./coredns
     ./blackbox-exporter.nix
     ./cadvisor.nix
+    ./syncthing.nix
   ];
 }

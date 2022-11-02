@@ -14,7 +14,7 @@ in {
     XDG_PROJ_DIR = "$HOME/Projects";
   };
 
-  services.syncthing = with (import ../default.nix { inherit lib;}); {
+  services.syncthing = with (import ../../hosts { inherit lib;}); {
     enable = true;
     overrideDevices = true;
     overrideFolders = true;
