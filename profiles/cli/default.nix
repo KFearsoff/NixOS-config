@@ -12,9 +12,6 @@
 
   config = {
     environment.systemPackages = with pkgs; [
-      minikube
-      kubectl
-      kubernetes-helm
       inputs.deploy-rs.defaultPackage.x86_64-linux
     ];
 

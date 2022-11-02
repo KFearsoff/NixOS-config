@@ -10,6 +10,7 @@ in {
     ./debug.nix
     ./utils.nix
     ./git.nix
+    ./kubernetes.nix
   ];
 
   options.nixchad.cli = {
