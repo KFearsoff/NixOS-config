@@ -6,5 +6,6 @@
     ./gui
     ./private-services
     ./neovim
+    ./cli
   ];
 }
