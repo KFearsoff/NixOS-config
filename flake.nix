@@ -75,6 +75,7 @@
               ./suites/sway.nix
               ./suites/games.nix
               ./suites/graphical.nix
+              ./suites/work.nix
               ./suites/common-services.nix
               ./suites/private-services.nix
             ];

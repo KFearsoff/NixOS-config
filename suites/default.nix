@@ -2,7 +2,8 @@
   imports = [
     ../modules/location.nix
     ../modules/nixconf.nix
-    ../modules/virtualisation.nix
+    ../modules/containers.nix
+    ../modules/libvirt.nix
     ../modules/common-services
     ../modules/games
     ../modules/graphical
