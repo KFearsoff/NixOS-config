@@ -55,27 +55,21 @@ in {
             params.cleanoutDays = "30";
           };
         };
-      }
-      // (
-        if (hostname != "virtberry")
-        then {
-          "Photos" = {
-            path = "/home/${username}/Pictures/Photos";
-            devices = lib.remove "virtberry" syncthingHostsList;
+        "Photos" = {
+          path = "/home/${username}/Pictures/Photos";
+          devices = lib.remove "virtberry" syncthingHostsList;
+        };
+        "Photos-phone" = {
+          path = "/home/${username}/Pictures/Photos-phone";
+          devices = lib.remove "virtberry" syncthingAllList;
+          type = "receiveonly";
+          versioning = {
+            type = "trashcan";
+            fsPath = "/home/${username}/Pictures/Photos";
+            params.cleanoutDays = "0";
           };
-          "Photos-phone" = {
-            path = "/home/${username}/Pictures/Photos-phone";
-            devices = lib.remove "virtberry" syncthingAllList;
-            type = "receiveonly";
-            versioning = {
-              type = "trashcan";
-              fsPath = "/home/${username}/Pictures/Photos";
-              params.cleanoutDays = "0";
-            };
-          };
-        }
-        else {}
-      );
+        };
+      };
     extraOptions = {
       gui = {
         theme = "dark";

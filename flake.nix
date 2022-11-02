@@ -66,32 +66,12 @@
         };
 
         nixosConfigurations = {
-          blueberry = buildSystem {
-            hostname = "blueberry";
-            extraModules = [
-              ./hosts/blueberry
-              ./suites
-            ];
-          };
-
           blackberry = buildSystem {
             hostname = "blackberry";
             extraModules = [
               ./hosts/blackberry
               ./suites
               ./suites/service-private.nix
-            ];
-          };
-
-          virtberry = buildSystem {
-            hostname = "virtberry";
-            extraModules = [
-              ./hosts/virtberry
-              ./modules/location.nix
-              {nixchad.location.enable = true;}
-              ./suites/cli.nix
-              ./suites/graphical.nix
-              ./suites/service-common.nix
             ];
           };
         };
