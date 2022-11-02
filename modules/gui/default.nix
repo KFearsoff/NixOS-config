@@ -9,6 +9,7 @@ with lib; let
   cfg = config.nixchad.gui;
 in {
   imports = [
+    ./alacritty.nix
     ./office.nix
     ./graphics.nix
     ./vscodium.nix
