@@ -12,6 +12,7 @@ in {
     ./alacritty.nix
     ./kitty.nix
     ./mpv.nix
+    ./zathura.nix
     ./office.nix
     ./graphics.nix
     ./vscodium.nix
