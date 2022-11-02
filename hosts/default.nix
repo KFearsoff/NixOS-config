@@ -15,4 +15,5 @@ in {
   syncthingAllList = builtins.attrNames syncthingEntries;
   sshPubkeyList = (zipAttrs (attrValues sshPubkeyEntries)).ssh-pubkey;
   magicDNS = hostSuffix: concatMapStringsSep "\n" (x: "${x}${hostSuffix}") ipv4HostsList;
+  getInterface = host: metadataNoTypes."${host}".interface;
 }

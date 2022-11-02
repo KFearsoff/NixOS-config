@@ -42,10 +42,10 @@ in {
   options.nixchad.coredns = {
     enable = mkEnableOption "CoreDNS server";
 
-    # TODO: infer the interface automatically
     interface = mkOption {
       type = types.str;
       description = "Local interface on which CoreDNS will bind";
+      default = (import ../../../hosts { inherit lib; }).getInterface config.networking.hostName;
     };
 
     extraHosts = mkOption {

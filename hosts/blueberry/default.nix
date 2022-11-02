@@ -85,6 +85,5 @@
     lidSwitchExternalPower = "ignore";
   };
 
-  nixchad.coredns.interface = "wlp0s20f3";
   nixchad.smartctl-exporter.devices = ["/dev/nvme0n1"];
 }

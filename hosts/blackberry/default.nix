@@ -1,8 +1,13 @@
 {
   inputs,
   pkgs,
+  lib,
+  config,
   ...
-}: {
+}: 
+let
+  ifname = (import ../default.nix { inherit lib; }).getInterface config.networking.hostName;
+in {
   imports = [
     ./hardware-configuration.nix
     ./kanshi.nix
@@ -51,7 +56,7 @@
     }
   ];
   networking.defaultGateway = "192.168.0.1";
-  networking.bridges."br-libvirt".interfaces = ["enp1s0"];
-  networking.networkmanager.unmanaged = ["interface-name:enp1s0" "interface-name:br-libvirt" "interface-name:tailscale0"];
+  networking.bridges."br-libvirt".interfaces = ["${ifname}"];
+  networking.networkmanager.unmanaged = ["interface-name:${ifname}" "interface-name:br-libvirt" "interface-name:tailscale0"];
   systemd.services.NetworkManager-wait-online.enable = false;
 }
