@@ -11,6 +11,7 @@ in {
     ./utils.nix
     ./git.nix
     ./kubernetes.nix
+    ./bat.nix
   ];
 
   options.nixchad.cli = {
@@ -21,6 +22,7 @@ in {
     nixchad.debug.enable = mkDefault true;
     nixchad.utils.enable = mkDefault true;
     nixchad.git.enable = mkDefault true;
+    nixchad.bat.enable = mkDefault true;
 
     environment.systemPackages = with pkgs; [
       wget
