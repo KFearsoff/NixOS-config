@@ -20,12 +20,11 @@ in {
     ./filesystem.nix
   ];
 
-  config = {
-    nixchad.impermanence.enable = mkDefault true;
-    nixchad.networking.enable = mkDefault true;
-    nixchad.boot.enable = mkDefault true;
-    nixchad.filesystem.enable = mkDefault true;
+  options.nixchad.system = {
+    enable = mkEnableOption "system";
+  };
 
+  config = mkIf cfg.enable {
     users.mutableUsers = false;
 
     boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
