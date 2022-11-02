@@ -9,6 +9,7 @@ in {
   imports = [
     ./debug.nix
     ./utils.nix
+    ./git.nix
   ];
 
   options.nixchad.cli = {
@@ -18,10 +19,12 @@ in {
   config = mkIf cfg.enable {
     nixchad.debug.enable = mkDefault true;
     nixchad.utils.enable = mkDefault true;
+    nixchad.git.enable = mkDefault true;
 
     environment.systemPackages = with pkgs; [
       wget
       jq
+      git
     ];
   };
 }
