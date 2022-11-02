@@ -1,0 +1,3 @@
+{
+  nixchad.office.enable = true;
+}

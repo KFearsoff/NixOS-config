@@ -78,6 +78,7 @@
               ./suites/work.nix
               ./suites/common-services.nix
               ./suites/private-services.nix
+              ./suites/office.nix
             ];
           };
         };

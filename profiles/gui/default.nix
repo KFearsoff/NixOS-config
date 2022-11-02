@@ -14,7 +14,6 @@
   config.home-manager.users."${username}" = {config, ...}: {
     home = {
       packages = with pkgs; [
-        libreoffice
         ungoogled-chromium
         freetube
         tdesktop
