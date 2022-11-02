@@ -6,11 +6,10 @@
 }: let
   exa = "${pkgs.exa}/bin/exa";
 in {
-  home-manager.users."${username}" = {config, ...}: {
+  home-manager.users."${username}" = {
     home.shellAliases = {
       sudo = "sudo -E "; # enable aliases when using sudo
       su = "sudo -i";
-      ssh = lib.mkIf (config.terminal.enable && config.terminal.package == pkgs.kitty) "TERM=\"xterm-256color\" ${pkgs.kitty}/bin/kitty +kitten ssh ";
 
       ".." = "cd ..";
       "..." = "cd ../..";

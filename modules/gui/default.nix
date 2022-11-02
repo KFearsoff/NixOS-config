@@ -10,6 +10,7 @@ with lib; let
 in {
   imports = [
     ./alacritty.nix
+    ./kitty.nix
     ./office.nix
     ./graphics.nix
     ./vscodium.nix
