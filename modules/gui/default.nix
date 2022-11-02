@@ -11,6 +11,7 @@ in {
   imports = [
     ./alacritty.nix
     ./kitty.nix
+    ./mpv.nix
     ./office.nix
     ./graphics.nix
     ./vscodium.nix
