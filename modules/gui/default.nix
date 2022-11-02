@@ -9,6 +9,7 @@ in {
   imports = [
     ./office.nix
     ./graphics.nix
+    ./vscodium.nix
   ];
 
   options.nixchad.gui = {

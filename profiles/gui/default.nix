@@ -7,7 +7,6 @@
   imports = [
     ./alacritty.nix
     ./mpv.nix
-    ./vscodium.nix
     ./zathura.nix
   ];
 
