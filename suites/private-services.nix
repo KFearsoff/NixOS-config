@@ -1,5 +1,5 @@
 {
-  imports = [../modules/service-private];
+  imports = [../modules/private-services];
 
   config = {
     nixchad.nginx.enable = true;

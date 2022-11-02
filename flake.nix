@@ -71,7 +71,7 @@
             extraModules = [
               ./hosts/blackberry
               ./suites
-              ./suites/service-private.nix
+              ./suites/private-services.nix
             ];
           };
         };
