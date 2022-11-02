@@ -25,6 +25,7 @@ with lib; let
     + "hosts");
   excludeHosts = concatStringsSep "|" [".*kameleoon\..+"];
   patchedHosts = concatStringsSep "\n" (filter (x: isNull (builtins.match excludeHosts x)) (splitString "\n" combinedHosts));
+  magicDNS = (import ../../../hosts { inherit lib; }).magicDNS hostSuffix;
 
   baseHosts = pkgs.writeTextFile {
     name = "coredns-hosts-nixchad";
@@ -33,7 +34,8 @@ with lib; let
       ${patchedHosts}
       # Extra hosts
       ${cfg.extraHosts}
-      # Runtime hosts
+      # Imitate MagicDNS
+      ${magicDNS}
     '';
   };
 in {
@@ -59,26 +61,17 @@ in {
   };
 
   config = mkIf cfg.enable {
-    systemd.services.dns-hosts-poller = {
+    systemd.services.dns-hosts-update = {
       description = "Update the /run/coredns-hosts hosts file with new Tailscale hosts";
       wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         Type = "simple";
-        ExecStart =
-          pkgs.runCommandLocal "dns-hosts-poller" {
-            inherit (pkgs) bash tailscale jq;
-            inherit baseHosts hostSuffix;
-          } ''
-            substituteAll "${./dns-hosts-poller.sh}" "$out"
-            chmod +x "$out"
-          '';
+        ExecStart = pkgs.writeShellScript "dns-hosts-update" ''
+          rm /run/coredns-hosts || true
+          ln -s ${baseHosts} /run/coredns-hosts
+        '';
       };
-
-      preStart = ''
-        rm /run/coredns-hosts || true
-        ln -s ${baseHosts} /run/coredns-hosts
-      '';
     };
 
     services.coredns = {
