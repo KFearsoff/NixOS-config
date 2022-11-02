@@ -1,5 +1,5 @@
 {
-  imports = [../modules/service-common];
+  imports = [../modules/common-services];
 
   config = {
     nixchad.node-exporter.enable = true;

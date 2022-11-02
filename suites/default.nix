@@ -4,7 +4,7 @@
     ./games.nix
     ./graphical.nix
     ./sway.nix
-    ./service-common.nix
+    ./common-services.nix
     ../modules/location.nix
   ];
 
