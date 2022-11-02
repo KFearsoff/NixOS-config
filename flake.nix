@@ -66,14 +66,6 @@
         };
 
         nixosConfigurations = {
-          blueberry = buildSystem {
-            hostname = "blueberry";
-            extraModules = [
-              ./hosts/blueberry
-              ./suites
-            ];
-          };
-
           blackberry = buildSystem {
             hostname = "blackberry";
             extraModules = [
