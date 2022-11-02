@@ -15,7 +15,7 @@ with lib; let
     }
     // extraConfig;
   grafanaPort = toString config.services.grafana.port;
-  grafanaDomain = "grafana.${hostname}.box";
+  domain = "${hostname}.tail34ad.ts.net";
 in {
   options.nixchad.grafana = {
     enable = mkEnableOption "Grafana dashboard";
@@ -24,7 +24,10 @@ in {
   config = mkIf cfg.enable {
     services.grafana = {
       enable = true;
-      domain = grafanaDomain;
+      rootUrl = "https://${domain}/grafana";
+      extraOptions = {
+        SERVER_SERVE_FROM_SUB_PATH = "true";
+      };
       provision = {
         enable = true;
         datasources = [
@@ -42,12 +45,12 @@ in {
       };
     };
 
-    services.nginx.virtualHosts."${grafanaDomain}" = {
+    services.nginx.virtualHosts."${domain}" = {
       forceSSL = true;
-      sslCertificate = "/var/lib/self-signed/_.blackberry.box/cert.pem";
-      sslCertificateKey = "/var/lib/self-signed/_.blackberry.box/key.pem";
+      sslCertificate = "/var/lib/self-signed/${domain}.crt";
+      sslCertificateKey = "/var/lib/self-signed/${domain}.key";
 
-      locations."/" = {
+      locations."/grafana" = {
         proxyPass = "http://localhost:${grafanaPort}";
         proxyWebsockets = true;
       };

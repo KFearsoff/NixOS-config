@@ -22,7 +22,6 @@ nitter.blackberry IN CNAME blackberry.box.
 loki.blackberry IN CNAME blackberry.box.
 libreddit.blackberry IN CNAME blackberry.box.
 invidious.blackberry IN CNAME blackberry.box.
-grafana.blackberry IN CNAME blackberry.box.
 
 promtail.blackberry IN CNAME blackberry.box.
 promtail.blueberry IN CNAME blueberry.box.
