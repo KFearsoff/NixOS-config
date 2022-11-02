@@ -11,5 +11,6 @@
     ../modules/gui
     ../modules/pipewire.nix
     ../modules/private-services
+    ../modules/neovim
   ];
 }
