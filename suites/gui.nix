@@ -5,4 +5,5 @@
   nixchad.alacritty.enable = true;
   nixchad.mpv.enable = true;
   nixchad.zathura.enable = true;
+  nixchad.theming.enable = true;
 }

@@ -18,6 +18,7 @@ in {
     ./vscodium.nix
     ./newsboat.nix
     ./pipewire.nix
+    ./theming.nix
   ];
 
   options.nixchad.gui = {

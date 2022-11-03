@@ -18,7 +18,5 @@ in {
   };
 
   config = mkIf cfg.enable {
-    nixchad.waybar.enable = mkDefault true;
-    nixchad.greetd.enable = mkDefault true;
   };
 }
