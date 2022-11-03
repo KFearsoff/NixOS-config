@@ -314,6 +314,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-old-waybar": {
+      "locked": {
+        "lastModified": 1666853718,
+        "narHash": "sha256-JMONvHaoRwUCedeYtCD+YLLeRLCperOAEDgwzTWatMU=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "bd545b559f0c573074a7fc37acba27be4be2dbeb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "bd545b559f0c573074a7fc37acba27be4be2dbeb",
+        "type": "github"
+      }
+    },
     "nur": {
       "locked": {
         "lastModified": 1667460978,
@@ -344,6 +360,7 @@
         "neovim-nightly-overlay": "neovim-nightly-overlay",
         "nix-colors": "nix-colors",
         "nixpkgs": "nixpkgs",
+        "nixpkgs-old-waybar": "nixpkgs-old-waybar",
         "nur": "nur",
         "sops-nix": "sops-nix",
         "zsh-you-should-use": "zsh-you-should-use"
