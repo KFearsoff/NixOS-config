@@ -15,5 +15,6 @@
     networking.enable = true;
     boot.enable = true;
     filesystem.enable = true;
+    colors.enable = true;
   };
 }

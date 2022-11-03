@@ -18,6 +18,7 @@ in {
     ./networking.nix
     ./boot.nix
     ./filesystem.nix
+    ./colors.nix
   ];
 
   options.nixchad.system = {

@@ -1,8 +1,11 @@
 {
+  config,
+  lib,
   username,
   nix-colors,
   ...
-}: let
+}: with lib; let
+  cfg = config.nixchad.colors;
   dracula-patched = {
     slug = "dracula";
     name = "Dracula";
@@ -27,9 +30,15 @@
     };
   };
 in {
-  home-manager.users."${username}" = {
-    imports = [nix-colors.homeManagerModule];
-    # config.colorscheme = nix-colors.colorSchemes.dracula;
-    config.colorscheme = dracula-patched;
+  options.nixchad.colors = {
+    enable = mkEnableOption "colors";
+  };
+
+  config = mkIf cfg.enable {
+    home-manager.users."${username}" = {
+      imports = [nix-colors.homeManagerModule];
+      # config.colorscheme = nix-colors.colorSchemes.dracula;
+      config.colorscheme = dracula-patched;
+    };
   };
 }

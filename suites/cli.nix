@@ -1,7 +1,6 @@
 {
   imports = [
     ../profiles/cli
-    ../profiles/colors.nix
     ../profiles/tty.nix
     ../profiles/starship.nix
     ../profiles/zsh.nix
