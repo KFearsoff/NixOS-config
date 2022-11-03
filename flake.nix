@@ -79,6 +79,7 @@
               ./suites/private-services.nix
               ./suites/office.nix
               ./suites/graphics.nix
+              ./suites/shell.nix
             ];
           };
         };

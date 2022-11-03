@@ -1,0 +1,3 @@
+{
+  nixchad.nushell.enable = true;
+}

@@ -8,6 +8,7 @@
     ./neovim
     ./cli
     ./sway
+    ./shell
   ];
 
   config.nixchad = {

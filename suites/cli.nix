@@ -2,7 +2,6 @@
   imports = [
     ../profiles/starship.nix
     ../profiles/zsh.nix
-    ../profiles/nushell
   ];
 
   config = {
