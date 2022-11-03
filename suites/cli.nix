@@ -1,6 +1,5 @@
 {
   imports = [
-    ../profiles/tty.nix
     ../profiles/starship.nix
     ../profiles/zsh.nix
     ../profiles/nushell

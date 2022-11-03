@@ -19,6 +19,7 @@ in {
     ./boot.nix
     ./filesystem.nix
     ./colors.nix
+    ./tty.nix
   ];
 
   options.nixchad.system = {
