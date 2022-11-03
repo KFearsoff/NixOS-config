@@ -3,6 +3,7 @@
   lib,
   pkgs,
   username,
+  inputs,
   ...
 }: with lib; let
   cfg = config.nixchad.waybar;
@@ -23,6 +24,7 @@ in {
         # inspired by:
         # https://github.com/cjbassi/config/tree/master/.config/waybar
         enable = true;
+        package = inputs.nixpkgs-old-waybar.legacyPackages.x86_64-linux.waybar;
         systemd.enable = true;
         systemd.target = "sway-session.target";
         settings = [
