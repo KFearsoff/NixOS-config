@@ -14,7 +14,7 @@ with lib; let
       inherit url;
     }
     // extraConfig;
-  grafanaPort = toString config.services.grafana.port;
+  grafanaPort = toString config.services.grafana.settings.server.http_port;
   domain = "${hostname}.tail34ad.ts.net";
 in {
   options.nixchad.grafana = {
@@ -24,22 +24,34 @@ in {
   config = mkIf cfg.enable {
     services.grafana = {
       enable = true;
-      rootUrl = "https://${domain}/grafana";
-      settings.server.serve_from_sub_path = true;
+
+      settings.server = {
+        root_url = "https://${domain}/grafana";
+        serve_from_sub_path = true;
+      };
+
       provision = {
         enable = true;
-        datasources = [
-          (mkDatasource "prometheus" "http://localhost:9090" {})
-          (mkDatasource "loki" "http://localhost:33100" {})
-        ];
-        dashboards = [
-          {
+
+        datasources.settings = {
+          apiVersion = 1;
+
+          datasources = [
+            (mkDatasource "prometheus" "http://localhost:9090" {})
+            (mkDatasource "loki" "http://localhost:33100" {})
+          ];
+        };
+
+        dashboards.settings = {
+          apiVersion = 1;
+
+          providers = [{
             options = {
               path = ./dashboards;
               foldersFromFilesStructure = true;
             };
-          }
-        ];
+          }];
+        };
       };
     };
 
