@@ -25,9 +25,7 @@ in {
     services.grafana = {
       enable = true;
       rootUrl = "https://${domain}/grafana";
-      extraOptions = {
-        SERVER_SERVE_FROM_SUB_PATH = "true";
-      };
+      settings.server.serve_from_sub_path = true;
       provision = {
         enable = true;
         datasources = [
