@@ -5,7 +5,6 @@
   ...
 }: {
   imports = [
-    ./fzf.nix
     ./nix-index.nix
   ];
 

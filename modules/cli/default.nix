@@ -12,6 +12,7 @@ in {
     ./git.nix
     ./kubernetes.nix
     ./bat.nix
+    ./fzf.nix
   ];
 
   options.nixchad.cli = {

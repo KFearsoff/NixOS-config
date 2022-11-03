@@ -10,5 +10,6 @@
   config = {
     nixchad.neovim.enable = true;
     nixchad.cli.enable = true;
+    nixchad.fzf.enable = true;
   };
 }
