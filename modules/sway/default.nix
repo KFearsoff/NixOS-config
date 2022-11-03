@@ -10,6 +10,7 @@ with lib; let
 in {
   imports = [
     ./waybar.nix
+    ./greetd.nix
   ];
 
   options.nixchad.sway = {
@@ -18,5 +19,6 @@ in {
 
   config = mkIf cfg.enable {
     nixchad.waybar.enable = mkDefault true;
+    nixchad.greetd.enable = mkDefault true;
   };
 }
