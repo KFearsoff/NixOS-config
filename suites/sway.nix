@@ -1,12 +1,6 @@
 {
-  imports = [
-    ../profiles/sway
-  ];
-
-  config.nixchad = {
-    sway.enable = true;
-    waybar.enable = true;
-    greetd.enable = true;
-    mako.enable = true;
-  };
+  nixchad.sway.enable = true;
+  nixchad.waybar.enable = true;
+  nixchad.greetd.enable = true;
+  nixchad.mako.enable = true;
 }
