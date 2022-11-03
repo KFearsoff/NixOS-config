@@ -11,6 +11,7 @@ in {
   imports = [
     ./waybar.nix
     ./greetd.nix
+    ./mako.nix
   ];
 
   options.nixchad.sway = {
