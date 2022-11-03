@@ -17,6 +17,11 @@ in {
       port = 33000;
     };
 
+    # remove once https://github.com/NixOS/nixpkgs/pull/198638 is merged
+    systemd.services.prometheus-node-exporter.serviceConfig.RestrictAddressFamilies = [
+      "AF_NETLINK"
+    ];
+
     networking.firewall.interfaces.tailscale0.allowedTCPPorts = [33000];
   };
 }
