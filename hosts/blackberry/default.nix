@@ -11,11 +11,6 @@ in {
   imports = [
     ./hardware-configuration.nix
     ./kanshi.nix
-    ../common
-    ../common/virtualisation.nix
-    ../common/nixconf.nix
-    ../common/pipewire.nix
-    ../common/syncthing.nix
     inputs.hardware.nixosModules.common-cpu-intel
     inputs.hardware.nixosModules.common-pc-ssd
     inputs.hardware.nixosModules.common-pc
@@ -31,23 +26,13 @@ in {
   hardware.bluetooth.enable = true;
   services.blueman.enable = true;
 
-  nixchad.location = {
-    timezone = "Asia/Tbilisi";
-    latitude = 41.43;
-    longitude = 44.47;
-  };
-
-  boot.supportedFilesystems = ["btrfs"];
-  services.btrfs.autoScrub.enable = true;
-  boot.loader.grub = {
-    enable = true;
-    version = 2;
-    efiSupport = true;
-    device = "nodev";
-    efiInstallAsRemovable = true;
-  };
+  nixchad.boot.bootloader = "grub";
   nixchad.smartctl-exporter.devices = ["/dev/nvme0n1"];
   nixchad.coredns.interface = "br-libvirt";
+  nixchad.waybar = {
+    backlight = false; # problem with Intel iGPU
+    battery = false; # PC, doesn't have a battery
+  };
 
   networking.interfaces."br-libvirt".ipv4.addresses = [
     {

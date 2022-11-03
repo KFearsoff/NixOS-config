@@ -1,9 +1,6 @@
 {
-  imports = [
-    ../profiles/greetd.nix
-    ../profiles/mako.nix
-    ../profiles/theming.nix
-    ../profiles/sway
-    ../profiles/waybar.nix
-  ];
+  nixchad.sway.enable = true;
+  nixchad.waybar.enable = true;
+  nixchad.greetd.enable = true;
+  nixchad.mako.enable = true;
 }

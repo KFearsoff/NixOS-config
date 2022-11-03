@@ -1,12 +1,7 @@
 {
-  imports = [
-    ../profiles/cli
-    ../profiles/colors.nix
-    ../profiles/fonts.nix
-    ../profiles/tty.nix
-    ../profiles/neovim
-    ../profiles/starship.nix
-    ../profiles/zsh.nix
-    ../profiles/nushell
-  ];
+  nixchad.neovim.enable = true;
+  nixchad.cli.enable = true;
+  nixchad.fzf.enable = true;
+  nixchad.bat.enable = true;
+  nixchad.nix-index.enable = true;
 }

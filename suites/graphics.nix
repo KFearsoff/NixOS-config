@@ -1,0 +1,3 @@
+{
+  nixchad.graphics.enable = true;
+}
