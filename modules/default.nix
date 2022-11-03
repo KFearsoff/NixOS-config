@@ -7,6 +7,7 @@
     ./private-services
     ./neovim
     ./cli
+    ./sway
   ];
 
   config.nixchad = {

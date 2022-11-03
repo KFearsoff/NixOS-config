@@ -4,6 +4,9 @@
     ../profiles/mako.nix
     ../profiles/theming.nix
     ../profiles/sway
-    ../profiles/waybar.nix
   ];
+
+  config.nixchad = {
+    sway.enable = true;
+  };
 }

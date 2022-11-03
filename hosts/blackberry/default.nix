@@ -29,6 +29,10 @@ in {
   nixchad.boot.bootloader = "grub";
   nixchad.smartctl-exporter.devices = ["/dev/nvme0n1"];
   nixchad.coredns.interface = "br-libvirt";
+  nixchad.waybar = {
+    backlight = false; # problem with Intel iGPU
+    battery = false; # PC, doesn't have a battery
+  };
 
   networking.interfaces."br-libvirt".ipv4.addresses = [
     {
