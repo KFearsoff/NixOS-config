@@ -1,7 +1,6 @@
 {
   imports = [
     ../profiles/starship.nix
-    ../profiles/zsh.nix
   ];
 
   config = {

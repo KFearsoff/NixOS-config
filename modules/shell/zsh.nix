@@ -1,16 +1,23 @@
 {
-  username,
   inputs,
-  pkgs,
+  config,
   lib,
+  pkgs,
+  username,
   ...
-}: let
+}: with lib; let
+  cfg = config.nixchad.zsh;
   rg = "${pkgs.ripgrep}/bin/rg";
   fzf = "${pkgs.fzf}/bin/fzf";
   bat = "${pkgs.bat}/bin/bat";
 in {
   imports = [./aliases.nix];
-  config = {
+
+  options.nixchad.zsh = {
+    enable = mkEnableOption "zsh";
+  };
+
+  config = mkIf cfg.enable {
     programs.zsh = {
       enable = true;
       enableCompletion = true;
