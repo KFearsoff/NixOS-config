@@ -1,4 +1,5 @@
 {
+  inputs,
   config,
   lib,
   pkgs,
@@ -13,6 +14,7 @@ in {
     ./kubernetes.nix
     ./bat.nix
     ./fzf.nix
+    ./nix-index.nix
   ];
 
   options.nixchad.cli = {
@@ -28,6 +30,7 @@ in {
       wget
       jq
       git
+      inputs.deploy-rs.defaultPackage.x86_64-linux
     ];
   };
 }
