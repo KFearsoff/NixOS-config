@@ -12,6 +12,7 @@
   useWithModifier = mod: lib.mapAttrs' (k: lib.nameValuePair (mod + "+" + k));
   appendExecToCommand = lib.mapAttrs' (k: v: lib.nameValuePair k ("exec " + v));
   swap = pkgs.writeShellScript "swap-workspaces" (builtins.readFile ./swap-workspaces.sh);
+  change-codec = pkgs.writeShellScript "change-codec" (builtins.readFile ./change-codec.sh);
 
   /*
   On the basic level, this magic spell maps workspace-related hotkeys to the numbers on the keyboard.
@@ -79,6 +80,8 @@
     "Shift+minus" = "gaps inner current minus 1";
 
     "f" = "fullscreen toggle";
+
+    "m" = "exec --no-startup-id ${change-codec}";
   };
 in
   general // navigation // functionKeys
