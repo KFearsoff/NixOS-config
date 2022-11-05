@@ -34,8 +34,6 @@ declare ws_target  # $1 == target workspace
 declare ws_visible # whether ws_target is visible
 declare op_current # current output
 declare op_target  # target output
-declare re_target  # regex to get op_target
-declare re_current # regex to get op_current
 declare re_visible # regex to get ws_visible 
 declare msg        # commands passed to swaymsg
 
@@ -46,42 +44,38 @@ ws_target=$1
   exit 1
 }
 
-json=$(swaymsg -t get_workspaces)
-
-re_target='"name": "'"$ws_target"'"[^}]+"output": "([^"]+)'
-re_current='"output": "([^"]+)[^}]+"focused": true[^}]+}'
+op_current=$(swaymsg -t get_workspaces | jq ".[] | select(.focused == true) | .output")
+op_target=$(swaymsg -t get_workspaces | jq ".[] | select(.name == \"$ws_target\") | .output")
 
 
-[[ $json =~ $re_current ]] && op_current=${BASH_REMATCH[1]}
-
-
-if [[ $json =~ $re_target ]]; then
-  op_target=${BASH_REMATCH[1]}
+if [[ -z $op_target ]]; then # ws_target doesn't exist
+  # create ws_target
+  msg+="workspace $ws_target;"
+  # move ws_target to op_current in case it was
+  # "assigned" to a different output. swapping 
+  # outputs is probably not what we want
+  msg+="[workspace=$ws_target] move workspace to output $op_current;"
+else
   # check if the target is visible
-  re_visible='"name": "'"$ws_target"'"[^}]+"output": "'"$op_target"'"[^}]+"visible": ([^[:space:]]*)[^}]+}'
-  [[ $json =~ $re_visible ]] && ws_visible=${BASH_REMATCH[1]}
+  ws_visible=$(swaymsg -t get_workspaces | jq -r ".[] | select(.name == \"$ws_target\") | .visible")
 
   # if the target is on a different output and visible, swap outputs
   # if the target is on a different output and not visible, 
   # display the target while leaving the other output intact
-  if [ $op_target != $op_current ]; then
-	  if [ $ws_visible = "true" ]; then
+  if [ "$op_target" != "$op_current" ]; then
+	  if [ "$ws_visible" = "true" ]; then
 		  msg+="move workspace to output $op_target;"
 		  msg+="[workspace=$ws_target] move workspace to output $op_current;"
 	  else
 		  msg+="[workspace=$ws_target] move workspace to output $op_current;"
 	  fi
   fi
-
-else # ws_target doesn't exist
-  # create ws_target
-  msg+="workspace --no-auto-back-and-forth $ws_target;"
-  # move ws_target to op_current in case it was
-  # "assigned" to a different output. swapping 
-  # outputs is probably not what we want
-  msg+="[workspace=$ws_target] move workspace to output $op_current;"
 fi
 
 # always focus ws_target
-msg+="workspace --no-auto-back-and-forth $ws_target"
+msg+="workspace $ws_target"
+
+if [ "$op_current" = "$op_target" ]; then
+  msg="workspace $ws_target"
+fi
 swaymsg "$msg"

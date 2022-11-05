@@ -92,6 +92,7 @@ in {
           bars = [];
 
           focus.forceWrapping = true;
+          workspaceAutoBackAndForth = true;
           menu = "${pkgs.rofi-wayland}/bin/rofi -combi-mode drun -show drun -icon-theme \"Papirus\" -show-icons";
           terminal = "${config.terminal.binaryPath}";
 
