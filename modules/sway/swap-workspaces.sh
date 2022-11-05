@@ -28,7 +28,7 @@
 # current output without affecting the other workspace
 # -----------------------------------------------
 
-set -euo pipefail
+set -euxo pipefail
 
 declare ws_target  # $1 == target workspace
 declare ws_visible # whether ws_target is visible
@@ -52,11 +52,7 @@ function get_outputs() {
 function do_all_else() {
   if [[ -z $op_target ]]; then # ws_target doesn't exist
     # create ws_target
-    msg+="workspace $ws_target;"
-    # move ws_target to op_current in case it was
-    # "assigned" to a different output. swapping 
-    # outputs is probably not what we want
-    msg+="[workspace=$ws_target] move workspace to output $op_current;"
+    msg+="workspace $ws_target"
   else
     # check if the target is visible
     ws_visible=$(swaymsg -t get_workspaces | jq -r ".[] | select(.name == \"$ws_target\") | .visible")
@@ -69,16 +65,16 @@ function do_all_else() {
       if [ "$ws_visible" = "true" ]; then # target visible; swap outputs
         msg+="move workspace to output $op_target;"
         msg+="[workspace=$ws_target] move workspace to output $op_current;"
+        msg+="workspace $ws_target"
       else # target not visible; bring target to current output
         msg+="[workspace=$ws_target] move workspace to output $op_current;"
+        msg+="workspace $ws_target"
       fi
 
-    fi # target on the same workspace; just focus it
+    else
+      msg+="workspace $ws_target" # target on the same workspace; just focus it
+    fi
   fi
-
-
-  # always focus ws_target
-  msg+="workspace $ws_target"
 }
 
 
