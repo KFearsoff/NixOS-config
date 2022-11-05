@@ -14,13 +14,22 @@ in {
     ./greetd.nix
     ./mako.nix
     ./swayidle.nix
+    ./keybindings.nix
   ];
 
   options.nixchad.sway = {
     enable = mkEnableOption "sway";
+    backlight = mkEnableOption "backlight controls";
+    modifier = mkOption {
+      type = types.str;
+      default = "Mod4";
+    };
   };
 
   config = mkIf cfg.enable {
+    nixchad.sway.backlight = mkDefault true;
+
+
     environment.sessionVariables.NIXOS_OZONE_WL = "1";
     security.polkit.enable = true;
     security.pam.services.swaylock = {};
@@ -69,7 +78,7 @@ in {
         '';
 
         config = {
-          modifier = "Mod4";
+          modifier = cfg.modifier;
           bindkeysToCode = true;
 
           input = import ./input.nix;
@@ -87,10 +96,6 @@ in {
           terminal = "${config.terminal.binaryPath}";
 
           colors = import ./colors.nix {inherit colorscheme;};
-          keybindings = mkOptionDefault (import ./keybindings.nix {
-            inherit lib pkgs config;
-            mod = "Mod4";
-          });
           startup = import ./startup.nix {inherit pkgs config;};
           assigns = import ./assigns.nix {inherit config;};
         };
