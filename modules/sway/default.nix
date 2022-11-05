@@ -82,11 +82,15 @@ in {
 
           bars = [];
 
+          focus.forceWrapping = true;
+          menu = "${pkgs.rofi-wayland}/bin/rofi -combi-mode drun -show drun -icon-theme \"Papirus\" -show-icons";
+          terminal = "${config.terminal.binaryPath}";
+
           colors = import ./colors.nix {inherit colorscheme;};
-          keybindings = import ./keybindings.nix {
+          keybindings = mkOptionDefault (import ./keybindings.nix {
             inherit lib pkgs config;
             mod = "Mod4";
-          };
+          });
           startup = import ./startup.nix {inherit pkgs config;};
           assigns = import ./assigns.nix {inherit config;};
         };
