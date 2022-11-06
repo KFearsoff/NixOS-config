@@ -16,6 +16,7 @@ in {
     ./swayidle.nix
     ./keybindings.nix
     ./startup.nix
+    ./assigns.nix
   ];
 
   options.nixchad.sway = {
@@ -98,7 +99,6 @@ in {
           terminal = "${config.terminal.binaryPath}";
 
           colors = import ./colors.nix {inherit colorscheme;};
-          assigns = import ./assigns.nix {inherit config;};
         };
       };
     };
