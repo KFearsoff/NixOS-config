@@ -1,20 +1,17 @@
 {
   inputs,
   overlays,
-  patches ? f: [],
+  system ? "x86_64-linux",
+  patches ? [],
 }: let
-  patchFetchers = {
-    pr = id: builtins.fetchurl "https://github.com/NixOS/nixpkgs/pull/${builtins.toString id}.patch";
-  };
-  pkgsForPatching = import inputs.nixpkgs {system = builtins.currentSystem;};
-  patchesToApply = patches patchFetchers;
+  pkgsForPatching = import inputs.nixpkgs {inherit system;};
   patchedNixpkgsDrv =
-    if patchesToApply != []
+    if patches != []
     then
       pkgsForPatching.applyPatches {
         name = "nixpkgs-patched";
         src = inputs.nixpkgs;
-        patches = patchesToApply;
+        patches = builtins.map (x: if builtins.isPath x then x else pkgsForPatching.pkgs.fetchpatch x) patches;
       }
     else inputs.nixpkgs;
   patchedNixpkgs = import patchedNixpkgsDrv;
@@ -67,5 +64,5 @@
     };
 in {
   inherit buildSystem;
-  pkgs = patchedNixpkgsFor builtins.currentSystem;
+  pkgs = patchedNixpkgsFor system;
 }
