@@ -28,10 +28,6 @@
     impermanence.url = "github:nix-community/impermanence";
     #impermanence.url = "path:/home/nixchad/Projects/impermanence";
 
-    devshell.url = "github:numtide/devshell";
-    devshell.inputs.nixpkgs.follows = "nixpkgs";
-    devshell.inputs.flake-utils.follows = "flake-utils";
-
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -110,15 +106,16 @@
         checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks inputs.self.deploy) inputs.deploy-rs.lib;
       }
       // inputs.flake-utils.lib.eachDefaultSystem (system: let
-        pkgs = import inputs.nixpkgs {
-          inherit system;
-          overlays = [inputs.devshell.overlay];
-        };
+        pkgs = inputs.nixpkgs.legacyPackages.${system};
       in {
         formatter = pkgs.alejandra;
 
-        devShell = pkgs.devshell.mkShell {
-          imports = [(pkgs.devshell.importTOML ./devshell.toml)];
+        devShell = pkgs.mkShell {
+          buildInputs = with pkgs; [
+            sops
+            just
+            inputs.deploy-rs.defaultPackage.${system}
+          ];
         };
       });
 }

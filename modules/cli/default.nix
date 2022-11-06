@@ -31,7 +31,6 @@ in {
       wget
       jq
       git
-      inputs.deploy-rs.defaultPackage.x86_64-linux
     ];
   };
 }
