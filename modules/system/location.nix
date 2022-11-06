@@ -27,7 +27,7 @@ in {
   config = {
     time.timeZone = cfg.timezone;
 
-    home-manager.users."${username}" = {
+    hm = {
       services.gammastep = mkIf config.nixchad.gui.enable {
         enable = true;
         latitude = cfg.latitude;

@@ -32,7 +32,7 @@ in {
     };
     users.defaultUserShell = pkgs.zsh;
 
-    home-manager.users."${username}" = {config, ...}: {
+    hm = {config, ...}: {
       programs.zsh = {
         enable = true;
         autocd = true;

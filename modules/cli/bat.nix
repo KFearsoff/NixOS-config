@@ -12,7 +12,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    home-manager.users."${username}" = {
+    hm = {
       programs.bat = {
         enable = true;
         config = {

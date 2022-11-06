@@ -12,7 +12,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    home-manager.users."${username}" = {
+    hm = {
       programs.nushell = {
         enable = true;
         configFile.source = ./config.nu;

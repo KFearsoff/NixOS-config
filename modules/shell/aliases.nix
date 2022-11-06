@@ -6,7 +6,7 @@
 }: let
   exa = "${pkgs.exa}/bin/exa";
 in {
-  home-manager.users."${username}" = {
+  hm = {
     home.shellAliases = {
       sudo = "sudo -E "; # enable aliases when using sudo
       su = "sudo -i";

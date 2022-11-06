@@ -24,7 +24,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    home-manager.users."${username}" = {
+    hm = {
       programs.nix-index.enable = true;
 
       systemd.user.services.nix-index-update = {

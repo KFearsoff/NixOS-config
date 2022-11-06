@@ -5,14 +5,14 @@
   ...
 }: with lib; let
   cfg = config.nixchad.mako;
-  inherit (config.home-manager.users."${username}") colorscheme;
+  inherit (config.hm) colorscheme;
 in {
   options.nixchad.mako = {
     enable = mkEnableOption "mako";
   };
 
   config = mkIf cfg.enable {
-    home-manager.users."${username}" = {
+    hm = {
       programs.mako = {
         enable = true;
 

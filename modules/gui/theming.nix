@@ -12,7 +12,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    home-manager.users."${username}" = {
+    hm = {
       gtk = {
         enable = true;
         iconTheme.package = pkgs.papirus-icon-theme;

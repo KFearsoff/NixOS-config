@@ -12,7 +12,7 @@ in {
   };
 
   config = {
-    home-manager.users."${username}" = {
+    hm = {
       programs.vscode = {
         enable = true;
         package = pkgs.vscodium;

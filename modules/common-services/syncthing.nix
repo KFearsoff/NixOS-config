@@ -9,7 +9,7 @@
   syncthingHttpPort = "8384";
   syncthingDomain = "syncthing.${hostname}.box";
 in {
-  home-manager.users."${username}".xdg.userDirs.extraConfig = {
+  hm.xdg.userDirs.extraConfig = {
     XDG_SYNC_DIR = "$HOME/Sync";
   };
 

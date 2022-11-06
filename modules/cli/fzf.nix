@@ -13,7 +13,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    home-manager.users."${username}" = {
+    hm = {
       programs.fzf = {
         enable = true;
         defaultCommand = "${fd} --type f --follow --hidden --exclude .git --exclude .direnv --exclude lost+found --color=always";
