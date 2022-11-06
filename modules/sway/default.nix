@@ -93,7 +93,7 @@ in {
 
           focus.forceWrapping = true;
           workspaceAutoBackAndForth = true;
-          menu = "${pkgs.rofi-wayland}/bin/rofi -combi-mode drun -show drun -icon-theme \"Papirus\" -show-icons";
+          menu = "rofi -show drun";
           terminal = "${config.terminal.binaryPath}";
 
           colors = import ./colors.nix {inherit colorscheme;};
