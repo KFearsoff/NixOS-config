@@ -56,6 +56,9 @@ in {
           package = pkgs.rofi-wayland;
           theme = "purple";
           terminal = "alacritty";
+          extraConfig = {
+            show-icons = true;
+          };
         };
       };
     };

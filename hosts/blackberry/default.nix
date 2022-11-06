@@ -33,6 +33,7 @@ in {
     backlight = false; # problem with Intel iGPU
     battery = false; # PC, doesn't have a battery
   };
+  nixchad.sway.backlight = false;
 
   networking.interfaces."br-libvirt".ipv4.addresses = [
     {
