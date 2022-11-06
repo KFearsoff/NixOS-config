@@ -50,6 +50,7 @@
     "Shift+plus" = "gaps inner current minus 1";
 
     "m" = "exec --no-startup-id ${change-codec}";
+    "o" = "exec --no-startup-id ${pkgs.wtype}/bin/wtype $(grep -v '^//' ~/Documents/Notes/Reference\\ notes/Bookmarks.md | rofi -dmenu | cut -d' ' -f1)"; # bookmark script by LukeSmith: https://youtu.be/d_11QaTlf1I
   };
 in {
   hm = {
