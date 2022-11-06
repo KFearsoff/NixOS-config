@@ -15,6 +15,7 @@ in {
     ./mako.nix
     ./swayidle.nix
     ./keybindings.nix
+    ./startup.nix
   ];
 
   options.nixchad.sway = {
@@ -97,7 +98,6 @@ in {
           terminal = "${config.terminal.binaryPath}";
 
           colors = import ./colors.nix {inherit colorscheme;};
-          startup = import ./startup.nix {inherit pkgs config;};
           assigns = import ./assigns.nix {inherit config;};
         };
       };
