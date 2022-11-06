@@ -105,9 +105,7 @@
 
         checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks inputs.self.deploy) inputs.deploy-rs.lib;
       }
-      // inputs.flake-utils.lib.eachDefaultSystem (system: let
-        pkgs = inputs.nixpkgs.legacyPackages.${system};
-      in {
+      // inputs.flake-utils.lib.eachDefaultSystem (system: {
         formatter = pkgs.alejandra;
 
         devShell = pkgs.mkShell {
