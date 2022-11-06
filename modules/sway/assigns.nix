@@ -4,7 +4,7 @@
   "3" = [{app_id = "${config.terminal.windowName}";}];
   "4" = [{app_id = "FreeTube";}];
   "5" = [{app_id = "org.keepassxc.KeePassXC";}];
-  "6" = [{app_id = "obsidian";}];
+  "6" = [{class = "obsidian";}];
   "7" = [
     # General Gaming
     {app_id = "lutris";}
