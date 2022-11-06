@@ -101,6 +101,7 @@
         deploy.nodes = with inputs.deploy-rs.lib; {
           blackberry = {
             hostname = "blackberry";
+            user = "root";
             sshUser = "nixchad";
             profiles.system.path = x86_64-linux.activate.nixos inputs.self.nixosConfigurations.blackberry;
           };
