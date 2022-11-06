@@ -5,8 +5,7 @@
   config,
   username,
   ...
-}: 
-let
+}: let
   ifname = config.lib.metadata.getInterface config.networking.hostName;
 in {
   imports = [

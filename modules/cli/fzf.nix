@@ -3,7 +3,8 @@
   lib,
   pkgs,
   ...
-}: with lib; let
+}:
+with lib; let
   cfg = config.nixchad.fzf;
   fd = "${pkgs.fd}/bin/fd";
 in {

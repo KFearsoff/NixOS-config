@@ -31,7 +31,6 @@ in {
   config = mkIf cfg.enable {
     nixchad.sway.backlight = mkDefault true;
 
-
     environment.sessionVariables.NIXOS_OZONE_WL = "1";
     security.polkit.enable = true;
     security.pam.services.swaylock = {};

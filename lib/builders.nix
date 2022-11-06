@@ -11,7 +11,11 @@
       pkgsForPatching.applyPatches {
         name = "nixpkgs-patched";
         src = inputs.nixpkgs;
-        patches = builtins.map (x: if builtins.isPath x then x else pkgsForPatching.pkgs.fetchpatch x) patches;
+        patches = builtins.map (x:
+          if builtins.isPath x
+          then x
+          else pkgsForPatching.pkgs.fetchpatch x)
+        patches;
       }
     else inputs.nixpkgs;
   patchedNixpkgs = import patchedNixpkgsDrv;

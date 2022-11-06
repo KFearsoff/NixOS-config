@@ -2,7 +2,7 @@
   config,
   lib,
   ...
-}: 
+}:
 with lib; let
   cfg = config.nixchad.containers;
 in {

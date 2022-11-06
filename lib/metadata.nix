@@ -1,6 +1,5 @@
-{ lib, ... }:
-with lib;
-let
+{lib, ...}:
+with lib; let
   metadata = importTOML ../hosts/metadata.toml;
   metadataTypes = builtins.attrNames metadata;
   metadataNoTypes = builtins.foldl' (x: y: x // metadata."${y}") {} metadataTypes;
@@ -11,7 +10,7 @@ let
 in {
   lib.metadata = {
     inherit metadata;
-    syncthingDevicesConfig = mapAttrs (n: v: v.syncthing // { addresses = ["tcp://${n}" "quic://${n}"];}) syncthingEntries;
+    syncthingDevicesConfig = mapAttrs (n: v: v.syncthing // {addresses = ["tcp://${n}" "quic://${n}"];}) syncthingEntries;
     syncthingHostsList = builtins.attrNames (filterAttrs (n: v: builtins.hasAttr "syncthing" v) metadata.hosts);
     syncthingAllList = builtins.attrNames syncthingEntries;
     sshPubkeyList = (zipAttrs (attrValues sshPubkeyEntries)).ssh-pubkey;

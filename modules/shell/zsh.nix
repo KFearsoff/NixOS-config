@@ -4,7 +4,8 @@
   lib,
   pkgs,
   ...
-}: with lib; let
+}:
+with lib; let
   cfg = config.nixchad.zsh;
   rg = "${pkgs.ripgrep}/bin/rg";
   fzf = "${pkgs.fzf}/bin/fzf";

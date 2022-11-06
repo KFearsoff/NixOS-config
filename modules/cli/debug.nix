@@ -4,7 +4,8 @@
   pkgs,
   username,
   ...
-}: with lib; let
+}:
+with lib; let
   cfg = config.nixchad.debug;
 in {
   options.nixchad.debug = {

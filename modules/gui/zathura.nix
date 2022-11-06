@@ -2,7 +2,8 @@
   config,
   lib,
   ...
-}: with lib; let
+}:
+with lib; let
   cfg = config.nixchad.zathura;
   inherit (config.hm) colorscheme;
 in {

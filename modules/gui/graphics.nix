@@ -2,7 +2,8 @@
   config,
   lib,
   pkgs,
-...}:
+  ...
+}:
 with lib; let
   cfg = config.nixchad.graphics;
 in {

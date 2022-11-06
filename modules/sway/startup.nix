@@ -3,7 +3,8 @@
   pkgs,
   lib,
   ...
-}: with lib; let
+}:
+with lib; let
   cfg = config.nixchad.startup;
 in {
   options.nixchad.startup = {
@@ -28,15 +29,19 @@ in {
     nixchad.startup.autotiling = mkDefault true;
     nixchad.startup.kanshi = mkDefault true;
 
-    hm = { config, ... }: {
-      wayland.windowManager.sway.config.startup = cfg.entries ++ optional cfg.autotiling {
-        command = "${pkgs.autotiling}/bin/autotiling -w 1 5 7 8 9";
-        always = true;
-      } ++ optional cfg.kanshi {
-        # https://github.com/nix-community/home-manager/issues/2797
-        command = "${pkgs.systemd}/bin/systemctl --user try-reload-or-restart kanshi.service";
-        always = true;
-      } ++ [{command = "${config.terminal.binaryPath}";}];
+    hm = {config, ...}: {
+      wayland.windowManager.sway.config.startup =
+        cfg.entries
+        ++ optional cfg.autotiling {
+          command = "${pkgs.autotiling}/bin/autotiling -w 1 5 7 8 9";
+          always = true;
+        }
+        ++ optional cfg.kanshi {
+          # https://github.com/nix-community/home-manager/issues/2797
+          command = "${pkgs.systemd}/bin/systemctl --user try-reload-or-restart kanshi.service";
+          always = true;
+        }
+        ++ [{command = "${config.terminal.binaryPath}";}];
     };
   };
 }

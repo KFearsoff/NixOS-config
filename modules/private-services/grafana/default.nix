@@ -45,12 +45,14 @@ in {
         dashboards.settings = {
           apiVersion = 1;
 
-          providers = [{
-            options = {
-              path = ./dashboards;
-              foldersFromFilesStructure = true;
-            };
-          }];
+          providers = [
+            {
+              options = {
+                path = ./dashboards;
+                foldersFromFilesStructure = true;
+              };
+            }
+          ];
         };
       };
     };

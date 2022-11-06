@@ -4,7 +4,8 @@
   pkgs,
   inputs,
   ...
-}: with lib; let
+}:
+with lib; let
   cfg = config.nixchad.newsboat;
 in {
   options.nixchad.newsboat = {
