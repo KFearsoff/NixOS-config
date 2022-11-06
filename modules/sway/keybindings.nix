@@ -43,7 +43,7 @@
   });
 
   general = useWithModifier {
-    "Caps_Lock" = "exec ${pkgs.swaylock}/bin/swaylock -i ~/NixOS-config/assets/nix-wallpaper-nineish-dark-gray.png";
+    "Caps_Lock" = "exec ${pkgs.systemd}/bin/loginctl lock-session";
     "Shift+e" = "exec ${pkgs.wlogout}/bin/wlogout";
 
     "Shift+equal" = "gaps inner current plus 1";
