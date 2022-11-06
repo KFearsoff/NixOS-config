@@ -24,7 +24,7 @@ with lib; let
     + lib.optionalString (alternatesList != []) alternatesPath
     + "hosts");
   excludeHosts = concatStringsSep "|" [".*kameleoon\..+"];
-  patchedHosts = concatStringsSep "\n" (filter (x: isNull (builtins.match excludeHosts x)) (splitString "\n" combinedHosts));
+  patchedHosts = concatStringsSep "\n" (filter (x: ((builtins.match excludeHosts x) == null)) (splitString "\n" combinedHosts));
   magicDNS = config.lib.metadata.magicDNS hostSuffix;
 
   baseHosts = pkgs.writeTextFile {

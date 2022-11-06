@@ -28,10 +28,6 @@
     impermanence.url = "github:nix-community/impermanence";
     #impermanence.url = "path:/home/nixchad/Projects/impermanence";
 
-    devshell.url = "github:numtide/devshell";
-    devshell.inputs.nixpkgs.follows = "nixpkgs";
-    devshell.inputs.flake-utils.follows = "flake-utils";
-
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -54,7 +50,7 @@
   outputs = inputs:
     with import ./lib/builders.nix {
       inherit inputs;
-      overlays = inputs.self.overlays;
+      inherit (inputs.self) overlays;
       patches = [
         overlays/0001-rollback-waybar-0.9.13.patch
         {
@@ -109,16 +105,15 @@
 
         checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks inputs.self.deploy) inputs.deploy-rs.lib;
       }
-      // inputs.flake-utils.lib.eachDefaultSystem (system: let
-        pkgs = import inputs.nixpkgs {
-          inherit system;
-          overlays = [inputs.devshell.overlay];
-        };
-      in {
+      // inputs.flake-utils.lib.eachDefaultSystem (system: {
         formatter = pkgs.alejandra;
 
-        devShell = pkgs.devshell.mkShell {
-          imports = [(pkgs.devshell.importTOML ./devshell.toml)];
+        devShell = pkgs.mkShell {
+          buildInputs = with pkgs; [
+            sops
+            just
+            inputs.deploy-rs.defaultPackage.${system}
+          ];
         };
       });
 }

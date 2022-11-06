@@ -3,7 +3,8 @@
   pkgs,
   lib,
   ...
-}: with lib; let
+}:
+with lib; let
   cfg = config.nixchad.assigns;
 in {
   options.nixchad.assigns = {
@@ -33,7 +34,7 @@ in {
   };
 
   config = {
-    hm = { config, ... }: {
+    hm = {config, ...}: {
       wayland.windowManager.sway.config.assigns = cfg.entries // {"3" = [{app_id = "${config.terminal.windowName}";}];};
     };
   };

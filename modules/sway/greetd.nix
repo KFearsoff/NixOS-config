@@ -1,7 +1,10 @@
-{config,
-lib,
-username,
-...}: with lib; let
+{
+  config,
+  lib,
+  username,
+  ...
+}:
+with lib; let
   cfg = config.nixchad.greetd;
 in {
   options.nixchad.greetd = {

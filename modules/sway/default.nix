@@ -31,7 +31,6 @@ in {
   config = mkIf cfg.enable {
     nixchad.sway.backlight = mkDefault true;
 
-
     environment.sessionVariables.NIXOS_OZONE_WL = "1";
     security.polkit.enable = true;
     security.pam.services.swaylock = {};
@@ -80,7 +79,7 @@ in {
         '';
 
         config = {
-          modifier = cfg.modifier;
+          inherit (cfg) modifier;
           bindkeysToCode = true;
 
           input = import ./input.nix;

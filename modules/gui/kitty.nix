@@ -3,7 +3,8 @@
   lib,
   pkgs,
   ...
-}: with lib; let
+}:
+with lib; let
   cfg = config.nixchad.kitty;
   inherit (config.hm) colorscheme;
 in {
@@ -13,7 +14,7 @@ in {
 
   config = mkIf cfg.enable {
     hm = {
-      home.sessionVariables = mkIf (config.services.xserver.enable) {
+      home.sessionVariables = mkIf config.services.xserver.enable {
         TERM = "xterm-256color";
       };
 

@@ -1,7 +1,4 @@
-{
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   hm.services.swayidle = {
     enable = true;
     events = [

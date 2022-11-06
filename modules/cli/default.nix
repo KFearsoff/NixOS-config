@@ -4,7 +4,8 @@
   lib,
   pkgs,
   ...
-}: with lib; let
+}:
+with lib; let
   cfg = config.nixchad.cli;
 in {
   imports = [
@@ -30,7 +31,6 @@ in {
       wget
       jq
       git
-      inputs.deploy-rs.defaultPackage.x86_64-linux
     ];
   };
 }

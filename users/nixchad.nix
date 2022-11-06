@@ -13,7 +13,6 @@
     users.users."${username}" = {
       isNormalUser = true;
       extraGroups = ["wheel" "networkmanager" "video"];
-      passwordFile = config.sops.secrets.password.path;
     };
     home-manager.useGlobalPkgs = true;
     home-manager.useUserPackages = true;

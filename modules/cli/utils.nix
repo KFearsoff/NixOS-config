@@ -3,7 +3,8 @@
   lib,
   pkgs,
   ...
-}: with lib; let
+}:
+with lib; let
   cfg = config.nixchad.utils;
 in {
   options.nixchad.utils = {
@@ -11,19 +12,21 @@ in {
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [
-      neofetch # the system won't boot without it
-      ripgrep # alternative to grep
-      fd # alternative to find
-      tldr
-      jq
-      nix-tree
-      ncdu
-    ] ++ optional (config.nixchad.filesystem.enable && config.nixchad.filesystem.type == "btrfs") btdu
-    ++ optionals (config.nixchad.filesystem.enable && config.nixchad.filesystem.type == "ext4") [
-      du-dust
-      duf
-    ];
+    environment.systemPackages = with pkgs;
+      [
+        neofetch # the system won't boot without it
+        ripgrep # alternative to grep
+        fd # alternative to find
+        tldr
+        jq
+        nix-tree
+        ncdu
+      ]
+      ++ optional (config.nixchad.filesystem.enable && config.nixchad.filesystem.type == "btrfs") btdu
+      ++ optionals (config.nixchad.filesystem.enable && config.nixchad.filesystem.type == "ext4") [
+        du-dust
+        duf
+      ];
 
     hm = {
       home = {

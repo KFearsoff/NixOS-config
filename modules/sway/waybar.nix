@@ -4,7 +4,8 @@
   pkgs,
   inputs,
   ...
-}: with lib; let
+}:
+with lib; let
   cfg = config.nixchad.waybar;
   inherit (config.hm) colorscheme;
 in {
@@ -48,34 +49,39 @@ in {
               "clock#3"
               "custom/right-arrow"
             ];
-            modules-right = [
-              "custom/left-arrow"
-              "custom/left-arrow-inverse"
-              "custom/left-arrow"
-              "pulseaudio"
-              "custom/left-arrow-inverse"
-              "custom/left-arrow"
-              "mpd"
-              "custom/left-arrow-inverse"
-              "custom/left-arrow"
-              "network"
-              "custom/left-arrow-inverse"
-            ] ++ optionals cfg.backlight [
-              "custom/left-arrow"
-              "backlight"
-              "custom/left-arrow-inverse"
-            ] ++ [
-              "custom/left-arrow"
-              "sway/language"
-              "custom/left-arrow-inverse"
-            ] ++ optionals cfg.battery [
-              "custom/left-arrow"
-              "battery"
-              "custom/left-arrow-inverse"
-            ] ++ [
-              "custom/left-arrow"
-              "tray"
-            ];
+            modules-right =
+              [
+                "custom/left-arrow"
+                "custom/left-arrow-inverse"
+                "custom/left-arrow"
+                "pulseaudio"
+                "custom/left-arrow-inverse"
+                "custom/left-arrow"
+                "mpd"
+                "custom/left-arrow-inverse"
+                "custom/left-arrow"
+                "network"
+                "custom/left-arrow-inverse"
+              ]
+              ++ optionals cfg.backlight [
+                "custom/left-arrow"
+                "backlight"
+                "custom/left-arrow-inverse"
+              ]
+              ++ [
+                "custom/left-arrow"
+                "sway/language"
+                "custom/left-arrow-inverse"
+              ]
+              ++ optionals cfg.battery [
+                "custom/left-arrow"
+                "battery"
+                "custom/left-arrow-inverse"
+              ]
+              ++ [
+                "custom/left-arrow"
+                "tray"
+              ];
 
             "custom/left-arrow" = {
               format = "";

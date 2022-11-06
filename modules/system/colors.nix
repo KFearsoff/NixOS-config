@@ -3,7 +3,8 @@
   lib,
   nix-colors,
   ...
-}: with lib; let
+}:
+with lib; let
   cfg = config.nixchad.colors;
   dracula-patched = {
     slug = "dracula";

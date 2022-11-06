@@ -3,9 +3,9 @@
   pkgs,
   lib,
   config,
+  username,
   ...
-}: 
-let
+}: let
   ifname = config.lib.metadata.getInterface config.networking.hostName;
 in {
   imports = [
@@ -20,6 +20,8 @@ in {
     sopsFile = ../../secrets/blackberry/default.yaml;
     neededForUsers = true;
   };
+  users.users."${username}".passwordFile = config.sops.secrets.password.path;
+
   hardware.firmware = [
     pkgs.rtl8761b-firmware
   ];
