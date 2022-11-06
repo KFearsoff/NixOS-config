@@ -26,7 +26,7 @@ in {
       duf
     ];
 
-    home-manager.users."${username}" = {
+    hm = {
       home = {
         packages = with pkgs; [
           bottom # htop alternative

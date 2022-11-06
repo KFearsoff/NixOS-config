@@ -7,7 +7,7 @@
 }:
 with lib; let
   wallpaper = ../../assets/nix-wallpaper-nineish-dark-gray.png;
-  inherit (config.home-manager.users."${username}") colorscheme;
+  inherit (config.hm) colorscheme;
   cfg = config.nixchad.sway;
 in {
   imports = [
@@ -35,7 +35,7 @@ in {
       extraPortals = [pkgs.xdg-desktop-portal-gtk];
     };
 
-    home-manager.users."${username}" = {config, ...}: {
+    hm = {config, ...}: {
       home.packages = [pkgs.wl-clipboard];
 
       home.pointerCursor = {

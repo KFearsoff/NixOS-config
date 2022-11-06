@@ -35,7 +35,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    home-manager.users."${username}" = {
+    hm = {
       imports = [nix-colors.homeManagerModule];
       # config.colorscheme = nix-colors.colorSchemes.dracula;
       config.colorscheme = dracula-patched;

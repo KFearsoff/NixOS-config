@@ -44,7 +44,7 @@ in {
   config = mkIf cfg.league-of-legends.enable {
     nixchad.games.lutrisPackages = with pkgs; [openssl wineWowPackages.full];
 
-    home-manager.users."${username}".xdg.desktopEntries = {
+    hm.xdg.desktopEntries = {
       LoL = {
         name = "League of Legends";
         genericName = "A Riot game";

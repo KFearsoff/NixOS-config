@@ -5,14 +5,14 @@
   ...
 }: with lib; let
   cfg = config.nixchad.zathura;
-  inherit (config.home-manager.users."${username}") colorscheme;
+  inherit (config.hm) colorscheme;
 in {
   options.nixchad.zathura = {
     enable = mkEnableOption "zathura";
   };
 
   config = mkIf cfg.enable {
-    home-manager.users."${username}" = {
+    hm = {
       programs.zathura = {
         enable = true;
         #package = pkgs.zathura.override { useMupdf = false; }; # https://git.pwmt.org/pwmt/zathura/-/issues/184

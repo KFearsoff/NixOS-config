@@ -7,7 +7,7 @@
   ...
 }: with lib; let
   cfg = config.nixchad.waybar;
-  inherit (config.home-manager.users."${username}") colorscheme;
+  inherit (config.hm) colorscheme;
 in {
   options.nixchad.waybar = {
     enable = mkEnableOption "waybar";
@@ -19,7 +19,7 @@ in {
     nixchad.waybar.backlight = mkDefault true;
     nixchad.waybar.battery = mkDefault false;
 
-    home-manager.users."${username}" = {
+    hm = {
       programs.waybar = {
         # inspired by:
         # https://github.com/cjbassi/config/tree/master/.config/waybar

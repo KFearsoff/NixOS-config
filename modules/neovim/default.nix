@@ -8,7 +8,7 @@
 }: with lib; let
   cfg = config.nixchad.neovim;
   inherit (nix-colors.lib-contrib {inherit pkgs;}) vimThemeFromScheme;
-  inherit (config.home-manager.users."${username}") colorscheme;
+  inherit (config.hm) colorscheme;
 in {
   options.nixchad.neovim = {
     enable = mkEnableOption "neovim";
@@ -16,7 +16,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    home-manager.users."${username}" = {
+    hm = {
       home.sessionVariables = {
         EDITOR = "nvim";
       };

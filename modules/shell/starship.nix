@@ -5,14 +5,14 @@
   ...
 }: with lib; let
   cfg = config.nixchad.starship;
-  inherit (config.home-manager.users."${username}") colorscheme;
+  inherit (config.hm) colorscheme;
 in {
   options.nixchad.starship = {
     enable = mkEnableOption "starship";
   };
 
   config = mkIf cfg.enable {
-    home-manager.users."${username}" = {
+    hm = {
       programs.starship = {
         enable = true;
         enableZshIntegration = true;

@@ -44,7 +44,7 @@ in {
       };
     };
 
-    home-manager.users."${username}" = {
+    hm = {
       home = {
         packages = [
           (pkgs.lutris.override {extraPkgs = pkgs: cfg.lutrisPackages;})

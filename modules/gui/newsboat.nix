@@ -13,7 +13,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    home-manager.users."${username}" = {
+    hm = {
       # https://github.com/nix-community/home-manager/issues/602
       disabledModules = [
         "programs/newsboat.nix"

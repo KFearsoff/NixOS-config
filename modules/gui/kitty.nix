@@ -6,14 +6,14 @@
   ...
 }: with lib; let
   cfg = config.nixchad.kitty;
-  inherit (config.home-manager.users."${username}") colorscheme;
+  inherit (config.hm) colorscheme;
 in {
   options.nixchad.kitty = {
     enable = mkEnableOption "kitty";
   };
 
   config = mkIf cfg.enable {
-    home-manager.users."${username}" = {
+    hm = {
       home.sessionVariables = mkIf (config.services.xserver.enable) {
         TERM = "xterm-256color";
       };

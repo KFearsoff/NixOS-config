@@ -15,7 +15,7 @@ in {
   config = mkIf cfg.enable {
     programs.git.enable = true;
 
-    home-manager.users."${username}" = {
+    hm = {
       home.packages = optional utilsEnabled pkgs.git-filter-repo;
       home.shellAliases = {
         gd = "git diff ";

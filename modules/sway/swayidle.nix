@@ -3,7 +3,7 @@
   pkgs,
   ...
 }: {
-  home-manager.users."${username}".services.swayidle = {
+  hm.services.swayidle = {
     enable = true;
     events = [
       {

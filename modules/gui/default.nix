@@ -35,7 +35,7 @@ in {
       xdg-utils
     ];
 
-    home-manager.users."${username}" = {
+    hm = {
       home.packages = with pkgs; [
         ungoogled-chromium
         freetube

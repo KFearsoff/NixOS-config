@@ -3,7 +3,7 @@
   username,
   ...
 }: {
-  config.home-manager.users."${username}" = {
+  config.hm = {
     services.kanshi = {
       enable = true;
       profiles = {

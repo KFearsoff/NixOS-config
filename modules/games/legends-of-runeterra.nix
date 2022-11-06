@@ -15,7 +15,7 @@ in {
   config = mkIf cfg.legends-of-runeterra.enable {
     nixchad.games.lutrisPackages = with pkgs; [openssl wineWowPackages.full];
 
-    home-manager.users."${username}".xdg.desktopEntries = {
+    hm.xdg.desktopEntries = {
       LoR = {
         name = "Legends of Runeterra";
         genericName = "A Riot game";

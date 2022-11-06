@@ -6,14 +6,14 @@
   ...
 }: with lib; let
   cfg = config.nixchad.alacritty;
-  inherit (config.home-manager.users."${username}") colorscheme;
+  inherit (config.hm) colorscheme;
 in {
   options.nixchad.alacritty = {
     enable = mkEnableOption "alacritty";
   };
 
   config = mkIf cfg.enable {
-    home-manager.users."${username}" = {
+    hm = {
       terminal = {
         enable = true;
         package = pkgs.alacritty;
