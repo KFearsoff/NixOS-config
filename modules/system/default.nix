@@ -32,7 +32,7 @@ in {
     boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
 
     security.sudo.wheelNeedsPassword = lib.mkDefault false;
-    users.users."${username}".openssh.authorizedKeys.keys = (import ../../hosts { inherit lib; }).sshPubkeyList;
+    users.users."${username}".openssh.authorizedKeys.keys = config.lib.metadata.sshPubkeyList;
 
     sops.defaultSopsFile = ../../secrets/default.yaml;
     sops.age.sshKeyPaths = ["/persist/etc/ssh/ssh_host_ed25519_key"];

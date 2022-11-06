@@ -1,0 +1,102 @@
+diff --git a/pkgs/applications/misc/waybar/default.nix b/pkgs/applications/misc/waybar/default.nix
+index 80a2047b61f..0053b8d873d 100644
+--- a/pkgs/applications/misc/waybar/default.nix
++++ b/pkgs/applications/misc/waybar/default.nix
+@@ -14,33 +14,30 @@
+ , spdlog
+ , gtk-layer-shell
+ , howard-hinnant-date
+-, libinotify-kqueue
+ , libxkbcommon
+-, evdevSupport    ? true,  libevdev
+-, inputSupport    ? true,  libinput
+-, jackSupport     ? true,  libjack2
+-, mpdSupport      ? true,  libmpdclient
+-, nlSupport       ? true,  libnl
++, runTests        ? true,  catch2
++, traySupport     ? true,  libdbusmenu-gtk3
+ , pulseSupport    ? true,  libpulseaudio
+-, rfkillSupport   ? true
+-, runTests        ? true,  catch2_3
+ , sndioSupport    ? true,  sndio
+-, swaySupport     ? true,  sway
+-, traySupport     ? true,  libdbusmenu-gtk3
++, nlSupport       ? true,  libnl
+ , udevSupport     ? true,  udev
+-, upowerSupport   ? true,  upower
+-, withMediaPlayer ? false, glib, gobject-introspection, python3, playerctl
++, evdevSupport    ? true,  libevdev
++, swaySupport     ? true,  sway
++, mpdSupport      ? true,  libmpdclient
++, rfkillSupport   ? true
++, upowerSupport   ? true, upower
++, withMediaPlayer ? false, glib, gobject-introspection, python3, python38Packages, playerctl
+ }:
+ 
+ stdenv.mkDerivation rec {
+   pname = "waybar";
+-  version = "0.9.14";
++  version = "0.9.13";
+ 
+   src = fetchFromGitHub {
+     owner = "Alexays";
+     repo = "Waybar";
+     rev = version;
+-    sha256 = "sha256-1tnFBUB7/MjnrCkfKOR2SZ/GB5Ik115zsnwjkNMB05E=";
++    sha256 = "sha256-Uzg2IrCDD8uUdGAveA8IjvonJnnnobOrAgjGG1kQ3pU=";
+   };
+ 
+   nativeBuildInputs = [
+@@ -50,42 +47,37 @@ stdenv.mkDerivation rec {
+   propagatedBuildInputs = lib.optionals withMediaPlayer [
+     glib
+     playerctl
+-    python3.pkgs.pygobject3
++    python38Packages.pygobject3
+   ];
+   strictDeps = false;
+ 
+   buildInputs = with lib;
+     [ wayland wlroots gtkmm3 libsigcxx jsoncpp spdlog gtk-layer-shell howard-hinnant-date libxkbcommon ]
+-    ++ optional  (!stdenv.isLinux) libinotify-kqueue
+-    ++ optional  evdevSupport  libevdev
+-    ++ optional  inputSupport  libinput
+-    ++ optional  jackSupport   libjack2
+-    ++ optional  mpdSupport    libmpdclient
+-    ++ optional  nlSupport     libnl
++    ++ optional  traySupport   libdbusmenu-gtk3
+     ++ optional  pulseSupport  libpulseaudio
+     ++ optional  sndioSupport  sndio
+-    ++ optional  swaySupport   sway
+-    ++ optional  traySupport   libdbusmenu-gtk3
++    ++ optional  nlSupport     libnl
+     ++ optional  udevSupport   udev
++    ++ optional  evdevSupport  libevdev
++    ++ optional  swaySupport   sway
++    ++ optional  mpdSupport    libmpdclient
+     ++ optional  upowerSupport upower;
+ 
+-  checkInputs = [ catch2_3 ];
++  checkInputs = [ catch2 ];
+   doCheck = runTests;
+ 
+   mesonFlags = (lib.mapAttrsToList
+     (option: enable: "-D${option}=${if enable then "enabled" else "disabled"}")
+     {
+       dbusmenu-gtk = traySupport;
+-      jack = jackSupport;
+-      libinput = inputSupport;
++      pulseaudio = pulseSupport;
++      sndio = sndioSupport;
+       libnl = nlSupport;
+       libudev = udevSupport;
+       mpd = mpdSupport;
+-      pulseaudio = pulseSupport;
+       rfkill = rfkillSupport;
+-      sndio = sndioSupport;
+-      tests = runTests;
+       upower_glib = upowerSupport;
++      tests = runTests;
+     }
+   ) ++ [
+     "-Dsystemd=disabled"

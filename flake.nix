@@ -4,7 +4,6 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
-    nixpkgs-old-waybar.url = "github:nixos/nixpkgs/bd545b559f0c573074a7fc37acba27be4be2dbeb";
     hardware.url = "github:NixOS/nixos-hardware/master";
 
     home-manager.url = "github:nix-community/home-manager";
@@ -56,8 +55,13 @@
     with import ./lib/builders.nix {
       inherit inputs;
       overlays = inputs.self.overlays;
-      patches = f:
-        with f; [];
+      patches = [
+        overlays/0001-rollback-waybar-0.9.13.patch
+        {
+          url = "https://github.com/NixOS/nixpkgs/pull/198638.patch";
+          sha256 = "sha256-uL9fU8+0CnmR0fBCmz8GhNtmuJOmgo9j8rmFRTqM2iE=";
+        }
+      ];
     };
       rec {
         overlays = {
@@ -97,6 +101,7 @@
         deploy.nodes = with inputs.deploy-rs.lib; {
           blackberry = {
             hostname = "blackberry";
+            user = "root";
             sshUser = "nixchad";
             profiles.system.path = x86_64-linux.activate.nixos inputs.self.nixosConfigurations.blackberry;
           };

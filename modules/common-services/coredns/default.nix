@@ -25,7 +25,7 @@ with lib; let
     + "hosts");
   excludeHosts = concatStringsSep "|" [".*kameleoon\..+"];
   patchedHosts = concatStringsSep "\n" (filter (x: isNull (builtins.match excludeHosts x)) (splitString "\n" combinedHosts));
-  magicDNS = (import ../../../hosts { inherit lib; }).magicDNS hostSuffix;
+  magicDNS = config.lib.metadata.magicDNS hostSuffix;
 
   baseHosts = pkgs.writeTextFile {
     name = "coredns-hosts-nixchad";
@@ -45,7 +45,7 @@ in {
     interface = mkOption {
       type = types.str;
       description = "Local interface on which CoreDNS will bind";
-      default = (import ../../../hosts { inherit lib; }).getInterface config.networking.hostName;
+      default = config.lib.metadata.getInterface config.networking.hostName;
     };
 
     extraHosts = mkOption {
