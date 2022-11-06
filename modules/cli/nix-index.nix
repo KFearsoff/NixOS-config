@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  username,
   ...
 }:
 # https://libredd.it/r/NixOS/comments/uqfw3k/an_automaticallyupdated_nixindex/
