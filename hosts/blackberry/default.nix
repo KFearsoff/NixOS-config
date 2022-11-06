@@ -6,7 +6,7 @@
   ...
 }: 
 let
-  ifname = (import ../default.nix { inherit lib; }).getInterface config.networking.hostName;
+  ifname = config.lib.metadata.getInterface config.networking.hostName;
 in {
   imports = [
     ./hardware-configuration.nix

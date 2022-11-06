@@ -13,7 +13,7 @@ in {
     XDG_SYNC_DIR = "$HOME/Sync";
   };
 
-  services.syncthing = with (import ../../hosts { inherit lib;}); {
+  services.syncthing = with config.lib.metadata; {
     enable = true;
     overrideDevices = true;
     overrideFolders = true;

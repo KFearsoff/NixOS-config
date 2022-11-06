@@ -53,6 +53,7 @@
           inputs.sops-nix.nixosModules.sops
           (../users + "/${username}.nix")
           ../modules
+          ./metadata.nix
         ]
         ++ machineSpecificModules
         ++ extraModules;
