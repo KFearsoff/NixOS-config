@@ -63,7 +63,7 @@
         ++ extraModules;
       specialArgs = {
         inherit inputs username;
-        nix-colors = inputs.nix-colors;
+        inherit (inputs) nix-colors;
         servername = "blackberry";
       };
     };

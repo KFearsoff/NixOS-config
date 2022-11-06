@@ -79,7 +79,7 @@ in {
         '';
 
         config = {
-          modifier = cfg.modifier;
+          inherit (cfg) modifier;
           bindkeysToCode = true;
 
           input = import ./input.nix;

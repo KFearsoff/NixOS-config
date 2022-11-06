@@ -54,7 +54,7 @@
   outputs = inputs:
     with import ./lib/builders.nix {
       inherit inputs;
-      overlays = inputs.self.overlays;
+      inherit (inputs.self) overlays;
       patches = [
         overlays/0001-rollback-waybar-0.9.13.patch
         {

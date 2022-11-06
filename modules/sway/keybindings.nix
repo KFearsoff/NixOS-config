@@ -12,7 +12,7 @@ with lib; let
   numbers = map toString (range 1 9);
   workspaceNumbers = zipListsWith (x: y: x + "" + y) numbers workspaces;
 
-  useWithModifier = mapAttrs' (k: v: nameValuePair (mod + "+" + k) v);
+  useWithModifier = mapAttrs' (k: nameValuePair (mod + "+" + k));
   appendExecToCommand = mapAttrs' (k: v: nameValuePair k ("exec " + v));
 
   swap = pkgs.writeShellScript "swap-workspaces" (builtins.readFile ./swap-workspaces.sh);

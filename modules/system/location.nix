@@ -29,8 +29,8 @@ in {
     hm = {
       services.gammastep = mkIf config.nixchad.gui.enable {
         enable = true;
-        latitude = cfg.latitude;
-        longitude = cfg.longitude;
+        inherit (cfg) latitude;
+        inherit (cfg) longitude;
       };
     };
   };

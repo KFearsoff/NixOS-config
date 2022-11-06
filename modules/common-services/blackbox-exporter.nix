@@ -15,7 +15,7 @@ with lib; let
     job_name = name;
     metrics_path = "/probe";
     params.module = [module];
-    static_configs = [{targets = targets;}];
+    static_configs = [{inherit targets;}];
     relabel_configs = [
       {
         source_labels = ["__address__"];

@@ -18,7 +18,7 @@ in {
     services.prometheus.exporters.smartctl = {
       enable = true;
       port = 33004;
-      devices = cfg.devices;
+      inherit (cfg) devices;
     };
 
     networking.firewall.interfaces.tailscale0.allowedTCPPorts = [33004];
