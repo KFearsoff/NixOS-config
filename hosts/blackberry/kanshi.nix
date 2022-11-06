@@ -1,9 +1,5 @@
 {
-  config,
-  username,
-  ...
-}: {
-  config.hm = {
+  hm = {
     services.kanshi = {
       enable = true;
       profiles = {

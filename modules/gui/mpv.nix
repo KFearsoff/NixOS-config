@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  username,
 ...}: 
 with lib; let
   cfg = config.nixchad.mpv;

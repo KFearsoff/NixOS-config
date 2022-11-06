@@ -3,7 +3,6 @@
   config,
   lib,
   pkgs,
-  username,
   ...
 }: with lib; let
   cfg = config.nixchad.zsh;

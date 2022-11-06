@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  username,
   pkgs,
   ...
 }: with lib; let

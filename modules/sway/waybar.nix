@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  username,
   inputs,
   ...
 }: with lib; let

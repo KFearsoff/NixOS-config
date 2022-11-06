@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  username,
   nix-colors,
   ...
 }: with lib; let
