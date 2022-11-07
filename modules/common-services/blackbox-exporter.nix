@@ -6,6 +6,7 @@
 }:
 with lib; let
   cfg = config.nixchad.blackbox-exporter;
+  hostname = config.networking.hostName;
   blackboxPort = 33005;
   makeJobConfig = {
     name,
@@ -45,28 +46,27 @@ in {
         extraFlags = ["--log.level=debug"];
       };
 
-      scrapeConfigs = map makeJobConfig [
-        {
-          name = "blackbox";
-          module = "http_2xx";
-          targets = [
-            "https://google.com/"
-            "https://api.telegram.org/"
-          ];
-        }
-
+      scrapeConfigs = map makeJobConfig ([
+          {
+            name = "blackbox";
+            module = "http_2xx";
+            targets = [
+              "https://google.com/"
+              "https://api.telegram.org/"
+            ];
+          }
+        ]
+        ++ optional (config.lib.metadata.hasIpv4 hostname)
         {
           name = "ipv4";
           module = "icmp_v4";
           targets = ["google.com"];
         }
-
-        {
+        ++ optional (config.lib.metadata.hasIpv6 hostname) {
           name = "ipv6";
           module = "icmp_v6";
           targets = ["google.com"];
-        }
-      ];
+        });
     };
 
     networking.firewall.interfaces.tailscale0.allowedTCPPorts = [blackboxPort];
