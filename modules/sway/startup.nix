@@ -18,6 +18,7 @@ in {
         {command = "${pkgs.element-desktop-wayland}/bin/element-desktop";}
         {command = "${pkgs.obsidian}/bin/obsidian";}
         {command = "${pkgs.easyeffects}/bin/easyeffects --gapplication-service";}
+        {command = "${pkgs.slack}/bin/slack";}
       ];
     };
 

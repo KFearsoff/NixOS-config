@@ -29,6 +29,7 @@ in {
           {class = "leagueclientux.exe";}
           {class = "league of legends.exe";}
         ];
+        "8" = [{app_id = "Slack";}];
       };
     };
   };
