@@ -15,6 +15,7 @@ in {
     ./loki.nix
     ./nitter.nix
     ./postgres-exporter.nix
+    ./blackbox-exporter.nix
     ./prometheus.nix
     ./vaultwarden.nix
     ./photoprism.nix

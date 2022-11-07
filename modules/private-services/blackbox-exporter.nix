@@ -8,15 +8,12 @@ with lib; let
   cfg = config.nixchad.blackbox-exporter;
   hostname = config.networking.hostName;
   blackboxPort = 33005;
-  makeJobConfig = {
-    name,
-    module,
-    targets,
-  }: {
-    job_name = name;
+
+  makeJobConfig = module: {
+    job_name = module;
     metrics_path = "/probe";
     params.module = [module];
-    static_configs = [{inherit targets;}];
+
     relabel_configs = [
       {
         source_labels = ["__address__"];
@@ -28,7 +25,23 @@ with lib; let
       }
       {
         target_label = "__address__";
-        replacement = "localhost:${builtins.toString blackboxPort}";
+        replacement = "localhost:${toString blackboxPort}";
+      }
+    ];
+
+    static_configs = [
+      {
+        targets = let
+          preTargets =
+            [
+              "google.com"
+              "api.telegram.org"
+            ]
+            ++ map (x: "${x}.tail34ad.ts.net") config.lib.metadata.hostList;
+        in
+          if (module == "icmp_v4" || module == "icmp_v6")
+          then preTargets ++ map (x: "${x}.tail34ad.ts.net") config.lib.metadata.phoneList
+          else map (x: "https://${x}") preTargets;
       }
     ];
   };
@@ -47,37 +60,13 @@ in {
       };
 
       scrapeConfigs = map makeJobConfig (optionals (config.lib.metadata.hasIpv4 hostname) [
-          {
-            name = "blackbox";
-            module = "http_2xx_v4";
-            targets = [
-              "https://google.com/"
-              "https://api.telegram.org/"
-            ];
-          }
-          {
-            name = "ipv4";
-            module = "icmp_v4";
-            targets = ["google.com"];
-          }
+          "icmp_v4"
+          "http_2xx_v4"
         ]
         ++ optionals (config.lib.metadata.hasIpv6 hostname) [
-          {
-            name = "blackbox";
-            module = "http_2xx_v6";
-            targets = [
-              "https://google.com/"
-              "https://api.telegram.org/"
-            ];
-          }
-          {
-            name = "ipv6";
-            module = "icmp_v6";
-            targets = ["google.com"];
-          }
+          "icmp_v6"
+          "http_2xx_v6"
         ]);
     };
-
-    networking.firewall.interfaces.tailscale0.allowedTCPPorts = [blackboxPort];
   };
 }
