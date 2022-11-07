@@ -52,6 +52,17 @@ in {
       };
     };
 
+    services.prometheus.scrapeConfigs = [
+      {
+        job_name = "promtail";
+        static_configs = [
+          {
+            targets = map (x: "${x}:33101") config.lib.metadata.hostList;
+          }
+        ];
+      }
+    ];
+
     services.nginx.virtualHosts."${promtailDomain}" = {
       forceSSL = true;
       sslCertificate = "/var/lib/self-signed/_.blackberry.box/cert.pem";

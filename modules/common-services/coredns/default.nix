@@ -134,6 +134,17 @@ in {
       serviceConfig.RestartSec = "5s";
     };
 
+    services.prometheus.scrapeConfigs = [
+      {
+        job_name = "coredns";
+        static_configs = [
+          {
+            targets = map (x: "${x}:33003") config.lib.metadata.hostList;
+          }
+        ];
+      }
+    ];
+
     networking.firewall.interfaces.tailscale0 = {
       allowedTCPPorts = [53 33003];
       allowedUDPPorts = [53 33003];
