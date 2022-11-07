@@ -46,27 +46,36 @@ in {
         extraFlags = ["--log.level=debug"];
       };
 
-      scrapeConfigs = map makeJobConfig ([
+      scrapeConfigs = map makeJobConfig (optionals (config.lib.metadata.hasIpv4 hostname) [
           {
             name = "blackbox";
-            module = "http_2xx";
+            module = "http_2xx_v4";
             targets = [
               "https://google.com/"
               "https://api.telegram.org/"
             ];
           }
+          {
+            name = "ipv4";
+            module = "icmp_v4";
+            targets = ["google.com"];
+          }
         ]
-        ++ optional (config.lib.metadata.hasIpv4 hostname)
-        {
-          name = "ipv4";
-          module = "icmp_v4";
-          targets = ["google.com"];
-        }
-        ++ optional (config.lib.metadata.hasIpv6 hostname) {
-          name = "ipv6";
-          module = "icmp_v6";
-          targets = ["google.com"];
-        });
+        ++ optionals (config.lib.metadata.hasIpv6 hostname) [
+          {
+            name = "blackbox";
+            module = "http_2xx_v6";
+            targets = [
+              "https://google.com/"
+              "https://api.telegram.org/"
+            ];
+          }
+          {
+            name = "ipv6";
+            module = "icmp_v6";
+            targets = ["google.com"];
+          }
+        ]);
     };
 
     networking.firewall.interfaces.tailscale0.allowedTCPPorts = [blackboxPort];
