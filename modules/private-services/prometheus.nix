@@ -15,6 +15,8 @@ in {
   };
 
   config = mkIf cfg.enable {
+    nixchad.alertmanager.enable = mkDefault true;
+
     services.prometheus = {
       enable = true;
       # The default of 1m is pretty stupid. It breaks Grafana's $__rate_interval.

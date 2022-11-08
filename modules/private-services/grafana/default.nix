@@ -50,43 +50,6 @@ in {
             }
           ];
         };
-
-        alerting = {
-          contactPoints.settings = {
-            contactPoints = [
-              {
-                name = "telegram-bot";
-                receivers = [
-                  {
-                    uid = "provisioned_uid_telegram_contact_point";
-                    type = "telegram";
-                    settings = {
-                      bottoken = "$__file{/secrets/telegram/bottoken}";
-                      chatid = "$__file{/secrets/telegram/chatid}";
-                      message = ''
-                        Title: {{ template "default.title" . }}
-                        Message: {{ template "default.message" . }}
-                      '';
-                    };
-                  }
-                ];
-              }
-            ];
-          };
-
-          rules.path = ./rules/icmp_v4.yaml;
-
-          policies.settings = {
-            policies = [
-              {
-                receiver = "telegram-bot";
-                matchers = [
-                  "severity = critical"
-                ];
-              }
-            ];
-          };
-        };
       };
     };
 
