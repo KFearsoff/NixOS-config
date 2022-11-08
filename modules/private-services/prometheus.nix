@@ -23,13 +23,22 @@ in {
       globalConfig.scrape_interval = "15s";
       scrapeConfigs = [
         {
-          job_name = "Prometheus";
+          job_name = "prometheus";
+          static_configs = [
+            {
+              targets = [
+                "localhost:${prometheusPort}"
+              ];
+            }
+          ];
+        }
+        {
+          job_name = "private-services";
           static_configs = [
             {
               targets = [
                 "localhost:33001" # nginx
                 "localhost:33002" # postgresql
-                "localhost:33100" # loki
               ];
             }
           ];

@@ -61,6 +61,19 @@ in {
       };
     };
 
+    services.prometheus.scrapeConfigs = [
+      {
+        job_name = "loki";
+        static_configs = [
+          {
+            targets = [
+              "localhost:${lokiHttpPort}"
+            ];
+          }
+        ];
+      }
+    ];
+
     # It doesn't seem like Libreddit allows subpaths. Wait for this:
     # https://github.com/tailscale/tailscale/issues/1235#issuecomment-927002943
     services.nginx.virtualHosts."${lokiDomain}" = {
