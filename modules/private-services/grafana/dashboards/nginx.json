@@ -33,7 +33,7 @@
       "collapsed": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "provisioned_uid_prometheus"
       },
       "gridPos": {
         "h": 1,
@@ -47,7 +47,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "provisioned_uid_prometheus"
           },
           "refId": "A"
         }
@@ -58,7 +58,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "provisioned_uid_prometheus"
       },
       "description": "",
       "fieldConfig": {
@@ -130,7 +130,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "provisioned_uid_prometheus"
           },
           "expr": "nginx_up{instance=~\"$instance\"}",
           "format": "time_series",
@@ -146,7 +146,7 @@
       "collapsed": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "provisioned_uid_prometheus"
       },
       "gridPos": {
         "h": 1,
@@ -160,7 +160,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "provisioned_uid_prometheus"
           },
           "refId": "A"
         }
@@ -175,7 +175,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "provisioned_uid_prometheus"
       },
       "description": "",
       "fill": 1,
@@ -220,7 +220,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "provisioned_uid_prometheus"
           },
           "expr": "irate(nginx_connections_accepted{instance=~\"$instance\"}[5m])",
           "format": "time_series",
@@ -232,7 +232,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "provisioned_uid_prometheus"
           },
           "expr": "irate(nginx_connections_handled{instance=~\"$instance\"}[5m])",
           "format": "time_series",
@@ -282,7 +282,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "provisioned_uid_prometheus"
       },
       "decimals": 0,
       "fill": 1,
@@ -326,7 +326,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "provisioned_uid_prometheus"
           },
           "expr": "nginx_connections_active{instance=~\"$instance\"}",
           "format": "time_series",
@@ -337,7 +337,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "provisioned_uid_prometheus"
           },
           "expr": "nginx_connections_reading{instance=~\"$instance\"}",
           "format": "time_series",
@@ -348,7 +348,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "provisioned_uid_prometheus"
           },
           "expr": "nginx_connections_waiting{instance=~\"$instance\"}",
           "format": "time_series",
@@ -359,7 +359,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "provisioned_uid_prometheus"
           },
           "expr": "nginx_connections_writing{instance=~\"$instance\"}",
           "format": "time_series",
@@ -407,7 +407,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "provisioned_uid_prometheus"
       },
       "fill": 1,
       "fillGradient": 0,
@@ -448,7 +448,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "provisioned_uid_prometheus"
           },
           "expr": "irate(nginx_http_requests_total{instance=~\"$instance\"}[5m])",
           "format": "time_series",
@@ -524,7 +524,7 @@
         },
         "datasource": {
           "type": "prometheus",
-          "uid": "PBFA97CFB590B2093"
+          "uid": "provisioned_uid_prometheus"
         },
         "definition": "label_values(nginx_up, instance)",
         "hide": 0,

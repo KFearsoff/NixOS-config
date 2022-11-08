@@ -59,7 +59,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "provisioned_uid_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -122,7 +122,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "provisioned_uid_prometheus"
           },
           "expr": "pg_static{release=\"$release\", instance=\"$instance\"}",
           "format": "time_series",
@@ -138,7 +138,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "provisioned_uid_prometheus"
       },
       "description": "start time of the process",
       "fieldConfig": {
@@ -202,7 +202,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "provisioned_uid_prometheus"
           },
           "expr": "pg_postmaster_start_time_seconds{release=\"$release\", instance=\"$instance\"} * 1000",
           "format": "time_series",
@@ -217,7 +217,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "provisioned_uid_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -280,7 +280,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "provisioned_uid_prometheus"
           },
           "expr": "SUM(pg_stat_database_tup_fetched{datname=~\"$datname\", instance=~\"$instance\"})",
           "format": "time_series",
@@ -295,7 +295,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "provisioned_uid_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -358,7 +358,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "provisioned_uid_prometheus"
           },
           "expr": "SUM(pg_stat_database_tup_inserted{release=\"$release\", datname=~\"$datname\", instance=~\"$instance\"})",
           "format": "time_series",
@@ -373,7 +373,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "provisioned_uid_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -436,7 +436,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "provisioned_uid_prometheus"
           },
           "expr": "SUM(pg_stat_database_tup_updated{datname=~\"$datname\", instance=~\"$instance\"})",
           "format": "time_series",
@@ -451,7 +451,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "provisioned_uid_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -514,7 +514,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "provisioned_uid_prometheus"
           },
           "expr": "pg_settings_max_connections{release=\"$release\", instance=\"$instance\"}",
           "format": "time_series",
@@ -532,7 +532,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "provisioned_uid_prometheus"
       },
       "description": "Average user and system CPU time spent in seconds.",
       "fieldConfig": {
@@ -581,7 +581,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "provisioned_uid_prometheus"
           },
           "expr": "avg(rate(process_cpu_seconds_total{release=\"$release\", instance=\"$instance\"}[5m]) * 1000)",
           "format": "time_series",
@@ -627,7 +627,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "provisioned_uid_prometheus"
       },
       "description": "Virtual and Resident memory size in bytes, averages over 5 min interval",
       "fieldConfig": {
@@ -676,7 +676,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "provisioned_uid_prometheus"
           },
           "expr": "avg(rate(process_resident_memory_bytes{release=\"$release\", instance=\"$instance\"}[5m]))",
           "format": "time_series",
@@ -687,7 +687,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "provisioned_uid_prometheus"
           },
           "expr": "avg(rate(process_virtual_memory_bytes{release=\"$release\", instance=\"$instance\"}[5m]))",
           "format": "time_series",
@@ -733,7 +733,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "provisioned_uid_prometheus"
       },
       "description": "Number of open file descriptors",
       "fieldConfig": {
@@ -782,7 +782,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "provisioned_uid_prometheus"
           },
           "expr": "process_open_fds{release=\"$release\", instance=\"$instance\"}",
           "format": "time_series",
@@ -850,7 +850,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "provisioned_uid_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -913,7 +913,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "provisioned_uid_prometheus"
           },
           "expr": "pg_settings_shared_buffers_bytes{instance=\"$instance\"}",
           "format": "time_series",
@@ -927,7 +927,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "provisioned_uid_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -990,7 +990,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "provisioned_uid_prometheus"
           },
           "expr": "pg_settings_effective_cache_size_bytes{instance=\"$instance\"}",
           "format": "time_series",
@@ -1004,7 +1004,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "provisioned_uid_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -1067,7 +1067,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "provisioned_uid_prometheus"
           },
           "expr": "pg_settings_maintenance_work_mem_bytes{instance=\"$instance\"}",
           "format": "time_series",
@@ -1081,7 +1081,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "provisioned_uid_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -1144,7 +1144,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "provisioned_uid_prometheus"
           },
           "expr": "pg_settings_work_mem_bytes{instance=\"$instance\"}",
           "format": "time_series",
@@ -1159,7 +1159,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "provisioned_uid_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -1223,7 +1223,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "provisioned_uid_prometheus"
           },
           "expr": "pg_settings_max_wal_size_bytes{instance=\"$instance\"}",
           "format": "time_series",
@@ -1237,7 +1237,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "provisioned_uid_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -1300,7 +1300,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "provisioned_uid_prometheus"
           },
           "expr": "pg_settings_random_page_cost{instance=\"$instance\"}",
           "format": "time_series",
@@ -1314,7 +1314,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "provisioned_uid_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -1377,7 +1377,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "provisioned_uid_prometheus"
           },
           "expr": "pg_settings_seq_page_cost",
           "format": "time_series",
@@ -1391,7 +1391,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "provisioned_uid_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -1454,7 +1454,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "provisioned_uid_prometheus"
           },
           "expr": "pg_settings_max_worker_processes{instance=\"$instance\"}",
           "format": "time_series",
@@ -1468,7 +1468,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "provisioned_uid_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -1531,7 +1531,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "provisioned_uid_prometheus"
           },
           "expr": "pg_settings_max_parallel_workers{instance=\"$instance\"}",
           "format": "time_series",
@@ -1575,7 +1575,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "provisioned_uid_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -1626,7 +1626,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "provisioned_uid_prometheus"
           },
           "expr": "pg_stat_activity_count{datname=~\"$datname\", instance=~\"$instance\", state=\"active\"} !=0",
           "format": "time_series",
@@ -1675,7 +1675,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "provisioned_uid_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -1724,7 +1724,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "provisioned_uid_prometheus"
           },
           "expr": "irate(pg_stat_database_xact_commit{instance=\"$instance\", datname=~\"$datname\"}[5m])",
           "format": "time_series",
@@ -1735,7 +1735,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "provisioned_uid_prometheus"
           },
           "expr": "irate(pg_stat_database_xact_rollback{instance=\"$instance\", datname=~\"$datname\"}[5m])",
           "format": "time_series",
@@ -1781,7 +1781,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "provisioned_uid_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -1832,7 +1832,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "provisioned_uid_prometheus"
           },
           "expr": "pg_stat_database_tup_updated{datname=~\"$datname\", instance=~\"$instance\"} != 0",
           "format": "time_series",
@@ -1879,7 +1879,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "provisioned_uid_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -1930,7 +1930,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "provisioned_uid_prometheus"
           },
           "expr": "pg_stat_database_tup_fetched{datname=~\"$datname\", instance=~\"$instance\"} != 0",
           "format": "time_series",
@@ -1977,7 +1977,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "provisioned_uid_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -2028,7 +2028,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "provisioned_uid_prometheus"
           },
           "expr": "pg_stat_database_tup_inserted{datname=~\"$datname\", instance=~\"$instance\"} != 0",
           "format": "time_series",
@@ -2075,7 +2075,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "provisioned_uid_prometheus"
       },
       "decimals": 0,
       "fieldConfig": {
@@ -2128,7 +2128,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "provisioned_uid_prometheus"
           },
           "expr": "pg_locks_count{datname=~\"$datname\", instance=~\"$instance\", mode=~\"$mode\"} != 0",
           "format": "time_series",
@@ -2177,7 +2177,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "provisioned_uid_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -2228,7 +2228,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "provisioned_uid_prometheus"
           },
           "expr": "pg_stat_database_tup_returned{datname=~\"$datname\", instance=~\"$instance\"} != 0",
           "format": "time_series",
@@ -2275,7 +2275,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "provisioned_uid_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -2326,7 +2326,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "provisioned_uid_prometheus"
           },
           "expr": "pg_stat_activity_count{datname=~\"$datname\", instance=~\"$instance\", state=~\"idle|idle in transaction|idle in transaction (aborted)\"}",
           "format": "time_series",
@@ -2374,7 +2374,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "provisioned_uid_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -2425,7 +2425,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "provisioned_uid_prometheus"
           },
           "expr": "pg_stat_database_tup_deleted{datname=~\"$datname\", instance=~\"$instance\"} != 0",
           "format": "time_series",
@@ -2472,7 +2472,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "provisioned_uid_prometheus"
       },
       "decimals": 2,
       "fill": 1,
@@ -2510,7 +2510,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "provisioned_uid_prometheus"
           },
           "expr": "pg_stat_database_blks_hit{instance=\"$instance\", datname=~\"$datname\"} / (pg_stat_database_blks_read{instance=\"$instance\", datname=~\"$datname\"} + pg_stat_database_blks_hit{instance=\"$instance\", datname=~\"$datname\"})",
           "format": "time_series",
@@ -2557,7 +2557,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "provisioned_uid_prometheus"
       },
       "fill": 1,
       "gridPos": {
@@ -2594,7 +2594,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "provisioned_uid_prometheus"
           },
           "expr": "irate(pg_stat_bgwriter_buffers_backend{instance=\"$instance\"}[5m])",
           "format": "time_series",
@@ -2605,7 +2605,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "provisioned_uid_prometheus"
           },
           "expr": "irate(pg_stat_bgwriter_buffers_alloc{instance=\"$instance\"}[5m])",
           "format": "time_series",
@@ -2616,7 +2616,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "provisioned_uid_prometheus"
           },
           "expr": "irate(pg_stat_bgwriter_buffers_backend_fsync{instance=\"$instance\"}[5m])",
           "format": "time_series",
@@ -2627,7 +2627,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "provisioned_uid_prometheus"
           },
           "expr": "irate(pg_stat_bgwriter_buffers_checkpoint{instance=\"$instance\"}[5m])",
           "format": "time_series",
@@ -2638,7 +2638,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "provisioned_uid_prometheus"
           },
           "expr": "irate(pg_stat_bgwriter_buffers_clean{instance=\"$instance\"}[5m])",
           "format": "time_series",
@@ -2683,7 +2683,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "provisioned_uid_prometheus"
       },
       "decimals": 0,
       "fill": 1,
@@ -2721,7 +2721,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "provisioned_uid_prometheus"
           },
           "expr": "irate(pg_stat_database_conflicts{instance=\"$instance\", datname=~\"$datname\"}[5m])",
           "format": "time_series",
@@ -2732,7 +2732,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "provisioned_uid_prometheus"
           },
           "expr": "irate(pg_stat_database_deadlocks{instance=\"$instance\", datname=~\"$datname\"}[5m])",
           "format": "time_series",
@@ -2778,7 +2778,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "provisioned_uid_prometheus"
       },
       "description": "Total amount of data written to temporary files by queries in this database. All temporary files are counted, regardless of why the temporary file was created, and regardless of the log_temp_files setting.",
       "fill": 1,
@@ -2816,7 +2816,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "provisioned_uid_prometheus"
           },
           "expr": "irate(pg_stat_database_temp_bytes{instance=\"$instance\", datname=~\"$datname\"}[5m])",
           "format": "time_series",
@@ -2862,7 +2862,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "provisioned_uid_prometheus"
       },
       "fill": 1,
       "gridPos": {
@@ -2898,7 +2898,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "provisioned_uid_prometheus"
           },
           "expr": "irate(pg_stat_bgwriter_checkpoint_write_time{instance=\"$instance\"}[5m])",
           "format": "time_series",
@@ -2909,7 +2909,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "provisioned_uid_prometheus"
           },
           "expr": "irate(pg_stat_bgwriter_checkpoint_sync_time{instance=\"$instance\"}[5m])",
           "format": "time_series",
@@ -3044,7 +3044,7 @@
         },
         "datasource": {
           "type": "prometheus",
-          "uid": "PBFA97CFB590B2093"
+          "uid": "provisioned_uid_prometheus"
         },
         "definition": "",
         "hide": 0,
@@ -3075,7 +3075,7 @@
         },
         "datasource": {
           "type": "prometheus",
-          "uid": "PBFA97CFB590B2093"
+          "uid": "provisioned_uid_prometheus"
         },
         "definition": "",
         "hide": 0,
@@ -3105,7 +3105,7 @@
         },
         "datasource": {
           "type": "prometheus",
-          "uid": "PBFA97CFB590B2093"
+          "uid": "provisioned_uid_prometheus"
         },
         "definition": "",
         "hide": 0,
@@ -3135,7 +3135,7 @@
         },
         "datasource": {
           "type": "prometheus",
-          "uid": "PBFA97CFB590B2093"
+          "uid": "provisioned_uid_prometheus"
         },
         "definition": "",
         "hide": 0,
@@ -3165,7 +3165,7 @@
         },
         "datasource": {
           "type": "prometheus",
-          "uid": "PBFA97CFB590B2093"
+          "uid": "provisioned_uid_prometheus"
         },
         "definition": "",
         "hide": 0,
