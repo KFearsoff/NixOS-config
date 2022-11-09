@@ -25,9 +25,19 @@ in {
     services.grafana = {
       enable = true;
 
-      settings.server = {
-        root_url = "https://${domain}/grafana";
-        serve_from_sub_path = true;
+      settings = {
+        server = {
+          root_url = "https://${domain}/grafana";
+          serve_from_sub_path = true;
+        };
+
+        database = {
+          type = "postgres";
+          user = "grafana";
+          host = "/run/postgresql";
+          name = "grafana";
+          password = "";
+        };
       };
 
       provision = {
@@ -51,6 +61,16 @@ in {
           ];
         };
       };
+    };
+
+    services.postgresql = {
+      ensureDatabases = ["grafana"];
+      ensureUsers = [
+        {
+          name = "grafana";
+          ensurePermissions."DATABASE grafana" = "ALL PRIVILEGES";
+        }
+      ];
     };
 
     services.nginx.virtualHosts."${domain}" = {
