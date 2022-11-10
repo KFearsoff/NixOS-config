@@ -37,7 +37,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "provisioned_uid_prometheus"
       },
       "fill": 1,
       "fillGradient": 0,
@@ -78,7 +78,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "provisioned_uid_prometheus"
           },
           "expr": "probe_duration_seconds{instance=~\"$target\"}",
           "format": "time_series",
@@ -148,7 +148,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "provisioned_uid_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -227,7 +227,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "provisioned_uid_prometheus"
           },
           "expr": "probe_success{instance=~\"$target\"}",
           "format": "time_series",
@@ -246,7 +246,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "provisioned_uid_prometheus"
       },
       "fill": 1,
       "fillGradient": 0,
@@ -287,7 +287,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "provisioned_uid_prometheus"
           },
           "expr": "probe_http_duration_seconds{instance=~\"$target\"}",
           "format": "time_series",
@@ -334,7 +334,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "provisioned_uid_prometheus"
       },
       "fill": 1,
       "fillGradient": 0,
@@ -375,7 +375,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "provisioned_uid_prometheus"
           },
           "expr": "probe_duration_seconds{instance=~\"$target\"}",
           "format": "time_series",
@@ -418,7 +418,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "provisioned_uid_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -498,7 +498,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "provisioned_uid_prometheus"
           },
           "expr": "probe_http_status_code{instance=~\"$target\"}",
           "format": "time_series",
@@ -513,7 +513,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "provisioned_uid_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -576,7 +576,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "provisioned_uid_prometheus"
           },
           "expr": "probe_http_version{instance=~\"$target\"}",
           "format": "time_series",
@@ -590,7 +590,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "provisioned_uid_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -669,7 +669,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "provisioned_uid_prometheus"
           },
           "expr": "probe_http_ssl{instance=~\"$target\"}",
           "format": "time_series",
@@ -684,7 +684,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "provisioned_uid_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -764,7 +764,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "provisioned_uid_prometheus"
           },
           "expr": "probe_ssl_earliest_cert_expiry{instance=~\"$target\"} - time()",
           "format": "time_series",
@@ -779,7 +779,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "provisioned_uid_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -842,7 +842,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "provisioned_uid_prometheus"
           },
           "expr": "avg(probe_duration_seconds{instance=~\"$target\"})",
           "format": "time_series",
@@ -857,7 +857,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "provisioned_uid_prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -921,7 +921,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "provisioned_uid_prometheus"
           },
           "expr": "avg(probe_dns_lookup_time_seconds{instance=~\"$target\"})",
           "format": "time_series",
@@ -1040,7 +1040,7 @@
         },
         "datasource": {
           "type": "prometheus",
-          "uid": "PBFA97CFB590B2093"
+          "uid": "provisioned_uid_prometheus"
         },
         "definition": "",
         "hide": 0,

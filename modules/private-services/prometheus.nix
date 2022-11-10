@@ -15,6 +15,8 @@ in {
   };
 
   config = mkIf cfg.enable {
+    nixchad.alertmanager.enable = mkDefault true;
+
     services.prometheus = {
       enable = true;
       # The default of 1m is pretty stupid. It breaks Grafana's $__rate_interval.
@@ -23,39 +25,22 @@ in {
       globalConfig.scrape_interval = "15s";
       scrapeConfigs = [
         {
-          job_name = "Prometheus";
+          job_name = "prometheus";
           static_configs = [
             {
               targets = [
-                "blackberry:33000" # node exporter
-                "blackberry:33001" # nginx
-                "blackberry:33002" # postgresql
-                "blackberry:33004" # smartctl exporter
-                "blackberry:33006" # cadvisor
-                "blackberry:33100" # loki
-                "blackberry:33101" # promtail
-
-                "blueberry:33000" # node exporter
-                "blueberry:33004" # smartctl exporter
-                "blueberry:33006" # cadvisor
-                "blueberry:33101" # promtail
-
-                "virtberry:33000" # node exporter
-                "virtberry:33004" # smartctl exporter
-                "virtberry:33006" # cadvisor
-                "virtberry:33101" # promtail
+                "localhost:${prometheusPort}"
               ];
             }
           ];
         }
         {
-          job_name = "coredns";
+          job_name = "private-services";
           static_configs = [
             {
               targets = [
-                "blackberry:33003" # coredns
-                "blueberry:33003" # coredns
-                "virtberry:33003" # coredns
+                "localhost:33001" # nginx
+                "localhost:33002" # postgresql
               ];
             }
           ];

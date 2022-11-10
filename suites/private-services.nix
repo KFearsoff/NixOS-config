@@ -8,6 +8,7 @@
     nixchad.nitter.enable = true;
     nixchad.vaultwarden.enable = true;
     nixchad.postgres-exporter.enable = true;
+    nixchad.blackbox-exporter.enable = true;
     nixchad.loki.enable = true;
     nixchad.photoprism.enable = true;
     networking.nat.enable = true;

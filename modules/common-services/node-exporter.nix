@@ -17,6 +17,17 @@ in {
       port = 33000;
     };
 
+    services.prometheus.scrapeConfigs = [
+      {
+        job_name = "node";
+        static_configs = [
+          {
+            targets = map (x: "${x}:33000") config.lib.metadata.hostList;
+          }
+        ];
+      }
+    ];
+
     networking.firewall.interfaces.tailscale0.allowedTCPPorts = [33000];
   };
 }

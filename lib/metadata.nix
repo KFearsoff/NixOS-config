@@ -16,5 +16,9 @@ in {
     sshPubkeyList = (zipAttrs (attrValues sshPubkeyEntries)).ssh-pubkey;
     magicDNS = hostSuffix: concatMapStringsSep "\n" (x: "${x}${hostSuffix}") ipv4HostsList;
     getInterface = host: metadataNoTypes."${host}".interface;
+    hasIpv4 = host: builtins.hasAttr "ipv4" metadataNoTypes."${host}";
+    hasIpv6 = host: builtins.hasAttr "ipv6" metadataNoTypes."${host}";
+    hostList = builtins.attrNames metadata.hosts;
+    phoneList = builtins.attrNames metadata.phones;
   };
 }

@@ -16,6 +16,7 @@ virtberry IN A 100.73.210.29
 
 ; services
 prometheus.blackberry IN CNAME blackberry.box.
+alertmanager.blackberry IN CNAME blackberry.box.
 vaultwarden.blackberry IN CNAME blackberry.box.
 photoprism.blackberry IN CNAME blackberry.box.
 nitter.blackberry IN CNAME blackberry.box.

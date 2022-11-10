@@ -25,17 +25,25 @@ in {
     services.grafana = {
       enable = true;
 
-      settings.server = {
-        root_url = "https://${domain}/grafana";
-        serve_from_sub_path = true;
+      settings = {
+        server = {
+          root_url = "https://${domain}/grafana";
+          serve_from_sub_path = true;
+        };
+
+        database = {
+          type = "postgres";
+          user = "grafana";
+          host = "/run/postgresql";
+          name = "grafana";
+          password = "";
+        };
       };
 
       provision = {
         enable = true;
 
         datasources.settings = {
-          apiVersion = 1;
-
           datasources = [
             (mkDatasource "prometheus" "http://localhost:9090" {})
             (mkDatasource "loki" "http://localhost:33100" {})
@@ -43,8 +51,6 @@ in {
         };
 
         dashboards.settings = {
-          apiVersion = 1;
-
           providers = [
             {
               options = {
@@ -55,6 +61,16 @@ in {
           ];
         };
       };
+    };
+
+    services.postgresql = {
+      ensureDatabases = ["grafana"];
+      ensureUsers = [
+        {
+          name = "grafana";
+          ensurePermissions."DATABASE grafana" = "ALL PRIVILEGES";
+        }
+      ];
     };
 
     services.nginx.virtualHosts."${domain}" = {
