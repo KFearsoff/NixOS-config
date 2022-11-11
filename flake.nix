@@ -103,6 +103,9 @@
         };
 
         checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks inputs.self.deploy) inputs.deploy-rs.lib;
+
+        packages.x86_64-linux.iso = let image = buildSystem { hostname = "iso"; };
+        in image.config.system.build."isoImage";
       }
       // inputs.flake-utils.lib.eachDefaultSystem (system: {
         formatter = pkgs.alejandra;

@@ -1,4 +1,4 @@
-{ lib, writeShellApplication, disk ? null, user ? null, ... }: 
+{ lib, writeShellApplication, disk ? null, user ? null, install-host ? null, ... }: 
 with lib;
 writeShellApplication {
   name = "chad-bootstrap";
@@ -7,6 +7,7 @@ writeShellApplication {
     # Workaround the nounset option
     ${optionalString (disk == null) "read -rp \"Enter the disk to install the system on: \" DISK"}
     ${optionalString (user == null) "read -rp \"Enter the user to be created with the system: \" USER"}
+    ${optionalString (hostname == null) "read -rp \"Enter the host to be install on the system: \" INSTALL_HOST"}
 
     parted -a opt --script "$DISK" \
       mklabel gpt \
@@ -29,6 +30,7 @@ writeShellApplication {
     btrfs subvolume create /mnt/persist
     btrfs subvolume snapshot -r /mnt/root /mnt/root-blank
     btrfs subvolume snapshot -r /mnt/home-"$USER" /mnt/home-"$USER"-blank
+    umount /mnt
 
     mount -o subvol=root,compress-force=zstd,noatime /dev/mapper/crypt /mnt
     mkdir -p /mnt/home/"$USER"
@@ -40,5 +42,7 @@ writeShellApplication {
 
     mkdir /mnt/boot
     mount /dev/disk/by-label/boot /mnt/boot
+
+    nixos-install --root /mnt --flake github:KFearsoff/NixOS-config#"$INSTALL_HOST"
   '';
 }
