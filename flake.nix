@@ -61,10 +61,9 @@
     };
       rec {
         overlays = {
-          default = import ./overlays;
           nur = inputs.nur.overlay;
           neovim-nightly-overlay = inputs.neovim-nightly-overlay.overlay;
-        };
+        } // (import ./overlays);
 
         nixosConfigurations = {
           blackberry = buildSystem {
