@@ -206,25 +206,14 @@ in {
           inherit (colorscheme) colors;
         in ''
           * {
+            background: inherit;
             border: none;
             border-radius: 0;
+            color: inherit;
             font-size: 16px;
             font-family: Iosevka;
             min-height: 0;
             padding: 0 0px;
-          }
-
-          button {
-            border: none;
-          }
-
-          label:disabled,
-          button:disabled {
-            color: inherit;
-          }
-
-          button:hover {
-            background: inherit;
           }
 
           window#waybar {
