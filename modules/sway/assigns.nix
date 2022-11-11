@@ -13,7 +13,7 @@ in {
       default = {
         "1" = [{app_id = "telegramdesktop";} {app_id = "Element";}];
         "2" = [{app_id = "chromium-browser";}];
-        "4" = [{app_id = "FreeTube";}];
+        "4" = [{class = "FreeTube";}];
         "5" = [{app_id = "org.keepassxc.KeePassXC";}];
         "6" = [{class = "obsidian";}];
         "7" = [
