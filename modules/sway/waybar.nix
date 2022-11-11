@@ -211,6 +211,7 @@ in {
             font-size: 16px;
             font-family: Iosevka;
             min-height: 0;
+            padding: 0 0px;
           }
 
           button {
