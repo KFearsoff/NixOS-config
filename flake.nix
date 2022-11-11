@@ -52,11 +52,11 @@
       inherit inputs;
       inherit (inputs.self) overlays;
       patches = [
-        overlays/0001-rollback-waybar-0.9.13.patch
-        {
-          url = "https://github.com/NixOS/nixpkgs/pull/198638.patch";
-          sha256 = "sha256-uL9fU8+0CnmR0fBCmz8GhNtmuJOmgo9j8rmFRTqM2iE=";
-        }
+        #overlays/0001-rollback-waybar-0.9.13.patch
+        #{
+        #  url = "https://github.com/NixOS/nixpkgs/pull/198638.patch";
+        #  sha256 = "sha256-uL9fU8+0CnmR0fBCmz8GhNtmuJOmgo9j8rmFRTqM2iE=";
+        #}
       ];
     };
       rec {

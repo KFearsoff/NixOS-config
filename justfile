@@ -19,7 +19,7 @@ gc-full:
   @sudo nix-collect-garbage --delete-old
 
 update:
-  @nix flake update --commit-lock-file
+  @nix flake update
 
 history:
   @nix profile diff-closures --profile /nix/var/nix/profiles/system
