@@ -213,6 +213,19 @@ in {
             min-height: 0;
           }
 
+          button {
+            border: none;
+          }
+
+          label:disabled,
+          button:disabled {
+            color: inherit;
+          }
+
+          button:hover {
+            background: inherit;
+          }
+
           window#waybar {
             color: #${colors.base05};
             background: #${colors.base00};
