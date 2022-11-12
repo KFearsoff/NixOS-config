@@ -7,7 +7,7 @@ writeShellApplication {
     # Workaround the nounset option
     ${optionalString (disk == null) "read -rp \"Enter the disk to install the system on: \" DISK"}
     ${optionalString (user == null) "read -rp \"Enter the user to be created with the system: \" USER"}
-    ${optionalString (hostname == null) "read -rp \"Enter the host to be install on the system: \" INSTALL_HOST"}
+    ${optionalString (install-host == null) "read -rp \"Enter the host to be install on the system: \" INSTALL_HOST"}
 
     parted -a opt --script "$DISK" \
       mklabel gpt \

@@ -21,6 +21,7 @@ in {
         jq
         nix-tree
         ncdu
+        chad-bootstrap
       ]
       ++ optional (config.nixchad.filesystem.enable && config.nixchad.filesystem.type == "btrfs") btdu
       ++ optionals (config.nixchad.filesystem.enable && config.nixchad.filesystem.type == "ext4") [
