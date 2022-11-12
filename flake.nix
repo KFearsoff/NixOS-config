@@ -105,10 +105,9 @@
         checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks inputs.self.deploy) inputs.deploy-rs.lib;
 
         packages.x86_64-linux = {
-          chad-bootstrap-test = pkgs.callPackage ./tests/chad-bootstrap.nix {};
           iso = let image = buildSystem { hostname = "iso"; };
           in image.config.system.build."isoImage";
-        };
+        } // pkgs.lib.mapAttrs (n: v: v) (import ./pkgs {inherit pkgs;});
       }
       // inputs.flake-utils.lib.eachDefaultSystem (system: {
         formatter = pkgs.alejandra;
