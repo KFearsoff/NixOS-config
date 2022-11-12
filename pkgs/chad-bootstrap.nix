@@ -4,6 +4,8 @@ writeShellApplication {
   name = "chad-bootstrap";
 
   text = ''
+    set -x
+
     # Workaround the nounset option
     ${optionalString (disk == null) "read -rp \"Enter the disk to install the system on: \" DISK"}
     ${optionalString (user == null) "read -rp \"Enter the user to be created with the system: \" USER"}

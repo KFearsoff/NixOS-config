@@ -8,7 +8,7 @@
 
   testScript = ''
     machine.wait_for_unit("multi-user.target")
-    machine.succeed("whereis chad-bootstrap")
+    print(machine.succeed("whereis chad-bootstrap"))
     machine.shutdown()
   '';
 }
