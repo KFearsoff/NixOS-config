@@ -1,7 +1,9 @@
-{ lib, writeShellApplication, disk ? null, user ? null, install-host ? null, ... }: 
+{ lib, writeShellApplication, cryptsetup, parted, btrfs-progs, disk ? null, user ? null, install-host ? null, ... }: 
 with lib;
 writeShellApplication {
   name = "chad-bootstrap";
+
+  runtimeInputs = [cryptsetup parted btrfs-progs];
 
   text = ''
     set -x

@@ -5,7 +5,7 @@
   {
     environment.systemPackages = let
       chad-bootstrap = pkgs.callPackage ../pkgs/chad-bootstrap.nix {disk = "/dev/vdb"; user = "nixchad"; install-host = "blackberry";};
-    in [ chad-bootstrap pkgs.cryptsetup pkgs.parted pkgs.btrfs-progs ];
+    in [ chad-bootstrap ];
 
     virtualisation.emptyDiskImages = [ 4096 ]; # 4 gigabytes
   };
