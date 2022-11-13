@@ -1,5 +1,11 @@
-{ config, modulesPath, pkgs, lib, username, ... }:
 {
+  config,
+  modulesPath,
+  pkgs,
+  lib,
+  username,
+  ...
+}: {
   imports = [
     "${toString modulesPath}/installer/cd-dvd/installation-cd-minimal.nix"
   ];
@@ -9,7 +15,7 @@
   networking.wireless.enable = lib.mkForce false;
   nixchad.impermanence.enable = lib.mkForce false;
 
-  environment.systemPackages = [ pkgs.chad-bootstrap ];
+  environment.systemPackages = [pkgs.chad-bootstrap];
   users.users."${username}".password = "";
 
   # EFI booting

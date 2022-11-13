@@ -1,13 +1,25 @@
-{ pkgs, nixosTest, ... }: nixosTest {
+{
+  pkgs,
+  nixosTest,
+  ...
+}:
+nixosTest {
   name = "chad-bootstrap";
 
-  nodes.machine = { pkgs, lib, ... }:
-  {
+  nodes.machine = {
+    pkgs,
+    lib,
+    ...
+  }: {
     environment.systemPackages = let
-      chad-bootstrap = pkgs.callPackage ../pkgs/chad-bootstrap.nix {disk = "/dev/vdb"; user = "nixchad"; install-host = "blackberry";};
-    in [ chad-bootstrap ];
+      chad-bootstrap = pkgs.callPackage ../pkgs/chad-bootstrap.nix {
+        disk = "/dev/vdb";
+        user = "nixchad";
+        install-host = "blackberry";
+      };
+    in [chad-bootstrap];
 
-    virtualisation.emptyDiskImages = [ 4096 ]; # 4 gigabytes
+    virtualisation.emptyDiskImages = [4096]; # 4 gigabytes
   };
 
   testScript = ''
