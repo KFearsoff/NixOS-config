@@ -61,10 +61,9 @@
     };
       rec {
         overlays = {
-          default = import ./overlays;
           nur = inputs.nur.overlay;
           neovim-nightly-overlay = inputs.neovim-nightly-overlay.overlay;
-        };
+        } // (import ./overlays);
 
         nixosConfigurations = {
           blackberry = buildSystem {
@@ -104,6 +103,11 @@
         };
 
         checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks inputs.self.deploy) inputs.deploy-rs.lib;
+
+        packages.x86_64-linux = {
+          iso = let image = buildSystem { hostname = "iso"; };
+          in image.config.system.build."isoImage";
+        } // pkgs.lib.mapAttrs (n: v: v) (import ./pkgs {inherit pkgs;});
       }
       // inputs.flake-utils.lib.eachDefaultSystem (system: {
         formatter = pkgs.alejandra;
