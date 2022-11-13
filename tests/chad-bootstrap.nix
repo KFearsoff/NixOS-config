@@ -3,12 +3,18 @@
 
   nodes.machine = { pkgs, lib, ... }:
   {
-    environment.systemPackages = with pkgs; [ (pkgs.callPackage ../pkgs/chad-bootstrap.nix {}) ];
+    environment.systemPackages = let
+      chad-bootstrap = pkgs.callPackage ../pkgs/chad-bootstrap.nix {disk = "/dev/vdb"; user = "nixchad"; install-host = "blackberry";};
+    in [ chad-bootstrap pkgs.cryptsetup pkgs.parted pkgs.btrfs-progs ];
+
+    virtualisation.emptyDiskImages = [ 4096 ]; # 4 gigabytes
   };
 
   testScript = ''
     machine.wait_for_unit("multi-user.target")
     print(machine.succeed("whereis chad-bootstrap"))
+    print(machine.succeed("mkdir /mnt"))
+    print(machine.succeed("chad-bootstrap"))
     machine.shutdown()
   '';
 }

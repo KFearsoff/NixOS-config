@@ -10,6 +10,10 @@ writeShellApplication {
     ${optionalString (disk == null) "read -rp \"Enter the disk to install the system on: \" DISK"}
     ${optionalString (user == null) "read -rp \"Enter the user to be created with the system: \" USER"}
     ${optionalString (install-host == null) "read -rp \"Enter the host to be install on the system: \" INSTALL_HOST"}
+    # Workaround the nounset option
+    ${optionalString (disk != null) "DISK=${disk}"}
+    ${optionalString (user != null) "USER=${user}"}
+    ${optionalString (install-host != null) "INSTALL_HOST=${install-host}"}
 
     parted -a opt --script "$DISK" \
       mklabel gpt \
@@ -19,8 +23,8 @@ writeShellApplication {
       name 1 boot \
       name 2 root
 
-    cryptsetup luksFormat /dev/disk/by-partlabel/root
-    cryptsetup luksOpen /dev/disk/by-partlabel/root crypt
+    cryptsetup -q luksFormat /dev/disk/by-partlabel/root /dev/zero --keyfile-size=1
+    cryptsetup luksOpen /dev/disk/by-partlabel/root crypt --key-file=/dev/zero --keyfile-size=1
 
     mkfs.fat -F 32 -n boot /dev/disk/by-partlabel/boot
     mkfs.btrfs -L root /dev/mapper/crypt
