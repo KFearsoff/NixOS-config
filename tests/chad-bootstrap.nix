@@ -14,7 +14,6 @@
     machine.wait_for_unit("multi-user.target")
     print(machine.succeed("whereis chad-bootstrap"))
     print(machine.succeed("mkdir /mnt"))
-    print(machine.succeed("chad-bootstrap"))
     machine.shutdown()
   '';
 }
