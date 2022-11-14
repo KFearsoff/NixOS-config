@@ -28,6 +28,17 @@ in {
       ];
     };
 
+    boot.initrd.postDeviceCommands = lib.mkAfter ''
+      mkdir /btrfs_tmp
+      mount /dev/disk/by-label/root /btrfs_tmp
+      if [[ -e /btrfs_tmp/root ]]; then
+        mv /btrfs_tmp/root "/btrfs_tmp/old_root_$(date "+%Y-%m-%-d_%H:%M:%S")"
+      fi
+      btrfs subvolume create /btrfs_tmp/root
+      sync
+      umount /btrfs_tmp
+    '';
+
     services = {
       openssh = {
         enable = true;

@@ -43,6 +43,12 @@
     neededForBoot = true;
   };
 
+  fileSystems."/secrets" = {
+    device = "/dev/disk/by-label/root";
+    fsType = "btrfs";
+    options = ["subvol=secrets" "compress-force=zstd" "noatime"];
+  };
+
   fileSystems."/swap" = {
     device = "/dev/disk/by-label/root";
     fsType = "btrfs";
