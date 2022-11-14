@@ -18,12 +18,16 @@ in {
       Defaults lecture = never
       Defaults insults
     '';
-    environment.etc."machine-id".source = "/persist/etc/machine-id";
     environment.persistence."/persist" = {
       hideMounts = true;
+
+      presets = {
+        essential.enable = true;
+        system.enable = true;
+      };
+
       directories = [
         "/var/log"
-        "/var/lib/nixos" # persist UIDs and GIDs
         "/var/lib/systemd"
       ];
     };
@@ -45,17 +49,6 @@ in {
         passwordAuthentication = false;
         permitRootLogin = "no";
         kbdInteractiveAuthentication = false;
-        hostKeys = [
-          {
-            path = "/persist/etc/ssh/ssh_host_ed25519_key";
-            type = "ed25519";
-          }
-          {
-            path = "/persist/etc/ssh/ssh_host_rsa_key";
-            type = "rsa";
-            bits = "4096";
-          }
-        ];
       };
     };
   };
