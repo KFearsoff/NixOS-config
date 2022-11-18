@@ -43,6 +43,12 @@
     neededForBoot = true;
   };
 
+  fileSystems."/swap" = {
+    device = "/dev/disk/by-label/root";
+    fsType = "btrfs";
+    options = ["subvol=swap" "noatime"];
+  };
+
   fileSystems."/boot" = {
     device = "/dev/disk/by-partlabel/boot";
     fsType = "vfat";
@@ -50,7 +56,12 @@
 
   zramSwap.enable = true;
   zramSwap.memoryPercent = 100;
-  swapDevices = [];
+  swapDevices = [
+    {
+      device = "/swap/swapfile";
+      size = 8196;
+    }
+  ];
 
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
   hardware.enableRedistributableFirmware = true;
