@@ -87,12 +87,5 @@ in {
       };
     };
     networking.firewall.interfaces.tailscale0.allowedTCPPorts = [33100 33110];
-
-    environment.persistence."/persist" = {
-      hideMounts = true;
-      directories = [
-        "${lokiData}"
-      ];
-    };
   };
 }

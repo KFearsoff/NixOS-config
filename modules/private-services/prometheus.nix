@@ -58,12 +58,5 @@ in {
         proxyWebsockets = true;
       };
     };
-
-    environment.persistence."/persist" = {
-      hideMounts = true;
-      directories = [
-        ("/var/lib/" + "${config.services.prometheus.stateDir}")
-      ];
-    };
   };
 }

@@ -24,6 +24,7 @@ in {
       presets = {
         essential.enable = true;
         system.enable = true;
+        services.enable = true;
       };
 
       directories = [

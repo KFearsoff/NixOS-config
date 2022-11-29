@@ -13,6 +13,8 @@ in {
     XDG_SYNC_DIR = "$HOME/Sync";
   };
 
+  environment.persistence."/persist".presets.services.syncthing = false;
+
   services.syncthing = with config.lib.metadata; {
     enable = true;
     overrideDevices = true;
