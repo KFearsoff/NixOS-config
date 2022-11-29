@@ -83,12 +83,5 @@ in {
         proxyWebsockets = true;
       };
     };
-
-    environment.persistence."/persist" = {
-      hideMounts = true;
-      directories = [
-        "${config.services.grafana.dataDir}"
-      ];
-    };
   };
 }

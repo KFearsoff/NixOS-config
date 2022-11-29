@@ -26,12 +26,5 @@ in {
     networking.networkmanager.enable = true;
     services.tailscale.enable = true;
     networking.firewall.checkReversePath = "loose";
-
-    environment.persistence."/persist" = {
-      directories = [
-        "/etc/NetworkManager/system-connections"
-        "/var/lib/tailscale"
-      ];
-    };
   };
 }

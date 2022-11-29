@@ -19,11 +19,5 @@ in {
     hm.home.packages = mkIf config.nixchad.gui.enable [
       pkgs.virt-manager
     ];
-
-    environment.persistence."/persist" = {
-      directories = [
-        "/var/lib/libvirt"
-      ];
-    };
   };
 }
