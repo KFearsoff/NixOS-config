@@ -49,6 +49,11 @@ in {
           (pkgs.lutris.override {extraPkgs = pkgs: cfg.lutrisPackages;})
         ];
       };
+
+      programs.mangohud = {
+        enable = true;
+        enableSessionWide = true;
+      };
     };
   };
 }
