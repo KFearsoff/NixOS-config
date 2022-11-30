@@ -24,10 +24,10 @@
     options = ["subvol=root" "compress-force=zstd" "noatime"];
   };
 
-  fileSystems."/home" = {
+  fileSystems."/home/nixchad" = {
     device = "/dev/disk/by-label/root";
     fsType = "btrfs";
-    options = ["subvol=home" "compress-force=zstd" "noatime"];
+    options = ["subvol=home-nixchad" "compress-force=zstd" "noatime"];
   };
 
   fileSystems."/nix" = {
