@@ -5,5 +5,6 @@
     nixchad.promtail.enable = true;
     nixchad.coredns.enable = true;
     nixchad.cadvisor.enable = true;
+    nixchad.restic.enable = true;
   };
 }
