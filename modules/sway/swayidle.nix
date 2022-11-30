@@ -1,5 +1,27 @@
-{pkgs, ...}: {
-  hm.services.swayidle = {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+with lib; let
+  cfg = config.nixchad.swayidle;
+in {
+  options.nixchad.swayidle = {
+    enable = mkEnableOption "swayidle";
+    timeouts = {
+      lock = mkOption {
+        type = types.int;
+        default = 600;
+      };
+      screen = mkOption {
+        type = types.int;
+        default = 1200;
+      };
+    };
+  };
+
+  config.hm.services.swayidle = mkIf cfg.enable {
     enable = true;
     events = [
       {
@@ -13,11 +35,11 @@
     ];
     timeouts = [
       {
-        timeout = 600;
+        timeout = cfg.timeouts.lock;
         command = "${pkgs.systemd}/bin/loginctl lock-session";
       }
       {
-        timeout = 1200;
+        timeout = cfg.timeouts.screen;
         command = "${pkgs.sway}/bin/swaymsg \"output * dpms off\"";
         resumeCommand = "${pkgs.sway}/bin/swaymsg \"output * dpms on\"";
       }

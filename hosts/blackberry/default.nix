@@ -36,6 +36,7 @@ in {
     battery = false; # PC, doesn't have a battery
   };
   nixchad.sway.backlight = false;
+  nixchad.swayidle.timeouts.lock = 6000;
 
   networking.interfaces."br-libvirt".ipv4.addresses = [
     {
