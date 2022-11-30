@@ -47,6 +47,7 @@
     device = "/dev/disk/by-label/root";
     fsType = "btrfs";
     options = ["subvol=secrets" "compress-force=zstd" "noatime"];
+    neededForBoot = true;
   };
 
   fileSystems."/swap" = {

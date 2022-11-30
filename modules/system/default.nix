@@ -34,11 +34,6 @@ in {
     security.sudo.wheelNeedsPassword = lib.mkDefault false;
     users.users."${username}".openssh.authorizedKeys.keys = config.lib.metadata.sshPubkeyList;
 
-    sops.age.sshKeyPaths = ["/persist/etc/ssh/ssh_host_ed25519_key"];
-    sops.gnupg.sshKeyPaths = lib.mkForce [];
-    sops.age.keyFile = "/var/lib/sops-nix/key.txt";
-    sops.age.generateKey = true;
-
     services.smartd.enable = true;
     services.smartd.defaults.monitored = "-a -o on -s (S/../01/./03|L/(01|07)/.././03)";
     services.fwupd.enable = true;

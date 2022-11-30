@@ -54,7 +54,6 @@
           }
           inputs.home-manager.nixosModules.home-manager
           inputs.impermanence.nixosModules.impermanence
-          inputs.sops-nix.nixosModules.sops
           (../users + "/${username}.nix")
           ../modules
           ./metadata.nix

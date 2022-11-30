@@ -51,7 +51,6 @@ in {
           push.autoSetupRemote = "true";
           diff = {
             colorMoved = "default";
-            sopsdiffer.textconv = "${pkgs.sops}/bin/sops -d";
           };
           sequence.editor = optionalString utilsEnabled "${pkgs.git-interactive-rebase-tool}/bin/interactive-rebase-tool";
           interactive-rebase-tool = {
