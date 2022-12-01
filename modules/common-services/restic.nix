@@ -22,7 +22,7 @@ in {
         repository = "/run/media/nixchad/Ventoy/restic-backups";
         backupPrepareCommand = "${pkgs.coreutils}/bin/sleep 5";
       };
-      usb-flash-drive = {
+      photos-usb = {
         passwordFile = "/secrets/usb-flash-drive-backup";
         paths = [
           "/home/nixchad/Pictures/Photos"
@@ -55,11 +55,11 @@ in {
       };
     };
 
-    systemd.services.restic-backups-usb-flash-drive = {
+    systemd.services.restic-backups-photos-usb = {
       after = ["dev-disk-by\\x2duuid-8277\\x2dDD24.device" "restic-backups-init-usb-repo.service"];
       wantedBy = ["dev-disk-by\\x2duuid-8277\\x2dDD24.device"];
     };
-    systemd.timers.restic-backups-usb-flash-drive.enable = false;
+    systemd.timers.restic-backups-photos-usb.enable = false;
     systemd.services.restic-backups-secrets-usb = {
       after = ["dev-disk-by\\x2duuid-8277\\x2dDD24.device" "restic-backups-init-usb-repo.service"];
       wantedBy = ["dev-disk-by\\x2duuid-8277\\x2dDD24.device"];
