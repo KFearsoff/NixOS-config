@@ -43,6 +43,9 @@
     deploy-rs.inputs.nixpkgs.follows = "nixpkgs";
     deploy-rs.inputs.utils.follows = "flake-utils";
     deploy-rs.inputs.flake-compat.follows = "flake-compat";
+
+    pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
+    pre-commit-hooks.inputs.flake-utils.follows = "flake-utils";
   };
 
   outputs = inputs:
@@ -116,7 +119,17 @@
       // inputs.flake-utils.lib.eachDefaultSystem (system: {
         formatter = pkgs.alejandra;
 
+        checks = {
+          pre-commit-check = inputs.pre-commit-hooks.lib.${system}.run {
+            src = ./.;
+            hooks = {
+            };
+          };
+        };
+
         devShells.default = pkgs.mkShell {
+          inherit (inputs.self.checks.${system}.pre-commit-check) shellHook;
+
           buildInputs = with pkgs; [
             just
             inputs.deploy-rs.defaultPackage.${system}
