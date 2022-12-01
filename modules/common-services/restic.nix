@@ -26,7 +26,17 @@ in {
         user = "nixchad";
         repository = "/run/media/nixchad/Ventoy/restic-backups";
         backupPrepareCommand = "${pkgs.coreutils}/bin/sleep 5";
-        extraBackupArgs = ["--host=common" "--verbose"];
+        extraBackupArgs = ["--verbose" "--host common" "--tag photos"];
+      };
+      secrets-usb = {
+        passwordFile = "/secrets/usb-flash-drive-backup";
+        paths = [
+          "/secrets"
+        ];
+        user = "nixchad";
+        repository = "/run/media/nixchad/Ventoy/restic-backups";
+        backupPrepareCommand = "${pkgs.coreutils}/bin/sleep 5";
+        extraBackupArgs = ["--verbose" "--tag secrets"];
       };
     };
 
@@ -35,5 +45,10 @@ in {
       wantedBy = ["dev-disk-by\\x2duuid-8277\\x2dDD24.device"];
     };
     systemd.timers.restic-backups-usb-flash-drive = mkForce {};
+    systemd.services.restic-backups-secrets-usb = {
+      after = ["dev-disk-by\\x2duuid-8277\\x2dDD24.device"];
+      wantedBy = ["dev-disk-by\\x2duuid-8277\\x2dDD24.device"];
+    };
+    systemd.timers.restic-backups-secrets-usb = mkForce {};
   };
 }
