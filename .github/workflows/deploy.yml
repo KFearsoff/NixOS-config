@@ -14,6 +14,16 @@ jobs:
       uses: nixbuild/nix-quick-install-action@v17
       with:
         nix_conf: experimental-features = nix-command flakes
+    - name: Connect to Tailscale network
+      uses: tailscale/github-action@v1
+      with:
+        authkey: ${{ secrets.TAILSCALE_AUTHKEY }}
+    - name: Install SSH key
+      uses: shimataro/ssh-key-action@v2
+      with:
+        key: ${{ secrets.SSH_KEY }}
+        name: github-action
+        known_hosts: ${{ secrets.KNOWN_HOSTS }}
     - name: Run deploy-rs
       run: |
         nix develop -c deploy . --keep-result --remote-build -- -v
