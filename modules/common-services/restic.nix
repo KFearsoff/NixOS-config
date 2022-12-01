@@ -53,16 +53,16 @@ in {
       after = ["dev-disk-by\\x2duuid-8277\\x2dDD24.device"];
       wantedBy = ["dev-disk-by\\x2duuid-8277\\x2dDD24.device"];
     };
-    systemd.timers.restic-backups-usb-flash-drive = mkForce {};
+    systemd.timers.restic-backups-usb-flash-drive.enable = false;
     systemd.services.restic-backups-secrets-usb = {
       after = ["dev-disk-by\\x2duuid-8277\\x2dDD24.device"];
       wantedBy = ["dev-disk-by\\x2duuid-8277\\x2dDD24.device"];
     };
-    systemd.timers.restic-backups-secrets-usb = mkForce {};
+    systemd.timers.restic-backups-secrets-usb.enable = false;
     systemd.services.restic-backups-stuff-usb = {
       after = ["dev-disk-by\\x2duuid-8277\\x2dDD24.device"];
       wantedBy = ["dev-disk-by\\x2duuid-8277\\x2dDD24.device"];
     };
-    systemd.timers.restic-backups-stuff-usb = mkForce {};
+    systemd.timers.restic-backups-stuff-usb.enable = false;
   };
 }
