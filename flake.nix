@@ -116,7 +116,7 @@
       // inputs.flake-utils.lib.eachDefaultSystem (system: {
         formatter = pkgs.alejandra;
 
-        devShell = pkgs.mkShell {
+        devShells.default = pkgs.mkShell {
           buildInputs = with pkgs; [
             just
             inputs.deploy-rs.defaultPackage.${system}
