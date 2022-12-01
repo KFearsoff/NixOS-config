@@ -6,5 +6,6 @@
     ./coredns
     ./cadvisor.nix
     ./syncthing.nix
+    ./restic.nix
   ];
 }
