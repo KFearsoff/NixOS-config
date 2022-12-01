@@ -14,67 +14,63 @@ in {
   config = mkIf cfg.enable {
     hm.home.packages = [pkgs.restic];
 
-    services.restic.backups = {
-      init-usb-repo = {
-        initialize = true;
+    services.restic.backups = let
+      usb-template = {
         passwordFile = "/secrets/usb-flash-drive-backup";
         user = "nixchad";
         repository = "/run/media/nixchad/Ventoy/restic-backups";
-        backupPrepareCommand = "${pkgs.coreutils}/bin/sleep 5";
       };
-      photos-usb = {
-        passwordFile = "/secrets/usb-flash-drive-backup";
-        paths = [
-          "/home/nixchad/Pictures/Photos"
-          "/home/nixchad/Pictures/Photos-phone"
-        ];
-        user = "nixchad";
-        repository = "/run/media/nixchad/Ventoy/restic-backups";
-        backupPrepareCommand = "${pkgs.coreutils}/bin/sleep 5";
-        extraBackupArgs = ["--verbose" "--host common" "--tag photos"];
+    in
+      builtins.mapAttrs (name: value: usb-template // value) {
+        init-usb-repo = {
+          initialize = true;
+          backupPrepareCommand = "${pkgs.coreutils}/bin/sleep 1";
+        };
+        photos-usb = {
+          paths = [
+            "/home/nixchad/Pictures/Photos"
+            "/home/nixchad/Pictures/Photos-phone"
+          ];
+          extraBackupArgs = ["--verbose" "--host common" "--tag photos"];
+        };
+        secrets-usb = {
+          paths = [
+            "/secrets"
+          ];
+          extraBackupArgs = ["--verbose" "--tag secrets"];
+        };
+        stuff-usb = {
+          paths = [
+            "/home/nixchad/Sync"
+          ];
+          extraBackupArgs = ["--verbose" "--host common" "--tag stuff"];
+        };
       };
-      secrets-usb = {
-        passwordFile = "/secrets/usb-flash-drive-backup";
-        paths = [
-          "/secrets"
-        ];
-        user = "nixchad";
-        repository = "/run/media/nixchad/Ventoy/restic-backups";
-        backupPrepareCommand = "${pkgs.coreutils}/bin/sleep 5";
-        extraBackupArgs = ["--verbose" "--tag secrets"];
-      };
-      stuff-usb = {
-        passwordFile = "/secrets/usb-flash-drive-backup";
-        paths = [
-          "/home/nixchad/Sync"
-        ];
-        user = "nixchad";
-        repository = "/run/media/nixchad/Ventoy/restic-backups";
-        backupPrepareCommand = "${pkgs.coreutils}/bin/sleep 5";
-        extraBackupArgs = ["--verbose" "--host common" "--tag stuff"];
-      };
-    };
 
-    systemd.services.restic-backups-photos-usb = {
-      after = ["dev-disk-by\\x2duuid-8277\\x2dDD24.device" "restic-backups-init-usb-repo.service"];
-      wantedBy = ["dev-disk-by\\x2duuid-8277\\x2dDD24.device"];
+    systemd = let
+      device = "dev-disk-by\\x2duuid-8277\\x2dDD24.device";
+    in {
+      services.restic-backups-photos-usb = {
+        after = [device "restic-backups-init-usb-repo.service"];
+        wantedBy = [device];
+      };
+      timers.restic-backups-photos-usb.enable = false;
+      services.restic-backups-secrets-usb = {
+        after = [device "restic-backups-init-usb-repo.service"];
+        wantedBy = [device];
+      };
+      timers.restic-backups-secrets-usb.enable = false;
+      services.restic-backups-stuff-usb = {
+        after = [device "restic-backups-init-usb-repo.service"];
+        wantedBy = [device];
+      };
+      timers.restic-backups-stuff-usb.enable = false;
+      services.restic-backups-init-usb-repo = {
+        after = [device];
+        wantedBy = [device];
+        serviceConfig.ExecStart = ["${pkgs.coreutils}/bin/echo \"restic repository initialized\""];
+      };
+      timers.restic-backups-init-usb-repo.enable = false;
     };
-    systemd.timers.restic-backups-photos-usb.enable = false;
-    systemd.services.restic-backups-secrets-usb = {
-      after = ["dev-disk-by\\x2duuid-8277\\x2dDD24.device" "restic-backups-init-usb-repo.service"];
-      wantedBy = ["dev-disk-by\\x2duuid-8277\\x2dDD24.device"];
-    };
-    systemd.timers.restic-backups-secrets-usb.enable = false;
-    systemd.services.restic-backups-stuff-usb = {
-      after = ["dev-disk-by\\x2duuid-8277\\x2dDD24.device" "restic-backups-init-usb-repo.service"];
-      wantedBy = ["dev-disk-by\\x2duuid-8277\\x2dDD24.device"];
-    };
-    systemd.timers.restic-backups-stuff-usb.enable = false;
-    systemd.services.restic-backups-init-usb-repo = {
-      after = ["dev-disk-by\\x2duuid-8277\\x2dDD24.device"];
-      wantedBy = ["dev-disk-by\\x2duuid-8277\\x2dDD24.device"];
-      serviceConfig.ExecStart = ["${pkgs.coreutils}/bin/echo \"restic repository initialized\""];
-    };
-    systemd.timers.restic-backups-init-usb-repo.enable = false;
   };
 }
