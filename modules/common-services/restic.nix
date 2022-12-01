@@ -22,7 +22,7 @@ in {
         repository = "/run/media/${username}/Ventoy/restic-backups";
       };
     in
-      builtins.mapAttrs (name: value: usb-template // value) {
+      builtins.mapAttrs (_: value: usb-template // value) {
         init-usb-repo = {
           initialize = true;
           backupPrepareCommand = "${pkgs.coreutils}/bin/sleep 1";

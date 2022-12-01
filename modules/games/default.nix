@@ -46,7 +46,7 @@ in {
     hm = {
       home = {
         packages = [
-          (pkgs.lutris.override {extraPkgs = pkgs: cfg.lutrisPackages;})
+          (pkgs.lutris.override {extraPkgs = _: cfg.lutrisPackages;})
         ];
       };
 

@@ -105,7 +105,7 @@
           };
         };
 
-        checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks inputs.self.deploy) inputs.deploy-rs.lib;
+        checks = builtins.mapAttrs (deployLib: deployLib.deployChecks inputs.self.deploy) inputs.deploy-rs.lib;
 
         packages.x86_64-linux =
           {
@@ -114,7 +114,7 @@
             in
               image.config.system.build."isoImage";
           }
-          // pkgs.lib.mapAttrs (n: v: v) (import ./pkgs {inherit pkgs;});
+          // pkgs.lib.mapAttrs (_: v: v) (import ./pkgs {inherit pkgs;});
       }
       // inputs.flake-utils.lib.eachDefaultSystem (system: {
         formatter = pkgs.alejandra;
@@ -125,6 +125,7 @@
             hooks = {
               alejandra.enable = true;
               statix.enable = true;
+              deadnix.enable = true;
             };
           };
         };

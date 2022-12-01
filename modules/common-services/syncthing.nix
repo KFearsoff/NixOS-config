@@ -1,6 +1,5 @@
 {
   username,
-  inputs,
   config,
   lib,
   ...

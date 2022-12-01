@@ -65,7 +65,7 @@ in {
             friendly-snippets # a bunch of snippets to use
 
             telescope-nvim
-            (nvim-treesitter.withPlugins (plugins: pkgs.tree-sitter.allGrammars))
+            (nvim-treesitter.withPlugins (_: pkgs.tree-sitter.allGrammars))
 
             nvim-autopairs
           ];

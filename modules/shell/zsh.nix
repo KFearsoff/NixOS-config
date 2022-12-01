@@ -32,7 +32,7 @@ in {
     };
     users.defaultUserShell = pkgs.zsh;
 
-    hm = {config, ...}: {
+    hm = {
       programs.zsh = {
         enable = true;
         autocd = true;

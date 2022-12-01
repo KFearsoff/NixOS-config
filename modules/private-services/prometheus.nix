@@ -5,7 +5,6 @@
 }:
 with lib; let
   cfg = config.nixchad.prometheus;
-  nodePort = toString config.services.prometheus.exporters.node.port;
   hostname = config.networking.hostName;
   prometheusPort = toString config.services.prometheus.port;
   prometheusDomain = "prometheus.${hostname}.box";
