@@ -24,5 +24,5 @@
   # USB booting
   isoImage.makeUsbBootable = true;
 
-  system.stateVersion = lib.mkForce "22.05";
+  system.stateVersion = lib.mkForce "22.11";
 }
