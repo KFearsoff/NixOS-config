@@ -27,7 +27,7 @@
     nix-colors.url = "github:misterio77/nix-colors";
     #impermanence.url = "github:nix-community/impermanence";
     #impermanence.url = "path:/home/nixchad/Projects/impermanence";
-    impermanence.url = "github:nix-community/impermanence/18c7a3b24f5717c02be674729ac455d77d21f8b1";
+    impermanence.url = "github:nix-community/impermanence/3376a791c550e1f329d20be6ea59b25374cd672e";
 
     flake-compat.url = "github:edolstra/flake-compat";
     flake-compat.flake = false;
@@ -43,6 +43,9 @@
     deploy-rs.inputs.nixpkgs.follows = "nixpkgs";
     deploy-rs.inputs.utils.follows = "flake-utils";
     deploy-rs.inputs.flake-compat.follows = "flake-compat";
+
+    pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
+    pre-commit-hooks.inputs.flake-utils.follows = "flake-utils";
   };
 
   outputs = inputs:
@@ -102,7 +105,7 @@
           };
         };
 
-        checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks inputs.self.deploy) inputs.deploy-rs.lib;
+        checks = builtins.mapAttrs (deployLib: deployLib.deployChecks inputs.self.deploy) inputs.deploy-rs.lib;
 
         packages.x86_64-linux =
           {
@@ -111,12 +114,27 @@
             in
               image.config.system.build."isoImage";
           }
-          // pkgs.lib.mapAttrs (n: v: v) (import ./pkgs {inherit pkgs;});
+          // pkgs.lib.mapAttrs (_: v: v) (import ./pkgs {inherit pkgs;});
       }
       // inputs.flake-utils.lib.eachDefaultSystem (system: {
         formatter = pkgs.alejandra;
 
-        devShell = pkgs.mkShell {
+        checks = {
+          pre-commit-check = inputs.pre-commit-hooks.lib.${system}.run {
+            src = ./.;
+            hooks = {
+              alejandra.enable = true;
+              statix.enable = true;
+              deadnix.enable = true;
+              shellcheck.enable = true;
+              shfmt.enable = true;
+            };
+          };
+        };
+
+        devShells.default = pkgs.mkShell {
+          inherit (inputs.self.checks.${system}.pre-commit-check) shellHook;
+
           buildInputs = with pkgs; [
             just
             inputs.deploy-rs.defaultPackage.${system}

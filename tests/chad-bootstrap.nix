@@ -7,10 +7,6 @@ nixosTest {
   name = "chad-bootstrap";
 
   nodes.machine = {
-    pkgs,
-    lib,
-    ...
-  }: {
     environment.systemPackages = let
       chad-bootstrap = pkgs.callPackage ../pkgs/chad-bootstrap.nix {
         disk = "/dev/vdb";

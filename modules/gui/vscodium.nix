@@ -11,7 +11,7 @@ in {
     enable = mkEnableOption "vscodium";
   };
 
-  config = {
+  config = mkIf cfg.enable {
     hm = {
       programs.vscode = {
         enable = true;

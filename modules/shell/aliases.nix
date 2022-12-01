@@ -1,8 +1,4 @@
-{
-  pkgs,
-  lib,
-  ...
-}: let
+{pkgs, ...}: let
   exa = "${pkgs.exa}/bin/exa";
 in {
   hm = {

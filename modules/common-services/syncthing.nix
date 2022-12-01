@@ -1,8 +1,6 @@
 {
   username,
-  inputs,
   config,
-  lib,
   ...
 }: let
   hostname = config.networking.hostName;
