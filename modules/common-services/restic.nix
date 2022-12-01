@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  username,
   ...
 }:
 with lib; let
@@ -17,8 +18,8 @@ in {
     services.restic.backups = let
       usb-template = {
         passwordFile = "/secrets/usb-flash-drive-backup";
-        user = "nixchad";
-        repository = "/run/media/nixchad/Ventoy/restic-backups";
+        user = username;
+        repository = "/run/media/${username}/Ventoy/restic-backups";
       };
     in
       builtins.mapAttrs (name: value: usb-template // value) {
@@ -28,8 +29,8 @@ in {
         };
         photos-usb = {
           paths = [
-            "/home/nixchad/Pictures/Photos"
-            "/home/nixchad/Pictures/Photos-phone"
+            "/home/${username}/Pictures/Photos"
+            "/home/${username}/Pictures/Photos-phone"
           ];
           extraBackupArgs = ["--verbose" "--host common" "--tag photos"];
         };
@@ -41,7 +42,7 @@ in {
         };
         stuff-usb = {
           paths = [
-            "/home/nixchad/Sync"
+            "/home/${username}/Sync"
           ];
           extraBackupArgs = ["--verbose" "--host common" "--tag stuff"];
         };
