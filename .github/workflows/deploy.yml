@@ -13,7 +13,7 @@ jobs:
     - name: Install Nix
       uses: nixbuild/nix-quick-install-action@v17
       with:
-        nix_conf: experimental-features = nix-command flakes
+        nix_conf: experimental-features = nix-command flakes ca-derivations
     - name: Connect to Tailscale network
       uses: tailscale/github-action@v1
       with:
