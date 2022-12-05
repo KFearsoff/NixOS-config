@@ -7,3 +7,6 @@ ssh-pubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEQ77pbUwzNYJzu/vEg9MqtuLQmjgR
 [phones.pixel-4a]
 ipv4 = "100.107.161.19"
 syncthing.id = "74LQXWB-GVD5FVU-7CYZUFK-MNIIYA4-X3ZJCHR-VQM7UM7-HBNL4VM-PUNYTAW"
+
+[ci.github-action]
+ssh-pubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN8XLDGBt0tt28PfY7O10WZJV793SUU3veDLkufyMKh7 github-action"

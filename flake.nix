@@ -46,6 +46,8 @@
 
     pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
     pre-commit-hooks.inputs.flake-utils.follows = "flake-utils";
+    pre-commit-hooks.inputs.flake-compat.follows = "flake-compat";
+    pre-commit-hooks.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = inputs:
@@ -128,6 +130,7 @@
               deadnix.enable = true;
               shellcheck.enable = true;
               shfmt.enable = true;
+              actionlint.enable = true;
             };
           };
         };
