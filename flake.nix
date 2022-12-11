@@ -60,6 +60,10 @@
         #  url = "https://github.com/NixOS/nixpkgs/pull/198638.patch";
         #  sha256 = "sha256-uL9fU8+0CnmR0fBCmz8GhNtmuJOmgo9j8rmFRTqM2iE=";
         #}
+        {
+          url = "https://github.com/NixOS/nixpkgs/pull/205649.patch";
+          sha256 = "sha256-VsPYdHvqEi+zq0q6d+MaskKj1fsKZE6h2apx92whUiU=";
+        }
       ];
     };
       rec {

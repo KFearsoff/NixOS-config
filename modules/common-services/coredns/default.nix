@@ -76,6 +76,10 @@ in {
 
     services.coredns = {
       enable = true;
+      package = pkgs.coredns.override {
+        externalPlugins = ["fanout"];
+        vendorSha256 = "sha256-+YfJIowHNhRujOlvBxP70QkCpqpYHm7m0BtpIyOLFd8=";
+      };
 
       config = ''
         . {
@@ -91,7 +95,7 @@ in {
             fallthrough
           }
 
-          forward . 127.0.0.1:5054 [::1]:5054 127.0.0.1:5055 [::1]:5055 127.0.0.1:5056 [::1]:5056
+          fanout . 127.0.0.1:5054 [::1]:5054 127.0.0.1:5055 [::1]:5055 127.0.0.1:5056 [::1]:5056
           errors
           cache {
             prefetch 10
