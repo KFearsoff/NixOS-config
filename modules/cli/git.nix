@@ -16,7 +16,7 @@ in {
     programs.git.enable = true;
 
     hm = {
-      home.packages = optional utilsEnabled pkgs.git-filter-repo;
+      home.packages = optionals utilsEnabled [pkgs.git-filter-repo pkgs.git-absorb];
       home.shellAliases = {
         gd = "git diff ";
         gdc = "git diff --cached";
