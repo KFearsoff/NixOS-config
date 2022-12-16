@@ -42,12 +42,6 @@ in {
   options.nixchad.coredns = {
     enable = mkEnableOption "CoreDNS server";
 
-    interface = mkOption {
-      type = types.str;
-      description = "Local interface on which CoreDNS will bind";
-      default = config.lib.metadata.getInterface config.networking.hostName;
-    };
-
     extraHosts = mkOption {
       type = types.lines;
       default = "";
@@ -85,10 +79,10 @@ in {
         . {
           prometheus 0.0.0.0:33003
 
-          # Expose CoreDNS to localhost, local network and tailscale.
+          # Expose CoreDNS to localhost and tailscale.
           # We can't bind to 0.0.0.0 (default) because we'll have conflicts with
           # systemd-resolved and dnsmasq (for libvirtd)
-          bind lo ${cfg.interface} tailscale0
+          bind lo tailscale0
 
           hosts /run/coredns-hosts {
             reload 1500ms
@@ -122,7 +116,7 @@ in {
 
         box {
           prometheus 0.0.0.0:33003
-          bind lo ${cfg.interface} tailscale0
+          bind lo tailscale0
           file ${./box.zone}
         }
       '';
@@ -152,11 +146,6 @@ in {
     networking.firewall.interfaces.tailscale0 = {
       allowedTCPPorts = [53 33003];
       allowedUDPPorts = [53 33003];
-    };
-
-    networking.firewall.interfaces."${cfg.interface}" = {
-      allowedTCPPorts = [53];
-      allowedUDPPorts = [53];
     };
   };
 }
