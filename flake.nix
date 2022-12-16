@@ -35,10 +35,6 @@
     zsh-you-should-use.url = "github:MichaelAquilina/zsh-you-should-use";
     zsh-you-should-use.flake = false;
 
-    hosts.url = "github:StevenBlack/hosts";
-    hosts.inputs.nixpkgs.follows = "nixpkgs";
-    hosts.inputs.flake-utils.follows = "flake-utils";
-
     deploy-rs.url = "github:serokell/deploy-rs";
     deploy-rs.inputs.nixpkgs.follows = "nixpkgs";
     deploy-rs.inputs.utils.follows = "flake-utils";
