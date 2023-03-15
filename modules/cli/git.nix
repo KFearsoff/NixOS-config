@@ -73,6 +73,7 @@ in {
             side-by-side = true;
           };
         };
+        lfs.enable = true;
       };
     };
   };
