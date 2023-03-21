@@ -62,7 +62,7 @@
   };
 
   zramSwap.enable = true;
-  zramSwap.memoryPercent = 100;
+  zramSwap.memoryPercent = 50;
   swapDevices = [
     {
       device = "/swap/swapfile";
