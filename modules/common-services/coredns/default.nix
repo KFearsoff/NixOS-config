@@ -4,7 +4,7 @@
 {
   config,
   lib,
-  pkgs,
+  #pkgs,
   ...
 }:
 with lib; let
@@ -17,10 +17,10 @@ in {
   config = mkIf cfg.enable {
     services.coredns = {
       enable = true;
-      package = pkgs.coredns.override {
-        externalPlugins = ["fanout"];
-        vendorSha256 = "sha256-+YfJIowHNhRujOlvBxP70QkCpqpYHm7m0BtpIyOLFd8=";
-      };
+      #package = pkgs.coredns.override {
+      #  externalPlugins = ["fanout"];
+      #  vendorSha256 = "sha256-+YfJIowHNhRujOlvBxP70QkCpqpYHm7m0BtpIyOLFd8=";
+      #};
 
       config = ''
         . {
@@ -31,7 +31,7 @@ in {
           # systemd-resolved and dnsmasq (for libvirtd)
           bind lo tailscale0
 
-          fanout . 127.0.0.1:5054 [::1]:5054 127.0.0.1:5055 [::1]:5055 127.0.0.1:5056 [::1]:5056
+          forward . 127.0.0.1:5054 [::1]:5054 127.0.0.1:5055 [::1]:5055 127.0.0.1:5056 [::1]:5056
           errors
           cache {
             prefetch 10

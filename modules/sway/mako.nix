@@ -13,7 +13,7 @@ in {
 
   config = mkIf cfg.enable {
     hm = {
-      programs.mako = {
+      services.mako = {
         enable = true;
 
         backgroundColor = "#${colorscheme.colors.base00}";

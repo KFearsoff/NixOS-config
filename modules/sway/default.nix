@@ -93,7 +93,7 @@ in {
 
           bars = [];
 
-          focus.forceWrapping = true;
+          focus.wrapping = "force";
           workspaceAutoBackAndForth = true;
           menu = "rofi -show drun";
           terminal = "${config.terminal.binaryPath}";
