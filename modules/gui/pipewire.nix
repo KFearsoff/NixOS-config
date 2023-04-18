@@ -13,11 +13,5 @@
     };
     pulse.enable = true;
     jack.enable = true;
-
-    config.pipewire = {
-      "context.properties" = {
-        "default.clock.allowed-rates" = [48000 44100];
-      };
-    };
   };
 }

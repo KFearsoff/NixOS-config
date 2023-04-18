@@ -6,7 +6,6 @@
       LC_TIME = "en_GB.UTF-8";
     };
   };
-  hardware.video.hidpi.enable = true;
   console.useXkbConfig = true;
   services.xserver = {
     layout = "us,ru";

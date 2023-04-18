@@ -11,7 +11,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    boot.cleanTmpDir = true;
+    boot.tmp.cleanOnBoot = true;
     programs.fuse.userAllowOther = true;
 
     security.sudo.extraConfig = ''

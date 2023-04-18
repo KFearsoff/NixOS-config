@@ -8,7 +8,6 @@
 
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    home-manager.inputs.utils.follows = "flake-utils";
 
     home-manager-newsboat.url = "github:nix-community/home-manager/743f3ba9ace05886c9de06a65f5ea7ed4b2df09c";
     home-manager-newsboat.inputs.nixpkgs.follows = "nixpkgs";
@@ -27,7 +26,7 @@
     nix-colors.url = "github:misterio77/nix-colors";
     #impermanence.url = "github:nix-community/impermanence";
     #impermanence.url = "path:/home/nixchad/Projects/impermanence";
-    impermanence.url = "github:nix-community/impermanence/3376a791c550e1f329d20be6ea59b25374cd672e";
+    impermanence.url = "github:nix-community/impermanence/8ca70a91e461796e2232dc51a2f8ca1375f4a25a";
 
     flake-compat.url = "github:edolstra/flake-compat";
     flake-compat.flake = false;
@@ -60,6 +59,12 @@
         #  url = "https://github.com/NixOS/nixpkgs/pull/205649.patch";
         #  sha256 = "sha256-VsPYdHvqEi+zq0q6d+MaskKj1fsKZE6h2apx92whUiU=";
         #}
+
+        # Obsidian electron 24 patch
+        {
+          url = "https://github.com/NixOS/nixpkgs/pull/226591.patch";
+          sha256 = "sha256-5Nv529giGtsU9z1WPIxOOLNlAwCw2MCYEaHAap/E0NI=";
+        }
       ];
     };
       rec {
