@@ -59,12 +59,6 @@
         #  url = "https://github.com/NixOS/nixpkgs/pull/205649.patch";
         #  sha256 = "sha256-VsPYdHvqEi+zq0q6d+MaskKj1fsKZE6h2apx92whUiU=";
         #}
-
-        # Obsidian electron 24 patch
-        {
-          url = "https://github.com/NixOS/nixpkgs/pull/226591.patch";
-          sha256 = "sha256-5Nv529giGtsU9z1WPIxOOLNlAwCw2MCYEaHAap/E0NI=";
-        }
       ];
     };
       rec {
