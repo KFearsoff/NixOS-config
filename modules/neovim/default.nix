@@ -12,7 +12,6 @@ with lib; let
 in {
   options.nixchad.neovim = {
     enable = mkEnableOption "neovim";
-    plugins = mkEnableOption "neovim plugins";
   };
 
   config = mkIf cfg.enable {
@@ -22,75 +21,83 @@ in {
       };
 
       programs.neovim = {
-        # very much inspired by this:
-        # https://github.com/LunarVim/Neovim-from-scratch/
         enable = true;
         package = pkgs.neovim-nightly;
         vimAlias = true;
         vimdiffAlias = true;
-        withNodeJs = cfg.plugins;
+        withNodeJs = true;
 
-        plugins = with pkgs.vimPlugins;
-          [
-            {
-              plugin = vimThemeFromScheme {scheme = colorscheme;};
-              # .vim files were deprecated, this is a workaround
-              # https://github.com/neovim/neovim/issues/14090#issuecomment-1177933661
-              config = ''
-                let g:do_legacy_filetype = 1
-                colorscheme nix-${colorscheme.slug}
-              '';
-            }
-            vim-airline
-            vim-nix
+        plugins = with pkgs.vimPlugins; [
+          {
+            plugin = vimThemeFromScheme {scheme = colorscheme;};
+            type = "lua";
+            config = ''
+              vim.cmd.colorscheme('nix-${colorscheme.slug}')
+            '';
+          }
+          vim-airline
 
-            editorconfig-nvim
-            indentLine
-            vim-lastplace
-          ]
-          ++ optionals cfg.plugins [
-            # LSP
-            nvim-lspconfig
+          editorconfig-nvim
+          indentLine
+          vim-lastplace
 
-            # cmp plugins
-            nvim-cmp # completion plugin
-            cmp-buffer # buffer completions
-            cmp-path # path completions
-            cmp-cmdline # cmdline completions
-            cmp_luasnip # snipper completions
-            cmp-nvim-lsp # LSP completions
+          # LSP
+          nvim-lspconfig
 
-            # snippets
-            luasnip # snippet engine
-            friendly-snippets # a bunch of snippets to use
+          # cmp plugins
+          nvim-cmp # completion plugin
+          #cmp-buffer # buffer completions
+          #cmp-path # path completions
+          #cmp-cmdline # cmdline completions
+          cmp_luasnip # snipper completions
+          cmp-nvim-lsp # LSP completions
 
-            telescope-nvim
-            (nvim-treesitter.withPlugins (_: pkgs.tree-sitter.allGrammars))
+          # snippets
+          luasnip # snippet engine
+          #friendly-snippets # a bunch of snippets to use
 
-            nvim-autopairs
-          ];
+          (pkgs.vimPlugins.nvim-treesitter.withPlugins (p:
+            with p; [
+              c
+              go
+              vim
+              nix
+              lua
+              hcl
+              yaml
+              toml
+              rust
+              json
+              bash
+              gomod
+              python
+              dockerfile
+              query
+              comment
+            ]))
+        ];
 
-        extraPackages = with pkgs;
-          optionals cfg.plugins [
-            # gcc # needed for nvim-treesitter
-            rnix-lsp
-            terraform-ls
-            nodePackages.bash-language-server
-            sumneko-lua-language-server
-          ];
+        extraPackages = with pkgs; [
+          rust-analyzer
+          nodePackages.bash-language-server
+          nodePackages.dockerfile-language-server-nodejs
+          gopls
+          helm-ls
+          nodePackages.vscode-json-languageserver
+          lua-language-server
+          nodePackages.pyright
+          rnix-lsp
+          terraform-ls
+          nodePackages.yaml-language-server
+          gcc # needed for nvim-treesitter
+        ];
 
-        #${builtins.readFile ./treesitter.lua}
-        extraConfig =
-          ''
-            :lua << EOF
-            ${builtins.readFile ./options.lua}
-            ${builtins.readFile ./keymaps.lua}
-          ''
-          + optionalString cfg.plugins ''
-            ${builtins.readFile ./cmp.lua}
-            ${builtins.readFile ./lsp/lsp.lua}
-            ${builtins.readFile ./autopairs.lua}
-          '';
+        extraLuaConfig = ''
+          ${builtins.readFile ./options.lua}
+          ${builtins.readFile ./keymaps.lua}
+          ${builtins.readFile ./lsp/lsp.lua}
+          ${builtins.readFile ./treesitter.lua}
+        '';
       };
     };
   };
