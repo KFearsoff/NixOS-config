@@ -1,4 +1,5 @@
 result
 *.qcow2
 .direnv
+.devenv
 .pre-commit-config.yaml

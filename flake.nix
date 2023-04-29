@@ -43,6 +43,14 @@
     pre-commit-hooks.inputs.flake-utils.follows = "flake-utils";
     pre-commit-hooks.inputs.flake-compat.follows = "flake-compat";
     pre-commit-hooks.inputs.nixpkgs.follows = "nixpkgs";
+
+    systems.url = "github:nix-systems/default";
+    devenv.url = "github:cachix/devenv";
+    devenv.inputs = {
+      flake-compat.follows = "flake-compat";
+      pre-commit-hooks.follows = "pre-commit-hooks";
+      nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs:
@@ -120,26 +128,35 @@
       // inputs.flake-utils.lib.eachDefaultSystem (system: {
         formatter = pkgs.alejandra;
 
-        checks = {
-          pre-commit-check = inputs.pre-commit-hooks.lib.${system}.run {
-            src = ./.;
-            hooks = {
-              alejandra.enable = true;
-              statix.enable = true;
-              deadnix.enable = true;
-              shellcheck.enable = true;
-              shfmt.enable = true;
-              actionlint.enable = true;
-            };
-          };
-        };
+        devShells.default = inputs.devenv.lib.mkShell {
+          inherit inputs pkgs;
 
-        devShells.default = pkgs.mkShell {
-          inherit (inputs.self.checks.${system}.pre-commit-check) shellHook;
+          modules = [
+            {
+              packages = [
+                pkgs.just
+                inputs.deploy-rs.defaultPackage.${system}
+              ];
 
-          buildInputs = with pkgs; [
-            just
-            inputs.deploy-rs.defaultPackage.${system}
+              pre-commit.hooks = {
+                # Variety
+                shellcheck.enable = true;
+                shfmt.enable = true;
+                actionlint.enable = true;
+                mdsh.enable = true;
+                markdownlint.enable = true;
+                commitizen.enable = true;
+
+                # Nix
+                alejandra.enable = true;
+                deadnix.enable = true;
+                statix.enable = true;
+
+                cargo-check.enable = true;
+                clippy.enable = true;
+                rustfmt.enable = true;
+              };
+            }
           ];
         };
       });
