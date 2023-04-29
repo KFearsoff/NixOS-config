@@ -26,4 +26,4 @@ jobs:
         known_hosts: ${{ secrets.KNOWN_HOSTS }}
     - name: Run deploy-rs
       run: |
-        nix develop -c deploy . --keep-result --remote-build -- -v
+        nix develop --impure --builders 'ssh://blackberry' --builders-use-substitutes -c deploy . --keep-result --remote-build -- -v

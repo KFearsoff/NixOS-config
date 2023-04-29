@@ -114,7 +114,7 @@
           };
         };
 
-        checks = builtins.mapAttrs (deployLib: deployLib.deployChecks inputs.self.deploy) inputs.deploy-rs.lib;
+        checks = builtins.mapAttrs (_: deployLib: deployLib.deployChecks inputs.self.deploy) inputs.deploy-rs.lib;
 
         packages.x86_64-linux =
           {
