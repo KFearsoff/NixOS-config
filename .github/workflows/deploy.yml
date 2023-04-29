@@ -13,7 +13,10 @@ jobs:
     - name: Install Nix
       uses: nixbuild/nix-quick-install-action@v17
       with:
-        nix_conf: experimental-features = nix-command flakes ca-derivations
+        nix_conf: |
+          experimental-features = nix-command flakes ca-derivations
+          builders = ssh://blackberry i686-linux,x86_64-linux - 12 1000 kvm,nixos-test,benchmark,big-parallel - -
+          builders-use-substitutes = true
     - name: Connect to Tailscale network
       uses: tailscale/github-action@v1
       with:
@@ -26,4 +29,4 @@ jobs:
         known_hosts: ${{ secrets.KNOWN_HOSTS }}
     - name: Run deploy-rs
       run: |
-        nix develop --impure --builders 'ssh://blackberry' --builders-use-substitutes -c deploy . --keep-result --remote-build -- -v
+        nix develop --impure -c deploy . --keep-result --remote-build -- -v
