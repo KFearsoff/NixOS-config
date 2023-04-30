@@ -17,6 +17,10 @@ jobs:
           experimental-features = nix-command flakes ca-derivations
           builders = ssh://blackberry i686-linux,x86_64-linux - 12 1000 kvm,nixos-test,benchmark,big-parallel - -
           builders-use-substitutes = true
+          substituters = ssh://blackberry
+          trusted-substituters = ssh://blackberry
+          require-sigs = false
+          max-jobs = 0
     - name: Connect to Tailscale network
       uses: tailscale/github-action@v1
       with:
