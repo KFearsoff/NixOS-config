@@ -124,6 +124,11 @@
           #     image.config.system.build."isoImage";
           # } //
           pkgs.lib.mapAttrs (_: v: v) (import ./pkgs {inherit pkgs;});
+
+        apps.x86_64-linux.default = {
+          type = "app";
+          program = "${inputs.deploy-rs.defaultPackage.x86_64-linux}/bin/deploy";
+        };
       }
       // inputs.flake-utils.lib.eachDefaultSystem (system: {
         formatter = pkgs.alejandra;
