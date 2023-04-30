@@ -30,10 +30,10 @@ jobs:
       with:
         nix_conf: |
           experimental-features = nix-command flakes ca-derivations
-          builders = ssh://blackberry.tail34ad.ts.net i686-linux,x86_64-linux - 12 1000 kvm,nixos-test,benchmark,big-parallel - -
+          builders = ssh://nixchad@blackberry.tail34ad.ts.net i686-linux,x86_64-linux - 12 1000 kvm,nixos-test,benchmark,big-parallel - -
           builders-use-substitutes = true
-          substituters = ssh://blackberry.tail34ad.ts.net
-          trusted-substituters = ssh://blackberry.tail34ad.ts.net
+          substituters = ssh://nixchad@blackberry.tail34ad.ts.net
+          trusted-substituters = ssh://nixchad@blackberry.tail34ad.ts.net
           require-sigs = false
           max-jobs = 0
     - name: Run pre-commit hooks
@@ -61,10 +61,10 @@ jobs:
       with:
         nix_conf: |
           experimental-features = nix-command flakes ca-derivations
-          builders = ssh://blackberry.tail34ad.ts.net i686-linux,x86_64-linux - 12 1000 kvm,nixos-test,benchmark,big-parallel - -
+          builders = ssh://nixchad@blackberry.tail34ad.ts.net i686-linux,x86_64-linux - 12 1000 kvm,nixos-test,benchmark,big-parallel - -
           builders-use-substitutes = true
-          substituters = ssh://blackberry.tail34ad.ts.net
-          trusted-substituters = ssh://blackberry.tail34ad.ts.net
+          substituters = ssh://nixchad@blackberry.tail34ad.ts.net
+          trusted-substituters = ssh://nixchad@blackberry.tail34ad.ts.net
           require-sigs = false
           max-jobs = 0
     - name: Dry-run deploy-rs
