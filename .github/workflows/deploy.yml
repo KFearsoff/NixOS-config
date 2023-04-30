@@ -33,4 +33,4 @@ jobs:
           max-jobs = 0
     - name: Run deploy-rs
       run: |
-        nix run . -- --keep-result --remote-build -- -v
+        nix run . -- --keep-result --remote-build -- -v --impure
