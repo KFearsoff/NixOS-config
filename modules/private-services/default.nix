@@ -14,6 +14,7 @@ in {
     ./libreddit.nix
     ./loki.nix
     ./nitter.nix
+    ./postgres.nix
     ./postgres-exporter.nix
     ./blackbox-exporter.nix
     ./prometheus.nix
