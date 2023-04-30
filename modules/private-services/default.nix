@@ -43,6 +43,7 @@ in {
 
       recommendedOptimisation = true;
       recommendedTlsSettings = true;
+      recommendedBrotliSettings = true;
       recommendedGzipSettings = true;
       recommendedProxySettings = true;
 
