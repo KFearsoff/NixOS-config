@@ -33,6 +33,13 @@ in {
   nixchad.sway.backlight = false;
   nixchad.swayidle.timeouts.lock = 6000;
 
+  networking.interfaces."br-libvirt".ipv4.addresses = [
+    {
+      address = "192.168.1.104";
+      prefixLength = 24;
+    }
+  ];
+  networking.defaultGateway = "192.168.1.1";
   networking.bridges."br-libvirt".interfaces = ["${ifname}"];
   networking.networkmanager.unmanaged = ["interface-name:${ifname}" "interface-name:br-libvirt" "interface-name:tailscale0"];
   systemd.services.NetworkManager-wait-online.enable = false;
