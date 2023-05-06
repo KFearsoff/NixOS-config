@@ -51,7 +51,7 @@ in {
       };
       "Photos-phone" = {
         path = "/home/${username}/Pictures/Photos-phone";
-        devices = syncthingAllList;
+        devices = syncthingOwnedList;
         type = "receiveonly";
         versioning = {
           type = "trashcan";
