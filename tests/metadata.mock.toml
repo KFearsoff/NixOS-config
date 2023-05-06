@@ -1,0 +1,16 @@
+[hosts.test-host]
+ipv4 = "test-host-ipv4"
+interface = "test-host-if"
+syncthing.id = "test-host-syncthing"
+ssh-pubkey = "test-host-pubkey"
+
+[phones.test-phone]
+ipv4 = "test-phone-ipv4"
+syncthing.id = "test-phone-syncthing"
+
+[outside.test-outside]
+ipv4 = "test-outside-ipv4"
+syncthing.id = "test-outside-syncthing"
+
+[ci.test-ci]
+ssh-pubkey = "test-ci-pubkey"

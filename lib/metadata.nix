@@ -1,6 +1,10 @@
-{lib, ...}:
+{
+  lib,
+  metadata-path,
+  ...
+}:
 with lib; let
-  metadata = importTOML ../hosts/metadata.toml;
+  metadata = lib.importTOML metadata-path;
   metadataTypes = builtins.attrNames metadata;
   metadataNoTypes = builtins.foldl' (x: y: x // metadata."${y}") {} metadataTypes;
   syncthingEntries = filterAttrs (_: builtins.hasAttr "syncthing") metadataNoTypes;
@@ -12,7 +16,7 @@ in {
     inherit metadata;
     syncthingDevicesConfig = mapAttrs (n: v: v.syncthing // {addresses = ["tcp://${n}" "quic://${n}"];}) syncthingEntries;
     syncthingHostsList = builtins.attrNames (filterAttrs (_: builtins.hasAttr "syncthing") metadata.hosts);
-    syncthingAllOwned = builtins.attrNames (builtins.removeAttrs syncthingEntries (builtins.attrNames metadata.outside));
+    syncthingOwnedList = builtins.attrNames (builtins.removeAttrs syncthingEntries (builtins.attrNames metadata.outside));
     syncthingAllList = builtins.attrNames syncthingEntries;
     sshPubkeyList = (zipAttrs (attrValues sshPubkeyEntries)).ssh-pubkey;
     magicDNS = hostSuffix: concatMapStringsSep "\n" (x: "${x}${hostSuffix}") ipv4HostsList;
