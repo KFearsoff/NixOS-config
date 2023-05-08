@@ -25,7 +25,7 @@ in {
           b4dm4n.vscode-nixpkgs-fmt
           mads-hartmann.bash-ide-vscode
           haskell.haskell
-          ms-python.python
+          # ms-python.python
         ];
 
         userSettings = {

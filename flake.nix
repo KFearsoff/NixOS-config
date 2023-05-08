@@ -18,7 +18,7 @@
     neovim-nightly-overlay.inputs.flake-compat.follows = "flake-compat";
     neovim-nightly-overlay.inputs.neovim-flake.follows = "neovim-flake";
 
-    neovim-flake.url = "github:neovim/neovim/d321deb4a9b05e9d81b79ac166274f4a6e7981bf?dir=contrib"; # master doesn't build
+    neovim-flake.url = "github:neovim/neovim?dir=contrib";
     neovim-flake.inputs.nixpkgs.follows = "nixpkgs";
     neovim-flake.inputs.flake-utils.follows = "flake-utils";
 

@@ -39,7 +39,10 @@ in {
       prefixLength = 24;
     }
   ];
-  networking.defaultGateway = "192.168.1.1";
+  networking.defaultGateway = {
+    address = "192.168.1.1";
+    interface = "br-libvirt";
+  };
   networking.bridges."br-libvirt".interfaces = ["${ifname}"];
   networking.networkmanager.unmanaged = ["interface-name:${ifname}" "interface-name:br-libvirt" "interface-name:tailscale0"];
   systemd.services.NetworkManager-wait-online.enable = false;
