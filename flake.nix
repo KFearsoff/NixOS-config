@@ -94,6 +94,15 @@
               ./suites/shell.nix
             ];
           };
+
+          cloudberry = buildSystem {
+            hostname = "cloudberry";
+            extraModules = [
+              ./hosts/cloudberry
+              ./suites/common-services.nix
+              ./suites/private-services.nix
+            ];
+          };
         };
 
         allMachines = let
@@ -111,6 +120,13 @@
             user = "root";
             sshUser = "nixchad";
             profiles.system.path = x86_64-linux.activate.nixos inputs.self.nixosConfigurations.blackberry;
+          };
+
+          cloudberry = {
+            hostname = "cloudberry";
+            user = "root";
+            sshUser = "nixchad";
+            profiles.system.path = x86_64-linux.activate.nixos inputs.self.nixosConfigurations.cloudberry;
           };
         };
 
