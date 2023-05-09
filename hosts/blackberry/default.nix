@@ -14,6 +14,7 @@ in {
     inputs.hardware.nixosModules.common-cpu-intel
     inputs.hardware.nixosModules.common-pc-ssd
     inputs.hardware.nixosModules.common-pc
+    inputs.hardware.nixosModules.common-hidpi
   ];
 
   users.users."${username}".passwordFile = "/secrets/nixchad-password";
@@ -33,17 +34,28 @@ in {
   nixchad.sway.backlight = false;
   nixchad.swayidle.timeouts.lock = 6000;
 
-  networking.interfaces."br-libvirt".ipv4.addresses = [
-    {
-      address = "192.168.1.104";
-      prefixLength = 24;
-    }
-  ];
-  networking.defaultGateway = {
-    address = "192.168.1.1";
-    interface = "br-libvirt";
+  systemd.network = {
+    enable = true;
+
+    netdevs."br-libvirt".netdevConfig = {
+      Kind = "bridge";
+      Name = "br-libvirt";
+    };
+    networks = {
+      "${ifname}" = {
+        matchConfig.Name = "${ifname}";
+        networkConfig.Bridge = "br-libvirt";
+        linkConfig.RequiredForOnline = "enslaved";
+      };
+      "br-libvirt" = {
+        matchConfig.Name = "br-libvirt";
+        bridgeConfig = {};
+        address = ["192.168.1.104/24"];
+        routes = [{routeConfig.Gateway = "192.168.1.1";}];
+        linkConfig.RequiredForOnline = "routable";
+      };
+    };
   };
-  networking.bridges."br-libvirt".interfaces = ["${ifname}"];
   networking.networkmanager.unmanaged = ["interface-name:${ifname}" "interface-name:br-libvirt" "interface-name:tailscale0"];
   systemd.services.NetworkManager-wait-online.enable = false;
 }
