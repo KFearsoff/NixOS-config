@@ -32,20 +32,16 @@ with lib; let
     static_configs = [
       {
         targets = let
-          preTargetsIcmp =
-            [
-              "google.com"
-              "api.telegram.org"
-            ]
-            ++ map (x: "${x}.tail34ad.ts.net") config.lib.metadata.hostList;
-          preTargetsHttps =
-            [
-              "google.com"
-            ]
-            ++ map (x: "${x}.tail34ad.ts.net") config.lib.metadata.hostList;
+          preTargetsIcmp = [
+            "google.com"
+            "api.telegram.org"
+          ];
+          preTargetsHttps = [
+            "google.com"
+          ];
         in
           if (module == "icmp_v4" || module == "icmp_v6")
-          then preTargetsIcmp ++ map (x: "${x}.tail34ad.ts.net") config.lib.metadata.phoneList
+          then preTargetsIcmp
           else map (x: "https://${x}") preTargetsHttps;
       }
     ];
