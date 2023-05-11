@@ -140,13 +140,13 @@
           };
 
         packages.x86_64-linux =
-          # {
-          #   iso = let
-          #     image = buildSystem {hostname = "iso";};
-          #   in
-          #     image.config.system.build."isoImage";
-          # } //
-          pkgs.lib.mapAttrs (_: v: v) (import ./pkgs {inherit pkgs;});
+          {
+            iso = let
+              image = buildSystem {hostname = "iso";};
+            in
+              image.config.system.build."isoImage";
+          }
+          // pkgs.lib.mapAttrs (_: v: v) (import ./pkgs {inherit pkgs;});
 
         apps.x86_64-linux.default = {
           type = "app";
