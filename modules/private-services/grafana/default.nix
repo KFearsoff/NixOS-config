@@ -5,7 +5,6 @@
 }:
 with lib; let
   cfg = config.nixchad.grafana;
-  hostname = config.networking.hostName;
   mkDatasource = type: url: extraConfig:
     {
       name = type;
@@ -15,7 +14,7 @@ with lib; let
     }
     // extraConfig;
   grafanaPort = toString config.services.grafana.settings.server.http_port;
-  domain = "${hostname}.tail34ad.ts.net";
+  domain = "grafana.nixalted.com";
 in {
   options.nixchad.grafana = {
     enable = mkEnableOption "Grafana dashboard";
@@ -75,8 +74,7 @@ in {
 
     services.nginx.virtualHosts."${domain}" = {
       forceSSL = true;
-      sslCertificate = "/var/lib/self-signed/${domain}.crt";
-      sslCertificateKey = "/var/lib/self-signed/${domain}.key";
+      enableACME = true;
 
       locations."/grafana" = {
         proxyPass = "http://localhost:${grafanaPort}";

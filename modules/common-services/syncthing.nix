@@ -2,11 +2,7 @@
   username,
   config,
   ...
-}: let
-  hostname = config.networking.hostName;
-  syncthingHttpPort = "8384";
-  syncthingDomain = "syncthing.${hostname}.box";
-in {
+}: {
   hm.xdg.userDirs.extraConfig = {
     XDG_SYNC_DIR = "$HOME/Sync";
   };
@@ -72,17 +68,6 @@ in {
         urAccepted = -1;
         restartOnWakeup = true;
       };
-    };
-  };
-
-  services.nginx.virtualHosts."${syncthingDomain}" = {
-    forceSSL = true;
-    sslCertificate = "/var/lib/self-signed/_.blackberry.box/cert.pem";
-    sslCertificateKey = "/var/lib/self-signed/_.blackberry.box/key.pem";
-
-    locations."/" = {
-      proxyPass = "http://localhost:${syncthingHttpPort}";
-      proxyWebsockets = true;
     };
   };
 }

@@ -5,9 +5,8 @@
 }:
 with lib; let
   cfg = config.nixchad.alertmanager;
-  hostname = config.networking.hostName;
   alertmanagerPort = toString config.services.prometheus.alertmanager.port;
-  alertmanagerDomain = "alertmanager.${hostname}.box";
+  alertmanagerDomain = "alertmanager.nixalted.com";
 in {
   options.nixchad.alertmanager = {
     enable = mkEnableOption "Alertmanager alerting";
@@ -60,8 +59,7 @@ in {
 
     services.nginx.virtualHosts."${alertmanagerDomain}" = {
       forceSSL = true;
-      sslCertificate = "/var/lib/self-signed/_.blackberry.box/cert.pem";
-      sslCertificateKey = "/var/lib/self-signed/_.blackberry.box/key.pem";
+      enableACME = true;
 
       locations."/" = {
         proxyPass = "http://localhost:${alertmanagerPort}";

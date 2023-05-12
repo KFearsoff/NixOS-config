@@ -5,10 +5,9 @@
 }:
 with lib; let
   cfg = config.nixchad.loki;
-  hostname = config.networking.hostName;
   lokiHttpPort = "33100";
   lokiGrpcPort = "33110";
-  lokiDomain = "loki.${hostname}.box";
+  lokiDomain = "loki.nixalted.com";
   alertmanagerPort = config.services.prometheus.alertmanager.port;
   lokiData = config.services.loki.dataDir;
 in {
@@ -73,12 +72,9 @@ in {
       }
     ];
 
-    # It doesn't seem like Libreddit allows subpaths. Wait for this:
-    # https://github.com/tailscale/tailscale/issues/1235#issuecomment-927002943
     services.nginx.virtualHosts."${lokiDomain}" = {
       forceSSL = true;
-      sslCertificate = "/var/lib/self-signed/_.blackberry.box/cert.pem";
-      sslCertificateKey = "/var/lib/self-signed/_.blackberry.box/key.pem";
+      enableACME = true;
 
       locations."/" = {
         proxyPass = "http://localhost:${lokiHttpPort}";

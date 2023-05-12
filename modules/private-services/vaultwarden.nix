@@ -5,9 +5,8 @@
 }:
 with lib; let
   cfg = config.nixchad.vaultwarden;
-  hostname = config.networking.hostName;
   vaultwardenPort = 32003;
-  domain = "${hostname}.tail34ad.ts.net";
+  domain = "vaultwarden.nixalted.com";
 in {
   options.nixchad.vaultwarden = {
     enable = mkEnableOption "Vaultwarden";
@@ -43,8 +42,7 @@ in {
 
     services.nginx.virtualHosts."${domain}" = {
       forceSSL = true;
-      sslCertificate = "/var/lib/self-signed/${domain}.crt";
-      sslCertificateKey = "/var/lib/self-signed/${domain}.key";
+      enableACME = true;
 
       locations."/vault" = {
         proxyPass = "http://localhost:${toString vaultwardenPort}";

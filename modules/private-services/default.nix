@@ -38,6 +38,9 @@ in {
       }
     ];
 
+    security.acme.acceptTerms = true;
+    security.acme.defaults.email = "services-nixchad@riseup.net";
+
     services.nginx = {
       enable = true;
 
@@ -56,12 +59,5 @@ in {
     };
 
     networking.firewall.interfaces.tailscale0.allowedTCPPorts = [80 443];
-
-    environment.persistence."/persist" = {
-      hideMounts = true;
-      directories = [
-        "/var/lib/self-signed"
-      ];
-    };
   };
 }
