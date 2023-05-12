@@ -1,7 +1,7 @@
-{disk ? ["/dev/sda"], ...}: {
+{disks ? ["/dev/sda"], ...}: {
   disko.devices.disk."sda" = {
     type = "disk";
-    device = disk;
+    device = builtins.elemAt disks 0;
     content = {
       type = "table";
       format = "gpt";
