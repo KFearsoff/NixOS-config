@@ -7,11 +7,16 @@
       format = "gpt";
       partitions = [
         {
-          name = "ESP";
-          start = "1MiB";
+          name = "bios";
+          start = "0";
+          end = "1M";
+          flags = ["bios_grub"];
+        }
+        {
+          name = "boot";
+          start = "1M";
           end = "128MiB";
           fs-type = "fat32";
-          bootable = true;
           content = {
             type = "filesystem";
             format = "vfat";
