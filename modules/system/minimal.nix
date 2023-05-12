@@ -12,7 +12,7 @@ in {
 
   config = mkIf cfg.enable {
     # taken from K900: https://gitlab.com/K900/nix/-/blob/faf75f4f91c980d8d1175d8868ca28952872f689/shared/server.nix
-    time.timeZone = "UTC";
+    nixchad.location.timezone = "UTC";
 
     # save some space on servers
     boot.enableContainers = false;
