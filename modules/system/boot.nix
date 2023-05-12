@@ -10,7 +10,7 @@ in {
     enable = mkEnableOption "boot";
 
     bootloader = mkOption {
-      type = types.enum ["grub" "systemd-boot"];
+      type = types.enum ["grub" "grub-noefi" "systemd-boot"];
       default = "systemd-boot";
     };
   };
@@ -34,6 +34,12 @@ in {
       efiSupport = true;
       device = "nodev";
       efiInstallAsRemovable = true;
+    };
+
+    boot.loader.grub = mkIf (cfg.bootloader == "grub-noefi") {
+      enable = true;
+      version = 2;
+      device = "sda";
     };
   };
 }
