@@ -5,7 +5,7 @@
   ...
 }: {
   imports = [
-    ./disko.nix
+    (import ./disko.nix {})
     ./networking.nix
     ./hardware-configuration.nix
     inputs.disko.nixosModules.disko
