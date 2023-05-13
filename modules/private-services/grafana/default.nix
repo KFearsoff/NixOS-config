@@ -25,10 +25,7 @@ in {
       enable = true;
 
       settings = {
-        server = {
-          root_url = "https://${domain}/grafana";
-          serve_from_sub_path = true;
-        };
+        server.root_url = "https://${domain}";
 
         database = {
           type = "postgres";

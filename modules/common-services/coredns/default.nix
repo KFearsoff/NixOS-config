@@ -86,8 +86,8 @@ in {
     ];
 
     networking.firewall.interfaces.tailscale0 = {
-      allowedTCPPorts = [53 33003];
-      allowedUDPPorts = [53 33003];
+      allowedTCPPorts = [33003];
+      allowedUDPPorts = [33003];
     };
   };
 }

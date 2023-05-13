@@ -35,8 +35,8 @@ in {
     security.sudo.wheelNeedsPassword = lib.mkDefault false;
     users.users."${username}".openssh.authorizedKeys.keys = config.lib.metadata.sshPubkeyList;
 
-    services.smartd.enable = true;
-    services.smartd.defaults.monitored = "-a -o on -s (S/../01/./03|L/(01|07)/.././03)";
+    services.smartd.enable = mkDefault true;
+    services.smartd.defaults.monitored = mkDefault "-a -o on -s (S/../01/./03|L/(01|07)/.././03)";
     services.fwupd.enable = true;
     services.gvfs.enable = true;
     services.journald.extraConfig = "SystemMaxUse=100M";
