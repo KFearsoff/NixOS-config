@@ -91,7 +91,6 @@
               ./suites/gui.nix
               ./suites/work.nix
               ./suites/common-services.nix
-              ./suites/private-services.nix
               ./suites/office.nix
               ./suites/graphics.nix
               ./suites/shell.nix
@@ -133,11 +132,7 @@
           };
         };
 
-        checks =
-          builtins.mapAttrs (_: deployLib: deployLib.deployChecks inputs.self.deploy) inputs.deploy-rs.lib
-          // {
-            inherit (packages.x86_64-linux) metadata-test;
-          };
+        checks = builtins.mapAttrs (_: deployLib: deployLib.deployChecks inputs.self.deploy) inputs.deploy-rs.lib;
 
         packages.x86_64-linux =
           {
