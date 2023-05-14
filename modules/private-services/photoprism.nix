@@ -29,12 +29,17 @@ in {
 
     services.nginx.virtualHosts."${photoprismDomain}" = {
       forceSSL = true;
-      enableACME = true;
+      useACMEHost = "nixalted.com";
 
       locations."/" = {
         proxyPass = "http://localhost:${builtins.toString photoprismPort}";
         proxyWebsockets = true;
       };
+
+      extraConfig = ''
+        allow 100.100.100.100/8;
+        deny  all;
+      '';
     };
   };
 }

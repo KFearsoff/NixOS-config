@@ -59,12 +59,17 @@ in {
 
     services.nginx.virtualHosts."${alertmanagerDomain}" = {
       forceSSL = true;
-      enableACME = true;
+      useACMEHost = "nixalted.com";
 
       locations."/" = {
         proxyPass = "http://localhost:${alertmanagerPort}";
         proxyWebsockets = true;
       };
+
+      extraConfig = ''
+        allow 100.100.100.100/8;
+        deny  all;
+      '';
     };
   };
 }

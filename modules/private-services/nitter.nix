@@ -19,11 +19,16 @@ in {
 
     services.nginx.virtualHosts."${nitterDomain}" = {
       forceSSL = true;
-      enableACME = true;
+      useACMEHost = "nixalted.com";
 
       locations."/" = {
         proxyPass = "http://localhost:${nitterPort}";
       };
+
+      extraConfig = ''
+        allow 100.100.100.100/8;
+        deny  all;
+      '';
     };
   };
 }

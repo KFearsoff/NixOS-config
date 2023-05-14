@@ -38,8 +38,17 @@ in {
       }
     ];
 
-    security.acme.acceptTerms = true;
-    security.acme.defaults.email = "services-nixchad@riseup.net";
+    security.acme = {
+      acceptTerms = true;
+      defaults.email = "services-nixchad@riseup.net";
+
+      certs."nixalted.com" = {
+        dnsProvider = "namecheap";
+        extraDomainNames = builtins.map (x: x + ".nixalted.com") ["alertmanager" "grafana" "libreddit" "loki" "invidious" "prometheus" "nitter" "photoprism" "vaultwarden"];
+        group = "nginx";
+        credentialsFile = "/secrets/acme";
+      };
+    };
 
     services.nginx = {
       enable = true;
@@ -49,8 +58,6 @@ in {
       recommendedBrotliSettings = true;
       recommendedGzipSettings = true;
       recommendedProxySettings = true;
-
-      statusPage = true;
     };
 
     services.prometheus.exporters.nginx = {
@@ -58,6 +65,7 @@ in {
       port = 33001;
     };
 
-    networking.firewall.interfaces.tailscale0.allowedTCPPorts = [80 443];
+    networking.firewall.allowedTCPPorts = [80 443];
+    networking.firewall.allowedUDPPorts = [80 443];
   };
 }

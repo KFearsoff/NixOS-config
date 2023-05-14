@@ -74,12 +74,17 @@ in {
 
     services.nginx.virtualHosts."${lokiDomain}" = {
       forceSSL = true;
-      enableACME = true;
+      useACMEHost = "nixalted.com";
 
       locations."/" = {
         proxyPass = "http://localhost:${lokiHttpPort}";
         proxyWebsockets = true;
       };
+
+      extraConfig = ''
+        allow 100.100.100.100/8;
+        deny  all;
+      '';
     };
     networking.firewall.interfaces.tailscale0.allowedTCPPorts = [33100 33110];
   };

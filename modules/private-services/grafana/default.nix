@@ -71,12 +71,17 @@ in {
 
     services.nginx.virtualHosts."${domain}" = {
       forceSSL = true;
-      enableACME = true;
+      useACMEHost = "nixalted.com";
 
-      locations."/grafana" = {
+      locations."/" = {
         proxyPass = "http://localhost:${grafanaPort}";
         proxyWebsockets = true;
       };
+
+      extraConfig = ''
+        allow 100.100.100.100/8;
+        deny  all;
+      '';
     };
   };
 }

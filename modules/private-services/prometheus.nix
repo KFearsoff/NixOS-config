@@ -48,12 +48,17 @@ in {
 
     services.nginx.virtualHosts."${prometheusDomain}" = {
       forceSSL = true;
-      enableACME = true;
+      useACMEHost = "nixalted.com";
 
       locations."/" = {
         proxyPass = "http://localhost:${prometheusPort}";
         proxyWebsockets = true;
       };
+
+      extraConfig = ''
+        allow 100.100.100.100/8;
+        deny  all;
+      '';
     };
   };
 }

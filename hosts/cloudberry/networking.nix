@@ -2,7 +2,7 @@
   # This file was populated at runtime with the networking
   # details gathered from the active system.
   networking = {
-    nameservers = [
+    nameservers = lib.mkForce [
       "8.8.8.8"
     ];
     defaultGateway = "172.31.1.1";

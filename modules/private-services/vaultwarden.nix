@@ -26,7 +26,7 @@ in {
 
         databaseUrl = "postgresql://vaultwarden@/vaultwarden";
 
-        domain = "https://${domain}/vault";
+        domain = "https://${domain}";
       };
     };
 
@@ -42,20 +42,25 @@ in {
 
     services.nginx.virtualHosts."${domain}" = {
       forceSSL = true;
-      enableACME = true;
+      useACMEHost = "nixalted.com";
 
-      locations."/vault" = {
+      locations."/" = {
         proxyPass = "http://localhost:${toString vaultwardenPort}";
         proxyWebsockets = true;
       };
-      locations."/vault/notifications/hub" = {
+      locations."/notifications/hub" = {
         proxyPass = "http://localhost:3012";
         proxyWebsockets = true;
       };
-      locations."/vault/notifications/hub/negotiate" = {
+      locations."/notifications/hub/negotiate" = {
         proxyPass = "http://localhost:${toString vaultwardenPort}";
         proxyWebsockets = true;
       };
+
+      extraConfig = ''
+        allow 100.100.100.100/8;
+        deny  all;
+      '';
     };
 
     # make sure we don't crash because postgres isn't ready
