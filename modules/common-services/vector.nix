@@ -53,6 +53,6 @@ in {
       }
     ];
 
-    networking.firewall.interfaces.tailscale0.allowedTCPPorts = [33001];
+    networking.firewall.interfaces.tailscale0.allowedTCPPorts = [33101];
   };
 }
