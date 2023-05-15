@@ -21,6 +21,7 @@ in {
       # Explanation can be found here:
       # https://github.com/rfrail3/grafana-dashboards/issues/72#issuecomment-880484961
       globalConfig.scrape_interval = "15s";
+      globalConfig.evaluation_interval = "15s";
       scrapeConfigs = [
         {
           job_name = "prometheus";

@@ -54,6 +54,7 @@ in {
 
       ruleFiles = [
         ./blackbox.yaml
+        ./prometheus.yaml
       ];
     };
 
