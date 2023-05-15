@@ -19,4 +19,5 @@
   nixchad.smartctl-exporter.enable = false;
   nixchad.photoprism.enable = false;
   services.smartd.enable = false;
+  zramSwap.enable = true;
 }
