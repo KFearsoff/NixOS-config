@@ -7,6 +7,7 @@ ssh-pubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEQ77pbUwzNYJzu/vEg9MqtuLQmjgR
 [hosts.cloudberry]
 ipv4 = "37.27.0.141"
 interface = "eth0"
+syncthing.id = "PTFQGBZ-ZJ7PPKR-EDO2NOZ-IHFWCY6-AO7CW3X-G7VVFBH-R7IEE6G-Y2KK3QJ"
 
 [phones.pixel-4a]
 ipv4 = "100.107.161.19"
