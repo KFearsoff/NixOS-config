@@ -17,6 +17,7 @@ in {
       alertmanager = {
         enable = true;
         environmentFile = "/secrets/telegram";
+        webExternalUrl = "https://alertmanager.nixalted.com";
 
         configuration = {
           route = {
