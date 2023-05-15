@@ -1,5 +1,6 @@
 {
   config,
+  pkgs,
   lib,
   servername,
   ...
@@ -58,6 +59,9 @@ in {
       recommendedBrotliSettings = true;
       recommendedGzipSettings = true;
       recommendedProxySettings = true;
+      recommendedZstdSettings = true;
+
+      statusPage = true;
     };
 
     services.prometheus.exporters.nginx = {
@@ -67,5 +71,21 @@ in {
 
     networking.firewall.allowedTCPPorts = [80 443];
     networking.firewall.allowedUDPPorts = [80 443];
+
+    systemd.services."tailscale.nginx-auth" = {
+      after = ["nginx.service"];
+      wants = ["nginx.service"];
+      wantedBy = ["default.target"];
+      serviceConfig = {
+        ExecStart = "${pkgs.tailscale}/bin/nginx-auth";
+        DynamicUser = true;
+      };
+    };
+
+    systemd.sockets."tailscale.nginx-auth" = {
+      partOf = ["tailscale.nginx-auth.service"];
+      wantedBy = ["sockets.target"];
+      listenStreams = ["/run/tailscale/tailscale.nginx-auth.sock"];
+    };
   };
 }
