@@ -67,7 +67,7 @@ in {
       };
 
       extraConfig = ''
-        allow 100.100.100.100/8;
+        allow 100.0.0.0/8;
         deny  all;
       '';
     };

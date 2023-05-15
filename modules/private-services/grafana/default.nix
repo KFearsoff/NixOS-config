@@ -120,6 +120,11 @@ in {
           '';
         };
       };
+
+      extraConfig = ''
+        allow 100.0.0.0/8;
+        deny  all;
+      '';
     };
   };
 }

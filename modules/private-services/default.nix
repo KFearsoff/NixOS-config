@@ -62,6 +62,16 @@ in {
       recommendedZstdSettings = true;
 
       statusPage = true;
+
+      virtualHosts."nixalted.com" = {
+        forceSSL = true;
+        useACMEHost = "nixalted.com";
+
+        extraConfig = ''
+          allow 100.0.0.0/8;
+          deny  all;
+        '';
+      };
     };
 
     services.prometheus.exporters.nginx = {
