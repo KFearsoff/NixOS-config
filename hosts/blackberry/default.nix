@@ -55,6 +55,8 @@ in {
         linkConfig.RequiredForOnline = "routable";
       };
     };
+
+    wait-online.ignoredInterfaces = ["tailscale0"];
   };
   networking.networkmanager.unmanaged = ["interface-name:${ifname}" "interface-name:br-libvirt" "interface-name:tailscale0"];
   systemd.services.NetworkManager-wait-online.enable = false;

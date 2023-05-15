@@ -9,10 +9,6 @@
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    home-manager-newsboat.url = "github:nix-community/home-manager/743f3ba9ace05886c9de06a65f5ea7ed4b2df09c";
-    home-manager-newsboat.inputs.nixpkgs.follows = "nixpkgs";
-    home-manager-newsboat.inputs.utils.follows = "flake-utils";
-
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
     neovim-nightly-overlay.inputs.nixpkgs.follows = "nixpkgs";
     neovim-nightly-overlay.inputs.flake-compat.follows = "flake-compat";

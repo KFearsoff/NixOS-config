@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  inputs,
   ...
 }:
 with lib; let
@@ -14,14 +13,6 @@ in {
 
   config = mkIf cfg.enable {
     hm = {
-      # https://github.com/nix-community/home-manager/issues/602
-      disabledModules = [
-        "programs/newsboat.nix"
-      ];
-      imports = [
-        "${inputs.home-manager-newsboat}/modules/programs/newsboat.nix"
-      ];
-
       home.shellAliases.newsboat = "newsboat -q";
 
       programs.newsboat = {

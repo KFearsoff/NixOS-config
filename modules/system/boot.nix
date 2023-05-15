@@ -30,7 +30,6 @@ in {
 
     boot.loader.grub = mkIf (cfg.bootloader == "grub" || cfg.bootloader == "grub-noefi") {
       enable = true;
-      version = 2;
       efiSupport = cfg.bootloader == "grub";
       device =
         if cfg.bootloader == "grub"
