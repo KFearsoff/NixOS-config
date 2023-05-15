@@ -3,3 +3,4 @@ result
 .direnv
 .devenv
 .pre-commit-config.yaml
+.deploy-gc

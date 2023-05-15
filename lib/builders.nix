@@ -64,7 +64,7 @@
         inherit inputs username;
         inherit (inputs) nix-colors;
         metadata-path = ../hosts/metadata.toml;
-        servername = "blackberry";
+        servername = "cloudberry";
       };
     };
 in {

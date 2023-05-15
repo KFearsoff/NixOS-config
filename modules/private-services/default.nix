@@ -1,5 +1,6 @@
 {
   config,
+  pkgs,
   lib,
   servername,
   ...
@@ -38,6 +39,18 @@ in {
       }
     ];
 
+    security.acme = {
+      acceptTerms = true;
+      defaults.email = "services-nixchad@riseup.net";
+
+      certs."nixalted.com" = {
+        dnsProvider = "namecheap";
+        extraDomainNames = builtins.map (x: x + ".nixalted.com") ["alertmanager" "grafana" "libreddit" "loki" "invidious" "prometheus" "nitter" "photoprism" "vaultwarden"];
+        group = "nginx";
+        credentialsFile = "/secrets/acme";
+      };
+    };
+
     services.nginx = {
       enable = true;
 
@@ -46,8 +59,19 @@ in {
       recommendedBrotliSettings = true;
       recommendedGzipSettings = true;
       recommendedProxySettings = true;
+      recommendedZstdSettings = true;
 
       statusPage = true;
+
+      virtualHosts."nixalted.com" = {
+        forceSSL = true;
+        useACMEHost = "nixalted.com";
+
+        extraConfig = ''
+          allow 100.0.0.0/8;
+          deny  all;
+        '';
+      };
     };
 
     services.prometheus.exporters.nginx = {
@@ -55,13 +79,23 @@ in {
       port = 33001;
     };
 
-    networking.firewall.interfaces.tailscale0.allowedTCPPorts = [80 443];
+    networking.firewall.allowedTCPPorts = [80 443];
+    networking.firewall.allowedUDPPorts = [80 443];
 
-    environment.persistence."/persist" = {
-      hideMounts = true;
-      directories = [
-        "/var/lib/self-signed"
-      ];
+    systemd.services."tailscale.nginx-auth" = {
+      after = ["nginx.service"];
+      wants = ["nginx.service"];
+      wantedBy = ["default.target"];
+      serviceConfig = {
+        ExecStart = "${pkgs.tailscale}/bin/nginx-auth";
+        DynamicUser = true;
+      };
+    };
+
+    systemd.sockets."tailscale.nginx-auth" = {
+      partOf = ["tailscale.nginx-auth.service"];
+      wantedBy = ["sockets.target"];
+      listenStreams = ["/run/tailscale/tailscale.nginx-auth.sock"];
     };
   };
 }

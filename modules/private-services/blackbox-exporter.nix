@@ -34,10 +34,10 @@ with lib; let
         targets = let
           preTargetsIcmp = [
             "google.com"
-            "api.telegram.org"
           ];
           preTargetsHttps = [
             "google.com"
+            "api.telegram.org"
           ];
         in
           if (module == "icmp_v4" || module == "icmp_v6")

@@ -10,7 +10,7 @@ in {
     enable = mkEnableOption "boot";
 
     bootloader = mkOption {
-      type = types.enum ["grub" "systemd-boot"];
+      type = types.enum ["grub" "grub-noefi" "systemd-boot"];
       default = "systemd-boot";
     };
   };
@@ -28,12 +28,15 @@ in {
       editor = false;
     };
 
-    boot.loader.grub = mkIf (cfg.bootloader == "grub") {
+    boot.loader.grub = mkIf (cfg.bootloader == "grub" || cfg.bootloader == "grub-noefi") {
       enable = true;
       version = 2;
-      efiSupport = true;
-      device = "nodev";
-      efiInstallAsRemovable = true;
+      efiSupport = cfg.bootloader == "grub";
+      device =
+        if cfg.bootloader == "grub"
+        then "nodev"
+        else "/dev/sda";
+      efiInstallAsRemovable = cfg.bootloader == "grub";
     };
   };
 }

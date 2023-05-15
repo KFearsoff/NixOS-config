@@ -1,5 +1,4 @@
 {
-  config,
   modulesPath,
   pkgs,
   lib,
@@ -7,22 +6,21 @@
   ...
 }: {
   imports = [
-    "${toString modulesPath}/installer/cd-dvd/installation-cd-minimal.nix"
+    (modulesPath + "/installer/cd-dvd/installation-cd-minimal-new-kernel-no-zfs.nix")
   ];
-  boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
 
-  nixchad.filesystem.type = "ext4";
-  networking.wireless.enable = lib.mkForce false;
+  nixchad.system.enable = lib.mkForce false;
   nixchad.impermanence.enable = lib.mkForce false;
+  nixchad.networking.enable = lib.mkForce false;
+  nixchad.boot.enable = lib.mkForce false;
+  nixchad.filesystem.enable = lib.mkForce false;
+  nixchad.colors.enable = lib.mkForce false;
 
-  environment.systemPackages = [pkgs.chad-bootstrap];
+  networking.wireless.enable = lib.mkForce false;
+  networking.networkmanager.enable = true;
+
+  environment.systemPackages = [pkgs.git];
   users.users."${username}".password = "";
-
-  # EFI booting
-  isoImage.makeEfiBootable = true;
-
-  # USB booting
-  isoImage.makeUsbBootable = true;
 
   system.stateVersion = lib.mkForce "22.11";
 }

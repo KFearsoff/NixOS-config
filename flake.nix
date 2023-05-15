@@ -51,6 +51,9 @@
       pre-commit-hooks.follows = "pre-commit-hooks";
       nixpkgs.follows = "nixpkgs";
     };
+
+    disko.url = "github:nix-community/disko";
+    disko.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = inputs:
@@ -88,10 +91,18 @@
               ./suites/gui.nix
               ./suites/work.nix
               ./suites/common-services.nix
-              ./suites/private-services.nix
               ./suites/office.nix
               ./suites/graphics.nix
               ./suites/shell.nix
+            ];
+          };
+
+          cloudberry = buildSystem {
+            hostname = "cloudberry";
+            extraModules = [
+              ./hosts/cloudberry
+              ./suites/common-services.nix
+              ./suites/private-services.nix
             ];
           };
         };
@@ -112,22 +123,25 @@
             sshUser = "nixchad";
             profiles.system.path = x86_64-linux.activate.nixos inputs.self.nixosConfigurations.blackberry;
           };
+
+          cloudberry = {
+            hostname = "cloudberry";
+            user = "root";
+            sshUser = "nixchad";
+            profiles.system.path = x86_64-linux.activate.nixos inputs.self.nixosConfigurations.cloudberry;
+          };
         };
 
-        checks =
-          builtins.mapAttrs (_: deployLib: deployLib.deployChecks inputs.self.deploy) inputs.deploy-rs.lib
-          // {
-            inherit (packages.x86_64-linux) metadata-test;
-          };
+        checks = builtins.mapAttrs (_: deployLib: deployLib.deployChecks inputs.self.deploy) inputs.deploy-rs.lib;
 
         packages.x86_64-linux =
-          # {
-          #   iso = let
-          #     image = buildSystem {hostname = "iso";};
-          #   in
-          #     image.config.system.build."isoImage";
-          # } //
-          pkgs.lib.mapAttrs (_: v: v) (import ./pkgs {inherit pkgs;});
+          {
+            iso = let
+              image = buildSystem {hostname = "iso";};
+            in
+              image.config.system.build."isoImage";
+          }
+          // pkgs.lib.mapAttrs (_: v: v) (import ./pkgs {inherit pkgs;});
 
         apps.x86_64-linux.default = {
           type = "app";

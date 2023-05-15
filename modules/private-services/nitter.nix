@@ -5,9 +5,8 @@
 }:
 with lib; let
   cfg = config.nixchad.nitter;
-  hostname = config.networking.hostName;
   nitterPort = toString config.services.nitter.server.port;
-  nitterDomain = "nitter.${hostname}.box";
+  nitterDomain = "nitter.nixalted.com";
 in {
   options.nixchad.nitter = {
     enable = mkEnableOption "Nitter Twitter proxying service";
@@ -18,15 +17,18 @@ in {
     services.nitter.server.port = 32002;
     services.nitter.server.hostname = nitterDomain;
 
-    # don't use SSL certs
     services.nginx.virtualHosts."${nitterDomain}" = {
       forceSSL = true;
-      sslCertificate = "/var/lib/self-signed/_.blackberry.box/cert.pem";
-      sslCertificateKey = "/var/lib/self-signed/_.blackberry.box/key.pem";
+      useACMEHost = "nixalted.com";
 
       locations."/" = {
         proxyPass = "http://localhost:${nitterPort}";
       };
+
+      extraConfig = ''
+        allow 100.0.0.0/8;
+        deny  all;
+      '';
     };
   };
 }

@@ -5,9 +5,8 @@
 }:
 with lib; let
   cfg = config.nixchad.prometheus;
-  hostname = config.networking.hostName;
   prometheusPort = toString config.services.prometheus.port;
-  prometheusDomain = "prometheus.${hostname}.box";
+  prometheusDomain = "prometheus.nixalted.com";
 in {
   options.nixchad.prometheus = {
     enable = mkEnableOption "Prometheus monitoring";
@@ -49,13 +48,17 @@ in {
 
     services.nginx.virtualHosts."${prometheusDomain}" = {
       forceSSL = true;
-      sslCertificate = "/var/lib/self-signed/_.blackberry.box/cert.pem";
-      sslCertificateKey = "/var/lib/self-signed/_.blackberry.box/key.pem";
+      useACMEHost = "nixalted.com";
 
       locations."/" = {
         proxyPass = "http://localhost:${prometheusPort}";
         proxyWebsockets = true;
       };
+
+      extraConfig = ''
+        allow 100.0.0.0/8;
+        deny  all;
+      '';
     };
   };
 }
