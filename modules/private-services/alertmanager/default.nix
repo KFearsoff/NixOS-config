@@ -56,6 +56,7 @@ in {
         ./blackbox.yaml
         ./prometheus.yaml
         ./node-exporter.yaml
+        ./cadvisor.yaml
       ];
     };
 
