@@ -35,17 +35,6 @@ in {
             }
           ];
         }
-        {
-          job_name = "private-services";
-          static_configs = [
-            {
-              targets = [
-                "localhost:33001" # nginx
-                "localhost:33002" # postgresql
-              ];
-            }
-          ];
-        }
       ];
     };
 

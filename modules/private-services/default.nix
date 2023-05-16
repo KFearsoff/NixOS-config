@@ -7,6 +7,7 @@
 with lib; let
   cfg = config.nixchad.nginx;
   hostname = config.networking.hostName;
+  exporter-port = "33001";
 in {
   imports = [
     ./grafana
@@ -76,8 +77,21 @@ in {
 
     services.prometheus.exporters.nginx = {
       enable = true;
-      port = 33001;
+      port = strings.toInt exporter-port;
     };
+
+    services.prometheus.scrapeConfigs = [
+      {
+        job_name = "nginx";
+        static_configs = [
+          {
+            targets = [
+              "localhost:${exporter-port}" # nginx
+            ];
+          }
+        ];
+      }
+    ];
 
     networking.firewall.allowedTCPPorts = [80 443];
     networking.firewall.allowedUDPPorts = [80 443];
