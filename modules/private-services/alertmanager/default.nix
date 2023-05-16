@@ -59,6 +59,7 @@ in {
         ./node-exporter.yaml
         ./cadvisor.yaml
         ./postgres.yaml
+        ./redis.yaml
       ];
     };
 

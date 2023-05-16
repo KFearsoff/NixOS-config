@@ -17,6 +17,7 @@ in {
     ./postgres.nix
     ./postgres-exporter.nix
     ./blackbox-exporter.nix
+    ./redis-exporter.nix
     ./prometheus.nix
     ./alertmanager
     ./vaultwarden.nix
