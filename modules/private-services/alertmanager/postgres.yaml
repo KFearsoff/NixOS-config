@@ -1,10 +1,7 @@
 # Taken from https://samber.github.io/awesome-prometheus-alerts/rules
 groups:
-
-- name: Postgres
-
+- name: postgres
   rules:
-
     - alert: PostgresqlDown
       expr: 'pg_up == 0'
       for: 0m

@@ -1,10 +1,7 @@
 # Taken from https://samber.github.io/awesome-prometheus-alerts/rules
 groups:
-
-- name: Redis
-
+- name: redis
   rules:
-
     - alert: RedisDown
       expr: 'redis_up == 0'
       for: 0m
