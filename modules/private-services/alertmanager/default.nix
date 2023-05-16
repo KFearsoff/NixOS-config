@@ -58,6 +58,7 @@ in {
         ./prometheus.yaml
         ./node-exporter.yaml
         ./cadvisor.yaml
+        ./postgres.yaml
       ];
     };
 
