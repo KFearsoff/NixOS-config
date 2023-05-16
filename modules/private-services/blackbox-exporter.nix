@@ -34,12 +34,10 @@ with lib; let
       {
         targets = let
           preTargetsIcmp = [
-            "google.com"
             "nixalted.com"
             "api.tailscale.com"
           ];
           preTargetsHttps = [
-            "google.com"
             "nixalted.com"
             "api.tailscale.com"
             "api.telegram.org"
