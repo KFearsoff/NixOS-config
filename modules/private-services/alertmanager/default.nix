@@ -22,7 +22,7 @@ in {
         configuration = {
           route = {
             receiver = "telegram";
-            group_by = ["..."];
+            group_by = ["severity"];
           };
 
           receivers = [

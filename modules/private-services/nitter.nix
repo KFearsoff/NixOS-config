@@ -16,6 +16,7 @@ in {
     services.nitter.enable = true;
     services.nitter.server.port = 32002;
     services.nitter.server.hostname = nitterDomain;
+    services.redis.vmOverCommit = true;
 
     services.nginx.virtualHosts."${nitterDomain}" = {
       forceSSL = true;
