@@ -7,7 +7,7 @@ with lib; let
   cfg = config.nixchad.redis-exporter;
   port = "33007";
 in {
-  options.nixchad.postgres-exporter = {
+  options.nixchad.redis-exporter = {
     enable = mkEnableOption "Prometheus Redis exporter";
   };
 
