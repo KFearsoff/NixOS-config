@@ -60,6 +60,7 @@ in {
         ./cadvisor.yaml
         ./postgres.yaml
         ./redis.yaml
+        ./loki.yaml
       ];
     };
 
