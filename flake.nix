@@ -50,6 +50,13 @@
 
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";
+
+    tailforward.url = "github:KFearsoff/tailforward";
+    tailforward.inputs = {
+      nixpkgs.follows = "nixpkgs";
+      systems.follows = "systems";
+      devenv.follows = "devenv";
+    };
   };
 
   outputs = inputs:
