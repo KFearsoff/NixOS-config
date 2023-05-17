@@ -1065,11 +1065,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1684318276,
-        "narHash": "sha256-wzCZCGZewU4nZdthqeIjic91qWzGwgUTaeJXakl22Ek=",
+        "lastModified": 1684327746,
+        "narHash": "sha256-zy3kDunSV0uaJL1PwqOVrphgJmYTRIO4+q5TwuxEOZA=",
         "owner": "KFearsoff",
         "repo": "tailforward",
-        "rev": "25f67e10907e26d696a2362d5168e31a8afca6c3",
+        "rev": "13dc8cbf5e83ba2db5c4533909bdbf6d8776310f",
         "type": "github"
       },
       "original": {
