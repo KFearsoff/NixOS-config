@@ -175,14 +175,15 @@ groups:
       # 1000 context switches is an arbitrary number.
       # Alert threshold depends on nature of application.
       # Please read: https://github.com/samber/awesome-prometheus-alerts/issues/58
+      # FIXME: high context switching on blackberry due to Neovim
       - alert: HostContextSwitching
-        expr: ((rate(node_context_switches_total[5m])) / (count without(cpu, mode) (node_cpu_seconds_total{mode="idle"})) > 1000) * on(instance) group_left (nodename) node_uname_info{nodename=~".+"}
+        expr: ((rate(node_context_switches_total[5m])) / (count without(cpu, mode) (node_cpu_seconds_total{mode="idle"})) > 3000) * on(instance) group_left (nodename) node_uname_info{nodename=~".+"}
         for: 0m
         labels:
           severity: warning
         annotations:
           summary: Host context switching (instance {{ $labels.instance }})
-          description: "Context switching is growing on node (> 1000 / s)\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+          description: "Context switching is growing on node (> 3000 / s)\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
       - alert: HostSwapIsFillingUp
         expr: ((1 - (node_memory_SwapFree_bytes / node_memory_SwapTotal_bytes)) * 100 > 80) * on(instance) group_left (nodename) node_uname_info{nodename=~".+"}
@@ -284,7 +285,7 @@ groups:
           description: "The number of conntrack is approaching limit\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
       - alert: HostClockSkew
-        expr: ((node_timex_offset_seconds > 0.05 and deriv(node_timex_offset_seconds[5m]) >= 0) or (node_timex_offset_seconds < -0.05 and deriv(node_timex_offset_seconds[5m]) <= 0)) * on(instance) group_left (nodename) node_uname_info{nodename=~".+"}
+        expr: ((node_timex_offset_seconds > 0.15 and deriv(node_timex_offset_seconds[5m]) >= 0) or (node_timex_offset_seconds < -0.15 and deriv(node_timex_offset_seconds[5m]) <= 0)) * on(instance) group_left (nodename) node_uname_info{nodename=~".+"}
         for: 2m
         labels:
           severity: warning

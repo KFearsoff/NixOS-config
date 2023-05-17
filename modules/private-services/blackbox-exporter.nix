@@ -38,7 +38,7 @@ with lib; let
             "api.tailscale.com"
           ];
           preTargetsHttps = [
-            "nixalted.com"
+            #"nixalted.com"
             "api.tailscale.com"
             "api.telegram.org"
           ];

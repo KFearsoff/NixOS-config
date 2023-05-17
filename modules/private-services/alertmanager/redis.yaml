@@ -56,14 +56,14 @@ groups:
         summary: Redis cluster flapping (instance {{ $labels.instance }})
         description: "Changes have been detected in Redis replica connection. This can occur when replica nodes lose connection to the master and reconnect (a.k.a flapping).\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
-    - alert: RedisMissingBackup
-      expr: 'time() - redis_rdb_last_save_timestamp_seconds > 60 * 60 * 24'
-      for: 0m
-      labels:
-        severity: critical
-      annotations:
-        summary: Redis missing backup (instance {{ $labels.instance }})
-        description: "Redis has not been backuped for 24 hours\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+          #- alert: RedisMissingBackup
+          #  expr: 'time() - redis_rdb_last_save_timestamp_seconds > 60 * 60 * 24'
+          #  for: 0m
+          #  labels:
+          #    severity: critical
+          #  annotations:
+          #    summary: Redis missing backup (instance {{ $labels.instance }})
+          #    description: "Redis has not been backuped for 24 hours\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: RedisTooManyConnections
       expr: 'redis_connected_clients > 100'

@@ -12,7 +12,7 @@ groups:
           description: "Probe failed\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
       - alert: BlackboxSlowProbe
-        expr: avg_over_time(probe_duration_seconds[5m]) > 1
+        expr: avg_over_time(probe_duration_seconds[10m]) > 1
         for: 1m
         labels:
           severity: warning
@@ -39,7 +39,7 @@ groups:
           description: "SSL certificate expires in less than 3 days\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
       - alert: BlackboxProbeSlowHttp
-        expr: avg_over_time(probe_http_duration_seconds[5m]) > 1
+        expr: avg_over_time(probe_http_duration_seconds[10m]) > 1
         for: 1m
         labels:
           severity: warning
@@ -48,7 +48,7 @@ groups:
           description: "HTTP request took more than 1s\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
       - alert: BlackboxProbeSlowPing
-        expr: avg_over_time(probe_icmp_duration_seconds[5m]) > 1
+        expr: avg_over_time(probe_icmp_duration_seconds[10m]) > 1
         for: 1m
         labels:
           severity: warning
