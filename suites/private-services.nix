@@ -9,6 +9,7 @@
   nixchad.postgres.enable = true;
   nixchad.postgres-exporter.enable = true;
   nixchad.blackbox-exporter.enable = true;
+  nixchad.redis-exporter.enable = true;
   nixchad.loki.enable = true;
   nixchad.photoprism.enable = lib.mkDefault true;
   networking.nat.enable = true;

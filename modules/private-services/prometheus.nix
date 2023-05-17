@@ -21,6 +21,9 @@ in {
       # Explanation can be found here:
       # https://github.com/rfrail3/grafana-dashboards/issues/72#issuecomment-880484961
       globalConfig.scrape_interval = "15s";
+      globalConfig.evaluation_interval = "15s";
+      webExternalUrl = "https://prometheus.nixalted.com";
+
       scrapeConfigs = [
         {
           job_name = "prometheus";
@@ -28,17 +31,6 @@ in {
             {
               targets = [
                 "localhost:${prometheusPort}"
-              ];
-            }
-          ];
-        }
-        {
-          job_name = "private-services";
-          static_configs = [
-            {
-              targets = [
-                "localhost:33001" # nginx
-                "localhost:33002" # postgresql
               ];
             }
           ];

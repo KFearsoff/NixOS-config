@@ -1,11 +1,11 @@
 modules:
-  http_2xx_v4:
+  http_v4:
     prober: http
     timeout: 5s
     http:
       preferred_ip_protocol: ip4
       ip_protocol_fallback: false
-  http_2xx_v6:
+  http_v6:
     prober: http
     timeout: 5s
     http:

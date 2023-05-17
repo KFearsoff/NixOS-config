@@ -17,11 +17,12 @@ in {
       alertmanager = {
         enable = true;
         environmentFile = "/secrets/telegram";
+        webExternalUrl = "https://alertmanager.nixalted.com";
 
         configuration = {
           route = {
             receiver = "telegram";
-            group_by = ["..."];
+            group_by = ["severity"];
           };
 
           receivers = [
@@ -54,6 +55,12 @@ in {
 
       ruleFiles = [
         ./blackbox.yaml
+        ./prometheus.yaml
+        ./node-exporter.yaml
+        ./cadvisor.yaml
+        ./postgres.yaml
+        ./redis.yaml
+        ./loki.yaml
       ];
     };
 

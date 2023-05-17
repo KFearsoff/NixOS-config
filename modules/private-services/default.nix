@@ -1,6 +1,5 @@
 {
   config,
-  pkgs,
   lib,
   servername,
   ...
@@ -8,6 +7,7 @@
 with lib; let
   cfg = config.nixchad.nginx;
   hostname = config.networking.hostName;
+  exporter-port = "33001";
 in {
   imports = [
     ./grafana
@@ -18,6 +18,7 @@ in {
     ./postgres.nix
     ./postgres-exporter.nix
     ./blackbox-exporter.nix
+    ./redis-exporter.nix
     ./prometheus.nix
     ./alertmanager
     ./vaultwarden.nix
@@ -76,26 +77,23 @@ in {
 
     services.prometheus.exporters.nginx = {
       enable = true;
-      port = 33001;
+      port = strings.toInt exporter-port;
     };
+
+    services.prometheus.scrapeConfigs = [
+      {
+        job_name = "nginx";
+        static_configs = [
+          {
+            targets = [
+              "localhost:${exporter-port}" # nginx
+            ];
+          }
+        ];
+      }
+    ];
 
     networking.firewall.allowedTCPPorts = [80 443];
     networking.firewall.allowedUDPPorts = [80 443];
-
-    systemd.services."tailscale.nginx-auth" = {
-      after = ["nginx.service"];
-      wants = ["nginx.service"];
-      wantedBy = ["default.target"];
-      serviceConfig = {
-        ExecStart = "${pkgs.tailscale}/bin/nginx-auth";
-        DynamicUser = true;
-      };
-    };
-
-    systemd.sockets."tailscale.nginx-auth" = {
-      partOf = ["tailscale.nginx-auth.service"];
-      wantedBy = ["sockets.target"];
-      listenStreams = ["/run/tailscale/tailscale.nginx-auth.sock"];
-    };
   };
 }
