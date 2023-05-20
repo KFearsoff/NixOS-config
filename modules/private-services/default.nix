@@ -23,6 +23,7 @@ in {
     ./alertmanager
     ./vaultwarden.nix
     ./photoprism.nix
+    ./tailforward.nix
   ];
 
   options.nixchad.nginx = {
