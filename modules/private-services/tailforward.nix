@@ -16,8 +16,9 @@ in {
     systemd.services.tailforward = {
       after = ["network.target"];
       wants = ["network.target"];
-      serviceConfig.ExecStart = "${inputs.tailforward.packages.x86_64-linux.default}/bin/ts_to_tg";
-      environment = {RUST_LOG = "tower_http=trace,debug,info";};
+      wantedBy = ["default.target"];
+      serviceConfig.ExecStart = "${inputs.tailforward.packages.x86_64-linux.default}/bin/tailforward";
+      environment = {RUST_LOG = "debug,tower_http=debug";};
     };
 
     services.nginx = {
