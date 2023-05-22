@@ -21,6 +21,7 @@ in {
     ./colors.nix
     ./tty.nix
     ./minimal.nix
+    ./hardware.nix
   ];
 
   options.nixchad.system = {
@@ -28,6 +29,15 @@ in {
   };
 
   config = mkIf cfg.enable {
+    nixchad = {
+      impermanence.enable = mkDefault true;
+      networking.enable = mkDefault true;
+      boot.enable = mkDefault true;
+      filesystem.enable = mkDefault true;
+      colors.enable = mkDefault true;
+      hardware.enable = mkDefault true;
+    };
+
     users.mutableUsers = false;
 
     boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
@@ -35,10 +45,6 @@ in {
     security.sudo.wheelNeedsPassword = lib.mkDefault false;
     users.users."${username}".openssh.authorizedKeys.keys = config.lib.metadata.sshPubkeyList;
 
-    services.smartd.enable = mkDefault true;
-    services.smartd.defaults.monitored = mkDefault "-a -o on -s (S/../01/./03|L/(01|07)/.././03)";
-    services.fwupd.enable = true;
-    services.gvfs.enable = true;
     services.journald.extraConfig = "SystemMaxUse=100M";
 
     # This value determines the NixOS release from which the default

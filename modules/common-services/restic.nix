@@ -15,6 +15,7 @@ in {
   config = mkIf cfg.enable {
     hm.home.packages = [pkgs.restic];
 
+    # FIXME: remove USB backups for VMs
     services.restic.backups = let
       usb-template = {
         passwordFile = "/secrets/usb-flash-drive-backup";
