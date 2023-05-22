@@ -1,29 +1,42 @@
 {
   inputs,
-  overlays,
-  system ? "x86_64-linux",
-  patches ? [],
+  overlays ? {},
+  patches ? _: [],
+  hostSystem ? "x86_64-linux",
+  targetSystems ? ["x86_64-linux" "aarch64-linux"],
 }: let
-  pkgsForPatching = import inputs.nixpkgs {inherit system;};
+  patchFetchers = {
+    pr = id: hash:
+      builtins.fetchurl {
+        url = "https://github.com/NixOS/nixpkgs/pull/${builtins.toString id}.diff";
+        sha256 = hash;
+      };
+  };
+  pkgsForPatching = import inputs.nixpkgs {system = hostSystem;};
+  patchesToApply = patches patchFetchers;
   patchedNixpkgsDrv =
-    if patches != []
+    if patchesToApply != []
     then
       pkgsForPatching.applyPatches {
         name = "nixpkgs-patched";
         src = inputs.nixpkgs;
-        patches = builtins.map (x:
-          if builtins.isPath x
-          then x
-          else pkgsForPatching.pkgs.fetchpatch x)
-        patches;
+        patches = patchesToApply;
       }
     else inputs.nixpkgs;
   patchedNixpkgs = import patchedNixpkgsDrv;
-  patchedNixpkgsFor = system:
+  patchedNixpkgsBySystem = pkgsForPatching.lib.attrsets.genAttrs targetSystems (system:
     patchedNixpkgs {
       inherit system;
       config.allowUnfree = true;
+      overlays = builtins.attrValues overlays;
+    });
+  patchedNixpkgsHost = patchedNixpkgsBySystem.${hostSystem};
+  patchedInputs =
+    inputs
+    // {
+      nixpkgs = patchedNixpkgsDrv;
     };
+
   buildSystem = {
     hostname,
     extraModules ? [],
@@ -35,7 +48,7 @@
       if builtins.pathExists machineSpecificConfig
       then [machineSpecificConfig]
       else [];
-    pkgs = patchedNixpkgsFor system;
+    pkgs = patchedNixpkgsBySystem.${system};
   in
     import "${patchedNixpkgsDrv}/nixos/lib/eval-config.nix" {
       inherit system;
@@ -44,7 +57,6 @@
           {
             networking.hostName = hostname;
             nixpkgs.pkgs = pkgs;
-            nixpkgs.overlays = builtins.attrValues overlays;
 
             # pin all the nixpkgs to the version in the flake
             nix = {
@@ -61,13 +73,14 @@
         ++ machineSpecificModules
         ++ extraModules;
       specialArgs = {
-        inherit inputs username;
-        inherit (inputs) nix-colors;
+        inputs = patchedInputs;
+        inherit username;
+        inherit (patchedInputs) nix-colors;
         metadata-path = ../hosts/metadata.toml;
         servername = "cloudberry";
       };
     };
 in {
   inherit buildSystem;
-  pkgs = patchedNixpkgsFor system;
+  pkgs = patchedNixpkgsHost;
 }

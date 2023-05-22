@@ -98,35 +98,35 @@
     };
   };
 
-  outputs = inputs:
-    with import ./lib/builders.nix {
-      inherit inputs;
-      inherit (inputs.self) overlays;
-      patches = [
-        #overlays/0001-rollback-waybar-0.9.13.patch
-        #{
-        #  url = "https://github.com/NixOS/nixpkgs/pull/198638.patch";
-        #  sha256 = "sha256-uL9fU8+0CnmR0fBCmz8GhNtmuJOmgo9j8rmFRTqM2iE=";
-        #}
-        #{
-        #  url = "https://github.com/NixOS/nixpkgs/pull/205649.patch";
-        #  sha256 = "sha256-VsPYdHvqEi+zq0q6d+MaskKj1fsKZE6h2apx92whUiU=";
-        #}
-      ];
+  outputs = inputs: let
+    overlays =
+      {
+        nur = inputs.nur.overlay;
+        neovim-nightly-overlay = inputs.neovim-nightly-overlay.overlay;
+      }
+      // (import ./overlays);
+    hostSystem = "x86_64-linux";
+    importedLib = import ./lib/builders.nix {
+      inherit inputs overlays hostSystem;
+      patches = f:
+        with f; [
+          #(pr <number> <sha>)
+        ];
     };
-      rec {
-        overlays =
-          {
-            nur = inputs.nur.overlay;
-            neovim-nightly-overlay = inputs.neovim-nightly-overlay.overlay;
-          }
-          // (import ./overlays);
+    inherit (importedLib) buildSystem pkgs;
+  in
+    inputs.flake-parts.lib.mkFlake {inherit inputs;} {
+      imports = [
+        inputs.devenv.flakeModule
+      ];
 
+      systems = ["x86_64-linux" "aarch64-linux"];
+
+      flake = {
         nixosConfigurations = {
           blackberry = buildSystem {
             hostname = "blackberry";
             extraModules = [
-              ./hosts/blackberry
               ./suites/cli.nix
               ./suites/sway.nix
               ./suites/games.nix
@@ -142,7 +142,6 @@
           cloudberry = buildSystem {
             hostname = "cloudberry";
             extraModules = [
-              ./hosts/cloudberry
               ./suites/common-services.nix
               ./suites/private-services.nix
             ];
@@ -154,7 +153,7 @@
             inherit name;
             path = value.config.system.build.toplevel;
           };
-          links = pkgs.lib.mapAttrsToList toLink nixosConfigurations;
+          links = pkgs.lib.mapAttrsToList toLink inputs.self.nixosConfigurations;
         in
           pkgs.linkFarm "all-machines" links;
 
@@ -175,8 +174,51 @@
         };
 
         checks = builtins.mapAttrs (_: deployLib: deployLib.deployChecks inputs.self.deploy) inputs.deploy-rs.lib;
+      };
 
-        packages.x86_64-linux =
+      perSystem = {
+        config,
+        pkgs,
+        system,
+        ...
+      }: {
+        formatter = pkgs.alejandra;
+
+        devenv.shells.default = {
+          packages = [
+            pkgs.just
+            inputs.deploy-rs.defaultPackage.${system}
+          ];
+
+          # https://github.com/cachix/devenv/issues/528
+          containers = pkgs.lib.mkForce {};
+
+          pre-commit.hooks = {
+            # Shell
+            shellcheck.enable = true;
+            shfmt.enable = true;
+
+            # Markdown
+            mdsh.enable = true;
+            markdownlint.enable = true;
+
+            # Variety
+            actionlint.enable = true;
+            commitizen.enable = true;
+
+            # Nix
+            alejandra.enable = true;
+            deadnix.enable = true;
+            statix.enable = true;
+          };
+        };
+
+        apps.default = {
+          type = "app";
+          program = "${inputs.deploy-rs.defaultPackage.${system}}/bin/deploy";
+        };
+
+        packages =
           {
             iso = let
               image = buildSystem {hostname = "iso";};
@@ -184,45 +226,6 @@
               image.config.system.build."isoImage";
           }
           // pkgs.lib.mapAttrs (_: v: v) (import ./pkgs {inherit pkgs;});
-
-        apps.x86_64-linux.default = {
-          type = "app";
-          program = "${inputs.deploy-rs.defaultPackage.x86_64-linux}/bin/deploy";
-        };
-      }
-      // inputs.flake-utils-dep.lib.eachDefaultSystem (system: {
-        formatter = pkgs.alejandra;
-
-        devShells.default = inputs.devenv.lib.mkShell {
-          inherit inputs pkgs;
-
-          modules = [
-            {
-              packages = [
-                pkgs.just
-                inputs.deploy-rs.defaultPackage.${system}
-              ];
-
-              pre-commit.hooks = {
-                # Shell
-                shellcheck.enable = true;
-                shfmt.enable = true;
-
-                # Markdown
-                mdsh.enable = true;
-                markdownlint.enable = true;
-
-                # Variety
-                actionlint.enable = true;
-                commitizen.enable = true;
-
-                # Nix
-                alejandra.enable = true;
-                deadnix.enable = true;
-                statix.enable = true;
-              };
-            }
-          ];
-        };
-      });
+      };
+    };
 }
