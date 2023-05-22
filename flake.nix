@@ -165,22 +165,22 @@
               ];
 
               pre-commit.hooks = {
-                # Variety
+                # Shell
                 shellcheck.enable = true;
                 shfmt.enable = true;
-                actionlint.enable = true;
+
+                # Markdown
                 mdsh.enable = true;
                 markdownlint.enable = true;
+
+                # Variety
+                actionlint.enable = true;
                 commitizen.enable = true;
 
                 # Nix
                 alejandra.enable = true;
                 deadnix.enable = true;
                 statix.enable = true;
-
-                cargo-check.enable = true;
-                clippy.enable = true;
-                rustfmt.enable = true;
               };
             }
           ];
