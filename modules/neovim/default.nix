@@ -47,15 +47,15 @@ in {
 
           # cmp plugins
           nvim-cmp # completion plugin
-          #cmp-buffer # buffer completions
-          #cmp-path # path completions
-          #cmp-cmdline # cmdline completions
+          cmp-buffer # buffer completions
+          cmp-path # path completions
+          cmp-cmdline # cmdline completions
           cmp_luasnip # snipper completions
           cmp-nvim-lsp # LSP completions
 
           # snippets
           luasnip # snippet engine
-          #friendly-snippets # a bunch of snippets to use
+          friendly-snippets # a bunch of snippets to use
 
           (pkgs.vimPlugins.nvim-treesitter.withPlugins (p:
             with p; [
@@ -98,6 +98,7 @@ in {
         extraLuaConfig = ''
           require "user.options"
           require "user.keymaps"
+          require "user.cmp"
           require "user.lsp"
           require "user.treesitter"
         '';
