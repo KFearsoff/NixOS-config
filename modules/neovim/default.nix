@@ -63,7 +63,8 @@ in {
           telescope-media-files-nvim
           telescope-fzf-native-nvim
 
-          (pkgs.vimPlugins.nvim-treesitter.withPlugins (p:
+          # treesitter
+          (pkgs.myVimPlugins.nvim-treesitter.withPlugins (p:
             with p; [
               c
               go
@@ -82,6 +83,7 @@ in {
               query
               comment
             ]))
+          nvim-ts-rainbow2
         ];
 
         extraPackages = with pkgs; [
