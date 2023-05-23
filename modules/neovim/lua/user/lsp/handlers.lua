@@ -88,6 +88,9 @@ M.on_attach = function(client, bufnr)
   if client.name == "tsserver" then
     client.server_capabilities.documentFormattingProvider = false
   end
+  if client.name == "rust_analyzer" then
+    client.server_capabilities.semanticTokensProvider = nil -- https://github.com/simrat39/rust-tools.nvim/issues/365
+  end
   lsp_keymaps(bufnr)
   lsp_highlight_document(client)
 end
