@@ -84,6 +84,8 @@ in {
               comment
             ]))
           nvim-ts-rainbow2
+
+          nvim-autopairs
         ];
 
         extraPackages = with pkgs; [
@@ -110,6 +112,7 @@ in {
           require "user.lsp"
           require "user.telescope"
           require "user.treesitter"
+          require "user.autopairs"
         '';
       };
 
