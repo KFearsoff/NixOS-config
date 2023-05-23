@@ -96,12 +96,16 @@ in {
         ];
 
         extraLuaConfig = ''
-          ${builtins.readFile ./options.lua}
-          ${builtins.readFile ./keymaps.lua}
-          ${builtins.readFile ./lsp/lsp.lua}
-          ${builtins.readFile ./lsp/rust-tools.lua}
-          ${builtins.readFile ./treesitter.lua}
+          require "user.options"
+          require "user.keymaps"
+          require "user.lsp"
+          require "user.treesitter"
         '';
+      };
+
+      xdg.configFile."nvim/lua" = {
+        recursive = true;
+        source = ./lua;
       };
     };
   };

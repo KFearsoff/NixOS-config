@@ -12,7 +12,7 @@ vim.opt.pumheight = 10                          -- pop up menu height
 vim.opt.showmode = false                        -- we don't need to see things like -- INSERT -- anymore
 vim.opt.showtabline = 2                         -- always show tabs
 vim.opt.smartcase = true                        -- smart case
--- vim.opt.smartindent = true                      -- make indenting smarter again
+vim.opt.smartindent = true                      -- make indenting smarter again
 vim.opt.splitbelow = true                       -- force all horizontal splits to go below current window
 vim.opt.splitright = true                       -- force all vertical splits to go to the right of current window
 vim.opt.swapfile = false                        -- creates a swapfile
@@ -33,8 +33,11 @@ vim.opt.signcolumn = "yes"                      -- always show the sign column, 
 vim.opt.scrolloff = 8                           -- is one of my fav
 vim.opt.sidescrolloff = 8
 vim.opt.guifont = "monospace:h17"               -- the font used in graphical neovim applications
-vim.opt.langmap = "ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz"
-vim.opt.colorcolumn = "81"
-vim.opt.cinkeys = "0{,0},0),0],:,!^F,o,O,e"
 
+
+vim.opt.langmap = "ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz" -- map Russian to English for normal mode
+vim.opt.colorcolumn = "81"                      -- highlight line at 80 symbols
+vim.opt.cinkeys = "0{,0},0),0],:,!^F,o,O,e"     -- try to make identing smarter
+
+vim.cmd "set whichwrap+=<,>,[,],h,l"            -- wrap on other symbols too
 vim.cmd [[set iskeyword+=-]]                    -- hyphen is pard of a word for stuff like "dw"
