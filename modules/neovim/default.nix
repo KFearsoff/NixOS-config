@@ -57,6 +57,12 @@ in {
           luasnip # snippet engine
           friendly-snippets # a bunch of snippets to use
 
+          # telescope
+          plenary-nvim
+          telescope-nvim
+          telescope-media-files-nvim
+          telescope-fzf-native-nvim
+
           (pkgs.vimPlugins.nvim-treesitter.withPlugins (p:
             with p; [
               c
@@ -100,6 +106,7 @@ in {
           require "user.keymaps"
           require "user.cmp"
           require "user.lsp"
+          require "user.telescope"
           require "user.treesitter"
         '';
       };
