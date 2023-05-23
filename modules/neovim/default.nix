@@ -43,6 +43,7 @@ in {
 
           # LSP
           nvim-lspconfig
+          rust-tools-nvim
 
           # cmp plugins
           nvim-cmp # completion plugin
@@ -79,6 +80,8 @@ in {
 
         extraPackages = with pkgs; [
           rust-analyzer
+          graphviz
+
           nodePackages.bash-language-server
           nodePackages.dockerfile-language-server-nodejs
           gopls
@@ -96,6 +99,7 @@ in {
           ${builtins.readFile ./options.lua}
           ${builtins.readFile ./keymaps.lua}
           ${builtins.readFile ./lsp/lsp.lua}
+          ${builtins.readFile ./lsp/rust-tools.lua}
           ${builtins.readFile ./treesitter.lua}
         '';
       };
