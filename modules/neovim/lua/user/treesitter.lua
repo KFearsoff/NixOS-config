@@ -25,4 +25,7 @@ configs.setup {
     -- Highlight the entire buffer all at once
     strategy = require("ts-rainbow").strategy.global,
   },
+  context_commentstring = {
+    enable = true,
+  },
 }

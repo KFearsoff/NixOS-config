@@ -40,6 +40,7 @@ in {
           editorconfig-nvim
           indentLine
           vim-lastplace
+          nvim-autopairs
 
           # LSP
           nvim-lspconfig
@@ -85,7 +86,9 @@ in {
             ]))
           nvim-ts-rainbow2
 
-          nvim-autopairs
+          # comments
+          comment-nvim
+          nvim-ts-context-commentstring
         ];
 
         extraPackages = with pkgs; [
@@ -113,6 +116,7 @@ in {
           require "user.telescope"
           require "user.treesitter"
           require "user.autopairs"
+          require "user.comment"
         '';
       };
 
