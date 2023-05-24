@@ -41,6 +41,8 @@ in {
           indentLine
           vim-lastplace
           nvim-autopairs
+          nvim-web-devicons
+          nvim-tree-lua
 
           # LSP
           nvim-lspconfig
@@ -109,6 +111,9 @@ in {
         ];
 
         extraLuaConfig = ''
+          vim.g.loaded_netwr = 1
+          vim.g.loaded_netrwPlugin = 1
+
           require "user.options"
           require "user.keymaps"
           require "user.cmp"
@@ -117,6 +122,7 @@ in {
           require "user.treesitter"
           require "user.autopairs"
           require "user.comment"
+          require "user.nvim-tree"
         '';
       };
 
