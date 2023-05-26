@@ -26,7 +26,9 @@ in {
 
         plugins = with pkgs.vimPlugins; [
           dracula-nvim
-          vim-airline
+
+          # line
+          lualine-nvim
 
           editorconfig-nvim
           indentLine
@@ -126,6 +128,7 @@ in {
           require "user.nvim-tree"
           require "user.bufferline"
           require "user.toggleterm"
+          require "user.lualine"
         '';
       };
 
