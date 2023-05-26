@@ -37,6 +37,7 @@ in {
           editorconfig-nvim
           indent-blankline-nvim
           vim-lastplace
+          which-key-nvim
           nvim-autopairs
           nvim-web-devicons
           nvim-tree-lua
@@ -139,6 +140,7 @@ in {
           require "user.lualine"
           require "user.project"
           require "user.alpha"
+          require "user.whichkey"
         '';
       };
 
