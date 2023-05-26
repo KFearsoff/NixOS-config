@@ -87,6 +87,9 @@ in {
 
           # tabs
           bufferline-nvim
+
+          # terminal
+          toggleterm-nvim
         ];
 
         extraPackages = with pkgs; [
@@ -122,6 +125,7 @@ in {
           require "user.gitsigns"
           require "user.nvim-tree"
           require "user.bufferline"
+          require "user.toggleterm"
         '';
       };
 
