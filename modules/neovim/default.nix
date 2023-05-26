@@ -30,6 +30,7 @@ in {
 
           # dashboard
           alpha-nvim
+          trouble-nvim
 
           # line
           lualine-nvim
@@ -90,6 +91,7 @@ in {
           # comments
           comment-nvim
           nvim-ts-context-commentstring
+          todo-comments-nvim
 
           gitsigns-nvim
 
