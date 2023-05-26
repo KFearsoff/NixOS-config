@@ -84,6 +84,9 @@ in {
           nvim-ts-context-commentstring
 
           gitsigns-nvim
+
+          # tabs
+          bufferline-nvim
         ];
 
         extraPackages = with pkgs; [
@@ -118,6 +121,7 @@ in {
           require "user.comment"
           require "user.gitsigns"
           require "user.nvim-tree"
+          require "user.bufferline"
         '';
       };
 
