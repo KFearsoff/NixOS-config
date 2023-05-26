@@ -91,6 +91,8 @@ in {
           # comments
           comment-nvim
           nvim-ts-context-commentstring
+
+          gitsigns-nvim
         ];
 
         extraPackages = with pkgs; [
@@ -122,6 +124,7 @@ in {
           require "user.treesitter"
           require "user.autopairs"
           require "user.comment"
+          require "user.gitsigns"
           require "user.nvim-tree"
         '';
       };
