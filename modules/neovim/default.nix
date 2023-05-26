@@ -25,13 +25,17 @@ in {
         withNodeJs = true;
 
         plugins = with pkgs.vimPlugins; [
+          # theme
           dracula-nvim
+
+          # dashboard
+          alpha-nvim
 
           # line
           lualine-nvim
 
           editorconfig-nvim
-          indentLine
+          indent-blankline-nvim
           vim-lastplace
           nvim-autopairs
           nvim-web-devicons
@@ -134,6 +138,7 @@ in {
           require "user.toggleterm"
           require "user.lualine"
           require "user.project"
+          require "user.alpha"
         '';
       };
 
