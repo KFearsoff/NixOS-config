@@ -117,6 +117,7 @@ in {
         extraLuaConfig = ''
           vim.g.loaded_netwr = 1
           vim.g.loaded_netrwPlugin = 1
+          vim.loader.enable() -- byte-compile and cache lua files
 
           require "user.options"
           require "user.colorscheme"
