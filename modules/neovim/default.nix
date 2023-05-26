@@ -85,6 +85,7 @@ in {
               comment
             ]))
           nvim-ts-rainbow2
+          SchemaStore-nvim # load known formats for json and yaml
 
           # comments
           comment-nvim
