@@ -23,6 +23,7 @@ tree.setup {
   on_attach = my_on_attach,
 
   sync_root_with_cwd = true,
+  respect_buf_cwd = true,
   diagnostics = {
     enable = true,
   },

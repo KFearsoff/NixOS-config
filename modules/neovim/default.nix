@@ -92,6 +92,9 @@ in {
 
           # terminal
           toggleterm-nvim
+
+          # project management
+          project-nvim
         ];
 
         extraPackages = with pkgs; [
@@ -129,6 +132,7 @@ in {
           require "user.bufferline"
           require "user.toggleterm"
           require "user.lualine"
+          require "user.project"
         '';
       };
 
