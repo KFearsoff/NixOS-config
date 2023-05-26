@@ -2,13 +2,10 @@
   config,
   lib,
   pkgs,
-  nix-colors,
   ...
 }:
 with lib; let
   cfg = config.nixchad.neovim;
-  inherit (nix-colors.lib-contrib {inherit pkgs;}) vimThemeFromScheme;
-  inherit (config.hm) colorscheme;
 in {
   options.nixchad.neovim = {
     enable = mkEnableOption "neovim";
@@ -28,13 +25,7 @@ in {
         withNodeJs = true;
 
         plugins = with pkgs.vimPlugins; [
-          {
-            plugin = vimThemeFromScheme {scheme = colorscheme;};
-            type = "lua";
-            config = ''
-              vim.cmd.colorscheme('nix-${colorscheme.slug}')
-            '';
-          }
+          dracula-nvim
           vim-airline
 
           editorconfig-nvim
@@ -117,6 +108,7 @@ in {
           vim.g.loaded_netrwPlugin = 1
 
           require "user.options"
+          require "user.colorscheme"
           require "user.keymaps"
           require "user.cmp"
           require "user.lsp"
