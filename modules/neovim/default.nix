@@ -66,7 +66,7 @@ in {
           telescope-fzf-native-nvim
 
           # treesitter
-          (pkgs.myVimPlugins.nvim-treesitter.withPlugins (p:
+          (nvim-treesitter.withPlugins (p:
             with p; [
               c
               go
