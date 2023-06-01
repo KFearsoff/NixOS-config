@@ -15,7 +15,11 @@ in {
     };
   };
 
-  config = mkIf cfg.enable {
-    services.btrfs.autoScrub.enable = cfg.type == "btrfs";
-  };
+  config =
+    mkIf cfg.enable
+    && cfg.type
+    == "btrfs" {
+      services.btrfs.autoScrub.enable = true;
+      services.btrfs.autoScrub.fileSystems = ["/"];
+    };
 }
