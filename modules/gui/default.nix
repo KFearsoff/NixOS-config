@@ -29,10 +29,13 @@ in {
   config = mkIf cfg.enable {
     nixchad.gui.obs = mkDefault true;
     nixchad.gui.rofi = mkDefault true;
+    nixchad.gui.pipewire = mkDefault true;
 
     environment.systemPackages = with pkgs; [
       xdg-utils
     ];
+
+    services.gvfs.enable = true;
 
     hm = {
       home.packages = with pkgs;
@@ -51,6 +54,7 @@ in {
         ++ (optional config.programs.wireshark.enable wireshark);
 
       services.udiskie.enable = true;
+
       programs = {
         obs-studio.enable = cfg.obs;
         rofi = {

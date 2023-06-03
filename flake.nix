@@ -2,92 +2,131 @@
   description = "NixOS configuration with flakes";
 
   inputs = {
+    # Pkg sources
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    flake-utils.url = "github:numtide/flake-utils";
-    hardware.url = "github:NixOS/nixos-hardware/master";
-
-    home-manager.url = "github:nix-community/home-manager";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
-
-    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
-    neovim-nightly-overlay.inputs.nixpkgs.follows = "nixpkgs";
-    neovim-nightly-overlay.inputs.flake-compat.follows = "flake-compat";
-    neovim-nightly-overlay.inputs.neovim-flake.follows = "neovim-flake";
-
-    neovim-flake.url = "github:neovim/neovim?dir=contrib";
-    neovim-flake.inputs.nixpkgs.follows = "nixpkgs";
-    neovim-flake.inputs.flake-utils.follows = "flake-utils";
-
     nur.url = "github:nix-community/NUR";
-    nix-colors.url = "github:misterio77/nix-colors";
+
+    # Libraries
+    systems-dep.url = "github:nix-systems/default";
+    flake-utils-dep = {
+      url = "github:numtide/flake-utils";
+      inputs.systems.follows = "systems-dep";
+    };
+    flake-compat-dep = {
+      url = "github:edolstra/flake-compat";
+      flake = false;
+    };
+    flake-parts.url = "github:hercules-ci/flake-parts";
+
+    # NixOS utils
+    hardware.url = "github:NixOS/nixos-hardware/master";
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     #impermanence.url = "github:nix-community/impermanence";
     #impermanence.url = "path:/home/nixchad/Projects/impermanence";
     impermanence.url = "github:nix-community/impermanence/8ca70a91e461796e2232dc51a2f8ca1375f4a25a";
 
-    flake-compat.url = "github:edolstra/flake-compat";
-    flake-compat.flake = false;
-
-    zsh-you-should-use.url = "github:MichaelAquilina/zsh-you-should-use";
-    zsh-you-should-use.flake = false;
-
-    deploy-rs.url = "github:serokell/deploy-rs";
-    deploy-rs.inputs.nixpkgs.follows = "nixpkgs";
-    deploy-rs.inputs.utils.follows = "flake-utils";
-    deploy-rs.inputs.flake-compat.follows = "flake-compat";
-
-    pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
-    pre-commit-hooks.inputs.flake-utils.follows = "flake-utils";
-    pre-commit-hooks.inputs.flake-compat.follows = "flake-compat";
-    pre-commit-hooks.inputs.nixpkgs.follows = "nixpkgs";
-
-    systems.url = "github:nix-systems/default";
-    devenv.url = "github:cachix/devenv";
-    devenv.inputs = {
-      flake-compat.follows = "flake-compat";
-      pre-commit-hooks.follows = "pre-commit-hooks";
-      nixpkgs.follows = "nixpkgs";
+    # Services
+    tailforward = {
+      url = "github:KFearsoff/tailforward";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems-dep";
+        devenv.follows = "devenv";
+      };
     };
 
-    disko.url = "github:nix-community/disko";
-    disko.inputs.nixpkgs.follows = "nixpkgs";
+    # User utils
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nix-colors.url = "github:misterio77/nix-colors";
 
-    tailforward.url = "github:KFearsoff/tailforward";
-    tailforward.inputs = {
-      nixpkgs.follows = "nixpkgs";
-      systems.follows = "systems";
-      devenv.follows = "devenv";
+    # User aplications
+    neovim-nightly-overlay = {
+      url = "github:nix-community/neovim-nightly-overlay";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-compat.follows = "flake-compat-dep";
+        neovim-flake.follows = "neovim-flake-dep";
+        flake-parts.follows = "flake-parts";
+      };
+    };
+    neovim-flake-dep = {
+      url = "github:neovim/neovim?dir=contrib";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "flake-utils-dep";
+      };
+    };
+    zsh-you-should-use = {
+      url = "github:MichaelAquilina/zsh-you-should-use";
+      flake = false;
+    };
+
+    # Development
+    devenv = {
+      url = "github:cachix/devenv";
+      inputs = {
+        flake-compat.follows = "flake-compat-dep";
+        pre-commit-hooks.follows = "pre-commit-hooks";
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
+
+    # CI
+    pre-commit-hooks = {
+      url = "github:cachix/pre-commit-hooks.nix";
+      inputs = {
+        flake-utils.follows = "flake-utils-dep";
+        flake-compat.follows = "flake-compat-dep";
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
+
+    # CD
+    deploy-rs = {
+      url = "github:serokell/deploy-rs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        utils.follows = "flake-utils-dep";
+        flake-compat.follows = "flake-compat-dep";
+      };
     };
   };
 
-  outputs = inputs:
-    with import ./lib/builders.nix {
-      inherit inputs;
-      inherit (inputs.self) overlays;
-      patches = [
-        #overlays/0001-rollback-waybar-0.9.13.patch
-        #{
-        #  url = "https://github.com/NixOS/nixpkgs/pull/198638.patch";
-        #  sha256 = "sha256-uL9fU8+0CnmR0fBCmz8GhNtmuJOmgo9j8rmFRTqM2iE=";
-        #}
-        #{
-        #  url = "https://github.com/NixOS/nixpkgs/pull/205649.patch";
-        #  sha256 = "sha256-VsPYdHvqEi+zq0q6d+MaskKj1fsKZE6h2apx92whUiU=";
-        #}
-      ];
+  outputs = inputs: let
+    overlays =
+      {
+        nur = inputs.nur.overlay;
+        neovim-nightly-overlay = inputs.neovim-nightly-overlay.overlay;
+      }
+      // (import ./overlays);
+    hostSystem = "x86_64-linux";
+    importedLib = import ./lib/builders.nix {
+      inherit inputs overlays hostSystem;
+      patches = f:
+        with f; [
+          #(pr <number> <sha>)
+        ];
     };
-      rec {
-        overlays =
-          {
-            nur = inputs.nur.overlay;
-            neovim-nightly-overlay = inputs.neovim-nightly-overlay.overlay;
-          }
-          // (import ./overlays);
+    inherit (importedLib) buildSystem pkgs;
+  in
+    inputs.flake-parts.lib.mkFlake {inherit inputs;} {
+      imports = [
+        inputs.devenv.flakeModule
+      ];
 
+      systems = ["x86_64-linux" "aarch64-linux"];
+
+      flake = {
         nixosConfigurations = {
           blackberry = buildSystem {
             hostname = "blackberry";
             extraModules = [
-              ./hosts/blackberry
               ./suites/cli.nix
               ./suites/sway.nix
               ./suites/games.nix
@@ -103,7 +142,6 @@
           cloudberry = buildSystem {
             hostname = "cloudberry";
             extraModules = [
-              ./hosts/cloudberry
               ./suites/common-services.nix
               ./suites/private-services.nix
             ];
@@ -115,7 +153,7 @@
             inherit name;
             path = value.config.system.build.toplevel;
           };
-          links = pkgs.lib.mapAttrsToList toLink nixosConfigurations;
+          links = pkgs.lib.mapAttrsToList toLink inputs.self.nixosConfigurations;
         in
           pkgs.linkFarm "all-machines" links;
 
@@ -136,8 +174,51 @@
         };
 
         checks = builtins.mapAttrs (_: deployLib: deployLib.deployChecks inputs.self.deploy) inputs.deploy-rs.lib;
+      };
 
-        packages.x86_64-linux =
+      perSystem = {
+        config,
+        pkgs,
+        system,
+        ...
+      }: {
+        formatter = pkgs.alejandra;
+
+        devenv.shells.default = {
+          packages = [
+            pkgs.just
+            inputs.deploy-rs.defaultPackage.${system}
+          ];
+
+          # https://github.com/cachix/devenv/issues/528
+          containers = pkgs.lib.mkForce {};
+
+          pre-commit.hooks = {
+            # Shell
+            shellcheck.enable = true;
+            shfmt.enable = true;
+
+            # Markdown
+            mdsh.enable = true;
+            markdownlint.enable = true;
+
+            # Variety
+            actionlint.enable = true;
+            commitizen.enable = true;
+
+            # Nix
+            alejandra.enable = true;
+            deadnix.enable = true;
+            statix.enable = true;
+          };
+        };
+
+        apps.default = {
+          type = "app";
+          program = "${inputs.deploy-rs.defaultPackage.${system}}/bin/deploy";
+        };
+
+        packages =
           {
             iso = let
               image = buildSystem {hostname = "iso";};
@@ -145,45 +226,6 @@
               image.config.system.build."isoImage";
           }
           // pkgs.lib.mapAttrs (_: v: v) (import ./pkgs {inherit pkgs;});
-
-        apps.x86_64-linux.default = {
-          type = "app";
-          program = "${inputs.deploy-rs.defaultPackage.x86_64-linux}/bin/deploy";
-        };
-      }
-      // inputs.flake-utils.lib.eachDefaultSystem (system: {
-        formatter = pkgs.alejandra;
-
-        devShells.default = inputs.devenv.lib.mkShell {
-          inherit inputs pkgs;
-
-          modules = [
-            {
-              packages = [
-                pkgs.just
-                inputs.deploy-rs.defaultPackage.${system}
-              ];
-
-              pre-commit.hooks = {
-                # Variety
-                shellcheck.enable = true;
-                shfmt.enable = true;
-                actionlint.enable = true;
-                mdsh.enable = true;
-                markdownlint.enable = true;
-                commitizen.enable = true;
-
-                # Nix
-                alejandra.enable = true;
-                deadnix.enable = true;
-                statix.enable = true;
-
-                cargo-check.enable = true;
-                clippy.enable = true;
-                rustfmt.enable = true;
-              };
-            }
-          ];
-        };
-      });
+      };
+    };
 }

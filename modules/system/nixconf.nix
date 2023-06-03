@@ -21,5 +21,10 @@
       warn-dirty = false
       builders-use-substitutes = true
     '';
+    gc = {
+      automatic = true;
+      options = "--delete-older-than 7d";
+      randomizedDelaySec = "1h";
+    };
   };
 }

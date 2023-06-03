@@ -15,7 +15,7 @@ in {
     };
   };
 
-  config = mkIf cfg.enable {
+  config = mkIf (cfg.enable && config.nixchad.hardware.enable) {
     services.prometheus.exporters.smartctl = {
       enable = true;
       port = 33004;

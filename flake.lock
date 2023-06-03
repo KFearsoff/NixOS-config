@@ -53,13 +53,13 @@
     "deploy-rs": {
       "inputs": {
         "flake-compat": [
-          "flake-compat"
+          "flake-compat-dep"
         ],
         "nixpkgs": [
           "nixpkgs"
         ],
         "utils": [
-          "flake-utils"
+          "flake-utils-dep"
         ]
       },
       "locked": {
@@ -79,7 +79,7 @@
     "devenv": {
       "inputs": {
         "flake-compat": [
-          "flake-compat"
+          "flake-compat-dep"
         ],
         "nix": "nix",
         "nixpkgs": [
@@ -145,7 +145,7 @@
         "crane": "crane",
         "devshell": "devshell",
         "drv-parts": "drv-parts",
-        "flake-compat": "flake-compat_3",
+        "flake-compat": "flake-compat_2",
         "flake-parts": "flake-parts_4",
         "flake-utils-pre-commit": "flake-utils-pre-commit",
         "ghc-utils": "ghc-utils",
@@ -223,7 +223,7 @@
         "type": "github"
       }
     },
-    "flake-compat_2": {
+    "flake-compat-dep": {
       "flake": false,
       "locked": {
         "lastModified": 1673956053,
@@ -239,7 +239,7 @@
         "type": "github"
       }
     },
-    "flake-compat_3": {
+    "flake-compat_2": {
       "flake": false,
       "locked": {
         "lastModified": 1673956053,
@@ -257,10 +257,7 @@
     },
     "flake-parts": {
       "inputs": {
-        "nixpkgs-lib": [
-          "neovim-nightly-overlay",
-          "nixpkgs"
-        ]
+        "nixpkgs-lib": "nixpkgs-lib"
       },
       "locked": {
         "lastModified": 1683560683,
@@ -278,7 +275,7 @@
     },
     "flake-parts_2": {
       "inputs": {
-        "nixpkgs-lib": "nixpkgs-lib"
+        "nixpkgs-lib": "nixpkgs-lib_2"
       },
       "locked": {
         "lastModified": 1678379998,
@@ -339,8 +336,25 @@
       }
     },
     "flake-utils": {
+      "locked": {
+        "lastModified": 1667395993,
+        "narHash": "sha256-nuEHfE/LcWyuSWnS8t12N1wc105Qtau+/OdUAjtQ0rA=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "5aed5285a952e0b949eb3ba02c12fa4fcfef535f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "flake-utils-dep": {
       "inputs": {
-        "systems": "systems"
+        "systems": [
+          "systems-dep"
+        ]
       },
       "locked": {
         "lastModified": 1681202837,
@@ -363,21 +377,6 @@
         "owner": "numtide",
         "repo": "flake-utils",
         "rev": "3cecb5b042f7f209c56ffd8371b2711a290ec797",
-        "type": "github"
-      },
-      "original": {
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "type": "github"
-      }
-    },
-    "flake-utils_2": {
-      "locked": {
-        "lastModified": 1667395993,
-        "narHash": "sha256-nuEHfE/LcWyuSWnS8t12N1wc105Qtau+/OdUAjtQ0rA=",
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "rev": "5aed5285a952e0b949eb3ba02c12fa4fcfef535f",
         "type": "github"
       },
       "original": {
@@ -606,10 +605,10 @@
         "type": "indirect"
       }
     },
-    "neovim-flake": {
+    "neovim-flake-dep": {
       "inputs": {
         "flake-utils": [
-          "flake-utils"
+          "flake-utils-dep"
         ],
         "nixpkgs": [
           "nixpkgs"
@@ -634,12 +633,14 @@
     "neovim-nightly-overlay": {
       "inputs": {
         "flake-compat": [
-          "flake-compat"
+          "flake-compat-dep"
         ],
-        "flake-parts": "flake-parts",
+        "flake-parts": [
+          "flake-parts"
+        ],
         "hercules-ci-effects": "hercules-ci-effects",
         "neovim-flake": [
-          "neovim-flake"
+          "neovim-flake-dep"
         ],
         "nixpkgs": [
           "nixpkgs"
@@ -686,7 +687,7 @@
     "nix-colors": {
       "inputs": {
         "base16-schemes": "base16-schemes",
-        "nixpkgs-lib": "nixpkgs-lib_2"
+        "nixpkgs-lib": "nixpkgs-lib_3"
       },
       "locked": {
         "lastModified": 1682108218,
@@ -760,6 +761,24 @@
     "nixpkgs-lib": {
       "locked": {
         "dir": "lib",
+        "lastModified": 1682879489,
+        "narHash": "sha256-sASwo8gBt7JDnOOstnps90K1wxmVfyhsTPPNTGBPjjg=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "da45bf6ec7bbcc5d1e14d3795c025199f28e0de0",
+        "type": "github"
+      },
+      "original": {
+        "dir": "lib",
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs-lib_2": {
+      "locked": {
+        "dir": "lib",
         "lastModified": 1678375444,
         "narHash": "sha256-XIgHfGvjFvZQ8hrkfocanCDxMefc/77rXeHvYdzBMc8=",
         "owner": "NixOS",
@@ -775,7 +794,7 @@
         "type": "github"
       }
     },
-    "nixpkgs-lib_2": {
+    "nixpkgs-lib_3": {
       "locked": {
         "lastModified": 1680397293,
         "narHash": "sha256-wBpJ73+tJ8fZSWb4tzNbAVahC4HSo2QG3nICDy4ExBQ=",
@@ -904,10 +923,10 @@
     "pre-commit-hooks": {
       "inputs": {
         "flake-compat": [
-          "flake-compat"
+          "flake-compat-dep"
         ],
         "flake-utils": [
-          "flake-utils"
+          "flake-utils-dep"
         ],
         "gitignore": "gitignore_2",
         "nixpkgs": [
@@ -931,8 +950,8 @@
     },
     "pre-commit-hooks-nix": {
       "inputs": {
-        "flake-compat": "flake-compat_2",
-        "flake-utils": "flake-utils_2",
+        "flake-compat": "flake-compat",
+        "flake-utils": "flake-utils",
         "gitignore": "gitignore",
         "nixpkgs": [
           "neovim-nightly-overlay",
@@ -1005,38 +1024,24 @@
         "deploy-rs": "deploy-rs",
         "devenv": "devenv",
         "disko": "disko",
-        "flake-compat": "flake-compat",
-        "flake-utils": "flake-utils",
+        "flake-compat-dep": "flake-compat-dep",
+        "flake-parts": "flake-parts",
+        "flake-utils-dep": "flake-utils-dep",
         "hardware": "hardware",
         "home-manager": "home-manager",
         "impermanence": "impermanence",
-        "neovim-flake": "neovim-flake",
+        "neovim-flake-dep": "neovim-flake-dep",
         "neovim-nightly-overlay": "neovim-nightly-overlay",
         "nix-colors": "nix-colors",
         "nixpkgs": "nixpkgs_2",
         "nur": "nur",
         "pre-commit-hooks": "pre-commit-hooks",
-        "systems": "systems_2",
+        "systems-dep": "systems-dep",
         "tailforward": "tailforward",
         "zsh-you-should-use": "zsh-you-should-use"
       }
     },
-    "systems": {
-      "locked": {
-        "lastModified": 1681028828,
-        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
-        "owner": "nix-systems",
-        "repo": "default",
-        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-systems",
-        "repo": "default",
-        "type": "github"
-      }
-    },
-    "systems_2": {
+    "systems-dep": {
       "locked": {
         "lastModified": 1681028828,
         "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
@@ -1061,7 +1066,7 @@
           "nixpkgs"
         ],
         "systems": [
-          "systems"
+          "systems-dep"
         ]
       },
       "locked": {

@@ -1,6 +1,5 @@
 {
   inputs,
-  lib,
   username,
   ...
 }: {
@@ -13,11 +12,10 @@
 
   users.users."${username}".passwordFile = "/secrets/nixchad-password";
 
-  networking.networkmanager.enable = lib.mkForce false;
+  networking.networkmanager.enable = false;
   nixchad.minimal.enable = true;
+  nixchad.hardware.enable = false;
   nixchad.boot.bootloader = "grub-noefi";
-  nixchad.smartctl-exporter.enable = false;
   nixchad.photoprism.enable = false;
-  services.smartd.enable = false;
   zramSwap.enable = true;
 }
