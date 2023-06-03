@@ -35,12 +35,12 @@ with lib; let
         targets = let
           preTargetsIcmp = [
             "nixalted.com"
-            "api.tailscale.com"
+            #"api.tailscale.com"
           ];
           preTargetsHttps = [
             #"nixalted.com"
-            "api.tailscale.com"
-            "api.telegram.org"
+            #"api.tailscale.com"
+            #"api.telegram.org"
           ];
         in
           if (module == "icmp_v4" || module == "icmp_v6")
