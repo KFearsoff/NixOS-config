@@ -82,6 +82,8 @@ in {
         config = {
           inherit (cfg) modifier;
           bindkeysToCode = true;
+          window.titlebar = false;
+          floating.titlebar = false;
 
           input = import ./input.nix;
           seat = {"*" = {hide_cursor = "10000";};};

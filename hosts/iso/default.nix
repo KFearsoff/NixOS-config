@@ -22,5 +22,5 @@
   environment.systemPackages = [pkgs.git];
   users.users."${username}".password = "";
 
-  system.stateVersion = lib.mkForce "22.11";
+  system.stateVersion = lib.mkForce "23.05";
 }

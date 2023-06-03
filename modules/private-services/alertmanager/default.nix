@@ -34,6 +34,7 @@ in {
                   bot_token = "$BOT_TOKEN"; # substituted from environmentFile
                   chat_id = -1001864190705; # private channel
                   parse_mode = "HTML"; # https://github.com/prometheus/alertmanager/issues/2866
+                  disable_notifications = true;
                 }
               ];
             }
