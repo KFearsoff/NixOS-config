@@ -37,6 +37,7 @@ in {
   };
   nixchad.sway.backlight = false;
   nixchad.swayidle.timeouts.lock = 6000;
+  nixchad.restic.usb-backups = true;
 
   systemd.network = {
     enable = true;
