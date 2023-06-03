@@ -2,6 +2,7 @@
   inputs,
   pkgs,
   config,
+  lib,
   username,
   ...
 }: let
@@ -63,4 +64,6 @@ in {
   };
   networking.networkmanager.unmanaged = ["interface-name:${ifname}" "interface-name:br-libvirt" "interface-name:tailscale0"];
   systemd.services.NetworkManager-wait-online.enable = false;
+
+  nix.gc.automatic = lib.mkForce false;
 }
