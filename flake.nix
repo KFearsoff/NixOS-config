@@ -205,11 +205,14 @@
             # Variety
             actionlint.enable = true;
             commitizen.enable = true;
+            editorconfig-checker.enable = true;
 
             # Nix
             alejandra.enable = true;
             deadnix.enable = true;
             statix.enable = true;
+
+            lua-ls.enable = true;
           };
         };
 
