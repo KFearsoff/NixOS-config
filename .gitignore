@@ -4,3 +4,4 @@ result
 .devenv
 .pre-commit-config.yaml
 .deploy-gc
+.luarc.json

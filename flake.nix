@@ -214,6 +214,9 @@
 
             lua-ls.enable = true;
           };
+          pre-commit.settings = {
+            lua-ls.config.diagnostics.globals = ["vim"];
+          };
         };
 
         apps.default = {

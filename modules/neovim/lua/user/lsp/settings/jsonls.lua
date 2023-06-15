@@ -5,7 +5,7 @@ local opts = {
       validate = { enable = true },
     },
   },
-  cmd = {"vscode-json-languageserver", "--stdio"}, -- bin name is different
+  cmd = { "vscode-json-languageserver", "--stdio" }, -- bin name is different
 }
 
 return opts

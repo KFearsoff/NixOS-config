@@ -438,7 +438,7 @@ let-env config = {
           { send: menupageprevious }
           { edit: undo }
         ]
-       }
+      }
     }
     {
       name: yank

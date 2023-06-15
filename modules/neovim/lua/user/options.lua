@@ -17,7 +17,7 @@ vim.opt.splitbelow = true                       -- force all horizontal splits t
 vim.opt.splitright = true                       -- force all vertical splits to go to the right of current window
 vim.opt.swapfile = false                        -- creates a swapfile
 vim.opt.termguicolors = true                    -- set term gui colors (most terminals support this)
-vim.opt.timeoutlen = 300                       -- time to wait for a mapped sequence to complete (in milliseconds)
+vim.opt.timeoutlen = 300                        -- time to wait for a mapped sequence to complete (in milliseconds)
 vim.opt.undofile = true                         -- enable persistent undo
 vim.opt.updatetime = 300                        -- faster completion (4000ms default)
 vim.opt.writebackup = false                     -- if a file is being edited by another program (or was written to file while editing with another program), it is not allowed to be edited
@@ -28,16 +28,18 @@ vim.opt.cursorline = true                       -- highlight the current line
 vim.opt.number = true                           -- set numbered lines
 vim.opt.relativenumber = true                   -- set relative numbered lines
 vim.opt.numberwidth = 4                         -- set number column width to 2 {default 4}
-vim.opt.signcolumn = "yes"                      -- always show the sign column, otherwise it would shift the text each time
+vim.opt.signcolumn =
+"yes"                                           -- always show the sign column, otherwise it would shift the text each time
 -- vim.opt.wrap = false                            -- display lines as one long line
 vim.opt.scrolloff = 8                           -- is one of my fav
 vim.opt.sidescrolloff = 8
 vim.opt.guifont = "monospace:h17"               -- the font used in graphical neovim applications
 
 
-vim.opt.langmap = "ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz" -- map Russian to English for normal mode
-vim.opt.colorcolumn = "81"                      -- highlight line at 80 symbols
-vim.opt.cinkeys = "0{,0},0),0],:,!^F,o,O,e"     -- try to make identing smarter
+vim.opt.langmap =
+"ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz" -- map Russian to English for normal mode
+vim.opt.colorcolumn = "81"                                                                                                      -- highlight line at 80 symbols
+vim.opt.cinkeys = "0{,0},0),0],:,!^F,o,O,e"                                                                                     -- try to make identing smarter
 
-vim.cmd "set whichwrap+=<,>,[,],h,l"            -- wrap on other symbols too
-vim.cmd [[set iskeyword+=-]]                    -- hyphen is pard of a word for stuff like "dw"
+vim.cmd "set whichwrap+=<,>,[,],h,l"                                                                                            -- wrap on other symbols too
+vim.cmd [[set iskeyword+=-]]                                                                                                    -- hyphen is pard of a word for stuff like "dw"

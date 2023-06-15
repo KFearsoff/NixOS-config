@@ -9,7 +9,8 @@ vim.opt.runtimepath:append(parser_install_dir)
 
 configs.setup {
   parser_install_dir = parser_install_dir,
-  ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "bash", "comment", "dockerfile", "go", "gomod", "hcl", "json", "nix", "python", "rust", "toml", "yaml" },
+  ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "bash", "comment", "dockerfile", "go", "gomod", "hcl",
+    "json", "nix", "python", "rust", "toml", "yaml" },
   auto_install = false,
   highlight = {
     enable = true,

@@ -9,7 +9,7 @@ local function my_on_attach(bufnr)
   local api = require("nvim-tree.api")
 
   local function opts(desc)
-    return {desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+    return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
   end
 
   api.config.mappings.default_on_attach(bufnr)
@@ -29,7 +29,7 @@ end
 vim.api.nvim_create_autocmd({ "VimEnter" }, { callback = open_nvim_tree })
 
 vim.api.nvim_create_autocmd("QuitPre", {
-  callback = function ()
+  callback = function()
     local invalid_win = {}
     local wins = vim.api.nvim_list_wins()
     for _, w in ipairs(wins) do
