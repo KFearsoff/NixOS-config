@@ -5,6 +5,7 @@ local servers = {
   "helm_ls",
   "jsonls",
   "lua_ls",
+  "marksman",
   "pyright",
   "rnix",
   "terraformls",

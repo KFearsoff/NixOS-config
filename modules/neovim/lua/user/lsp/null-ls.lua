@@ -3,17 +3,50 @@ if not null_ls_status_ok then
 	return
 end
 
--- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/formatting
-local formatting = null_ls.builtins.formatting
--- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/diagnostics
+-- https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTIN_CONFIG.md
+local code_actions = null_ls.builtins.code_actions
 local diagnostics = null_ls.builtins.diagnostics
+local formatting = null_ls.builtins.formatting
+local hover = null_ls.builtins.hover
+local completion = null_ls.builtins.completion
+
+-- if you want to set up formatting on save, you can use this as a callback
+local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+
+-- add to your shared on_attach callback
+local on_attach = function (client, bufnr)
+  if client.supports_method("textDocument/formatting") then
+    vim.api.nvim_clear_autocmds({group = augroup, buffer = bufnr})
+    vim.api.nvim_create_autocmd("BufWritePre", {
+      group = augroup,
+      buffer = bufnr,
+      callback = function ()
+        vim.lsp.buf.format({ bufnr = bufnr })
+      end,
+    })
+  end
+end
 
 null_ls.setup({
-	debug = false,
 	sources = {
-		formatting.prettier.with({ extra_args = { "--no-semi", "--single-quote", "--jsx-single-quote" } }),
-		formatting.black.with({ extra_args = { "--fast" } }),
-		formatting.stylua,
-    -- diagnostics.flake8
+    code_actions.shellcheck,
+    code_actions.statix,
+
+    diagnostics.actionlint,
+    diagnostics.deadnix,
+    diagnostics.editorconfig_checker,
+    diagnostics.hadolint,
+    diagnostics.jsonlint,
+    diagnostics.markdownlint,
+    diagnostics.shellcheck,
+    diagnostics.statix,
+    diagnostics.trail_space,
+
+    formatting.alejandra,
+    formatting.markdownlint,
+    formatting.shfmt,
+    formatting.trim_newlines,
+    formatting.trim_whitespace,
 	},
+  on_attach = on_attach,
 })
