@@ -104,6 +104,10 @@ in {
 
           # project management
           project-nvim
+
+          # leap
+          vim-repeat
+          leap-nvim
         ];
 
         extraPackages = with pkgs; [
@@ -159,6 +163,7 @@ in {
           require "user.project"
           require "user.alpha"
           require "user.whichkey"
+          require "user.leap"
         '';
       };
 
