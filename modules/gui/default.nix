@@ -46,11 +46,10 @@ in {
           keepassxc
           qbittorrent
           element-desktop-wayland
-          cinnamon.nemo
           obsidian
           slack
         ]
-        ++ (optional config.services.pipewire.enable easyeffects)
+        #++ (optional config.services.pipewire.enable easyeffects)
         ++ (optional config.programs.wireshark.enable wireshark);
 
       services.udiskie.enable = true;

@@ -31,11 +31,7 @@ in {
 
   nixchad.boot.bootloader = "grub";
   nixchad.smartctl-exporter.devices = ["/dev/nvme0n1"];
-  nixchad.waybar = {
-    backlight = false; # problem with Intel iGPU
-    battery = false; # PC, doesn't have a battery
-  };
-  nixchad.sway.backlight = false;
+  nixchad.waybar.battery = false; # PC, doesn't have a battery
   nixchad.swayidle.timeouts.lock = 6000;
   nixchad.restic.usb-backups = true;
 
@@ -63,8 +59,6 @@ in {
 
     wait-online.ignoredInterfaces = ["tailscale0"];
   };
-  networking.networkmanager.unmanaged = ["interface-name:${ifname}" "interface-name:br-libvirt" "interface-name:tailscale0"];
+  networking.networkmanager.unmanaged = ["interface-name:${ifname}" "interface-name:br-libvirt" "interface-name:tailscale0" "interface-name:tun*"];
   systemd.services.NetworkManager-wait-online.enable = false;
-
-  nix.gc.automatic = lib.mkForce false;
 }

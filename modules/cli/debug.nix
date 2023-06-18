@@ -24,7 +24,8 @@ in {
       nmap
       killall
       speedtest-cli
-      arp-scan
+      #arp-scan
+      nvd
     ];
   };
 }
