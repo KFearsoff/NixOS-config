@@ -29,7 +29,6 @@ in {
       qt = {
         enable = true;
         platformTheme = "gtk";
-        style.package = pkgs.libForQt5.qtstyleplugins;
         style.name = "gtk2";
       };
     };
