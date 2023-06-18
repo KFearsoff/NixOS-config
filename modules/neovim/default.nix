@@ -31,22 +31,17 @@ in {
           # dashboard
           alpha-nvim
           trouble-nvim
-          nvim-tree-lua
 
           # line
           lualine-nvim
 
-          # code
           editorconfig-nvim
           indent-blankline-nvim
-          gitsigns-nvim
-          nvim-autopairs
-          vim-illuminate
-
-          # useful stuff
           vim-lastplace
           which-key-nvim
+          nvim-autopairs
           nvim-web-devicons
+          nvim-tree-lua
 
           # LSP
           nvim-lspconfig
@@ -98,6 +93,8 @@ in {
           comment-nvim
           nvim-ts-context-commentstring
           todo-comments-nvim
+
+          gitsigns-nvim
 
           # tabs
           bufferline-nvim
