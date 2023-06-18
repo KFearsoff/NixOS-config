@@ -8,12 +8,12 @@ bufferline.setup {
     enforce_regular_tabs = true,
     diagnostics = "nvim_lsp",
     offsets = {
-        {
-            filetype = "NvimTree",
-            text = "",
-            highlight = "Directory",
-            separator = true -- use a "true" to enable the default, or set your own character
-        }
+      {
+        filetype = "NvimTree",
+        text = "",
+        highlight = "Directory",
+        separator = true     -- use a "true" to enable the default, or set your own character
+      }
     },
   },
 }

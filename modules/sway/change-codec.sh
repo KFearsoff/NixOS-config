@@ -8,12 +8,12 @@ CURRENT_PROFILE=$(pactl --format=json list cards | jq -r ".[] | select(.name == 
 
 case $CURRENT_PROFILE in
 $MIC_CODEC)
-	pactl set-card-profile $CARD_NAME $HQ_CODEC
-	;;
+  pactl set-card-profile $CARD_NAME $HQ_CODEC
+  ;;
 $HQ_CODEC)
-	pactl set-card-profile $CARD_NAME $MIC_CODEC
-	;;
+  pactl set-card-profile $CARD_NAME $MIC_CODEC
+  ;;
 *)
-	echo "unknown codec: $CURRENT_PROFILE"
-	;;
+  echo "unknown codec: $CURRENT_PROFILE"
+  ;;
 esac

@@ -1,0 +1,23 @@
+# https://editorconfig.org
+
+# top-most
+root = true
+
+# Unix-style newlines with a newline ending every file, utf-8 charset
+[*]
+end_of_line = lf
+charset = utf-8
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_size = 2
+indent_style = space
+
+# Ignore diffs/patches
+[*.{diff,patch}]
+end_of_line = unset
+insert_final_newline = unset
+trim_trailing_whitespace = unset
+
+# Ignore lockfile
+[*.lock]
+indent_size = unset

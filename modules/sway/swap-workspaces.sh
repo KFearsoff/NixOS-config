@@ -39,45 +39,45 @@ declare msg        # commands passed to swaymsg
 ws_target=$1
 
 [[ $ws_target ]] || {
-	echo "usage: ${0##*/} WORKSPACE" >&2
-	exit 1
+  echo "usage: ${0##*/} WORKSPACE" >&2
+  exit 1
 }
 
 function get_outputs() {
-	op_current=$(swaymsg -t get_workspaces | jq ".[] | select(.focused == true) | .output")
-	op_target=$(swaymsg -t get_workspaces | jq ".[] | select(.name == \"$ws_target\") | .output")
+  op_current=$(swaymsg -t get_workspaces | jq ".[] | select(.focused == true) | .output")
+  op_target=$(swaymsg -t get_workspaces | jq ".[] | select(.name == \"$ws_target\") | .output")
 }
 
 function do_all_else() {
-	if [[ -z $op_target ]]; then # ws_target doesn't exist
-		# create ws_target
-		msg+="workspace $ws_target"
-	else
-		# check if the target is visible
-		ws_visible=$(swaymsg -t get_workspaces | jq -r ".[] | select(.name == \"$ws_target\") | .visible")
+  if [[ -z $op_target ]]; then # ws_target doesn't exist
+    # create ws_target
+    msg+="workspace $ws_target"
+  else
+    # check if the target is visible
+    ws_visible=$(swaymsg -t get_workspaces | jq -r ".[] | select(.name == \"$ws_target\") | .visible")
 
-		# if the target is on a different output and visible, swap outputs
-		# if the target is on a different output and not visible,
-		# display the target while leaving the other output intact
-		if [ "$op_target" != "$op_current" ]; then
+    # if the target is on a different output and visible, swap outputs
+    # if the target is on a different output and not visible,
+    # display the target while leaving the other output intact
+    if [ "$op_target" != "$op_current" ]; then
 
-			if [ "$ws_visible" = "true" ]; then # target visible; swap outputs
-				msg+="move workspace to output $op_target;"
-				msg+="[workspace=$ws_target] move workspace to output $op_current;"
-				msg+="workspace $ws_target"
-			else # target not visible; bring target to current output
-				msg+="[workspace=$ws_target] move workspace to output $op_current;"
-				msg+="workspace $ws_target"
-			fi
+      if [ "$ws_visible" = "true" ]; then # target visible; swap outputs
+        msg+="move workspace to output $op_target;"
+        msg+="[workspace=$ws_target] move workspace to output $op_current;"
+        msg+="workspace $ws_target"
+      else # target not visible; bring target to current output
+        msg+="[workspace=$ws_target] move workspace to output $op_current;"
+        msg+="workspace $ws_target"
+      fi
 
-		else
-			msg+="workspace $ws_target" # target on the same workspace; just focus it
-		fi
-	fi
+    else
+      msg+="workspace $ws_target" # target on the same workspace; just focus it
+    fi
+  fi
 }
 
 function actual_run() {
-	swaymsg "$msg"
+  swaymsg "$msg"
 }
 
 get_outputs

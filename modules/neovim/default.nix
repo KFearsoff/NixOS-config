@@ -46,6 +46,7 @@ in {
           # LSP
           nvim-lspconfig
           rust-tools-nvim
+          null-ls-nvim
 
           # cmp plugins
           nvim-cmp # completion plugin
@@ -103,12 +104,18 @@ in {
 
           # project management
           project-nvim
+
+          # leap
+          vim-repeat
+          leap-nvim
         ];
 
         extraPackages = with pkgs; [
           rust-analyzer
           graphviz
+          gcc # needed for nvim-treesitter
 
+          # LSP
           nodePackages.bash-language-server
           nodePackages.dockerfile-language-server-nodejs
           gopls
@@ -119,7 +126,19 @@ in {
           rnix-lsp
           terraform-ls
           nodePackages.yaml-language-server
-          gcc # needed for nvim-treesitter
+          marksman
+
+          # null-ls
+          shellcheck
+          statix
+          actionlint
+          deadnix
+          editorconfig-checker
+          hadolint
+          nodePackages.jsonlint
+          nodePackages.markdownlint-cli
+          alejandra
+          shfmt
         ];
 
         extraLuaConfig = ''
@@ -144,6 +163,7 @@ in {
           require "user.project"
           require "user.alpha"
           require "user.whichkey"
+          require "user.leap"
         '';
       };
 

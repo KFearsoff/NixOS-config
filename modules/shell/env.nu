@@ -62,5 +62,5 @@ let-env NU_PLUGIN_DIRS = [
 # let-env PATH = ($env.PATH | split row (char esep) | prepend '/some/path')
 
 
-mkdir ~/.cache/starship 
+mkdir ~/.cache/starship
 starship init nu | save ~/.cache/starship/init.nu
