@@ -43,7 +43,6 @@ in {
           ungoogled-chromium
           freetube
           tdesktop
-          keepassxc
           qbittorrent
           element-desktop-wayland
           obsidian
