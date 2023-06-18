@@ -188,6 +188,7 @@
           packages = [
             pkgs.just
             inputs.deploy-rs.defaultPackage.${system}
+            pkgs.nvd
           ];
 
           # https://github.com/cachix/devenv/issues/528
