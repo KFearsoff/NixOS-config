@@ -1,6 +1,5 @@
 {
   inputs,
-  pkgs,
   config,
   lib,
   username,
@@ -20,18 +19,24 @@ in {
 
   users.users."${username}".passwordFile = "/secrets/nixchad-password";
 
-  hardware.firmware = [
-    pkgs.rtl8761b-firmware
-  ];
-  hardware.bluetooth.enable = true;
-  services.blueman.enable = true;
+  # hardware.firmware = [
+  #   pkgs.rtl8761b-firmware
+  # ];
+  # hardware.bluetooth.enable = true;
+  # services.blueman.enable = true;
+
+  # Focusrite Scarlett 2i2
   boot.extraModprobeConfig = ''
     options snd_usb_audio vid=0x1235 pid=0x8210 device_setup=1
   '';
 
   nixchad.boot.bootloader = "grub";
   nixchad.smartctl-exporter.devices = ["/dev/nvme0n1"];
-  nixchad.waybar.battery = false; # PC, doesn't have a battery
+  nixchad.waybar = {
+    backlight = false; # PC GPUs don't do that
+    battery = false; # PC, doesn't have a battery
+  };
+  programs.light.enable = false;
   nixchad.swayidle.timeouts.lock = 6000;
   nixchad.restic.usb-backups = true;
 
