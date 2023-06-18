@@ -6,7 +6,7 @@
         home = {
           outputs = [
             {
-              criteria = "HDMI-A-1";
+              criteria = "DP-1";
               status = "enable";
               position = "0,0";
             }
