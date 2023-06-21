@@ -11,13 +11,12 @@ in {
     entries = mkOption {
       type = types.listOf types.attrs;
       default = [
-        {command = "${pkgs.keepassxc}/bin/keepassxc";}
         {command = "${pkgs.ungoogled-chromium}/bin/chromium";}
         {command = "${pkgs.tdesktop}/bin/telegram-desktop";}
         {command = "${pkgs.freetube}/bin/freetube";}
         {command = "${pkgs.element-desktop-wayland}/bin/element-desktop";}
         {command = "${pkgs.obsidian}/bin/obsidian";}
-        {command = "${pkgs.easyeffects}/bin/easyeffects --gapplication-service";}
+        #{command = "${pkgs.easyeffects}/bin/easyeffects --gapplication-service";}
         {command = "${pkgs.slack}/bin/slack";}
       ];
     };

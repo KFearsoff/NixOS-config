@@ -18,11 +18,12 @@ in {
         ripgrep # alternative to grep
         fd # alternative to find
         tldr
-        jq
         nix-tree
         ncdu
       ]
-      ++ optional (config.nixchad.filesystem.enable && config.nixchad.filesystem.type == "btrfs") btdu
+      ++ optionals (config.nixchad.filesystem.enable && config.nixchad.filesystem.type == "btrfs") [
+        btdu
+      ]
       ++ optionals (config.nixchad.filesystem.enable && config.nixchad.filesystem.type == "ext4") [
         du-dust
         duf

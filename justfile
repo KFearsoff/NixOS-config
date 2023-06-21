@@ -25,7 +25,7 @@ history:
   @nix profile diff-closures --profile /nix/var/nix/profiles/system
 
 preview:
-  @nixos-rebuild --flake .# build -v && nix store diff-closures /var/run/current-system ./result
+  @nixos-rebuild --flake .# build -v && nvd diff /run/current-system ./result
 
 wat OPTION HOST=`uname -n`:
   @nix eval ".#nixosConfigurations.{{HOST}}.config.{{OPTION}}"

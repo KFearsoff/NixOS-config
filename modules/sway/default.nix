@@ -21,7 +21,11 @@ in {
 
   options.nixchad.sway = {
     enable = mkEnableOption "sway";
-    backlight = mkEnableOption "backlight controls";
+    backlight = mkOption {
+      type = types.bool;
+      description = "Whether to enable backlight controls";
+      default = true;
+    };
     modifier = mkOption {
       type = types.str;
       default = "Mod4";
@@ -29,7 +33,6 @@ in {
   };
 
   config = mkIf cfg.enable {
-    nixchad.sway.backlight = mkDefault true;
     nixchad.swayidle.enable = mkDefault true;
 
     environment.sessionVariables.NIXOS_OZONE_WL = "1";

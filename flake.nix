@@ -133,8 +133,8 @@
               ./suites/gui.nix
               ./suites/work.nix
               ./suites/common-services.nix
-              ./suites/office.nix
-              ./suites/graphics.nix
+              #./suites/office.nix
+              #./suites/graphics.nix
               ./suites/shell.nix
             ];
           };
@@ -188,6 +188,7 @@
           packages = [
             pkgs.just
             inputs.deploy-rs.defaultPackage.${system}
+            pkgs.nvd
           ];
 
           # https://github.com/cachix/devenv/issues/528

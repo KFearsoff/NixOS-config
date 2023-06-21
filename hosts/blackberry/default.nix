@@ -1,6 +1,5 @@
 {
   inputs,
-  pkgs,
   config,
   lib,
   username,
@@ -20,11 +19,13 @@ in {
 
   users.users."${username}".passwordFile = "/secrets/nixchad-password";
 
-  hardware.firmware = [
-    pkgs.rtl8761b-firmware
-  ];
-  hardware.bluetooth.enable = true;
-  services.blueman.enable = true;
+  # hardware.firmware = [
+  #   pkgs.rtl8761b-firmware
+  # ];
+  # hardware.bluetooth.enable = true;
+  # services.blueman.enable = true;
+
+  # Focusrite Scarlett 2i2
   boot.extraModprobeConfig = ''
     options snd_usb_audio vid=0x1235 pid=0x8210 device_setup=1
   '';
@@ -32,10 +33,10 @@ in {
   nixchad.boot.bootloader = "grub";
   nixchad.smartctl-exporter.devices = ["/dev/nvme0n1"];
   nixchad.waybar = {
-    backlight = false; # problem with Intel iGPU
+    backlight = false; # PC GPUs don't do that
     battery = false; # PC, doesn't have a battery
   };
-  nixchad.sway.backlight = false;
+  programs.light.enable = false;
   nixchad.swayidle.timeouts.lock = 6000;
   nixchad.restic.usb-backups = true;
 
@@ -63,8 +64,6 @@ in {
 
     wait-online.ignoredInterfaces = ["tailscale0"];
   };
-  networking.networkmanager.unmanaged = ["interface-name:${ifname}" "interface-name:br-libvirt" "interface-name:tailscale0"];
+  networking.networkmanager.unmanaged = ["interface-name:${ifname}" "interface-name:br-libvirt" "interface-name:tailscale0" "interface-name:tun*"];
   systemd.services.NetworkManager-wait-online.enable = false;
-
-  nix.gc.automatic = lib.mkForce false;
 }
