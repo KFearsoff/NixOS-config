@@ -64,7 +64,7 @@ in {
 
       scrapeConfigs = map makeJobConfig (optionals (config.lib.metadata.hasIpv4 hostname) [
           "icmp_v4"
-          "http_v4"
+          #"http_v4"
         ]
         ++ optionals (config.lib.metadata.hasIpv6 hostname) [
           "icmp_v6"
