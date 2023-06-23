@@ -5,7 +5,7 @@
 }: {
   imports = [
     ./hardware-configuration.nix
-    # ./kanshi.nix
+    ./kanshi.nix
     (import ./disko.nix {})
     inputs.disko.nixosModules.disko
     inputs.hardware.nixosModules.common-gpu-amd
