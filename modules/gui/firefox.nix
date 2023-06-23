@@ -39,6 +39,7 @@ in {
 
             # extensions I like/need
             nur.repos.rycee.firefox-addons.bitwarden
+            nur.repos.rycee.firefox-addons.dracula-dark-colorscheme
             nur.repos.rycee.firefox-addons.istilldontcareaboutcookies
             nur.repos.rycee.firefox-addons.privacy-redirect
             nur.repos.rycee.firefox-addons.tree-style-tab

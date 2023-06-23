@@ -26,6 +26,9 @@ in {
           {class = "leagueclient.exe";}
           {class = "leagueclientux.exe";}
           {class = "league of legends.exe";}
+          # Steam
+          {class = "steam";}
+          {class = "Slay the Spire";}
         ];
         "8" = [{app_id = "Slack";}];
       };
