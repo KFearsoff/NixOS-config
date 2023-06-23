@@ -146,6 +146,21 @@
               ./suites/private-services.nix
             ];
           };
+
+          blueberry = buildSystem {
+            hostname = "blueberry";
+            extraModules = [
+              ./suites/cli.nix
+              ./suites/sway.nix
+              ./suites/games.nix
+              ./suites/gui.nix
+              ./suites/work.nix
+              ./suites/common-services.nix
+              #./suites/office.nix
+              #./suites/graphics.nix
+              ./suites/shell.nix
+            ];
+          };
         };
 
         allMachines = let
@@ -170,6 +185,13 @@
             user = "root";
             sshUser = "nixchad";
             profiles.system.path = x86_64-linux.activate.nixos inputs.self.nixosConfigurations.cloudberry;
+          };
+
+          blueberry = {
+            hostname = "blueberry";
+            user = "root";
+            sshUser = "nixchad";
+            profiles.system.path = x86_64-linux.activate.nixos inputs.self.nixosConfigurations.blueberry;
           };
         };
 
