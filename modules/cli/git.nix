@@ -63,6 +63,8 @@ in {
             inputMoveSelectionDown = "J";
             inputMoveSelectionUp = "K";
           };
+          gpg.format = "ssh";
+          user.signingkey = "~/.ssh/id_ed25519.pub";
         };
         delta = optionalAttrs utilsEnabled {
           enable = true;
