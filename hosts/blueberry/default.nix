@@ -24,6 +24,7 @@
 
   nixchad.boot.bootloader = "systemd-boot";
   nixchad.smartctl-exporter.devices = ["/dev/nvme0n1"];
+  nixchad.waybar.battery = true;
   programs.light.enable = true;
   nixchad.restic.usb-backups = true;
 
