@@ -27,6 +27,7 @@ in {
       consoleMode = "max";
       editor = false;
     };
+    boot.loader.efi.canTouchEfiVariables = cfg.bootloader == "systemd-boot";
 
     boot.loader.grub = mkIf (cfg.bootloader == "grub" || cfg.bootloader == "grub-noefi") {
       enable = true;

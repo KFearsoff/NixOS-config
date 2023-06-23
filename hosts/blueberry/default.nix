@@ -8,9 +8,10 @@
   ifname = config.lib.metadata.getInterface config.networking.hostName;
 in {
   imports = [
-    # ./hardware-configuration.nix
+    ./hardware-configuration.nix
     # ./kanshi.nix
-    ./disko.nix
+    (import ./disko.nix {})
+    inputs.disko.nixosModules.disko
     inputs.hardware.nixosModules.common-gpu-amd
     inputs.hardware.nixosModules.common-cpu-amd
     inputs.hardware.nixosModules.common-pc-laptop-ssd
@@ -56,4 +57,5 @@ in {
   };
   networking.networkmanager.unmanaged = ["interface-name:${ifname}" "interface-name:br-libvirt" "interface-name:tailscale0" "interface-name:tun*"];
   systemd.services.NetworkManager-wait-online.enable = false;
+  zramSwap.enable = true;
 }
