@@ -10,10 +10,10 @@ in {
     entries = mkOption {
       type = types.attrs;
       default = {
-        "1" = [{app_id = "telegramdesktop";} {app_id = "Element";}];
+        "1" = [{app_id = "org.telegram.desktop";} {app_id = "Element";}];
         "2" = [{app_id = "chromium-browser";} {app_id = "firefox-nightly";}];
         "4" = [{class = "FreeTube";}];
-        "6" = [{class = "obsidian";}];
+        "6" = [{app_id = "obsidian";}];
         "7" = [
           # General Gaming
           {app_id = "lutris";}
