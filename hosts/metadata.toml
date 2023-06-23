@@ -10,9 +10,7 @@ interface = "eth0"
 syncthing.id = "PTFQGBZ-ZJ7PPKR-EDO2NOZ-IHFWCY6-AO7CW3X-G7VVFBH-R7IEE6G-Y2KK3QJ"
 
 [hosts.blueberry]
-ipv4 = ""
-syncthing.id = ""
-ssh-pubkey = ""
+syncthing.id = "SL3S7GW-EQEX37K-3COOIHY-BBWOIUH-TALXXCN-B4IQOOD-E5STX5U-IKU2HAX"
 
 [phones.pixel-4a]
 ipv4 = "100.107.161.19"
