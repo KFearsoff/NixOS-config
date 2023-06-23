@@ -73,6 +73,10 @@
         flake-compat.follows = "flake-compat-dep";
       };
     };
+    arkenfox = {
+      url = "github:arkenfox/user.js";
+      flake = false;
+    };
 
     # Development
     devenv = {
@@ -108,7 +112,6 @@
   outputs = inputs: let
     overlays =
       {
-        nur = inputs.nur.overlay;
         neovim-nightly-overlay = inputs.neovim-nightly-overlay.overlay;
       }
       // (import ./overlays);

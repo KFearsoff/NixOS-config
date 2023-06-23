@@ -17,6 +17,22 @@
         "type": "github"
       }
     },
+    "arkenfox": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1687318191,
+        "narHash": "sha256-RBTz3Vi6pEySkZ6qRu/cNKu32fLe7ghKNX/vXBeSKwQ=",
+        "owner": "arkenfox",
+        "repo": "user.js",
+        "rev": "c34531b67e0b9d162331fa92dc0eae2548d13fc7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "arkenfox",
+        "repo": "user.js",
+        "type": "github"
+      }
+    },
     "base16-schemes": {
       "flake": false,
       "locked": {
@@ -955,6 +971,7 @@
     },
     "root": {
       "inputs": {
+        "arkenfox": "arkenfox",
         "deploy-rs": "deploy-rs",
         "devenv": "devenv",
         "disko": "disko",

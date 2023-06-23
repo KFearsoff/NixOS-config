@@ -17,7 +17,8 @@
   patchedNixpkgsDrv =
     if patchesToApply != []
     then
-      pkgsForPatching.applyPatches {
+      pkgsForPatching.applyPatches
+      {
         name = "nixpkgs-patched";
         src = inputs.nixpkgs;
         patches = patchesToApply;
@@ -66,6 +67,7 @@
           }
           inputs.home-manager.nixosModules.home-manager
           inputs.impermanence.nixosModules.impermanence
+          inputs.nur.nixosModules.nur
           (../users + "/${username}.nix")
           ../modules
           ./metadata.nix
