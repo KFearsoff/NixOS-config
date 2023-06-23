@@ -7,16 +7,10 @@
       format = "gpt";
       partitions = [
         {
-          name = "bios";
-          start = "0";
-          end = "1M";
-          flags = ["bios_grub"];
-        }
-        {
-          name = "boot";
-          start = "1M";
-          end = "128MiB";
-          fs-type = "fat32";
+          name = "ESP";
+          start = "1MiB";
+          end = "512MiB";
+          bootable = true;
           content = {
             type = "filesystem";
             format = "vfat";
@@ -25,30 +19,36 @@
         }
         {
           name = "root";
-          start = "128MiB";
+          start = "512MiB";
           end = "100%";
           content = {
-            type = "btrfs";
-            subvolumes = {
-              "/root" = {
-                mountpoint = "/";
-                mountOptions = ["compress-force=zstd" "noatime"];
-              };
-              "/home-nixchad" = {
-                mountpoint = "/home/nixchad";
-                mountOptions = ["compress-force=zstd" "noatime"];
-              };
-              "/nix" = {
-                mountpoint = "/nix";
-                mountOptions = ["compress-force=zstd" "noatime"];
-              };
-              "/persist" = {
-                mountpoint = "/persist";
-                mountOptions = ["compress-force=zstd" "noatime"];
-              };
-              "/secrets" = {
-                mountpoint = "/secrets";
-                mountOptions = ["compress-force=zstd" "noatime"];
+            type = "luks";
+            name = "crypted";
+            extraOpenArgs = ["--allow-discards" "--perf-no_read_workqueue" "--perf-no_write_workqueue"];
+            keyFile = "/tmp/secret.key";
+            content = {
+              type = "btrfs";
+              subvolumes = {
+                "/root" = {
+                  mountpoint = "/";
+                  mountOptions = ["compress-force=zstd" "noatime"];
+                };
+                "/home-nixchad" = {
+                  mountpoint = "/home/nixchad";
+                  mountOptions = ["compress-force=zstd" "noatime"];
+                };
+                "/nix" = {
+                  mountpoint = "/nix";
+                  mountOptions = ["compress-force=zstd" "noatime"];
+                };
+                "/persist" = {
+                  mountpoint = "/persist";
+                  mountOptions = ["compress-force=zstd" "noatime"];
+                };
+                "/secrets" = {
+                  mountpoint = "/secrets";
+                  mountOptions = ["compress-force=zstd" "noatime"];
+                };
               };
             };
           };
