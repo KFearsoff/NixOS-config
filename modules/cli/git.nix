@@ -63,8 +63,11 @@ in {
             inputMoveSelectionDown = "J";
             inputMoveSelectionUp = "K";
           };
+
+          # commit signing
           gpg.format = "ssh";
           user.signingkey = "~/.ssh/id_ed25519.pub";
+          commit.gpgsign = true;
         };
         delta = optionalAttrs utilsEnabled {
           enable = true;
