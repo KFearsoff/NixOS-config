@@ -33,6 +33,22 @@
         "type": "github"
       }
     },
+    "cachix": {
+      "locked": {
+        "lastModified": 1635350005,
+        "narHash": "sha256-tAMJnUwfaDEB2aa31jGcu7R7bzGELM9noc91L2PbVjg=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "1c1f5649bb9c1b0d98637c8c365228f57126f361",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-20.09",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "crane": {
       "flake": false,
       "locked": {
@@ -204,6 +220,31 @@
       "original": {
         "owner": "davhau",
         "repo": "drv-parts",
+        "type": "github"
+      }
+    },
+    "firefox": {
+      "inputs": {
+        "cachix": "cachix",
+        "flake-compat": [
+          "flake-compat-dep"
+        ],
+        "mozilla": "mozilla",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1687485309,
+        "narHash": "sha256-IJAyVF/N/Gjbm1FUyLwj0uURwj7hfcrGOl1pJ6KqN6A=",
+        "owner": "colemickens",
+        "repo": "flake-firefox-nightly",
+        "rev": "7068358f21851e389a8551e2579df69988c93011",
+        "type": "github"
+      },
+      "original": {
+        "owner": "colemickens",
+        "repo": "flake-firefox-nightly",
         "type": "github"
       }
     },
@@ -546,6 +587,22 @@
       "original": {
         "id": "mach-nix",
         "type": "indirect"
+      }
+    },
+    "mozilla": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1684487559,
+        "narHash": "sha256-SZcJEM+NnLr8ctzeQf1BGAqBHzJ3jn+tdSeO7lszIJc=",
+        "owner": "mozilla",
+        "repo": "nixpkgs-mozilla",
+        "rev": "e6ca26fe8b9df914d4567604e426fbc185d9ef3e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "mozilla",
+        "repo": "nixpkgs-mozilla",
+        "type": "github"
       }
     },
     "neovim-flake-dep": {
@@ -901,6 +958,7 @@
         "deploy-rs": "deploy-rs",
         "devenv": "devenv",
         "disko": "disko",
+        "firefox": "firefox",
         "flake-compat-dep": "flake-compat-dep",
         "flake-parts": "flake-parts",
         "flake-utils-dep": "flake-utils-dep",

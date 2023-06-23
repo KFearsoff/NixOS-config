@@ -10,15 +10,16 @@ in {
   options.nixchad.startup = {
     entries = mkOption {
       type = types.listOf types.attrs;
-      default = [
-        {command = "${pkgs.ungoogled-chromium}/bin/chromium";}
-        {command = "${pkgs.tdesktop}/bin/telegram-desktop";}
-        {command = "${pkgs.freetube}/bin/freetube";}
-        {command = "${pkgs.element-desktop-wayland}/bin/element-desktop";}
-        {command = "${pkgs.obsidian}/bin/obsidian";}
-        #{command = "${pkgs.easyeffects}/bin/easyeffects --gapplication-service";}
-        {command = "${pkgs.slack}/bin/slack";}
-      ];
+      default =
+        [
+          {command = "${pkgs.tdesktop}/bin/telegram-desktop";}
+          {command = "${pkgs.freetube}/bin/freetube";}
+          {command = "${pkgs.element-desktop-wayland}/bin/element-desktop";}
+          {command = "${pkgs.obsidian}/bin/obsidian";}
+          #{command = "${pkgs.easyeffects}/bin/easyeffects --gapplication-service";}
+          {command = "${pkgs.slack}/bin/slack";}
+        ]
+        ++ optional (!config.nixchad.firefox.enable) {command = "${pkgs.ungoogled-chromium}/bin/chromium";};
     };
 
     autotiling = mkEnableOption "autotiling";

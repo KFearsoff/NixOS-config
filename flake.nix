@@ -66,6 +66,13 @@
       url = "github:MichaelAquilina/zsh-you-should-use";
       flake = false;
     };
+    firefox = {
+      url = "github:colemickens/flake-firefox-nightly";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-compat.follows = "flake-compat-dep";
+      };
+    };
 
     # Development
     devenv = {
