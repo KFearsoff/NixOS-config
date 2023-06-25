@@ -29,6 +29,7 @@ in {
               user_pref("privacy.clearOnShutdown.history", false); // 2811, don't clear history
               user_pref("privacy.resistFingerprinting.letterboxing", false); // 4504, I hate the margins
             '';
+
           extensions = [
             # recommended by arkenfox
             nur.repos.rycee.firefox-addons.ublock-origin
@@ -44,6 +45,18 @@ in {
             nur.repos.rycee.firefox-addons.privacy-redirect
             nur.repos.rycee.firefox-addons.tree-style-tab
           ];
+
+          search = {
+            force = true;
+            default = "DuckDuckGo";
+            order = ["DuckDuckGo"];
+            engines = {
+              "Amazon.com".metaData.hidden = true;
+              "Bing".metaData.hidden = true;
+              "Google".metaData.hidden = true;
+              "Wikipedia (en)".metaData.alias = "@w";
+            };
+          };
         };
       };
     };
