@@ -28,6 +28,7 @@
             keyFile = "/tmp/secret.key";
             content = {
               type = "btrfs";
+              extraArgs = "--label root";
               subvolumes = {
                 "/root" = {
                   mountpoint = "/";
