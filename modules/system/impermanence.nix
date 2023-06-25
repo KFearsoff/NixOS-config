@@ -5,6 +5,24 @@
 }:
 with lib; let
   cfg = config.nixchad.impermanence;
+  wipeScript = ''
+    mkdir /tmp -p
+    MNTPOINT=$(mktemp -d)
+    (
+      mount -t btrfs -o subvol=root /dev/disk/by-label/root "$MNTPOINT"
+      trap 'umount "$MNTPOINT"' EXIT
+
+      echo "Cleaning root subvolume"
+      btrfs subvolume list -o "$MNTPOINT/root" | cut -f9 -d ' ' |
+      while read -r subvolume; do
+        btrfs subvolume delete "$MNTPOINT/root"
+      done && btrfs subvolume delete "$MNTPOINT/root"
+
+      echo "Restoring blank subvolume"
+      btrfs subvolume snapshot "$MNTPOINT/root-blank" "$MNTPOINT/root"
+    )
+  '';
+  phase1Systemd = config.boot.initrd.systemd.enable;
 in {
   options.nixchad.impermanence = {
     enable = mkEnableOption "impermanence";
@@ -33,16 +51,23 @@ in {
       ];
     };
 
-    boot.initrd.postDeviceCommands = lib.mkAfter ''
-      mkdir /btrfs_tmp
-      mount /dev/disk/by-label/root /btrfs_tmp
-      if [[ -e /btrfs_tmp/root ]]; then
-        mv /btrfs_tmp/root "/btrfs_tmp/old_root_$(date "+%Y-%m-%-d_%H:%M:%S")"
-      fi
-      btrfs subvolume create /btrfs_tmp/root
-      sync
-      umount /btrfs_tmp
-    '';
+    boot.initrd = {
+      supportedFilesystems = ["btrfs"];
+      postDeviceCommands = mkIf (!phase1Systemd) (mkBefore wipeScript);
+      systemd.services.restore-root = mkIf phase1Systemd {
+        description = "Rollback btrfs rootfs";
+        wantedBy = ["initrd.target"];
+        requires = ["dev-disk-by\\x2dlabel-root.device"];
+        after = [
+          "dev-disk-by\\x2dlabel-root.device"
+          #"systemd-cryptsetup@root.service" # TODO: check this!
+        ];
+        before = ["sysroot.mount"];
+        unitConfig.DefaultDependencies = "no";
+        serviceConfig.Type = "oneshot";
+        script = wipeScript;
+      };
+    };
 
     services = {
       openssh = {
