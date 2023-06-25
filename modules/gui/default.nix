@@ -18,6 +18,8 @@ in {
     ./newsboat.nix
     ./pipewire.nix
     ./theming.nix
+    ./firefox.nix
+    ./mpd.nix
   ];
 
   options.nixchad.gui = {
@@ -40,7 +42,6 @@ in {
     hm = {
       home.packages = with pkgs;
         [
-          ungoogled-chromium
           freetube
           tdesktop
           qbittorrent
@@ -49,7 +50,8 @@ in {
           slack
         ]
         #++ (optional config.services.pipewire.enable easyeffects)
-        ++ (optional config.programs.wireshark.enable wireshark);
+        ++ (optional config.programs.wireshark.enable wireshark)
+        ++ (optional (!config.nixchad.firefox.enable) ungoogled-chromium);
 
       services.udiskie.enable = true;
 

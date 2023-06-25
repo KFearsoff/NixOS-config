@@ -6,4 +6,6 @@
   #nixchad.mpv.enable = true;
   nixchad.zathura.enable = true;
   nixchad.theming.enable = true;
+  nixchad.firefox.enable = true;
+  nixchad.mpd.enable = true;
 }
