@@ -116,10 +116,10 @@ in {
             };
             "pulseaudio" = {
               scroll-step = 1;
-              format = "{icon}{volume}% {format_source}";
-              format-bluetooth = "{icon}{volume}% {format_source}";
-              format-muted = " {format_source}";
-              format-source = "{volume}%";
+              format = "{icon} {volume}% {format_source}";
+              format-bluetooth = "{icon}  {volume}% {format_source}";
+              format-muted = "  {format_source}";
+              format-source = " {volume}%";
               format-source-muted = "";
               format-icons = {
                 headphones = "";
@@ -164,7 +164,7 @@ in {
             };
             "network" = {
               interval = 5;
-              format-wifi = "{signalStrength}%";
+              format-wifi = " {signalStrength}%";
               format-ethernet = "";
               tooltip-format = "{ifname}: {ipaddr}/{cidr}";
               format-linked = "";
@@ -183,9 +183,9 @@ in {
                 warning = 30;
                 critical = 15;
               };
-              format = "{icon}{capacity}%";
-              format-charging = "{capacity}%";
-              format-plugged = "{capacity}%";
+              format = "{icon} {capacity}%";
+              format-charging = " {capacity}%";
+              format-plugged = " {capacity}%";
               format-full = "OK";
               format-icons = [
                 ""
