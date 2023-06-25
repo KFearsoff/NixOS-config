@@ -19,6 +19,7 @@ in {
     ./pipewire.nix
     ./theming.nix
     ./firefox.nix
+    ./mpd.nix
   ];
 
   options.nixchad.gui = {

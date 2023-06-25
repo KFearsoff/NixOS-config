@@ -55,9 +55,13 @@ in {
                 "custom/left-arrow"
                 "pulseaudio"
                 "custom/left-arrow-inverse"
-                # "custom/left-arrow"
-                # "mpd"
-                # "custom/left-arrow-inverse"
+              ]
+              ++ optionals config.nixchad.mpd.enable [
+                "custom/left-arrow"
+                "mpd"
+                "custom/left-arrow-inverse"
+              ]
+              ++ [
                 "custom/left-arrow"
                 "network"
                 "custom/left-arrow-inverse"
@@ -139,7 +143,7 @@ in {
             "mpd" = {
               format = "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{artist} - {album} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ⸨{songPosition}|{queueLength}⸩ {volume}% ";
               format-disconnected = "Disconnected ";
-              format-stopped = "{consumeIcon}{randomIcon}{repeatIcon}{singleIcon}Stopped ";
+              format-stopped = "{consumeIcon}{randomIcon}{repeatIcon}{singleIcon} Stopped ";
               unknown-tag = "N/A";
               interval = 2;
               consume-icons = {
