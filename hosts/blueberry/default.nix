@@ -29,6 +29,5 @@
   nixchad.restic.usb-backups = true;
 
   networking.networkmanager.unmanaged = ["interface-name:tailscale0" "interface-name:tun*"];
-  systemd.services.NetworkManager-wait-online.enable = false;
   zramSwap.enable = true;
 }
