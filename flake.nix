@@ -26,7 +26,7 @@
     };
     #impermanence.url = "github:nix-community/impermanence";
     #impermanence.url = "path:/home/nixchad/Projects/impermanence";
-    impermanence.url = "github:nix-community/impermanence/8ca70a91e461796e2232dc51a2f8ca1375f4a25a";
+    impermanence.url = "github:nix-community/impermanence/d2cc01c3ca2509778f2cbab8c6f2b67f8f1f65dc";
 
     # Services
     tailforward = {
