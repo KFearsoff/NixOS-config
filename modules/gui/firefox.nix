@@ -28,7 +28,22 @@ in {
               user_pref("browser.startup.page", 3); // 0102, session restore
               user_pref("privacy.clearOnShutdown.history", false); // 2811, don't clear history
               user_pref("privacy.resistFingerprinting.letterboxing", false); // 4504, I hate the margins
+
+              lockPref("signon.rememberSignons", false) // bitwarden is used instead
+              lockPref("toolkit.legacyUserProfileCustomizations.stylesheets", true) // enable CSS styling
+              lockPref("browser.tabs.inTitlebar", "0") // use native decoration
             '';
+
+          userChrome = ''
+            /* Hide horizontal tabs on top of the window */
+            #main-window[tabsintitlebar="true"]:not([extradragspace="true"]) #TabsToolbar > .toolbar-items {
+              opacity: 0;
+              pointer-events: none;
+            }
+            #main-window:not([tabsintitlebar="true"]) #TabsToolbar {
+              visibility: collapse !important;
+            }
+          '';
 
           extensions = [
             # recommended by arkenfox
