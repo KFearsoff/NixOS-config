@@ -45,9 +45,10 @@ in {
           freetube
           tdesktop
           qbittorrent
-          element-desktop-wayland
+          element-desktop
           obsidian
           slack
+          discord
         ]
         #++ (optional config.services.pipewire.enable easyeffects)
         ++ (optional config.programs.wireshark.enable wireshark)

@@ -14,7 +14,7 @@ in {
         [
           {command = "${pkgs.tdesktop}/bin/telegram-desktop";}
           {command = "${pkgs.freetube}/bin/freetube";}
-          {command = "${pkgs.element-desktop-wayland}/bin/element-desktop";}
+          {command = "NIXOS_OZONE_WL= ${pkgs.element-desktop}/bin/element-desktop";}
           {command = "${pkgs.obsidian}/bin/obsidian";}
           #{command = "${pkgs.easyeffects}/bin/easyeffects --gapplication-service";}
           {command = "${pkgs.slack}/bin/slack";}
