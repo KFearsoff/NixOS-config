@@ -28,6 +28,7 @@ in {
               user_pref("browser.startup.page", 3); // 0102, session restore
               user_pref("privacy.clearOnShutdown.history", false); // 2811, don't clear history
               user_pref("privacy.resistFingerprinting.letterboxing", false); // 4504, I hate the margins
+              user_pref("webgl.disabled", false); // required for Zoom (also needs canvas exception)
 
               lockPref("signon.rememberSignons", false) // bitwarden is used instead
               lockPref("toolkit.legacyUserProfileCustomizations.stylesheets", true) // enable CSS styling
