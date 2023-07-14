@@ -29,6 +29,13 @@
   programs.light.enable = true;
   nixchad.restic.usb-backups = true;
 
+  nixchad.impermanence.presets = {
+    enable = true;
+    essential = true;
+    system = true;
+    services = true;
+  };
+
   networking.networkmanager.unmanaged = ["interface-name:tailscale0" "interface-name:tun*"];
   zramSwap.enable = true;
 }

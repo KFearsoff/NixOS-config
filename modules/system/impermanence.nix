@@ -27,6 +27,16 @@ with lib; let
 in {
   options.nixchad.impermanence = {
     enable = mkEnableOption "impermanence";
+    presets = mkOption {
+      type = types.submodule {
+        options = {
+          enable = mkEnableOption "presets at large";
+          essential = mkEnableOption "essential presets";
+          system = mkEnableOption "system-wide presets";
+          services = mkEnableOption "presets for services";
+        };
+      };
+    };
   };
 
   config = mkIf cfg.enable {
@@ -37,19 +47,20 @@ in {
       Defaults lecture = never
       Defaults insults
     '';
-    environment.persistence."/persist" = {
+    environment.persistence."/persist" = mkIf (cfg.presets.enable && cfg.presets.essential) {
       hideMounts = true;
-
-      presets = {
-        essential.enable = true;
-        system.enable = true;
-        services.enable = true;
-      };
 
       directories = [
         "/var/log"
         "/var/lib/systemd"
+        "/var/lib/nixos"
       ];
+
+      files =
+        [
+          "/etc/machine-id"
+        ]
+        ++ lib.concatMap (key: [key.path (key.path + ".pub")]) config.services.openssh.hostKeys;
     };
 
     boot.initrd = {

@@ -560,17 +560,16 @@
     },
     "impermanence": {
       "locked": {
-        "lastModified": 1687881333,
-        "narHash": "sha256-vKTTjxqvBRsIoKWnpkHC1Wc5t6IDpCWMwG4jA3XxDMg=",
+        "lastModified": 1684264534,
+        "narHash": "sha256-K0zr+ry3FwIo3rN2U/VWAkCJSgBslBisvfRIPwMbuCQ=",
         "owner": "nix-community",
         "repo": "impermanence",
-        "rev": "d2cc01c3ca2509778f2cbab8c6f2b67f8f1f65dc",
+        "rev": "89253fb1518063556edd5e54509c30ac3089d5e6",
         "type": "github"
       },
       "original": {
         "owner": "nix-community",
         "repo": "impermanence",
-        "rev": "d2cc01c3ca2509778f2cbab8c6f2b67f8f1f65dc",
         "type": "github"
       }
     },
