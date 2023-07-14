@@ -214,7 +214,7 @@ in {
             border-radius: 0;
             color: inherit;
             font-size: 16px;
-            font-family: Iosevka;
+            font-family: FiraCode Nerd Font;
             min-height: 0;
             padding: 0 0px;
           }

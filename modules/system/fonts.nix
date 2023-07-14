@@ -15,15 +15,15 @@ in {
     fonts = {
       fontconfig = {
         defaultFonts = {
-          serif = ["Iosevka"];
-          emoji = ["Iosevka"];
-          monospace = ["Iosevka"];
-          sansSerif = ["Iosevka"];
+          serif = ["FiraCode Nerd Font"];
+          emoji = ["FiraCode Nerd Font"];
+          monospace = ["FiraCode Nerd Font Mono"];
+          sansSerif = ["FiraCode Nerd Font"];
         };
       };
 
       fonts = with pkgs; [
-        (nerdfonts.override {fonts = ["Iosevka" "Noto"];})
+        (nerdfonts.override {fonts = ["FiraCode"];})
       ];
     };
   };
