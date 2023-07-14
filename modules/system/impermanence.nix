@@ -27,6 +27,7 @@ with lib; let
 in {
   options.nixchad.impermanence = {
     enable = mkEnableOption "impermanence";
+
     presets = mkOption {
       type = types.submodule {
         options = {
@@ -35,6 +36,17 @@ in {
           system = mkEnableOption "system-wide presets";
           services = mkEnableOption "presets for services";
         };
+      };
+    };
+
+    persisted = {
+      path = mkOption {
+        type = types.str;
+        default = "/persist";
+      };
+
+      values = mkOption {
+        type = types.listOf (types.attrsOf types.anything);
       };
     };
   };
@@ -47,21 +59,28 @@ in {
       Defaults lecture = never
       Defaults insults
     '';
-    environment.persistence."/persist" = mkIf (cfg.presets.enable && cfg.presets.essential) {
-      hideMounts = true;
 
-      directories = [
-        "/var/log"
-        "/var/lib/systemd"
-        "/var/lib/nixos"
-      ];
+    environment.persistence.${cfg.persisted.path} = mkIf cfg.presets.enable (
+      builtins.foldl' (x: y: x // y) {hideMounts = true;}
+      cfg.persisted.values
+    );
 
-      files =
-        [
-          "/etc/machine-id"
-        ]
-        ++ lib.concatMap (key: [key.path (key.path + ".pub")]) config.services.openssh.hostKeys;
-    };
+    nixchad.impermanence.persisted.values = [
+      {
+        directories = mkIf cfg.presets.essential [
+          "/var/log"
+          "/var/lib/systemd"
+          "/var/lib/nixos"
+        ];
+
+        files =
+          mkIf cfg.presets.essential
+          ([
+              "/etc/machine-id"
+            ]
+            ++ lib.concatMap (key: [key.path (key.path + ".pub")]) config.services.openssh.hostKeys);
+      }
+    ];
 
     boot.initrd = {
       supportedFilesystems = ["btrfs"];
