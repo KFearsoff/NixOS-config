@@ -76,7 +76,13 @@ in {
       {
         directories =
           lib.mkIf (config.nixchad.impermanence.presets.essential && config.nixchad.impermanence.presets.services)
-          [config.services.loki.dataDir];
+          [
+            {
+              directory = config.services.loki.dataDir;
+              user = "loki";
+              group = "loki";
+            }
+          ];
       }
     ];
 

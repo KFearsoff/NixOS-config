@@ -73,7 +73,13 @@ in {
       {
         directories =
           lib.mkIf (config.nixchad.impermanence.presets.essential && config.nixchad.impermanence.presets.services)
-          [config.services.grafana.dataDir];
+          [
+            {
+              directory = config.services.grafana.dataDir;
+              user = "grafana";
+              group = "grafana";
+            }
+          ];
       }
     ];
 
