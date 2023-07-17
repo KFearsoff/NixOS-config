@@ -72,6 +72,14 @@ in {
       }
     ];
 
+    nixchad.impermanence.persisted.values = [
+      {
+        directories =
+          lib.mkIf (config.nixchad.impermanence.presets.essential && config.nixchad.impermanence.presets.services)
+          [config.services.loki.dataDir];
+      }
+    ];
+
     services.nginx.virtualHosts."${lokiDomain}" = {
       forceSSL = true;
       useACMEHost = "nixalted.com";

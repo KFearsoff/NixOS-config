@@ -96,5 +96,14 @@ in {
 
     networking.firewall.allowedTCPPorts = [80 443];
     networking.firewall.allowedUDPPorts = [80 443];
+
+    nixchad.impermanence.persisted.values = [
+      {
+        directories =
+          lib.mkIf (config.nixchad.impermanence.presets.essential && config.nixchad.impermanence.presets.services)
+          ["/var/lib/acme"]; # FIXME: Is this more correct than the snippet below?
+        #directories = builtins.map (x: x.directory) (builtins.attrValues cfg);
+      }
+    ];
   };
 }

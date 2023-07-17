@@ -69,6 +69,14 @@ in {
       ];
     };
 
+    nixchad.impermanence.persisted.values = [
+      {
+        directories =
+          lib.mkIf (config.nixchad.impermanence.presets.essential && config.nixchad.impermanence.presets.services)
+          [config.services.grafana.dataDir];
+      }
+    ];
+
     services.nginx.virtualHosts."${domain}" = {
       forceSSL = true;
       useACMEHost = "nixalted.com";
