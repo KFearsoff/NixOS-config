@@ -24,6 +24,15 @@ with lib; let
     )
   '';
   phase1Systemd = config.boot.initrd.systemd.enable;
+
+  collectPersistedValues = builtins.foldl' processPersistedValues {hideMounts = true;} cfg.persisted.values;
+  processPersistedValues = val: col: {
+    files = (maybeFile val) ++ (maybeFile col);
+    directories = (maybeDir val) ++ (maybeDir col);
+  };
+  maybe = attrname: lib.attrByPath [attrname] [];
+  maybeFile = maybe "files";
+  maybeDir = maybe "directories";
 in {
   options.nixchad.impermanence = {
     enable = mkEnableOption "impermanence";
@@ -60,10 +69,7 @@ in {
       Defaults insults
     '';
 
-    environment.persistence.${cfg.persisted.path} = mkIf cfg.presets.enable (
-      builtins.foldl' (x: y: x // y) {hideMounts = true;}
-      cfg.persisted.values
-    );
+    environment.persistence.${cfg.persisted.path} = mkIf cfg.presets.enable collectPersistedValues;
 
     nixchad.impermanence.persisted.values = [
       {
@@ -75,10 +81,9 @@ in {
 
         files =
           mkIf cfg.presets.essential
-          ([
-              "/etc/machine-id"
-            ]
-            ++ lib.concatMap (key: [key.path (key.path + ".pub")]) config.services.openssh.hostKeys);
+          [
+            "/etc/machine-id"
+          ];
       }
     ];
 
@@ -97,17 +102,6 @@ in {
         unitConfig.DefaultDependencies = "no";
         serviceConfig.Type = "oneshot";
         script = wipeScript;
-      };
-    };
-
-    services = {
-      openssh = {
-        enable = true;
-        settings = {
-          PasswordAuthentication = false;
-          PermitRootLogin = "no";
-          KbdInteractiveAuthentication = false;
-        };
       };
     };
   };
