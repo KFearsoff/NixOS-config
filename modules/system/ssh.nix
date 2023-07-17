@@ -17,7 +17,7 @@ in {
       enable = true;
       settings = {
         PasswordAuthentication = false;
-        PermitRootLogin = "no";
+        PermitRootLogin = lib.mkForce "no"; # need mkForce for ISO
         KbdInteractiveAuthentication = false;
       };
     };
