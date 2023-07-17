@@ -20,10 +20,6 @@ in {
         rocketAddress = "0.0.0.0";
         rocketPort = vaultwardenPort;
 
-        websocketEnabled = true;
-        websocketAddress = "0.0.0.0";
-        websocketPort = 3012;
-
         databaseUrl = "postgresql://vaultwarden@/vaultwarden";
 
         domain = "https://${domain}";
@@ -45,14 +41,6 @@ in {
       useACMEHost = "nixalted.com";
 
       locations."/" = {
-        proxyPass = "http://localhost:${toString vaultwardenPort}";
-        proxyWebsockets = true;
-      };
-      locations."/notifications/hub" = {
-        proxyPass = "http://localhost:3012";
-        proxyWebsockets = true;
-      };
-      locations."/notifications/hub/negotiate" = {
         proxyPass = "http://localhost:${toString vaultwardenPort}";
         proxyWebsockets = true;
       };
