@@ -24,9 +24,7 @@
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    #impermanence.url = "github:nix-community/impermanence";
-    #impermanence.url = "path:/home/nixchad/Projects/impermanence";
-    impermanence.url = "github:nix-community/impermanence/d2cc01c3ca2509778f2cbab8c6f2b67f8f1f65dc";
+    impermanence.url = "github:nix-community/impermanence";
 
     # Services
     tailforward = {

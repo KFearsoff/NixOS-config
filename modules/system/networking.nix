@@ -24,5 +24,19 @@ in {
 
     networking.networkmanager.enable = mkDefault true;
     services.tailscale.enable = true;
+
+    nixchad.impermanence.persisted.values =
+      (lib.optional (config.nixchad.impermanence.presets.enable && config.nixchad.impermanence.presets.essential)
+        {
+          directories = ["/etc/NetworkManager/system-connections"];
+          files = [
+            "/var/lib/NetworkManager/secret_key"
+            "/var/lib/NetworkManager/seen-bssids"
+            "/var/lib/NetworkManager/timestamps"
+          ]; # Why those files?
+        })
+      ++ (lib.optional (config.nixchad.impermanence.presets.enable && config.nixchad.impermanence.presets.system) {
+        directories = ["/var/lib/tailscale"];
+      });
   };
 }

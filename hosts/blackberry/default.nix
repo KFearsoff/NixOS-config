@@ -66,4 +66,11 @@ in {
   };
   networking.networkmanager.unmanaged = ["interface-name:${ifname}" "interface-name:br-libvirt" "interface-name:tailscale0" "interface-name:tun*"];
   systemd.services.NetworkManager-wait-online.enable = false;
+
+  nixchad.impermanence.presets = {
+    enable = true;
+    essential = true;
+    system = true;
+    services = true;
+  };
 }

@@ -30,5 +30,5 @@ preview:
 wat OPTION HOST=`uname -n`:
   @nix eval ".#nixosConfigurations.{{HOST}}.config.{{OPTION}}"
 
-deploy +TARGETS=".":
-  @deploy {{TARGETS}} -k -- -v --impure
+deploy +TARGETS=".#":
+  @deploy --targets {{TARGETS}} -k -- -v --impure

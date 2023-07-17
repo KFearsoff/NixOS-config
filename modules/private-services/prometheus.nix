@@ -38,6 +38,14 @@ in {
       ];
     };
 
+    nixchad.impermanence.persisted.values = [
+      {
+        directories =
+          lib.mkIf (config.nixchad.impermanence.presets.essential && config.nixchad.impermanence.presets.services)
+          [("/var/lib/" + config.services.prometheus.stateDir)];
+      }
+    ];
+
     services.nginx.virtualHosts."${prometheusDomain}" = {
       forceSSL = true;
       useACMEHost = "nixalted.com";

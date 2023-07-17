@@ -22,6 +22,7 @@ in {
     ./tty.nix
     ./minimal.nix
     ./hardware.nix
+    ./ssh.nix
   ];
 
   options.nixchad.system = {

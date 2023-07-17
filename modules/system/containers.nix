@@ -15,5 +15,12 @@ in {
       enable = true;
       dockerCompat = true;
     };
+
+    nixchad.impermanence.persisted.values = [
+      {
+        directories =
+          lib.mkIf config.nixchad.impermanence.presets.system ["/var/lib/containers"];
+      }
+    ];
   };
 }

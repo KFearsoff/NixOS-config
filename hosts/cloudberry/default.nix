@@ -18,4 +18,11 @@
   nixchad.boot.bootloader = "grub-noefi";
   nixchad.photoprism.enable = false;
   zramSwap.enable = true;
+
+  nixchad.impermanence.presets = {
+    enable = true;
+    essential = true;
+    system = true;
+    services = true;
+  };
 }
