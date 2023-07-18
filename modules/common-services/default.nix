@@ -2,7 +2,7 @@
   imports = [
     ./node-exporter.nix
     ./smartctl-exporter.nix
-    ./vector.nix
+    ./grafana-agent.nix
     ./coredns
     ./cadvisor.nix
     ./syncthing.nix
