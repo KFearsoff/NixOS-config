@@ -22,6 +22,7 @@ in {
           grpc_listen_address = "0.0.0.0";
           grpc_listen_port = tempoGrpcPort;
         };
+        distributor.receivers.otlp.protocols.grpc.endpoint = "0.0.0.0:4317";
         distributor.receivers.otlp.protocols.http.endpoint = "0.0.0.0:4318";
         storage.trace = {
           backend = "local";
@@ -31,6 +32,6 @@ in {
       };
     };
 
-    networking.firewall.interfaces.tailscale0.allowedTCPPorts = [4318];
+    networking.firewall.interfaces.tailscale0.allowedTCPPorts = [4317 4318];
   };
 }

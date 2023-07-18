@@ -34,6 +34,8 @@ in {
           name = "grafana";
           password = "";
         };
+
+        "tracing.opentelemetry.otlp".address = "localhost:4317";
       };
 
       provision = {
