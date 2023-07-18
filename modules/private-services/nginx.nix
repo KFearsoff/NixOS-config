@@ -44,7 +44,7 @@ in {
           };
           domain = mkOption {
             type = types.str;
-            default = name;
+            default = "${name}.${domainBase}";
           };
         };
       }));
