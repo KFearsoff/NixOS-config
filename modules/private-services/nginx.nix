@@ -81,6 +81,7 @@ in {
       recommendedProxySettings = true;
       recommendedZstdSettings = true;
 
+      statusPage = true;
       virtualHosts = collectVhosts;
     };
 
