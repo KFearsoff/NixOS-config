@@ -86,6 +86,7 @@ in {
       recommendedZstdSettings = true;
 
       statusPage = true;
+      enableReload = true;
 
       resolver.addresses = ["127.0.0.1:53"];
       proxyResolveWhileRunning = true;
