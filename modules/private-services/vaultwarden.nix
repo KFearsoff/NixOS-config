@@ -36,19 +36,9 @@ in {
       ];
     };
 
-    services.nginx.virtualHosts."${domain}" = {
-      forceSSL = true;
-      useACMEHost = "nixalted.com";
-
-      locations."/" = {
-        proxyPass = "http://localhost:${toString vaultwardenPort}";
-        proxyWebsockets = true;
-      };
-
-      extraConfig = ''
-        allow 100.0.0.0/8;
-        deny  all;
-      '';
+    nixchad.nginx.vhosts."vaultwarden" = {
+      websockets = true;
+      port = vaultwardenPort;
     };
 
     # make sure we don't crash because postgres isn't ready

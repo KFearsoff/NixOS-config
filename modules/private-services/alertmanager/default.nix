@@ -5,8 +5,7 @@
 }:
 with lib; let
   cfg = config.nixchad.alertmanager;
-  alertmanagerPort = toString config.services.prometheus.alertmanager.port;
-  alertmanagerDomain = "alertmanager.nixalted.com";
+  alertmanagerPort = config.services.prometheus.alertmanager.port;
 in {
   options.nixchad.alertmanager = {
     enable = mkEnableOption "Alertmanager alerting";
@@ -47,7 +46,7 @@ in {
           static_configs = [
             {
               targets = [
-                "localhost:${alertmanagerPort}"
+                "localhost:${toString alertmanagerPort}"
               ];
             }
           ];
@@ -65,19 +64,8 @@ in {
       ];
     };
 
-    services.nginx.virtualHosts."${alertmanagerDomain}" = {
-      forceSSL = true;
-      useACMEHost = "nixalted.com";
-
-      locations."/" = {
-        proxyPass = "http://localhost:${alertmanagerPort}";
-        proxyWebsockets = true;
-      };
-
-      extraConfig = ''
-        allow 100.0.0.0/8;
-        deny  all;
-      '';
+    nixchad.nginx.vhosts."alertmanager" = {
+      port = alertmanagerPort;
     };
   };
 }

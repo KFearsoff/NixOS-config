@@ -13,7 +13,7 @@ with lib; let
       inherit url;
     }
     // extraConfig;
-  grafanaPort = toString config.services.grafana.settings.server.http_port;
+  grafanaPort = config.services.grafana.settings.server.http_port;
   domain = "grafana.nixalted.com";
 in {
   options.nixchad.grafana = {
@@ -83,21 +83,9 @@ in {
       }
     ];
 
-    services.nginx.virtualHosts."${domain}" = {
-      forceSSL = true;
-      useACMEHost = "nixalted.com";
-
-      locations = {
-        "/" = {
-          proxyPass = "http://localhost:${grafanaPort}";
-          proxyWebsockets = true;
-        };
-      };
-
-      extraConfig = ''
-        allow 100.0.0.0/8;
-        deny  all;
-      '';
+    nixchad.nginx.vhosts."grafana" = {
+      websockets = true;
+      port = grafanaPort;
     };
   };
 }

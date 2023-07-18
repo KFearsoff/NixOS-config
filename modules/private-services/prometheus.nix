@@ -5,8 +5,7 @@
 }:
 with lib; let
   cfg = config.nixchad.prometheus;
-  prometheusPort = toString config.services.prometheus.port;
-  prometheusDomain = "prometheus.nixalted.com";
+  prometheusPort = config.services.prometheus.port;
 in {
   options.nixchad.prometheus = {
     enable = mkEnableOption "Prometheus monitoring";
@@ -30,7 +29,7 @@ in {
           static_configs = [
             {
               targets = [
-                "localhost:${prometheusPort}"
+                "localhost:${toString prometheusPort}"
               ];
             }
           ];
@@ -46,19 +45,8 @@ in {
       }
     ];
 
-    services.nginx.virtualHosts."${prometheusDomain}" = {
-      forceSSL = true;
-      useACMEHost = "nixalted.com";
-
-      locations."/" = {
-        proxyPass = "http://localhost:${prometheusPort}";
-        proxyWebsockets = true;
-      };
-
-      extraConfig = ''
-        allow 100.0.0.0/8;
-        deny  all;
-      '';
+    nixchad.nginx.vhosts."prometheus" = {
+      port = prometheusPort;
     };
   };
 }

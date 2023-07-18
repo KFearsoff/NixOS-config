@@ -5,7 +5,7 @@
 }:
 with lib; let
   cfg = config.nixchad.nitter;
-  nitterPort = toString config.services.nitter.server.port;
+  nitterPort = config.services.nitter.server.port;
   nitterDomain = "nitter.nixalted.com";
 in {
   options.nixchad.nitter = {
@@ -18,18 +18,8 @@ in {
     services.nitter.server.hostname = nitterDomain;
     services.redis.vmOverCommit = true;
 
-    services.nginx.virtualHosts."${nitterDomain}" = {
-      forceSSL = true;
-      useACMEHost = "nixalted.com";
-
-      locations."/" = {
-        proxyPass = "http://localhost:${nitterPort}";
-      };
-
-      extraConfig = ''
-        allow 100.0.0.0/8;
-        deny  all;
-      '';
+    nixchad.nginx.vhosts."nitter" = {
+      port = nitterPort;
     };
   };
 }
