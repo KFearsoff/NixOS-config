@@ -18,7 +18,7 @@ with lib; let
     kTLS = true;
 
     locations."/" = {
-      proxyPass = "http://localhost:${toString opts.port}";
+      proxyPass = "http://127.0.0.1:${toString opts.port}";
       proxyWebsockets = opts.websockets;
     };
 
