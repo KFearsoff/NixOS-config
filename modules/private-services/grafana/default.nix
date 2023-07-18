@@ -43,6 +43,7 @@ in {
           datasources = [
             (mkDatasource "prometheus" "http://localhost:9090" {})
             (mkDatasource "loki" "http://localhost:33100" {})
+            (mkDatasource "tempo" "http://localhost:33102" {})
           ];
         };
 

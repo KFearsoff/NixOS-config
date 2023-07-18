@@ -14,4 +14,5 @@
   nixchad.photoprism.enable = lib.mkDefault true;
   networking.nat.enable = true;
   nixchad.tailforward.enable = true;
+  nixchad.tempo.enable = true;
 }

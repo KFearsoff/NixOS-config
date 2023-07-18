@@ -15,5 +15,6 @@
     ./photoprism.nix
     ./tailforward.nix
     ./nginx.nix
+    ./tempo.nix
   ];
 }
