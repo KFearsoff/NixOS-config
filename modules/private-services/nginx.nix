@@ -82,6 +82,10 @@ in {
       recommendedZstdSettings = true;
 
       statusPage = true;
+
+      resolver.addresses = ["127.0.0.1:53"];
+      proxyResolveWhileRunning = true;
+
       virtualHosts = collectVhosts;
     };
 
