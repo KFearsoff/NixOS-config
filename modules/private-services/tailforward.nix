@@ -18,7 +18,7 @@ in {
       wants = ["network.target"];
       wantedBy = ["default.target"];
       serviceConfig.ExecStart = "${inputs.tailforward.packages.x86_64-linux.default}/bin/tailforward";
-      environment = {RUST_LOG = "debug,tower_http=debug";};
+      environment = {RUST_LOG = "info,tower_http=info";};
     };
 
     services.nginx = {
