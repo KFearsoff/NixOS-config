@@ -5,9 +5,8 @@
 }:
 with lib; let
   cfg = config.nixchad.loki;
-  lokiHttpPort = "33100";
-  lokiGrpcPort = "33110";
-  lokiDomain = "loki.nixalted.com";
+  lokiHttpPort = 33100;
+  lokiGrpcPort = 33110;
   alertmanagerPort = config.services.prometheus.alertmanager.port;
   lokiData = config.services.loki.dataDir;
 in {
@@ -21,8 +20,8 @@ in {
 
       configuration = {
         server = {
-          http_listen_port = strings.toInt lokiHttpPort;
-          grpc_listen_port = strings.toInt lokiGrpcPort;
+          http_listen_port = lokiHttpPort;
+          grpc_listen_port = lokiGrpcPort;
         };
 
         auth_enabled = false;
@@ -65,7 +64,7 @@ in {
         static_configs = [
           {
             targets = [
-              "localhost:${lokiHttpPort}"
+              "localhost:${toString lokiHttpPort}"
             ];
           }
         ];
@@ -86,19 +85,8 @@ in {
       }
     ];
 
-    services.nginx.virtualHosts."${lokiDomain}" = {
-      forceSSL = true;
-      useACMEHost = "nixalted.com";
-
-      locations."/" = {
-        proxyPass = "http://localhost:${lokiHttpPort}";
-        proxyWebsockets = true;
-      };
-
-      extraConfig = ''
-        allow 100.0.0.0/8;
-        deny  all;
-      '';
+    nixchad.nginx.vhosts."loki" = {
+      port = lokiHttpPort;
     };
     networking.firewall.interfaces.tailscale0.allowedTCPPorts = [33100 33110];
   };

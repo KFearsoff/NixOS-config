@@ -23,6 +23,9 @@ in {
 
     services.nginx = {
       virtualHosts."nixalted.com" = {
+        forceSSL = true;
+        useACMEHost = "nixalted.com";
+
         locations."/tailscale-webhook" = {
           proxyPass = "http://localhost:${port}/";
           extraConfig = ''

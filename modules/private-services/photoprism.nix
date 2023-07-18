@@ -6,7 +6,6 @@
 with lib; let
   cfg = config.nixchad.photoprism;
   photoprismPort = 2342;
-  photoprismDomain = "photoprism.nixalted.com";
 in {
   options.nixchad.photoprism = {
     enable = mkEnableOption "Photoprism photo gallery service";
@@ -27,19 +26,8 @@ in {
       };
     };
 
-    services.nginx.virtualHosts."${photoprismDomain}" = {
-      forceSSL = true;
-      useACMEHost = "nixalted.com";
-
-      locations."/" = {
-        proxyPass = "http://localhost:${builtins.toString photoprismPort}";
-        proxyWebsockets = true;
-      };
-
-      extraConfig = ''
-        allow 100.0.0.0/8;
-        deny  all;
-      '';
+    nixchad.nginx.vhosts."photoprism" = {
+      port = photoprismPort;
     };
   };
 }
