@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   servername,
   ...
 }:
@@ -13,6 +14,8 @@ with lib; let
   vhostBase = opts: {
     forceSSL = true;
     useACMEHost = domainBase;
+    quic = true;
+    kTLS = true;
 
     locations."/" = {
       proxyPass = "http://localhost:${toString opts.port}";
@@ -73,6 +76,7 @@ in {
 
     services.nginx = {
       enable = true;
+      package = pkgs.nginxQuic;
 
       recommendedOptimisation = true;
       recommendedTlsSettings = true;
