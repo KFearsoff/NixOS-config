@@ -78,7 +78,6 @@
         inputs = patchedInputs;
         inherit username;
         inherit (patchedInputs) nix-colors;
-        metadata-path = ../hosts/metadata.toml;
         servername = "cloudberry";
       };
     };
