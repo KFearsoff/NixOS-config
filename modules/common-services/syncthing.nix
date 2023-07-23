@@ -1,13 +1,30 @@
 {
   username,
-  config,
+  lib,
   ...
-}: {
+}: let
+  syncthingEntries = {
+    blackberry = "S3S7WIB-2J2YK4E-VIKFG4K-FZ7N4OI-43RXU3D-T5FX3AD-PQCJPSX-LNQNRA5";
+    blueberry = "SL3S7GW-EQEX37K-3COOIHY-BBWOIUH-TALXXCN-B4IQOOD-E5STX5U-IKU2HAX";
+    cloudberry = "PTFQGBZ-ZJ7PPKR-EDO2NOZ-IHFWCY6-AO7CW3X-G7VVFBH-R7IEE6G-Y2KK3QJ";
+    pixel-4a = "74LQXWB-GVD5FVU-7CYZUFK-MNIIYA4-X3ZJCHR-VQM7UM7-HBNL4VM-PUNYTAW";
+  };
+  syncthingHostsList = ["blackberry" "blueberry" "cloudberry"];
+  syncthingAllList = syncthingHostsList ++ ["pixel-4a"];
+
+  syncthingDevicesConfig =
+    lib.mapAttrs
+    (n: v: {
+      addresses = ["tcp://${n}" "quic://${n}"];
+      id = v;
+    })
+    syncthingEntries;
+in {
   hm.xdg.userDirs.extraConfig = {
     XDG_SYNC_DIR = "$HOME/Sync";
   };
 
-  services.syncthing = with config.lib.metadata; {
+  services.syncthing = {
     enable = true;
     overrideDevices = true;
     overrideFolders = true;

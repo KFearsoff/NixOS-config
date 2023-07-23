@@ -44,7 +44,7 @@ in {
     boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
 
     security.sudo.wheelNeedsPassword = lib.mkDefault false;
-    users.users."${username}".openssh.authorizedKeys.keys = config.lib.metadata.sshPubkeyList;
+    users.users."${username}".openssh.authorizedKeys.keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEQ77pbUwzNYJzu/vEg9MqtuLQmjgRtf5b4K+qsZ0o7v nixchad@blackberry" "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN8XLDGBt0tt28PfY7O10WZJV793SUU3veDLkufyMKh7 github-action"];
 
     services.journald.extraConfig = "SystemMaxUse=100M";
 

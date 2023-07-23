@@ -1,11 +1,9 @@
 {
   inputs,
-  config,
-  lib,
   username,
   ...
 }: let
-  ifname = config.lib.metadata.getInterface config.networking.hostName;
+  ifname = "enp4s0";
 in {
   imports = [
     ./hardware-configuration.nix
