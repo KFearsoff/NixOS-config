@@ -22,19 +22,7 @@ in {
       globalConfig.scrape_interval = "15s";
       globalConfig.evaluation_interval = "15s";
       webExternalUrl = "https://prometheus.nixalted.com";
-
-      scrapeConfigs = [
-        {
-          job_name = "prometheus";
-          static_configs = [
-            {
-              targets = [
-                "localhost:${toString prometheusPort}"
-              ];
-            }
-          ];
-        }
-      ];
+      extraFlags = ["--web.enable-remote-write-receiver"];
     };
 
     nixchad.impermanence.persisted.values = [
@@ -48,5 +36,19 @@ in {
     nixchad.nginx.vhosts."prometheus" = {
       port = prometheusPort;
     };
+
+    nixchad.grafana-agent.metrics_scrape_configs = [
+      {
+        job_name = "prometheus";
+        static_configs = [
+          {
+            targets = [
+              "localhost:${toString prometheusPort}"
+            ];
+          }
+        ];
+      }
+    ];
+    networking.firewall.interfaces.tailscale0.allowedTCPPorts = [9090];
   };
 }

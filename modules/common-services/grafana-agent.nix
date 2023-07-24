@@ -10,16 +10,23 @@ with lib; let
 in {
   options.nixchad.grafana-agent = {
     enable = mkEnableOption "Grafana Agent, universal observability exporter";
+    metrics_scrape_configs = mkOption {
+      type = types.listOf (types.attrsOf types.anything);
+    };
   };
 
   config = mkIf cfg.enable {
     services.grafana-agent = {
       enable = true;
       settings = {
+        integrations = {
+          node_exporter.enabled = false;
+        };
+
         logs = {
           configs = [
             {
-              name = "systemd-journal";
+              name = "default";
               positions.filename = "\${STATE_DIRECTORY}/positions.yaml";
               clients = [
                 {
@@ -48,9 +55,43 @@ in {
             }
           ];
         };
+
+        metrics = {
+          global = {
+            # The default of 1m is pretty stupid. It breaks Grafana's $__rate_interval.
+            # Explanation can be found here:
+            # https://github.com/rfrail3/grafana-dashboards/issues/72#issuecomment-880484961
+            scrape_interval = "15s";
+            evaluation_interval = "15s";
+            remote_write = [
+              {
+                url = "http://cloudberry:9090/api/v1/write";
+              }
+            ];
+          };
+
+          configs = [
+            {
+              name = "default";
+              scrape_configs =
+                builtins.map
+                (job:
+                  job
+                  // {
+                    relabel_configs = [
+                      {
+                        source_labels = ["__address__"];
+                        regex = "(.*):(.*)"; # The regex to match the whole address and separate it into two groups: before and after the colon
+                        replacement = "${config.networking.hostName}:\${2}"; # Keep the colon and port number and replace the first part with hostname
+                        target_label = "instance";
+                      }
+                    ];
+                  })
+                cfg.metrics_scrape_configs;
+            }
+          ];
+        };
       };
     };
-
-    networking.firewall.interfaces.tailscale0.allowedTCPPorts = [12345];
   };
 }

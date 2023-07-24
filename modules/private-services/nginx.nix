@@ -99,13 +99,13 @@ in {
       port = exporter-port;
     };
 
-    services.prometheus.scrapeConfigs = [
+    nixchad.grafana-agent.metrics_scrape_configs = [
       {
         job_name = "nginx";
         static_configs = [
           {
             targets = [
-              "localhost:${toString exporter-port}" # nginx
+              "localhost:${toString exporter-port}"
             ];
           }
         ];

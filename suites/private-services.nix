@@ -8,7 +8,7 @@
   nixchad.vaultwarden.enable = true;
   nixchad.postgres.enable = true;
   nixchad.postgres-exporter.enable = true;
-  nixchad.blackbox-exporter.enable = true;
+  nixchad.blackbox-exporter.enable = false;
   nixchad.redis-exporter.enable = true;
   nixchad.loki.enable = true;
   nixchad.photoprism.enable = lib.mkDefault true;

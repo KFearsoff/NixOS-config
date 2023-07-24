@@ -17,17 +17,17 @@ in {
       port = 33000;
     };
 
-    services.prometheus.scrapeConfigs = [
+    nixchad.grafana-agent.metrics_scrape_configs = [
       {
         job_name = "node";
         static_configs = [
           {
-            targets = map (x: "${x}:33000") config.lib.metadata.hostList;
+            targets = [
+              "localhost:33000"
+            ];
           }
         ];
       }
     ];
-
-    networking.firewall.interfaces.tailscale0.allowedTCPPorts = [33000];
   };
 }

@@ -58,7 +58,7 @@ in {
       };
     };
 
-    services.prometheus.scrapeConfigs = [
+    nixchad.grafana-agent.metrics_scrape_configs = [
       {
         job_name = "loki";
         static_configs = [

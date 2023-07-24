@@ -17,7 +17,7 @@ in {
       port = strings.toInt port;
     };
 
-    services.prometheus.scrapeConfigs = [
+    nixchad.grafana-agent.metrics_scrape_configs = [
       {
         job_name = "redis";
         static_configs = [

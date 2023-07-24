@@ -17,17 +17,17 @@ in {
       listenAddress = "0.0.0.0";
     };
 
-    services.prometheus.scrapeConfigs = [
+    nixchad.grafana-agent.metrics_scrape_configs = [
       {
         job_name = "cadvisor";
         static_configs = [
           {
-            targets = map (x: "${x}:33006") config.lib.metadata.hostList;
+            targets = [
+              "localhost:33006"
+            ];
           }
         ];
       }
     ];
-
-    networking.firewall.interfaces.tailscale0.allowedTCPPorts = [33006];
   };
 }
