@@ -25,7 +25,6 @@ in {
         };
 
         auth_enabled = false;
-        tracing.enabled = true;
 
         common = {
           path_prefix = "${lokiData}";
@@ -89,6 +88,6 @@ in {
     nixchad.nginx.vhosts."loki" = {
       port = lokiHttpPort;
     };
-    networking.firewall.interfaces.tailscale0.allowedTCPPorts = [33100 33110];
+    networking.firewall.interfaces.tailscale0.allowedTCPPorts = [lokiHttpPort lokiGrpcPort];
   };
 }
