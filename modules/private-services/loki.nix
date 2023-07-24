@@ -25,6 +25,7 @@ in {
         };
 
         auth_enabled = false;
+        tracing = true;
 
         common = {
           path_prefix = "${lokiData}";
