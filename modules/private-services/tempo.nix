@@ -7,6 +7,8 @@ with lib; let
   cfg = config.nixchad.tempo;
   tempoHttpPort = 33102;
   tempoGrpcPort = 33112;
+  receiverHttpPort = 33103;
+  receiverGrpcPort = 33113;
 in {
   options.nixchad.tempo = {
     enable = mkEnableOption "Tempo tracing storage";
@@ -22,8 +24,11 @@ in {
           grpc_listen_address = "0.0.0.0";
           grpc_listen_port = tempoGrpcPort;
         };
-        distributor.receivers.otlp.protocols.grpc.endpoint = "0.0.0.0:4317";
-        distributor.receivers.otlp.protocols.http.endpoint = "0.0.0.0:4318";
+        usage_report.reporting_enabled = false;
+
+        distributor.receivers.otlp.protocols.http.endpoint = "0.0.0.0:${toString receiverHttpPort}";
+        distributor.receivers.otlp.protocols.grpc.endpoint = "0.0.0.0:${toString receiverGrpcPort}";
+
         storage.trace = {
           backend = "local";
           wal.path = "/var/lib/tempo/wal";
@@ -32,6 +37,6 @@ in {
       };
     };
 
-    networking.firewall.interfaces.tailscale0.allowedTCPPorts = [4317 4318];
+    networking.firewall.interfaces.tailscale0.allowedTCPPorts = [receiverGrpcPort];
   };
 }

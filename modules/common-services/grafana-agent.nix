@@ -91,6 +91,32 @@ in {
             }
           ];
         };
+
+        traces = {
+          configs = [
+            {
+              name = "default";
+              receivers = {
+                otlp = {
+                  protocols = {
+                    grpc.endpoint = "0.0.0.0:4317";
+                    http.endpoint = "0.0.0.0:4318";
+                  };
+                };
+              };
+              remote_write = [
+                {
+                  endpoint = "cloudberry:33113";
+                  insecure = true;
+                }
+              ];
+              batch = {
+                timeout = "10s";
+                send_batch_size = "10000";
+              };
+            }
+          ];
+        };
       };
     };
   };
