@@ -26,6 +26,7 @@ in {
 
       settings = {
         server.root_url = "https://${domain}";
+        analytics.reporting_enabled = false;
 
         database = {
           type = "postgres";
@@ -90,5 +91,18 @@ in {
       websockets = true;
       port = grafanaPort;
     };
+
+    nixchad.grafana-agent.metrics_scrape_configs = [
+      {
+        job_name = "grafana";
+        static_configs = [
+          {
+            targets = [
+              "localhost:${toString grafanaPort}"
+            ];
+          }
+        ];
+      }
+    ];
   };
 }
