@@ -51,6 +51,16 @@ in {
                 period = "24h";
               };
             }
+            {
+              from = "2022-07-25";
+              store = "tsdb";
+              object_store = "filesystem";
+              schema = "v12";
+              index = {
+                prefix = "index_";
+                period = "24h";
+              };
+            }
           ];
         };
 
