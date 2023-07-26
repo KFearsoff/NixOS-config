@@ -7,7 +7,7 @@ in {
       then "enp4s0"
       else "eth0";
     hasIpv4 = _: true;
-    hasIpv6 = host: host == "cloudberry";
+    hasIpv6 = _: false;
     hostList = hosts;
   };
 }

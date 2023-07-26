@@ -26,6 +26,7 @@ in {
 
       settings = {
         server.root_url = "https://${domain}";
+        analytics.reporting_enabled = false;
 
         database = {
           type = "postgres";
@@ -34,6 +35,8 @@ in {
           name = "grafana";
           password = "";
         };
+
+        "tracing.opentelemetry.otlp".address = "localhost:4317";
       };
 
       provision = {
@@ -43,6 +46,7 @@ in {
           datasources = [
             (mkDatasource "prometheus" "http://localhost:9090" {})
             (mkDatasource "loki" "http://localhost:33100" {})
+            (mkDatasource "tempo" "http://localhost:33102" {})
           ];
         };
 
@@ -87,5 +91,18 @@ in {
       websockets = true;
       port = grafanaPort;
     };
+
+    nixchad.grafana-agent.metrics_scrape_configs = [
+      {
+        job_name = "grafana";
+        static_configs = [
+          {
+            targets = [
+              "localhost:${toString grafanaPort}"
+            ];
+          }
+        ];
+      }
+    ];
   };
 }

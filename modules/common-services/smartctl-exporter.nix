@@ -22,18 +22,19 @@ in {
       inherit (cfg) devices;
     };
 
-    services.prometheus.scrapeConfigs = [
+    nixchad.grafana-agent.metrics_scrape_configs = [
       {
         job_name = "smartctl";
         static_configs = [
           {
-            targets = map (x: "${x}:33004") config.lib.metadata.hostList;
+            targets = [
+              "localhost:33004"
+            ];
           }
         ];
       }
     ];
 
-    networking.firewall.interfaces.tailscale0.allowedTCPPorts = [33004];
     # TODO: remove once https://github.com/NixOS/nixpkgs/pull/176553 is merged
     systemd.services."prometheus-smartctl-exporter".serviceConfig.DeviceAllow = lib.mkOverride 50 [
       "block-blkext rw"

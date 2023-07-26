@@ -74,20 +74,17 @@ in {
       serviceConfig.RestartSec = "5s";
     };
 
-    services.prometheus.scrapeConfigs = [
+    nixchad.grafana-agent.metrics_scrape_configs = [
       {
         job_name = "coredns";
         static_configs = [
           {
-            targets = map (x: "${x}:33003") config.lib.metadata.hostList;
+            targets = [
+              "localhost:33003"
+            ];
           }
         ];
       }
     ];
-
-    networking.firewall.interfaces.tailscale0 = {
-      allowedTCPPorts = [33003];
-      allowedUDPPorts = [33003];
-    };
   };
 }

@@ -1021,11 +1021,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1684606068,
-        "narHash": "sha256-vNTJIce6OesNQ22THxtqL+52P25CF+wMlh4s2Hs6wNA=",
+        "lastModified": 1690271663,
+        "narHash": "sha256-SK4a718Vm+YPTueB92fCe4uTa2avfGSwzyLVEPj4F9o=",
         "owner": "KFearsoff",
         "repo": "tailforward",
-        "rev": "fa4228317bd9af1cc3911abace05085e5dee227b",
+        "rev": "c03597650691207851ffaacc5319dd5d08ebc372",
         "type": "github"
       },
       "original": {

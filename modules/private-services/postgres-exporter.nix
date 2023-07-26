@@ -21,7 +21,7 @@ in {
 
     services.postgresql.ensureUsers = [{name = "postgres-exporter";}];
 
-    services.prometheus.scrapeConfigs = [
+    nixchad.grafana-agent.metrics_scrape_configs = [
       {
         job_name = "postgres";
         static_configs = [
