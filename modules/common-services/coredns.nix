@@ -58,6 +58,11 @@ in {
       '';
     };
 
+    networking.firewall.interfaces.tailscale0 = {
+      allowedUDPPorts = [53];
+      allowedTCPPorts = [53];
+    };
+
     systemd.services.coredns = {
       # Tailscale gets confused if it's launched with CoreDNS in parallel.
       # It will spam "dns udp query: context deadline exceeded". To make
