@@ -15,4 +15,5 @@
   networking.nat.enable = true;
   nixchad.tailforward.enable = true;
   nixchad.tempo.enable = true;
+  nixchad.coredns.enable = true;
 }
