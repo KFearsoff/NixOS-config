@@ -55,12 +55,6 @@ in {
             tls_servername dns.google
           }
         }
-
-        box {
-          prometheus 0.0.0.0:33003
-          bind lo tailscale0
-          file ${./box.zone}
-        }
       '';
     };
 
