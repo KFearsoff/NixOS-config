@@ -16,5 +16,6 @@
     ./tailforward.nix
     ./nginx.nix
     ./tempo.nix
+    ./coredns.nix
   ];
 }
