@@ -1,6 +1,7 @@
 {
   username,
   lib,
+  pkgs,
   ...
 }: let
   syncthingEntries = {
@@ -20,8 +21,27 @@
     })
     syncthingEntries;
 in {
-  hm.xdg.userDirs.extraConfig = {
-    XDG_SYNC_DIR = "$HOME/Sync";
+  hm = {
+    xdg.userDirs.extraConfig = {
+      XDG_SYNC_DIR = "$HOME/Sync";
+    };
+
+    systemd.user.services."mirror-phone-photos" = {
+      Unit.Description = "Mirror photos that were synced from phone to the general photo folder";
+      Service = {
+        ExecStart = "${pkgs.rsync}/bin/rsync -azvhPc --mkpath Photos-phone/ Photos";
+        WorkingDirectory = "/home/${username}/Pictures";
+      };
+    };
+
+    systemd.user.timers."mirror-phone-photos" = {
+      Unit.Description = "Mirror photos that were synced from phone to the general photo folder";
+      Timer = {
+        OnCalendar = "hourly";
+        Unit = "mirror-phone-photos.service";
+      };
+      Install.WantedBy = ["timers.target"];
+    };
   };
 
   services.syncthing = {
