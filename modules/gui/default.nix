@@ -49,6 +49,7 @@ in {
           obsidian
           slack
           discord
+          ardour
         ]
         #++ (optional config.services.pipewire.enable easyeffects)
         ++ (optional config.programs.wireshark.enable wireshark)
