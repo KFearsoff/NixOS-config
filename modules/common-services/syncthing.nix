@@ -86,11 +86,6 @@ in {
           # devices = syncthingOwnedList;
           devices = syncthingAllList;
           type = "receiveonly";
-          versioning = {
-            type = "trashcan";
-            fsPath = "/home/${username}/Pictures/Photos";
-            params.cleanoutDays = "0";
-          };
         };
       };
       gui = {
