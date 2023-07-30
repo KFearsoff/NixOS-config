@@ -10,8 +10,9 @@
     cloudberry = "PTFQGBZ-ZJ7PPKR-EDO2NOZ-IHFWCY6-AO7CW3X-G7VVFBH-R7IEE6G-Y2KK3QJ";
     pixel-4a = "74LQXWB-GVD5FVU-7CYZUFK-MNIIYA4-X3ZJCHR-VQM7UM7-HBNL4VM-PUNYTAW";
   };
-  syncthingHostsList = ["blackberry" "blueberry" "cloudberry"];
-  syncthingAllList = syncthingHostsList ++ ["pixel-4a"];
+  syncthingHostsHighStorage = ["blackberry" "blueberry"];
+  syncthingHostsList = syncthingHostsHighStorage ++ ["cloudberry"];
+  syncthingStorageAndPhone = syncthingHostsHighStorage ++ ["pixel-4a"];
 
   syncthingDevicesConfig =
     lib.mapAttrs
@@ -75,7 +76,7 @@ in {
         };
         "Notes" = {
           path = "/home/${username}/Documents/Notes";
-          devices = syncthingAllList;
+          devices = syncthingStorageAndPhone;
           versioning = {
             type = "trashcan";
             params.cleanoutDays = "30";
@@ -83,12 +84,11 @@ in {
         };
         "Photos" = {
           path = "/home/${username}/Pictures/Photos";
-          devices = syncthingHostsList;
+          devices = syncthingHostsHighStorage;
         };
         "Photos-phone" = {
           path = "/home/${username}/Pictures/Photos-phone";
-          # devices = syncthingOwnedList;
-          devices = syncthingAllList;
+          devices = syncthingStorageAndPhone;
           type = "receiveonly";
         };
       };
