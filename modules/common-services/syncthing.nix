@@ -20,6 +20,8 @@
       id = v;
     })
     syncthingEntries;
+
+  clear-phone-photos = pkgs.writeScript "clear-phone-photos" (builtins.readFile ./clear-phone-photos.nu);
 in {
   hm = {
     xdg.userDirs.extraConfig = {
@@ -29,7 +31,9 @@ in {
     systemd.user.services."mirror-phone-photos" = {
       Unit.Description = "Mirror photos that were synced from phone to the general photo folder";
       Service = {
-        ExecStart = "${pkgs.rsync}/bin/rsync -azvhPc --mkpath Photos-phone/ Photos";
+        Type = "oneshot";
+        ExecStart = "${pkgs.rsync}/bin/rsync -azvhPc --exclude='.stfolder' --mkpath Photos-phone/ Photos";
+        ExecStartPost = "${pkgs.nushell}/bin/nu ${clear-phone-photos}";
         WorkingDirectory = "/home/${username}/Pictures";
       };
     };
