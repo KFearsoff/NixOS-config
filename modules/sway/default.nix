@@ -39,7 +39,7 @@ in {
     security.polkit.enable = true;
     security.pam.services.swaylock = {};
     hardware.opengl.enable = lib.mkDefault true;
-    fonts.enableDefaultFonts = lib.mkDefault true;
+    fonts.enableDefaultPackages = lib.mkDefault true;
     programs.dconf.enable = lib.mkDefault true;
     programs.light.enable = lib.mkDefault true;
     xdg.portal = {

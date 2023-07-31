@@ -15,6 +15,7 @@
     inputs.hardware.nixosModules.common-hidpi
   ];
   services.thermald.enable = true;
+  systemd.services.NetworkManager-wait-online.enable = false;
 
   users.users."${username}".passwordFile = "/secrets/nixchad-password";
 

@@ -1,6 +1,7 @@
 {
   inputs,
   username,
+  lib,
   ...
 }: let
   ifname = "enp4s0";
@@ -37,6 +38,7 @@ in {
   programs.light.enable = false;
   nixchad.swayidle.timeouts.lock = 6000;
   nixchad.restic.usb-backups = true;
+  nixchad.firefox.enable = lib.mkForce false;
 
   systemd.network = {
     enable = true;
