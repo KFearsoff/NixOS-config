@@ -28,7 +28,7 @@
   nixchad.smartctl-exporter.devices = ["/dev/nvme0n1"];
   nixchad.waybar.battery = true;
   programs.light.enable = true;
-  nixchad.restic.usb-backups = true;
+  nixchad.restic.usb-backups = false;
 
   nixchad.impermanence.presets = {
     enable = true;
