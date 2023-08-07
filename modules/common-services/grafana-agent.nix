@@ -65,7 +65,7 @@ in {
             evaluation_interval = "15s";
             remote_write = [
               {
-                url = "http://cloudberry:9090/api/v1/write";
+                url = "http://${servername}:9090/api/v1/write";
               }
             ];
           };
@@ -106,7 +106,7 @@ in {
               };
               remote_write = [
                 {
-                  endpoint = "cloudberry:33113";
+                  endpoint = "${servername}:33113";
                   insecure = true;
                 }
               ];
