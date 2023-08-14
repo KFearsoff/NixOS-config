@@ -33,6 +33,7 @@
         nixpkgs.follows = "nixpkgs";
         systems.follows = "systems-dep";
         devenv.follows = "devenv";
+        flake-parts.follows = "flake-parts";
       };
     };
 
