@@ -127,8 +127,8 @@ in {
               format-source-muted = "";
               format-icons = {
                 headphones = "";
-                hands-free = "";
-                headset = "";
+                hands-free = "󰂑";
+                headset = "󰂑";
                 phone = "";
                 portable = "";
                 car = "";
@@ -169,9 +169,9 @@ in {
             "network" = {
               interval = 5;
               format-wifi = " {signalStrength}%";
-              format-ethernet = "";
+              format-ethernet = "󰌗";
               tooltip-format = "{ifname}: {ipaddr}/{cidr}";
-              format-linked = "";
+              format-linked = "󰌗";
               format-disconnected = "⚠";
               format-alt = "{ifname}: {ipaddr}/{cidr}";
             };
@@ -188,7 +188,7 @@ in {
                 critical = 15;
               };
               format = "{icon} {capacity}%";
-              format-charging = " {capacity}%";
+              format-charging = "󰃨 {capacity}%";
               format-plugged = " {capacity}%";
               format-full = "OK";
               format-icons = [
