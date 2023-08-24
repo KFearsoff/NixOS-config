@@ -51,7 +51,7 @@ in {
 
       wayland.windowManager.sway = {
         enable = true;
-        systemd.xdgAutostart = true;
+        # systemd.xdgAutostart = true;
         wrapperFeatures.gtk = true;
         extraSessionCommands = ''
           NIXOS_OZONE_WL=1
