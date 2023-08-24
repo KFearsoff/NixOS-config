@@ -4,7 +4,7 @@ groups:
   rules:
     - alert: RedisDown
       expr: 'redis_up == 0'
-      for: 0m
+      for: 1m
       labels:
         severity: critical
       annotations:
@@ -13,7 +13,7 @@ groups:
 
     - alert: RedisMissingMaster
       expr: '(count(redis_instance_info{role="master"}) or vector(0)) < 1'
-      for: 0m
+      for: 1m
       labels:
         severity: critical
       annotations:
@@ -22,7 +22,7 @@ groups:
 
     - alert: RedisTooManyMasters
       expr: 'count(redis_instance_info{role="master"}) > 1'
-      for: 0m
+      for: 1m
       labels:
         severity: critical
       annotations:
@@ -31,7 +31,7 @@ groups:
 
     - alert: RedisDisconnectedSlaves
       expr: 'count without (instance, job) (redis_connected_slaves) - sum without (instance, job) (redis_connected_slaves) - 1 > 1'
-      for: 0m
+      for: 1m
       labels:
         severity: critical
       annotations:
@@ -40,7 +40,7 @@ groups:
 
     - alert: RedisReplicationBroken
       expr: 'delta(redis_connected_slaves[1m]) < 0'
-      for: 0m
+      for: 1m
       labels:
         severity: critical
       annotations:
@@ -85,7 +85,7 @@ groups:
 
     - alert: RedisRejectedConnections
       expr: 'increase(redis_rejected_connections_total[1m]) > 0'
-      for: 0m
+      for: 1m
       labels:
         severity: critical
       annotations:

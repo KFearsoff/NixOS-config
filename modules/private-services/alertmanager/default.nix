@@ -22,6 +22,12 @@ in {
           route = {
             receiver = "telegram";
             group_by = ["severity"];
+            routes = [
+              {
+                matchers = ["alertname =~ HostMemoryIsUnderUtilized|HostCpuIsUnderUtilized"];
+                repeat_interval = "1w";
+              }
+            ];
           };
 
           receivers = [
