@@ -168,6 +168,7 @@ in {
           require "user.whichkey"
           require "user.leap"
           require "user.guess-indent"
+          require "user.indent-blankline"
         '';
       };
 
