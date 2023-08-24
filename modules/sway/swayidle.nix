@@ -35,11 +35,11 @@ in {
       events = [
         {
           event = "before-sleep";
-          command = "swaylock";
+          command = "${pkgs.swaylock}/bin/swaylock";
         }
         {
           event = "lock";
-          command = "swaylock";
+          command = "${pkgs.swaylock}/bin/swaylock";
         }
       ];
       timeouts = [
