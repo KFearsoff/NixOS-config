@@ -35,18 +35,10 @@ in {
   config = mkIf cfg.enable {
     nixchad.swayidle.enable = mkDefault true;
 
-    environment.sessionVariables.NIXOS_OZONE_WL = "1";
-    security.polkit.enable = true;
-    security.pam.services.swaylock = {};
-    hardware.opengl.enable = lib.mkDefault true;
-    fonts.enableDefaultPackages = lib.mkDefault true;
-    programs.dconf.enable = lib.mkDefault true;
+    programs.sway.enable = true;
+    programs.sway.extraPackages = mkForce [];
     programs.light.enable = lib.mkDefault true;
-    xdg.portal = {
-      enable = true;
-      wlr.enable = true; # installs xdg-desktop-portal-wlr
-      extraPortals = [pkgs.xdg-desktop-portal-gtk];
-    };
+    xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-gtk];
 
     hm = {config, ...}: {
       home.packages = [pkgs.wl-clipboard];
@@ -59,8 +51,10 @@ in {
 
       wayland.windowManager.sway = {
         enable = true;
+        systemd.xdgAutostart = true;
         wrapperFeatures.gtk = true;
         extraSessionCommands = ''
+          NIXOS_OZONE_WL=1
           MOZ_ENABLE_WAYLAND=1
           # Qt5
           export QT_QPA_PLATFORM=wayland-egl

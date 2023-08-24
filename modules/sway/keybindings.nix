@@ -15,7 +15,6 @@ with lib; let
   appendExecToCommand = mapAttrs' (k: v: nameValuePair k ("exec " + v));
 
   swap = pkgs.writeShellScript "swap-workspaces" (builtins.readFile ./swap-workspaces.sh);
-  change-codec = pkgs.writeShellScript "change-codec" (builtins.readFile ./change-codec.sh);
 
   navigationList =
     zipListsWith
@@ -49,7 +48,6 @@ with lib; let
     "Shift+equal" = "gaps inner current plus 1";
     "Shift+plus" = "gaps inner current minus 1";
 
-    "m" = "exec --no-startup-id ${change-codec}";
     "o" = "exec --no-startup-id ${pkgs.wtype}/bin/wtype $(grep -v '^//' ~/Documents/Notes/Reference\\ notes/Bookmarks.md | rofi -dmenu | cut -d' ' -f1)"; # bookmark script by LukeSmith: https://youtu.be/d_11QaTlf1I
   };
 in {

@@ -21,28 +21,38 @@ in {
     };
   };
 
-  config.hm.services.swayidle = mkIf cfg.enable {
-    enable = true;
-    events = [
-      {
-        event = "before-sleep";
-        command = "${pkgs.swaylock}/bin/swaylock -f -i ${../../assets/nix-wallpaper-nineish-dark-gray.png}";
-      }
-      {
-        event = "lock";
-        command = "${pkgs.swaylock}/bin/swaylock -f -i ${../../assets/nix-wallpaper-nineish-dark-gray.png}";
-      }
-    ];
-    timeouts = [
-      {
-        timeout = cfg.timeouts.lock;
-        command = "${pkgs.systemd}/bin/loginctl lock-session";
-      }
-      {
-        timeout = cfg.timeouts.screen;
-        command = "${pkgs.sway}/bin/swaymsg \"output * dpms off\"";
-        resumeCommand = "${pkgs.sway}/bin/swaymsg \"output * dpms on\"";
-      }
-    ];
+  config.hm = mkIf cfg.enable {
+    programs.swaylock = {
+      enable = true;
+      settings = {
+        daemonize = true;
+        image = "${../../assets/nix-wallpaper-nineish-dark-gray.png}";
+      };
+    };
+
+    services.swayidle = {
+      enable = true;
+      events = [
+        {
+          event = "before-sleep";
+          command = "swaylock";
+        }
+        {
+          event = "lock";
+          command = "swaylock";
+        }
+      ];
+      timeouts = [
+        {
+          timeout = cfg.timeouts.lock;
+          command = "${pkgs.systemd}/bin/loginctl lock-session";
+        }
+        {
+          timeout = cfg.timeouts.screen;
+          command = "${pkgs.sway}/bin/swaymsg \"output * dpms off\"";
+          resumeCommand = "${pkgs.sway}/bin/swaymsg \"output * dpms on\"";
+        }
+      ];
+    };
   };
 }
