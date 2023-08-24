@@ -16,7 +16,6 @@ in {
           {command = "${pkgs.freetube}/bin/freetube";}
           {command = "NIXOS_OZONE_WL= ${pkgs.element-desktop}/bin/element-desktop";}
           {command = "${pkgs.obsidian}/bin/obsidian";}
-          #{command = "${pkgs.easyeffects}/bin/easyeffects --gapplication-service";}
           {command = "${pkgs.slack}/bin/slack";}
         ]
         ++ optional (!config.nixchad.firefox.enable) {command = "${pkgs.ungoogled-chromium}/bin/chromium";};

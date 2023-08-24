@@ -1,6 +1,6 @@
 # Nushell Config File
 #
-# version = 0.82.1
+# version = 0.83.1
 
 # For more information on defining custom themes, see
 # https://www.nushell.sh/book/coloring_and_theming.html
@@ -287,11 +287,7 @@ $env.config = {
     render_right_prompt_on_last_line: false # true or false to enable or disable right prompt to be rendered on last line of the prompt.
 
     hooks: {
-        pre_prompt: [{ ||
-          let direnv = (direnv export json | from json)
-          let direnv = if ( | length) == 1 {  } else { {} }
-            | load-env
-        }]
+        pre_prompt: [{ null }] # run before the prompt is shown
         pre_execution: [{ null }] # run before the repl input is run
         env_change: {
             PWD: [{|before, after| null }] # run if the PWD environment is different since the last repl input
@@ -812,4 +808,3 @@ $env.config = {
     ]
 }
 
-source ~/.cache/starship/init.nu

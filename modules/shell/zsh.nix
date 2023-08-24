@@ -38,9 +38,6 @@ in {
         autocd = true;
         history.expireDuplicatesFirst = true;
         history.extended = true;
-        completionInit = ''
-          source ${pkgs.openvpn3}/share/bash-completion/completions/openvpn3
-        '';
         initExtra = ''
           # Search Files and Edit
           fe() {
@@ -60,19 +57,6 @@ in {
 
           # Autocomplete "flake" to "flake.nix"
             zstyle ":completion:*:*:vim:*:*files" ignored-patterns '*.lock'
-
-          # Highlight --help with bat
-          help() {
-              "$@" --help 2>&1 | ${bat} -pl help
-            }
-
-          batcopy() {
-            bat "$@" | ${pkgs.wl-clipboard}/bin/wl-copy
-            }
-
-          battail() {
-              tail -f "$@" | ${bat} --paging=never -pl log
-            }
 
           ns() {
             nix shell $(printf "nixpkgs#%s " "$@")
