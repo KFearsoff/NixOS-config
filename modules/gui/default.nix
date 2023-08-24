@@ -50,6 +50,7 @@ in {
           slack
           discord
           ardour
+          lingot
         ]
         #++ (optional config.services.pipewire.enable easyeffects)
         ++ (optional config.programs.wireshark.enable wireshark)
