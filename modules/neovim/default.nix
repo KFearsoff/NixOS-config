@@ -35,11 +35,14 @@ in {
           # line
           lualine-nvim
 
+          # smart typing
           editorconfig-nvim
           indent-blankline-nvim
+          nvim-autopairs
+          guess-indent-nvim
+
           vim-lastplace
           which-key-nvim
-          nvim-autopairs
           nvim-web-devicons
           nvim-tree-lua
 
@@ -164,6 +167,7 @@ in {
           require "user.alpha"
           require "user.whichkey"
           require "user.leap"
+          require "user.guess-indent"
         '';
       };
 
