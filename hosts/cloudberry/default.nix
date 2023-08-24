@@ -29,6 +29,7 @@
   };
   systemd.network = {
     enable = true;
+    wait-online.enable = false;
 
     networks.enp1s0 = {
       matchConfig.Name = "enp1s0";
