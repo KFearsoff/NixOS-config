@@ -35,7 +35,7 @@ null_ls.setup({
     diagnostics.actionlint,
     diagnostics.deadnix,
     diagnostics.editorconfig_checker,
-    diagnostics.hadolint,
+    -- diagnostics.hadolint,
     diagnostics.jsonlint,
     diagnostics.markdownlint,
     diagnostics.shellcheck,

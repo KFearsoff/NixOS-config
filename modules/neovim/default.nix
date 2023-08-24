@@ -134,7 +134,7 @@ in {
           actionlint
           deadnix
           editorconfig-checker
-          hadolint
+          # hadolint
           nodePackages.jsonlint
           nodePackages.markdownlint-cli
           alejandra
