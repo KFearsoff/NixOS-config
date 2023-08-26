@@ -101,6 +101,7 @@ in {
 
           # tabs
           bufferline-nvim
+          edgy-nvim
 
           # terminal
           toggleterm-nvim
@@ -169,6 +170,7 @@ in {
           require "user.leap"
           require "user.guess-indent"
           require "user.indent-blankline"
+          require "user.edgy"
         '';
       };
 
