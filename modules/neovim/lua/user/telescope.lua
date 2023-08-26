@@ -5,6 +5,7 @@ end
 
 telescope.load_extension('media_files')
 telescope.load_extension('fzf')
+telescope.load_extension('projects')
 
 local actions = require "telescope.actions"
 
