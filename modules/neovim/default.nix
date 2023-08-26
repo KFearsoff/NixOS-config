@@ -51,6 +51,8 @@ in {
           nvim-lspconfig
           rust-tools-nvim
           null-ls-nvim
+          nvim-lightbulb # lightbulb for quick actions
+          nvim-code-action-menu # code action menu
 
           # cmp plugins
           nvim-cmp # completion plugin
@@ -173,6 +175,7 @@ in {
           require "user.indent-blankline"
           require "user.edgy"
           require "user.mini"
+          require "user.lightbulb"
         '';
       };
 
