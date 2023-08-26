@@ -28,12 +28,22 @@ in {
           # theme
           dracula-nvim
 
-          # dashboard
-          alpha-nvim
+          # UI
+          bufferline-nvim
+          gitsigns-nvim
+          edgy-nvim
+          toggleterm-nvim
           trouble-nvim
-
-          # line
           lualine-nvim
+          which-key-nvim
+          nvim-web-devicons
+          nvim-tree-lua
+          mini-nvim
+
+          # project management
+          alpha-nvim
+          project-nvim
+          vim-lastplace
 
           # smart typing
           editorconfig-nvim
@@ -41,12 +51,6 @@ in {
           nvim-autopairs
           guess-indent-nvim
           vim-illuminate
-
-          vim-lastplace
-          which-key-nvim
-          nvim-web-devicons
-          nvim-tree-lua
-          mini-nvim
 
           # LSP
           nvim-lspconfig
@@ -100,18 +104,6 @@ in {
           comment-nvim
           nvim-ts-context-commentstring
           todo-comments-nvim
-
-          gitsigns-nvim
-
-          # tabs
-          bufferline-nvim
-          edgy-nvim
-
-          # terminal
-          toggleterm-nvim
-
-          # project management
-          project-nvim
 
           # leap
           vim-repeat
