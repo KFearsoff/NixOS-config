@@ -10,13 +10,13 @@ local opts = {
     settings = {
       ["rust-analyzer"] = {
         procMacro = {
-          enable = false,
+          enable = true,
           attributes = {
-            enable = false,
+            enable = true,
           }
         },
         cachePriming = {
-          enable = false, -- https://github.com/rust-lang/rust-analyzer/issues/14495#issuecomment-1498571185
+          enable = true, -- https://github.com/rust-lang/rust-analyzer/issues/14495#issuecomment-1498571185
         },
         lru = {
           capacity = 256, -- https://github.com/rust-lang/rust-analyzer/issues/13916#issuecomment-1396705571

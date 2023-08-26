@@ -169,6 +169,7 @@ in {
           require "user.edgy"
           require "user.mini"
           require "user.lightbulb"
+          require "user.trouble"
         '';
       };
 

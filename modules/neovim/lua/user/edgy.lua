@@ -12,20 +12,10 @@ vim.opt.splitkeep = "screen"
 edgy.setup {
   left = {
     {
-      ft = "nvim-tree",
-      size = { width = 0.3 },
+      ft = "NvimTree",
+      size = { width = 0.15 },
       pinned = true,
       open = "NvimTreeOpen",
-    },
-    {
-      ft = "toggleterm",
-      size = { width = 0.15 },
-      -- exclude floating windows
-      filter = function(buf, win)
-        return vim.api.nvim_win_get_config(win).relative == ""
-      end,
-      pinned = true,
-      open = "ToggleTerm",
     },
   },
   bottom = {
@@ -33,7 +23,7 @@ edgy.setup {
       ft = "toggleterm",
       size = { height = 0.15 },
       -- exclude floating windows
-      filter = function(buf, win)
+      filter = function(_, win)
         return vim.api.nvim_win_get_config(win).relative == ""
       end,
       pinned = true,
@@ -49,10 +39,10 @@ edgy.setup {
   top = {},
 
   options = {
-    left = { size = 30 },
-    bottom = { size = 10 },
-    right = { size = 30 },
-    top = { size = 10 },
+    left = { size = 15 },
+    bottom = { size = 15 },
+    right = { size = 10 },
+    top = { size = 5 },
   },
   -- edgebar animations
   animate = {
@@ -83,7 +73,7 @@ edgy.setup {
     -- Setting to `true`, will add an edgy winbar.
     -- Setting to `false`, won't set any winbar.
     -- Setting to a string, will set the winbar to that string.
-    winbar = false,
+    winbar = true,
     winfixwidth = true,
     winfixheight = false,
     winhighlight = "WinBar:EdgyWinBar,Normal:EdgyNormal",

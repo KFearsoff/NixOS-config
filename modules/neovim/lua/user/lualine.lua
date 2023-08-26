@@ -7,7 +7,7 @@ lualine.setup({
   options = {
     component_separators = { left = "", right = "" },
     section_separators = { left = "", right = "" },
-    disabled_filetypes = { "alpha", "NvimTree", "Outline" },
+    disabled_filetypes = { "alpha", "Outline" },
   },
   -- sections = {
   -- lualine_a = { branch, diagnostics },
