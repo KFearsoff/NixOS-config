@@ -45,6 +45,7 @@ in {
           which-key-nvim
           nvim-web-devicons
           nvim-tree-lua
+          mini-nvim
 
           # LSP
           nvim-lspconfig
@@ -171,6 +172,7 @@ in {
           require "user.guess-indent"
           require "user.indent-blankline"
           require "user.edgy"
+          require "user.mini"
         '';
       };
 

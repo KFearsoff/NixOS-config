@@ -56,7 +56,7 @@ edgy.setup {
   },
   -- edgebar animations
   animate = {
-    enabled = false,
+    enabled = true,
     fps = 100, -- frames per second
     cps = 120, -- cells per second
     on_begin = function()
