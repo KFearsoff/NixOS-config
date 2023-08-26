@@ -40,6 +40,7 @@ in {
           indent-blankline-nvim
           nvim-autopairs
           guess-indent-nvim
+          vim-illuminate
 
           vim-lastplace
           which-key-nvim
