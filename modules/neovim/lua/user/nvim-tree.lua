@@ -60,10 +60,12 @@ tree.setup {
   renderer = {
     highlight_git = true,
   },
-  open_file = {
-    window_picker = {
-      exclude = {
-        filetype = {"notify", "diff", "terminal", "Trouble", "edgy" },
+  actions = {
+    open_file = {
+      window_picker = {
+        exclude = {
+          filetype = {"notify", "diff", "terminal", "Trouble", "edgy" },
+        },
       },
     },
   },
