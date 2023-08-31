@@ -36,6 +36,7 @@ in {
     nixchad.swayidle.enable = mkDefault true;
 
     security.polkit.enable = true;
+    security.pam.services.swaylock = {};
     hardware.opengl.enable = true;
     programs.dconf.enable = true;
     programs.light.enable = lib.mkDefault true;
@@ -56,8 +57,8 @@ in {
         systemd.xdgAutostart = true;
         wrapperFeatures.gtk = true;
         extraSessionCommands = ''
-          NIXOS_OZONE_WL=1
-          MOZ_ENABLE_WAYLAND=1
+          export NIXOS_OZONE_WL=1
+          export MOZ_ENABLE_WAYLAND=1
           # Qt5
           export QT_QPA_PLATFORM=wayland-egl
           export QT_AUTO_SCREEN_SCALE_FACTOR=1 # QT_WAYLAND_FORCE_DPI=physical forces some Qt apps to scale twice, is undesirable
