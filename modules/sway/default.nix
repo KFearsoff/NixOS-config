@@ -35,10 +35,13 @@ in {
   config = mkIf cfg.enable {
     nixchad.swayidle.enable = mkDefault true;
 
-    programs.sway.enable = true;
-    programs.sway.extraPackages = mkForce [];
+    security.polkit.enable = true;
+    security.pam.services.swaylock = {};
+    hardware.opengl.enable = true;
+    programs.dconf.enable = true;
     programs.light.enable = lib.mkDefault true;
-    xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-gtk];
+    xdg.portal.enable = true;
+    xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-gtk pkgs.xdg-desktop-portal-wlr];
 
     hm = {config, ...}: {
       home.packages = [pkgs.wl-clipboard];
@@ -51,11 +54,11 @@ in {
 
       wayland.windowManager.sway = {
         enable = true;
-        # systemd.xdgAutostart = true;
+        systemd.xdgAutostart = true;
         wrapperFeatures.gtk = true;
         extraSessionCommands = ''
-          NIXOS_OZONE_WL=1
-          MOZ_ENABLE_WAYLAND=1
+          export NIXOS_OZONE_WL=1
+          export MOZ_ENABLE_WAYLAND=1
           # Qt5
           export QT_QPA_PLATFORM=wayland-egl
           export QT_AUTO_SCREEN_SCALE_FACTOR=1 # QT_WAYLAND_FORCE_DPI=physical forces some Qt apps to scale twice, is undesirable
