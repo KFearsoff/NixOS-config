@@ -16,7 +16,7 @@ in {
       fontconfig = {
         defaultFonts = {
           serif = ["FiraCode Nerd Font"];
-          emoji = ["FiraCode Nerd Font"];
+          emoji = ["Noto Color Emoji"];
           monospace = ["FiraCode Nerd Font Mono"];
           sansSerif = ["FiraCode Nerd Font"];
         };
