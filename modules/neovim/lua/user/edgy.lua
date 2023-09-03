@@ -12,10 +12,32 @@ vim.opt.splitkeep = "screen"
 edgy.setup {
   left = {
     {
-      ft = "NvimTree",
-      size = { width = 0.15 },
+      title = "Neo-Tree",
+      ft = "neo-tree",
+      filter = function(buf)
+        return vim.b[buf].neo_tree_source == "filesystem"
+      end,
       pinned = true,
-      open = "NvimTreeOpen",
+      open = "Neotree",
+      size = { height = 0.5 },
+    },
+    {
+      title = "Neo-Tree Git",
+      ft = "neo-tree",
+      filter = function(buf)
+        return vim.b[buf].neo_tree_source == "git_status"
+      end,
+      pinned = true,
+      open = "Neotree position=right git_status",
+    },
+    {
+      title = "Neo-Tree Buffers",
+      ft = "neo-tree",
+      filter = function(buf)
+        return vim.b[buf].neo_tree_source == "buffers"
+      end,
+      pinned = true,
+      open = "Neotree position=top buffers",
     },
   },
   bottom = {
@@ -26,14 +48,16 @@ edgy.setup {
       filter = function(_, win)
         return vim.api.nvim_win_get_config(win).relative == ""
       end,
-      pinned = true,
-      open = "ToggleTerm",
     },
+    "Trouble",
+    { ft = "qf", title = "QuickFix" },
     {
-      ft = "Trouble",
-      pinned = true,
-      open = "Trouble",
-    },
+      ft = "help",
+      size = { height = 0.15 },
+      -- don't open help files in edgy that we're editing
+      filter = function(buf)
+        return vim.bo[buf].buftype == "help"
+      end,
   },
   right = {},
   top = {},
@@ -140,4 +164,5 @@ edgy.setup {
   -- enable this on Neovim <= 0.10.0 to properly fold edgebar windows.
   -- Not needed on a nightly build >= June 5, 2023.
   -- fix_win_height = vim.fn.has("nvim-0.10.0") == 0,
+},
 }

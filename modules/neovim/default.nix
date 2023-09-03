@@ -37,12 +37,12 @@ in {
           lualine-nvim
           which-key-nvim
           nvim-web-devicons
-          nvim-tree-lua
           mini-nvim
           noice-nvim
           nui-nvim
           nvim-notify
           nvim-lsp-notify
+          neo-tree-nvim
 
           # project management
           alpha-nvim
@@ -160,7 +160,6 @@ in {
           require "user.autopairs"
           require "user.comment"
           require "user.gitsigns"
-          require "user.nvim-tree"
           require "user.bufferline"
           require "user.toggleterm"
           require "user.lualine"
@@ -176,6 +175,7 @@ in {
           require "user.trouble"
           require "user.noice"
           require "user.nvim-notify"
+          require "user.neo-tree"
         '';
       };
 
