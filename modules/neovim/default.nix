@@ -39,6 +39,10 @@ in {
           nvim-web-devicons
           nvim-tree-lua
           mini-nvim
+          noice-nvim
+          nui-nvim
+          nvim-notify
+          nvim-lsp-notify
 
           # project management
           alpha-nvim
@@ -170,6 +174,8 @@ in {
           require "user.mini"
           require "user.lightbulb"
           require "user.trouble"
+          require "user.noice"
+          require "user.nvim-notify"
         '';
       };
 
