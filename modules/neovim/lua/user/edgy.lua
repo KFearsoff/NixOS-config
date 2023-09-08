@@ -1,5 +1,6 @@
 local status_ok, edgy = pcall(require, "edgy")
 if not status_ok then
+  vim.notify(edgy, vim.log.levels.ERROR)
   return
 end
 
@@ -19,7 +20,7 @@ edgy.setup {
       end,
       pinned = true,
       open = "Neotree",
-      size = { height = 0.5 },
+      size = { height = 0.6 },
     },
     {
       title = "Neo-Tree Git",
@@ -39,12 +40,20 @@ edgy.setup {
       pinned = true,
       open = "Neotree position=top buffers",
     },
+    "neo-tree",
   },
   bottom = {
     {
       ft = "toggleterm",
       size = { height = 0.15 },
       -- exclude floating windows
+      filter = function(_, win)
+        return vim.api.nvim_win_get_config(win).relative == ""
+      end,
+    },
+    {
+      ft = "noice",
+      size = { height = 0.15 },
       filter = function(_, win)
         return vim.api.nvim_win_get_config(win).relative == ""
       end,
@@ -58,16 +67,11 @@ edgy.setup {
       filter = function(buf)
         return vim.bo[buf].buftype == "help"
       end,
+    },
   },
   right = {},
   top = {},
 
-  options = {
-    left = { size = 15 },
-    bottom = { size = 15 },
-    right = { size = 10 },
-    top = { size = 5 },
-  },
   -- edgebar animations
   animate = {
     enabled = true,
@@ -164,5 +168,4 @@ edgy.setup {
   -- enable this on Neovim <= 0.10.0 to properly fold edgebar windows.
   -- Not needed on a nightly build >= June 5, 2023.
   -- fix_win_height = vim.fn.has("nvim-0.10.0") == 0,
-},
 }
