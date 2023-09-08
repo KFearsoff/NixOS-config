@@ -150,6 +150,7 @@ in {
           vim.g.loaded_netrwPlugin = 1
           vim.loader.enable() -- byte-compile and cache lua files
 
+          require "lib"
           require "user.options"
           require "user.colorscheme"
           require "user.keymaps"
