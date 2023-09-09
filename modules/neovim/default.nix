@@ -48,6 +48,7 @@ in {
           alpha-nvim
           project-nvim
           vim-lastplace
+          neoconf-nvim
 
           # smart typing
           editorconfig-nvim
@@ -61,6 +62,7 @@ in {
           null-ls-nvim
           nvim-lightbulb # lightbulb for quick actions
           nvim-code-action-menu # code action menu
+          neodev-nvim
 
           # cmp plugins
           nvim-cmp # completion plugin
