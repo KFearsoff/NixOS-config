@@ -52,7 +52,6 @@ in {
           # smart typing
           editorconfig-nvim
           indent-blankline-nvim
-          nvim-autopairs
           guess-indent-nvim
           vim-illuminate
 
@@ -105,7 +104,6 @@ in {
           SchemaStore-nvim # load known formats for json and yaml
 
           # comments
-          comment-nvim
           nvim-ts-context-commentstring
           todo-comments-nvim
 
@@ -158,8 +156,6 @@ in {
           require "user.lsp"
           require "user.telescope"
           require "user.treesitter"
-          require "user.autopairs"
-          require "user.comment"
           require "user.gitsigns"
           require "user.bufferline"
           require "user.toggleterm"
