@@ -51,7 +51,6 @@ in {
           neoconf-nvim
 
           # smart typing
-          editorconfig-nvim
           indent-blankline-nvim
           guess-indent-nvim
           vim-illuminate
