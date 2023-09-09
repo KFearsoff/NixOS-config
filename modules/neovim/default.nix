@@ -28,25 +28,40 @@ in {
           # theme
           dracula-nvim
 
-          # dashboard
-          alpha-nvim
+          # UI
+          bufferline-nvim
+          gitsigns-nvim
+          edgy-nvim
+          toggleterm-nvim
           trouble-nvim
-
-          # line
           lualine-nvim
-
-          editorconfig-nvim
-          indent-blankline-nvim
-          vim-lastplace
           which-key-nvim
-          nvim-autopairs
           nvim-web-devicons
-          nvim-tree-lua
+          mini-nvim
+          noice-nvim
+          nui-nvim
+          nvim-notify
+          nvim-lsp-notify
+          neo-tree-nvim
+
+          # project management
+          alpha-nvim
+          project-nvim
+          vim-lastplace
+          neoconf-nvim
+
+          # smart typing
+          indent-blankline-nvim
+          guess-indent-nvim
+          vim-illuminate
 
           # LSP
           nvim-lspconfig
           rust-tools-nvim
           null-ls-nvim
+          nvim-lightbulb # lightbulb for quick actions
+          nvim-code-action-menu # code action menu
+          neodev-nvim
 
           # cmp plugins
           nvim-cmp # completion plugin
@@ -90,20 +105,8 @@ in {
           SchemaStore-nvim # load known formats for json and yaml
 
           # comments
-          comment-nvim
           nvim-ts-context-commentstring
           todo-comments-nvim
-
-          gitsigns-nvim
-
-          # tabs
-          bufferline-nvim
-
-          # terminal
-          toggleterm-nvim
-
-          # project management
-          project-nvim
 
           # leap
           vim-repeat
@@ -146,17 +149,15 @@ in {
           vim.g.loaded_netrwPlugin = 1
           vim.loader.enable() -- byte-compile and cache lua files
 
-          require "user.options"
+          require "lib"
+          require "options"
+          require "keymaps"
           require "user.colorscheme"
-          require "user.keymaps"
           require "user.cmp"
           require "user.lsp"
           require "user.telescope"
           require "user.treesitter"
-          require "user.autopairs"
-          require "user.comment"
           require "user.gitsigns"
-          require "user.nvim-tree"
           require "user.bufferline"
           require "user.toggleterm"
           require "user.lualine"
@@ -164,6 +165,15 @@ in {
           require "user.alpha"
           require "user.whichkey"
           require "user.leap"
+          require "user.guess-indent"
+          require "user.indent-blankline"
+          require "user.edgy"
+          require "user.mini"
+          require "user.lightbulb"
+          require "user.trouble"
+          require "user.noice"
+          require "user.nvim-notify"
+          require "user.neo-tree"
         '';
       };
 
