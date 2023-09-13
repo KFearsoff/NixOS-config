@@ -33,7 +33,7 @@ in {
       home = {
         packages = with pkgs; [
           bottom # htop alternative
-          exa # alternative to ls
+          eza # alternative to ls
           tokei # list used programming languages
           procs # alternative to ps
           shellcheck

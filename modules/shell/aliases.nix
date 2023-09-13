@@ -1,5 +1,5 @@
 {pkgs, ...}: let
-  exa = "${pkgs.exa}/bin/exa";
+  exa = "${pkgs.eza}/bin/eza";
 in {
   hm = {
     home.shellAliases = {
