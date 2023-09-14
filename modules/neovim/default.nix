@@ -111,6 +111,8 @@ in {
           # leap
           vim-repeat
           leap-nvim
+
+          lazy-nvim
         ];
 
         extraPackages = with pkgs; [
@@ -145,13 +147,43 @@ in {
         ];
 
         extraLuaConfig = ''
-          vim.g.loaded_netwr = 1
-          vim.g.loaded_netrwPlugin = 1
-          vim.loader.enable() -- byte-compile and cache lua files
+          -- vim.g.loaded_netwr = 1
+          -- vim.g.loaded_netrwPlugin = 1
+          -- vim.loader.enable() -- byte-compile and cache lua files
+          vim.g.mapleader = " "
+          require("lazy").setup({
+              {
+                "folke/which-key.nvim",
+                event = "VeryLazy",
+                dev = true,
+                init = function()
+                  vim.o.timeout = true
+                  vim.o.timeoutlen = 300
+                end,
+                opts = {
+                  -- your configuration comes here
+                  -- or leave it empty to use the default settings
+                  -- refer to the configuration section below
+                }
+              }
+            }, {
+                performance = {
+                    reset_packpath = false,
+                    rtp = {
+                        reset = false,
+                      }
+                  },
+                dev = {
+                    path = "${pkgs.vimUtils.packDir config.home-manager.users.nixchad.programs.neovim.finalPackage.passthru.packpathDirs}/pack/myNeovimPackages/start",
+                  },
+                install = {
+                    missing = false,
+                  },
+              })
 
           require "lib"
           require "options"
-          require "keymaps"
+          -- require "keymaps"
           require "user.colorscheme"
           require "user.cmp"
           require "user.lsp"
@@ -163,7 +195,7 @@ in {
           require "user.lualine"
           require "user.project"
           require "user.alpha"
-          require "user.whichkey"
+          -- require "user.whichkey"
           require "user.leap"
           require "user.guess-indent"
           require "user.indent-blankline"
