@@ -162,7 +162,6 @@ in {
               missing = false,
             },
           })
-          require("config").setup()
         '';
       };
 
