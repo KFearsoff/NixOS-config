@@ -5,8 +5,17 @@ return {
     dev = true,
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
-      -- { "folke/neoconf.nvim", cmd = "Neoconf", config = false, dependencies = { "nvim-lspconfig" } },
-      -- { "folke/neodev.nvim", opts = {} },
+      {
+        "folke/neoconf.nvim",
+        dev = true,
+        cmd = "Neoconf",
+        config = false,
+        dependencies = {
+          "nvim-lspconfig",
+        },
+      },
+      { "folke/neodev.nvim", dev = true, opts = {} },
+      { "weilbith/nvim-code-action-menu", dev = true },
       {
         "hrsh7th/cmp-nvim-lsp",
         cond = function()
@@ -131,7 +140,7 @@ return {
 
       if opts.inlay_hints.enabled and inlay_hint then
         Util.on_attach(function(client, buffer)
-          if client.supports_method('textDocument/inlayHint') then
+          if client.supports_method("textDocument/inlayHint") then
             inlay_hint(buffer, true)
           end
         end)
@@ -139,14 +148,14 @@ return {
 
       if type(opts.diagnostics.virtual_text) == "table" and opts.diagnostics.virtual_text.prefix == "icons" then
         opts.diagnostics.virtual_text.prefix = vim.fn.has("nvim-0.10.0") == 0 and "●"
-            or function(diagnostic)
-              local icons = require("config").icons.diagnostics
-              for d, icon in pairs(icons) do
-                if diagnostic.severity == vim.diagnostic.severity[d:upper()] then
-                  return icon
-                end
+          or function(diagnostic)
+            local icons = require("config").icons.diagnostics
+            for d, icon in pairs(icons) do
+              if diagnostic.severity == vim.diagnostic.severity[d:upper()] then
+                return icon
               end
             end
+          end
       end
 
       vim.diagnostic.config(vim.deepcopy(opts.diagnostics))
@@ -236,9 +245,10 @@ return {
           nls.builtins.formatting.alejandra,
           nls.builtins.formatting.markdownlint,
           nls.builtins.formatting.shfmt,
+          nls.builtins.formatting.stylua,
         },
       }
     end,
   },
-  { "hrsh7th/cmp-nvim-lsp", dev = true, },
+  { "hrsh7th/cmp-nvim-lsp", dev = true },
 }

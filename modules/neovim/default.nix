@@ -139,6 +139,7 @@ in {
           actionlint
           deadnix
           editorconfig-checker
+          stylua
           # hadolint
           nodePackages.jsonlint
           nodePackages.markdownlint-cli
