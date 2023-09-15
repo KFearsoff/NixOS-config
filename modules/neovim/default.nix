@@ -147,9 +147,6 @@ in {
         ];
 
         extraLuaConfig = ''
-          -- vim.g.loaded_netwr = 1
-          -- vim.g.loaded_netrwPlugin = 1
-          -- vim.loader.enable() -- byte-compile and cache lua files
           vim.g.mapleader = " "
           require("lazy").setup({
               {
@@ -184,28 +181,28 @@ in {
           require "lib"
           require "options"
           -- require "keymaps"
-          require "user.colorscheme"
-          require "user.cmp"
-          require "user.lsp"
-          require "user.telescope"
-          require "user.treesitter"
-          require "user.gitsigns"
-          require "user.bufferline"
-          require "user.toggleterm"
-          require "user.lualine"
-          require "user.project"
-          require "user.alpha"
-          -- require "user.whichkey"
-          require "user.leap"
-          require "user.guess-indent"
-          require "user.indent-blankline"
-          require "user.edgy"
-          require "user.mini"
-          require "user.lightbulb"
-          require "user.trouble"
-          require "user.noice"
-          require "user.nvim-notify"
-          require "user.neo-tree"
+          require "plugins.colorscheme"
+          require "plugins.cmp"
+          require "plugins.lsp"
+          require "plugins.telescope"
+          require "plugins.treesitter"
+          require "plugins.gitsigns"
+          require "plugins.bufferline"
+          require "plugins.toggleterm"
+          require "plugins.lualine"
+          require "plugins.project"
+          require "plugins.alpha"
+          -- require "plugins.whichkey"
+          require "plugins.leap"
+          require "plugins.guess-indent"
+          require "plugins.indent-blankline"
+          require "plugins.edgy"
+          require "plugins.mini"
+          require "plugins.lightbulb"
+          require "plugins.trouble"
+          require "plugins.noice"
+          require "plugins.nvim-notify"
+          require "plugins.neo-tree"
         '';
       };
 
