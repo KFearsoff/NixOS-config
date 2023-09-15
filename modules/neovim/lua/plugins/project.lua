@@ -1,8 +1,13 @@
-local status_ok, project = pcall(require, "project_nvim")
-if not status_ok then
-  return
-end
-
-project.setup({
-  detection_methods = { "pattern", "lsp" },
-})
+return {{
+  "ahmedkhalf/project.nvim",
+  dev = true,
+  opts = {},
+  event = "VeryLazy",
+  config = function(_, opts)
+    require("project_nvim").setup(opts)
+    require("telescope").load_extension("projects")
+  end,
+  keys = {
+    { "<leader>fp", "<Cmd>Telescope projects<CR>", desc = "Projects" },
+  },
+}}

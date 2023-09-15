@@ -148,61 +148,21 @@ in {
 
         extraLuaConfig = ''
           vim.g.mapleader = " "
-          require("lazy").setup({
-              {
-                "folke/which-key.nvim",
-                event = "VeryLazy",
-                dev = true,
-                init = function()
-                  vim.o.timeout = true
-                  vim.o.timeoutlen = 300
-                end,
-                opts = {
-                  -- your configuration comes here
-                  -- or leave it empty to use the default settings
-                  -- refer to the configuration section below
+          require("lazy").setup("plugins", {
+            performance = {
+              reset_packpath = false,
+              rtp = {
+                  reset = false,
                 }
-              }
-            }, {
-                performance = {
-                    reset_packpath = false,
-                    rtp = {
-                        reset = false,
-                      }
-                  },
-                dev = {
-                    path = "${pkgs.vimUtils.packDir config.home-manager.users.nixchad.programs.neovim.finalPackage.passthru.packpathDirs}/pack/myNeovimPackages/start",
-                  },
-                install = {
-                    missing = false,
-                  },
-              })
-
-          require "lib"
-          require "options"
-          -- require "keymaps"
-          require "plugins.colorscheme"
-          require "plugins.cmp"
-          require "plugins.lsp"
-          require "plugins.telescope"
-          require "plugins.treesitter"
-          require "plugins.gitsigns"
-          require "plugins.bufferline"
-          require "plugins.toggleterm"
-          require "plugins.lualine"
-          require "plugins.project"
-          require "plugins.alpha"
-          -- require "plugins.whichkey"
-          require "plugins.leap"
-          require "plugins.guess-indent"
-          require "plugins.indent-blankline"
-          require "plugins.edgy"
-          require "plugins.mini"
-          require "plugins.lightbulb"
-          require "plugins.trouble"
-          require "plugins.noice"
-          require "plugins.nvim-notify"
-          require "plugins.neo-tree"
+              },
+            dev = {
+              path = "${pkgs.vimUtils.packDir config.home-manager.users.nixchad.programs.neovim.finalPackage.passthru.packpathDirs}/pack/myNeovimPackages/start",
+            },
+            install = {
+              missing = false,
+            },
+          })
+          require("config").setup()
         '';
       };
 
