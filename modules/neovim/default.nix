@@ -89,24 +89,19 @@ in {
           # treesitter
           (nvim-treesitter.withPlugins (p:
             with p; [
-              c
-              go
-              vim
-              nix
-              lua
-              hcl
-              yaml
-              toml
-              rust
-              json
               bash
-              gomod
-              python
+              c
               dockerfile
+              json
+              lua
+              nix
               query
-              comment
+              rust
+              toml
+              vim
+              vimdoc
+              yaml
             ]))
-          nvim-ts-rainbow2
           SchemaStore-nvim # load known formats for json and yaml
 
           # comments
@@ -135,13 +130,9 @@ in {
           # LSP
           nodePackages.bash-language-server
           nodePackages.dockerfile-language-server-nodejs
-          gopls
-          helm-ls
           nodePackages.vscode-json-languageserver
           lua-language-server
-          nodePackages.pyright
           rnix-lsp
-          terraform-ls
           nodePackages.yaml-language-server
           marksman
 

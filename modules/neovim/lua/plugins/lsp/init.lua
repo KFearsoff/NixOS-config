@@ -65,13 +65,9 @@ return {
       servers = {
         bashls = {},
         dockerls = {},
-        gopls = {},
-        helm_ls = {},
         jsonls = {},
         marksman = {},
-        pyright = {},
         rnix = {},
-        terraformls = {},
         yamlls = {},
         lua_ls = {
           -- mason = false, -- set to false if you don't want this server to be installed with mason
