@@ -478,4 +478,17 @@ return {
       { "<leader>sT", "<cmd>TodoTelescope keywords=TODO,FIX,FIXME<cr>", desc = "Todo/Fix/Fixme" },
     },
   },
+
+  {
+    "nvim-telescope/telescope.nvim",
+    dev = true,
+    optional = true,
+    dependencies = {
+      "nvim-telescope/telescope-fzf-native.nvim",
+      dev = true,
+      config = function()
+        require("telescope").load_extension("fzf")
+      end,
+    },
+  },
 }

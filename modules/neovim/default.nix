@@ -82,7 +82,6 @@ in {
           # search functionality
           plenary-nvim
           telescope-nvim
-          telescope-media-files-nvim
           telescope-fzf-native-nvim
           nvim-spectre
           flash-nvim
