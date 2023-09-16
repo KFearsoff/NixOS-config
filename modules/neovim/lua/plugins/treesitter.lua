@@ -35,16 +35,11 @@ return {
       ensure_installed = {
         "bash",
         "c",
-        "dockerfile",
-        "json",
         "lua",
         "nix",
         "query",
-        "rust",
-        "toml",
         "vim",
         "vimdoc",
-        "yaml",
       },
       incremental_selection = {
         enable = true,

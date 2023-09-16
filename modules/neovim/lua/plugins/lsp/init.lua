@@ -64,11 +64,8 @@ return {
       ---@type lspconfig.options
       servers = {
         bashls = {},
-        dockerls = {},
-        jsonls = {},
         marksman = {},
         rnix = {},
-        yamlls = {},
         lua_ls = {
           -- mason = false, -- set to false if you don't want this server to be installed with mason
           -- Use this to add any additional keymaps
@@ -233,8 +230,6 @@ return {
 
           nls.builtins.diagnostics.actionlint,
           nls.builtins.diagnostics.deadnix,
-          -- nls.builtins.diagnostics.hadolint,
-          nls.builtins.diagnostics.jsonlint,
           nls.builtins.diagnostics.markdownlint,
           nls.builtins.diagnostics.shellcheck,
           nls.builtins.diagnostics.statix,

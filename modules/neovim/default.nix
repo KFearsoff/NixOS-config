@@ -61,6 +61,7 @@ in {
           # LSP
           nvim-lspconfig
           rust-tools-nvim
+          crates-nvim
           null-ls-nvim
           nvim-lightbulb # lightbulb for quick actions
           nvim-code-action-menu # code action menu
@@ -96,6 +97,7 @@ in {
               lua
               nix
               query
+              ron
               rust
               toml
               vim
@@ -118,6 +120,10 @@ in {
           nvim-dap-ui
           nvim-dap-virtual-text
 
+          # neotest
+          neotest
+          neotest-rust
+
           lazy-nvim
           vim-startuptime
         ];
@@ -130,6 +136,7 @@ in {
           # LSP
           nodePackages.bash-language-server
           nodePackages.dockerfile-language-server-nodejs
+          docker-compose-language-service
           nodePackages.vscode-json-languageserver
           lua-language-server
           rnix-lsp
@@ -144,7 +151,6 @@ in {
           editorconfig-checker
           stylua
           # hadolint
-          nodePackages.jsonlint
           nodePackages.markdownlint-cli
           alejandra
           shfmt
@@ -152,7 +158,11 @@ in {
 
         extraLuaConfig = ''
           vim.g.mapleader = " "
-          require("lazy").setup("plugins", {
+          require("lazy").setup({
+            spec = {
+              { import = "plugins" },
+              { import = "languages" },
+            },
             performance = {
               reset_packpath = false,
               rtp = {
