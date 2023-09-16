@@ -25,6 +25,11 @@ return {
     },
   },
 
+  {
+    "farmergreg/vim-lastplace",
+    dev = true,
+  },
+
   -- library used by other plugins
   { "nvim-lua/plenary.nvim", dev = true, lazy = true },
 }
