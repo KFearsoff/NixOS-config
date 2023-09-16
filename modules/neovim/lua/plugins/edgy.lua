@@ -64,7 +64,6 @@ return {
             filter = function(buf)
               return vim.b[buf].neo_tree_source == "git_status"
             end,
-            pinned = true,
             open = "Neotree position=right git_status",
           },
           {
@@ -73,7 +72,6 @@ return {
             filter = function(buf)
               return vim.b[buf].neo_tree_source == "buffers"
             end,
-            pinned = true,
             open = "Neotree position=top buffers",
           },
           "neo-tree",
