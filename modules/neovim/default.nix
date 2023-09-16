@@ -43,12 +43,15 @@ in {
           nvim-notify
           nvim-lsp-notify
           neo-tree-nvim
+          nvim-navic
+          dressing-nvim
 
           # project management
           alpha-nvim
           project-nvim
           vim-lastplace
           neoconf-nvim
+          persistence-nvim
 
           # smart typing
           indent-blankline-nvim
@@ -75,11 +78,13 @@ in {
           luasnip # snippet engine
           friendly-snippets # a bunch of snippets to use
 
-          # telescope
+          # search functionality
           plenary-nvim
           telescope-nvim
           telescope-media-files-nvim
           telescope-fzf-native-nvim
+          nvim-spectre
+          flash-nvim
 
           # treesitter
           (nvim-treesitter.withPlugins (p:
@@ -111,8 +116,10 @@ in {
           # leap
           vim-repeat
           leap-nvim
+          flit-nvim
 
           lazy-nvim
+          vim-startuptime
         ];
 
         extraPackages = with pkgs; [

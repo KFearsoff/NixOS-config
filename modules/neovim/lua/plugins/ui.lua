@@ -32,25 +32,24 @@ return {
     end,
   },
 
-  -- TODO: enable this
-  -- -- better vim.ui
-  -- {
-  --   "stevearc/dressing.nvim",
-  --   dev = true,
-  --   lazy = true,
-  --   init = function()
-  --     ---@diagnostic disable-next-line: duplicate-set-field
-  --     vim.ui.select = function(...)
-  --       require("lazy").load({ plugins = { "dressing.nvim" } })
-  --       return vim.ui.select(...)
-  --     end
-  --     ---@diagnostic disable-next-line: duplicate-set-field
-  --     vim.ui.input = function(...)
-  --       require("lazy").load({ plugins = { "dressing.nvim" } })
-  --       return vim.ui.input(...)
-  --     end
-  --   end,
-  -- },
+  -- better vim.ui
+  {
+    "stevearc/dressing.nvim",
+    dev = true,
+    lazy = true,
+    init = function()
+      ---@diagnostic disable-next-line: duplicate-set-field
+      vim.ui.select = function(...)
+        require("lazy").load({ plugins = { "dressing.nvim" } })
+        return vim.ui.select(...)
+      end
+      ---@diagnostic disable-next-line: duplicate-set-field
+      vim.ui.input = function(...)
+        require("lazy").load({ plugins = { "dressing.nvim" } })
+        return vim.ui.input(...)
+      end
+    end,
+  },
 
   -- This is what powers LazyVim's fancy-looking
   -- tabs, which include filetype icons and close buttons.
@@ -344,31 +343,30 @@ return {
     end,
   },
 
-  -- TODO: enable this
-  -- -- lsp symbol navigation for lualine. This shows where
-  -- -- in the code structure you are - within functions, classes,
-  -- -- etc - in the statusline.
-  -- {
-  --   "SmiteshP/nvim-navic",
-  --   dev = true,
-  --   lazy = true,
-  --   init = function()
-  --     vim.g.navic_silence = true
-  --     require("util").on_attach(function(client, buffer)
-  --       if client.server_capabilities.documentSymbolProvider then
-  --         require("nvim-navic").attach(client, buffer)
-  --       end
-  --     end)
-  --   end,
-  --   opts = function()
-  --     return {
-  --       separator = " ",
-  --       highlight = true,
-  --       depth_limit = 5,
-  --       icons = require("config").icons.kinds,
-  --     }
-  --   end,
-  -- },
+  -- lsp symbol navigation for lualine. This shows where
+  -- in the code structure you are - within functions, classes,
+  -- etc - in the statusline.
+  {
+    "SmiteshP/nvim-navic",
+    dev = true,
+    lazy = true,
+    init = function()
+      vim.g.navic_silence = true
+      require("util").on_attach(function(client, buffer)
+        if client.server_capabilities.documentSymbolProvider then
+          require("nvim-navic").attach(client, buffer)
+        end
+      end)
+    end,
+    opts = function()
+      return {
+        separator = " ",
+        highlight = true,
+        depth_limit = 5,
+        icons = require("config").icons.kinds,
+      }
+    end,
+  },
 
   -- icons
   { "nvim-tree/nvim-web-devicons", dev = true, lazy = true },
