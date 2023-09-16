@@ -11,13 +11,14 @@ return {
         cmd = "Neoconf",
         config = false,
         dependencies = {
-          "nvim-lspconfig",
+          { "nvim-lspconfig", dev = true },
         },
       },
       { "folke/neodev.nvim", dev = true, opts = {} },
       { "weilbith/nvim-code-action-menu", dev = true },
       {
         "hrsh7th/cmp-nvim-lsp",
+        dev = true,
         cond = function()
           return require("util").has("nvim-cmp")
         end,

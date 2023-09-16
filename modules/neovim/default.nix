@@ -118,6 +118,11 @@ in {
           leap-nvim
           flit-nvim
 
+          # DAP
+          nvim-dap
+          nvim-dap-ui
+          nvim-dap-virtual-text
+
           lazy-nvim
           vim-startuptime
         ];

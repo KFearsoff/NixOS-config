@@ -7,7 +7,7 @@ return {
         and "echo 'NOTE: jsregexp is optional, so not a big deal if it fails to build'; make install_jsregexp"
       or nil,
     dependencies = {
-      "rafamadriz/friendly-snippets",
+      { "rafamadriz/friendly-snippets", dev = true },
     },
     config = function()
       require("luasnip.loaders.from_vscode").lazy_load()
@@ -25,10 +25,10 @@ return {
     version = false, -- last release is way too old
     event = "InsertEnter",
     dependencies = {
-      "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-buffer",
-      "hrsh7th/cmp-path",
-      "saadparwaiz1/cmp_luasnip",
+      { "hrsh7th/cmp-nvim-lsp", dev = true },
+      { "hrsh7th/cmp-buffer", dev = true },
+      { "hrsh7th/cmp-path", dev = true },
+      { "saadparwaiz1/cmp_luasnip", dev = true },
     },
     opts = function()
       vim.api.nvim_set_hl(0, "CmpGhostText", { link = "Comment", default = true })
@@ -172,7 +172,7 @@ return {
     --   { "i", mode = { "x", "o" } },
     -- },
     event = "VeryLazy",
-    dependencies = { "nvim-treesitter-textobjects" },
+    dependencies = { { "nvim-treesitter-textobjects", dev = true } },
     opts = function()
       local ai = require("mini.ai")
       return {
@@ -234,9 +234,4 @@ return {
       end)
     end,
   },
-  { "rafamadriz/friendly-snippets", dev = true },
-  { "hrsh7th/cmp-nvim-lsp", dev = true },
-  { "hrsh7th/cmp-buffer", dev = true },
-  { "hrsh7th/cmp-path", dev = true },
-  { "saadparwaiz1/cmp_luasnip", dev = true },
 }
