@@ -18,9 +18,9 @@ in {
       environment = {
         RESTIC_CACHE_DIR = "%C/restic-backups";
       };
+      script = "${pkgs.autorestic}/bin/autorestic -c /var/lib/autorestic/autorestic.yaml --ci cron";
       serviceConfig = {
-        ExecStart = "${pkgs.autorestic}/bin/autorestic -c /var/lib/autorestic/autorestic.yaml --ci cron";
-        User = "nixchad";
+        User = "root";
         Type = "oneshot";
         RuntimeDirectory = "restic-backups";
         CacheDirectory = "restic-backups";
@@ -29,34 +29,24 @@ in {
       };
     }
     (lib.mkIf config.services.postgresql.enable {
-      serviceConfig = {
-        ExecStartPre = ''
-          echo 'dumping PostgreSQL database'
-          ${pkgs.shadow.su}/bin/su postgres -c ${config.services.postgresql.package}/bin/pg_dumpall > /secrets/pgdump.sql
-          (( $? )) && exit $?
-        '';
+      preStart = ''
+        echo 'dumping PostgreSQL database'
+        ${pkgs.shadow.su}/bin/su postgres -c ${config.services.postgresql.package}/bin/pg_dumpall > /secrets/pgdump.sql
+      '';
 
-        ExecStartPost = ''
-          rm -v /secrets/pgdump.sql
-        '';
-      };
+      postStart = ''
+        rm -v /secrets/pgdump.sql
+      '';
     })
     (lib.mkIf config.services.vaultwarden.enable {
-      serviceConfig = lib.mkForce {
-        ExecStartPre = ''
-          echo 'dumping PostgreSQL database'
-          ${pkgs.shadow.su}/bin/su postgres -c ${config.services.postgresql.package}/bin/pg_dumpall > /secrets/pgdump.sql
-          (( $? )) && exit $?
-          echo 'copying Vaultwarden data'
-          cp --reflink=auto -r /var/lib/bitwarden_rs /secrets/vaultwarden
-          (( $? )) && exit $?
-        '';
+      preStart = ''
+        echo 'copying Vaultwarden data'
+        cp --reflink=auto -r /var/lib/bitwarden_rs /secrets/vaultwarden
+      '';
 
-        execStartPost = ''
-          rm -v /secrets/pgdump.sql
-          rm -rfv /secrets/vaultwarden
-        '';
-      };
+      postStart = ''
+        rm -rfv /secrets/vaultwarden
+      '';
     })
   ];
 

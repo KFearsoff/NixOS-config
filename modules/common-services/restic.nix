@@ -25,12 +25,13 @@ in {
         RESTIC_PASSWORD_FILE = /secrets/usb-flash-drive-backup;
       };
       preStart = ''
-        ${pkgs.coreutils}/bin/sleep 5 && ${pkgs.restic}/bin/restic snapshots || ${pkgs.restic}/bin/restic init
+        ${pkgs.coreutils}/bin/sleep 5
+        ${pkgs.restic}/bin/restic snapshots || ${pkgs.restic}/bin/restic init
       '';
+      script = "${pkgs.restic}/bin/restic copy -r /run/media/${username}/Ventoy/restic-backups --from-repo 4.sosiego.sphalerite.org:/backup";
       after = [device];
       wantedBy = [device];
       serviceConfig = {
-        ExecStart = "${pkgs.restic}/bin/restic copy -r /run/media/${username}/Ventoy/restic-backups --from-repo 4.sosiego.sphalerite.org:/backup";
         User = "nixchad";
         Type = "oneshot";
         RuntimeDirectory = "restic-backups";
