@@ -6,5 +6,6 @@
     ./cadvisor.nix
     ./syncthing.nix
     ./restic.nix
+    ./autorestic.nix
   ];
 }

@@ -25,16 +25,59 @@
   '';
 
   nixchad.boot.bootloader = "systemd-boot";
+  nixchad.restic.usb-backups = true;
   nixchad.smartctl-exporter.devices = ["/dev/nvme0n1"];
   nixchad.waybar.battery = true;
   programs.light.enable = true;
-  nixchad.restic.usb-backups = true;
 
   nixchad.impermanence.presets = {
     enable = true;
     essential = true;
     system = true;
     services = true;
+  };
+
+  systemd.network = {
+    enable = true;
+
+    netdevs."10-wg0" = {
+      netdevConfig = {
+        Kind = "wireguard";
+        Name = "wg0";
+      };
+      wireguardConfig = {
+        PrivateKeyFile = "/secrets/wg-private";
+      };
+      wireguardPeers = [
+        {
+          wireguardPeerConfig = {
+            PublicKey = "wBQhgyAwAmf/0x166auR1QTMUXZBz8AKlMGSAc4SUSg=";
+            AllowedIPs = ["192.168.99.0/24" "2a01:4f8:c2c:a9a0:7767::/80" "2a01:4f9:1a:f600:5650::/80"];
+            Endpoint = "4.sosiego.sphalerite.org:23542";
+          };
+        }
+      ];
+    };
+    networks.wg0 = {
+      matchConfig.Name = "wg0";
+      address = ["192.168.99.137/32" "2a01:4f8:c2c:a9a0:7767::137/32"];
+      routes = [
+        {
+          routeConfig.Destination = "192.168.99.0/24";
+          routeConfig.Scope = "link";
+        }
+        {
+          routeConfig.Destination = "2a01:4f8:c2c:a9a0:7767::/80";
+          routeConfig.Scope = "link";
+        }
+        {
+          routeConfig.Destination = "2a01:4f9:1a:f600:5650::/80";
+          routeConfig.Scope = "link";
+        }
+      ];
+    };
+
+    wait-online.enable = false;
   };
 
   networking.networkmanager.unmanaged = ["interface-name:tailscale0" "interface-name:tun*"];

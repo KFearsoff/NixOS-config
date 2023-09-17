@@ -7,72 +7,38 @@
 }:
 with lib; let
   cfg = config.nixchad.restic;
-  backup-builder = template: builtins.mapAttrs (_: value: template // value);
-  usb-template = {
-    passwordFile = "/secrets/usb-flash-drive-backup";
-    user = username;
-    repository = "/run/media/${username}/Ventoy/restic-backups";
-  };
+  device = "dev-disk-by\\x2duuid-8277\\x2dDD24.device";
 in {
   options.nixchad.restic = {
     enable = mkEnableOption "Restic backups";
     usb-backups = mkEnableOption "backups to USB drive";
   };
 
-  config = mkIf cfg.enable {
+  config = mkIf (cfg.enable && cfg.usb-backups) {
     hm.home.packages = [pkgs.restic];
 
-    services.restic.backups = optionalAttrs cfg.usb-backups (backup-builder usb-template {
-      init-usb-repo = {
-        initialize = true;
-        backupPrepareCommand = "${pkgs.coreutils}/bin/sleep 1";
+    systemd.services."usb-restic-backup" = {
+      path = [pkgs.openssh];
+      environment = {
+        RESTIC_CACHE_DIR = "%C/restic-backups";
+        RESTIC_FROM_PASSWORD_FILE = /secrets/restic-backup-linus;
+        RESTIC_PASSWORD_FILE = /secrets/usb-flash-drive-backup;
       };
-      photos-usb = {
-        paths = [
-          "/home/${username}/Pictures/Photos"
-          "/home/${username}/Pictures/Photos-phone"
-        ];
-        extraBackupArgs = ["--verbose" "--host common" "--tag photos"];
+      preStart = ''
+        ${pkgs.coreutils}/bin/sleep 5
+        ${pkgs.restic}/bin/restic snapshots || ${pkgs.restic}/bin/restic init
+      '';
+      script = "${pkgs.restic}/bin/restic copy -r /run/media/${username}/Ventoy/restic-backups --from-repo 4.sosiego.sphalerite.org:/backup";
+      after = [device];
+      wantedBy = [device];
+      serviceConfig = {
+        User = "nixchad";
+        Type = "oneshot";
+        RuntimeDirectory = "restic-backups";
+        CacheDirectory = "restic-backups";
+        CacheDirectoryMode = "0700";
+        PrivateTmp = true;
       };
-      secrets-usb = {
-        paths = [
-          "/secrets"
-        ];
-        extraBackupArgs = ["--verbose" "--tag secrets"];
-      };
-      stuff-usb = {
-        paths = [
-          "/home/${username}/Sync"
-        ];
-        extraBackupArgs = ["--verbose" "--host common" "--tag stuff"];
-      };
-    });
-
-    systemd = let
-      device = "dev-disk-by\\x2duuid-8277\\x2dDD24.device";
-    in
-      optionalAttrs cfg.usb-backups {
-        services.restic-backups-photos-usb = {
-          after = [device "restic-backups-init-usb-repo.service"];
-          wantedBy = [device];
-        };
-        timers.restic-backups-photos-usb.enable = false;
-        services.restic-backups-secrets-usb = {
-          after = [device "restic-backups-init-usb-repo.service"];
-          wantedBy = [device];
-        };
-        timers.restic-backups-secrets-usb.enable = false;
-        services.restic-backups-stuff-usb = {
-          after = [device "restic-backups-init-usb-repo.service"];
-          wantedBy = [device];
-        };
-        timers.restic-backups-stuff-usb.enable = false;
-        services.restic-backups-init-usb-repo = {
-          after = [device];
-          wantedBy = [device];
-          serviceConfig.ExecStart = ["${pkgs.coreutils}/bin/echo \"restic repository initialized\""];
-        };
-        timers.restic-backups-init-usb-repo.enable = false;
-      };
+    };
   };
 }

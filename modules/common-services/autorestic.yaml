@@ -1,0 +1,44 @@
+version: 2
+
+locations:
+  photos:
+    from:
+      - /home/nixchad/Pictures/Photos
+      - /home/nixchad/Pictures/Photos-phone
+    to:
+      - linus
+    cron: "0 * * * *"
+    options:
+      backup:
+        tag: photos
+        host: common
+
+  stuff:
+    from:
+      - /home/nixchad/Sync
+    to:
+      - linus
+    cron: "0 * * * *"
+    options:
+      backup:
+        tag: stuff
+        host: common
+
+  secrets:
+    from:
+      - /secrets
+    to:
+      - linus
+    cron: "0 * * * *"
+    options:
+      backup:
+        tag: secrets
+
+backends:
+  linus:
+    type: sftp
+    path: kfears@sol.sphalerite.tech:/backup
+    options:
+      backup:
+        password-command: cat /secrets/restic-backup-linus
+        '-o sftp.command': 'sftp -i /home/nixchad/.ssh/id_ed25519'
