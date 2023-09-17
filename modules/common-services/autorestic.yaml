@@ -37,7 +37,7 @@ locations:
 backends:
   linus:
     type: sftp
-    path: 4.sosiego.sphalerite.org:/backup
+    path: kfears@sol.sphalerite.tech:/backup
     options:
       backup:
-        password: ${LINUS_PASSWORD}
+        password-command: cat /secrets/restic-backup-linus
