@@ -61,8 +61,44 @@ in {
         linkConfig.RequiredForOnline = "routable";
       };
     };
+    netdevs."10-wg0" = {
+      netdevConfig = {
+        Kind = "wireguard";
+        Name = "wg0";
+      };
+      wireguardConfig = {
+        PrivateKeyFile = "/secrets/wg-private";
+      };
+      wireguardPeers = [
+        {
+          wireguardPeerConfig = {
+            PublicKey = "wBQhgyAwAmf/0x166auR1QTMUXZBz8AKlMGSAc4SUSg=";
+            AllowedIPs = ["192.168.99.0/24" "2a01:4f8:c2c:a9a0:7767::/80" "2a01:4f9:1a:f600:5650::/80"];
+            Endpoint = "4.sosiego.sphalerite.org:23542";
+          };
+        }
+      ];
+    };
+    networks.wg0 = {
+      matchConfig.Name = "wg0";
+      address = ["192.168.99.137/32" "2a01:4f8:c2c:a9a0:7767::137/32"];
+      routes = [
+        {
+          routeConfig.Destination = "192.168.99.0/24";
+          routeConfig.Scope = "link";
+        }
+        {
+          routeConfig.Destination = "2a01:4f8:c2c:a9a0:7767::/80";
+          routeConfig.Scope = "link";
+        }
+        {
+          routeConfig.Destination = "2a01:4f9:1a:f600:5650::/80";
+          routeConfig.Scope = "link";
+        }
+      ];
+    };
 
-    wait-online.ignoredInterfaces = ["tailscale0"];
+    wait-online.ignoredInterfaces = ["tailscale0" "wg0"];
   };
   networking.networkmanager.unmanaged = ["interface-name:${ifname}" "interface-name:br-libvirt" "interface-name:tailscale0" "interface-name:tun*"];
   systemd.services.NetworkManager-wait-online.enable = false;
