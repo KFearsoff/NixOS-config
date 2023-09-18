@@ -4,7 +4,7 @@ groups:
   rules:
     - alert: RedisDown
       expr: 'redis_up == 0'
-      for: 1m
+      for: 5m
       labels:
         severity: critical
       annotations:
@@ -13,7 +13,7 @@ groups:
 
     - alert: RedisMissingMaster
       expr: '(count(redis_instance_info{role="master"}) or vector(0)) < 1'
-      for: 1m
+      for: 5m
       labels:
         severity: critical
       annotations:
@@ -22,7 +22,7 @@ groups:
 
     - alert: RedisTooManyMasters
       expr: 'count(redis_instance_info{role="master"}) > 1'
-      for: 1m
+      for: 5m
       labels:
         severity: critical
       annotations:
