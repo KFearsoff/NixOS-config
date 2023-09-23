@@ -27,7 +27,10 @@ in {
   };
 
   config = mkIf cfg.enable {
-    programs.steam.enable = true;
+    programs.steam = {
+      enable = true;
+      remotePlay.openFirewall = true;
+    };
 
     programs.gamemode = mkIf cfg.gamemode.enable {
       enable = true;
