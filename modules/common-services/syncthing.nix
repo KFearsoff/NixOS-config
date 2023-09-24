@@ -66,6 +66,14 @@ in {
             params.cleanoutDays = "30";
           };
         };
+        "LEFilters" = {
+          path = "/home/${username}/.local/share/Steam/steamapps/compatdata/899770/pfx/drive_c/users/steamuser/AppData/LocalLow/Eleventh\ Hour\ Games/Last\ Epoch/Filters";
+          devices = syncthingHostsList;
+          versioning = {
+            type = "trashcan";
+            params.cleanoutDays = "30";
+          };
+        };
         "Sync" = {
           path = "/home/${username}/Sync";
           devices = syncthingHostsList;
