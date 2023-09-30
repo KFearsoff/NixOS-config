@@ -36,6 +36,7 @@ with lib; let
       paths = [
         "/secrets"
       ];
+      user = "root";
       extraBackupArgs = ["--verbose" "--tag secrets"];
     };
     stuff = {
