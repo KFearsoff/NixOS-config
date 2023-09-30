@@ -73,12 +73,14 @@ in {
           RESTIC_CACHE_DIR = "%C/restic-backups";
           RESTIC_FROM_PASSWORD_FILE = /secrets/restic-backup-linus;
           RESTIC_PASSWORD_FILE = /secrets/usb-flash-drive-backup;
+          RESTIC_FROM_REPOSITORY = "sftp:kfears@sol.sphalerite.tech:/backup";
+          RESTIC_REPOSITORY = "/run/media/${username}/Ventoy/restic-backups";
         };
         preStart = ''
           ${pkgs.coreutils}/bin/sleep 5
           ${pkgs.restic}/bin/restic snapshots || ${pkgs.restic}/bin/restic init
         '';
-        script = "${pkgs.restic}/bin/restic copy -r /run/media/${username}/Ventoy/restic-backups --from-repo 4.sosiego.sphalerite.org:/backup";
+        script = "${pkgs.restic}/bin/restic copy";
         after = [device];
         wantedBy = [device];
         serviceConfig = {
