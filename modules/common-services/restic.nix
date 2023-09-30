@@ -25,13 +25,6 @@ with lib; let
   };
 
   backupLocations = {
-    photos = {
-      paths = [
-        "/home/${username}/Pictures/Photos"
-        "/home/${username}/Pictures/Photos-phone"
-      ];
-      extraBackupArgs = ["--verbose" "--host common" "--tag photos"];
-    };
     secrets = {
       paths = [
         "/secrets"
@@ -54,6 +47,17 @@ in {
   config = mkMerge [
     (mkIf cfg.enable {
       services.restic.backups = backup-builder backupLocations;
+    })
+    (mkIf (cfg.enable && config.networking.hostName != "cloudberry") {
+      services.restic.backups = backup-builder {
+        photos = {
+          paths = [
+            "/home/${username}/Pictures/Photos"
+            "/home/${username}/Pictures/Photos-phone"
+          ];
+          extraBackupArgs = ["--verbose" "--host common" "--tag photos"];
+        };
+      };
     })
     (mkIf (cfg.enable && cfg.usb-backups) {
       systemd.services."usb-restic-backup" = {
@@ -103,7 +107,7 @@ in {
       services.restic.backups = backup-builder {
         vaultwarden = {
           paths = [
-            "/tmp/postgres"
+            "/tmp/vaultwarden"
           ];
           extraBackupArgs = ["--verbose" "--tag vaultwarden"];
           backupPrepareCommand = ''
