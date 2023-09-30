@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }:
 with lib; let
@@ -19,9 +18,6 @@ in {
           theme = "base16";
           style = "plain";
         };
-      };
-      home.sessionVariables = {
-        MANPAGER = "sh -c 'col -bx | ${pkgs.bat}/bin/bat -l man -p'";
       };
     };
   };
