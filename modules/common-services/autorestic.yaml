@@ -41,4 +41,4 @@ backends:
     options:
       backup:
         password-command: cat /secrets/restic-backup-linus
-        '-o sftp.command': 'sftp -i /home/nixchad/.ssh/id_ed25519'
+        "-o sftp__command": "sftp -i /home/nixchad/.ssh/id_ed25519 -o StrictHostKeyChecking=no"

@@ -7,23 +7,21 @@
   autoresticCfg =
     pkgs.writeText "autorestic.yaml" (builtins.readFile ./autorestic.yaml);
 in {
-  systemd.tmpfiles.rules = [
-    "d /var/lib/autorestic 0755 nixchad users 10d -"
-    "L /var/lib/autorestic/autorestic.yaml - - - - ${autoresticCfg}"
-  ];
-
   systemd.services."autorestic-backup" = lib.mkMerge [
     {
       path = [pkgs.openssh pkgs.restic pkgs.coreutils];
       environment = {
-        RESTIC_CACHE_DIR = "%C/restic-backups";
+        RESTIC_CACHE_DIR = "%C/restic";
       };
-      script = "${pkgs.autorestic}/bin/autorestic -c /var/lib/autorestic/autorestic.yaml --ci cron";
+      preStart = ''
+        ln -sf ${autoresticCfg} $STATE_DIRECTORY/autorestic.yaml
+      '';
+      script = "${pkgs.autorestic}/bin/autorestic -c $STATE_DIRECTORY/autorestic.yaml --ci cron";
       serviceConfig = {
         User = "root";
         Type = "oneshot";
-        RuntimeDirectory = "restic-backups";
-        CacheDirectory = "restic-backups";
+        StateDirectory = "autorestic";
+        CacheDirectory = "restic";
         CacheDirectoryMode = "0700";
         PrivateTmp = true;
       };
