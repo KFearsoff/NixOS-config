@@ -35,6 +35,7 @@ return {
               },
               validate = { enable = true },
             },
+            cmd = { "vscode-json-languageserver", "--stdio" }, -- bin name is different
           },
         },
       },
