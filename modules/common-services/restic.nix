@@ -13,7 +13,7 @@ with lib; let
   template = {
     passwordFile = "/secrets/restic-backup-linus";
     repository = "sftp:kfears@sol.sphalerite.tech:/backup";
-    user = username;
+    user = "root";
     extraOptions = [
       "sftp.command='ssh kfears@sol.sphalerite.tech -i /home/${username}/.ssh/id_ed25519 -o StrictHostKeyChecking=no -s sftp'"
     ];
@@ -36,7 +36,6 @@ with lib; let
       paths = [
         "/secrets"
       ];
-      user = "root";
       extraBackupArgs = ["--verbose" "--tag secrets"];
     };
     stuff = {
@@ -97,7 +96,6 @@ in {
     (mkIf config.services.postgresql.enable {
       services.restic.backups = backup-builder {
         postgres = {
-          user = "root";
           paths = [
             "/tmp/postgres"
           ];
@@ -117,7 +115,6 @@ in {
     (mkIf config.services.vaultwarden.enable {
       services.restic.backups = backup-builder {
         vaultwarden = {
-          user = "root";
           paths = [
             "/tmp/vaultwarden"
           ];
