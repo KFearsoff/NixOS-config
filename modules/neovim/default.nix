@@ -49,7 +49,6 @@ in {
           # project management
           alpha-nvim
           project-nvim
-          vim-lastplace
           neoconf-nvim
           persistence-nvim
 
