@@ -43,12 +43,14 @@ in {
           nvim-notify
           nvim-lsp-notify
           neo-tree-nvim
+          nvim-navic
+          dressing-nvim
 
           # project management
           alpha-nvim
           project-nvim
-          vim-lastplace
           neoconf-nvim
+          persistence-nvim
 
           # smart typing
           indent-blankline-nvim
@@ -58,6 +60,7 @@ in {
           # LSP
           nvim-lspconfig
           rust-tools-nvim
+          crates-nvim
           null-ls-nvim
           nvim-lightbulb # lightbulb for quick actions
           nvim-code-action-menu # code action menu
@@ -75,33 +78,30 @@ in {
           luasnip # snippet engine
           friendly-snippets # a bunch of snippets to use
 
-          # telescope
+          # search functionality
           plenary-nvim
           telescope-nvim
-          telescope-media-files-nvim
           telescope-fzf-native-nvim
+          nvim-spectre
+          flash-nvim
 
           # treesitter
           (nvim-treesitter.withPlugins (p:
             with p; [
-              c
-              go
-              vim
-              nix
-              lua
-              hcl
-              yaml
-              toml
-              rust
-              json
               bash
-              gomod
-              python
+              c
               dockerfile
+              json
+              lua
+              nix
               query
-              comment
+              ron
+              rust
+              toml
+              vim
+              vimdoc
+              yaml
             ]))
-          nvim-ts-rainbow2
           SchemaStore-nvim # load known formats for json and yaml
 
           # comments
@@ -111,6 +111,19 @@ in {
           # leap
           vim-repeat
           leap-nvim
+          flit-nvim
+
+          # DAP
+          nvim-dap
+          nvim-dap-ui
+          nvim-dap-virtual-text
+
+          # neotest
+          neotest
+          neotest-rust
+
+          lazy-nvim
+          vim-startuptime
         ];
 
         extraPackages = with pkgs; [
@@ -121,13 +134,10 @@ in {
           # LSP
           nodePackages.bash-language-server
           nodePackages.dockerfile-language-server-nodejs
-          gopls
-          helm-ls
+          docker-compose-language-service
           nodePackages.vscode-json-languageserver
           lua-language-server
-          nodePackages.pyright
           rnix-lsp
-          terraform-ls
           nodePackages.yaml-language-server
           marksman
 
@@ -137,43 +147,33 @@ in {
           actionlint
           deadnix
           editorconfig-checker
+          stylua
           # hadolint
-          nodePackages.jsonlint
           nodePackages.markdownlint-cli
           alejandra
           shfmt
         ];
 
         extraLuaConfig = ''
-          vim.g.loaded_netwr = 1
-          vim.g.loaded_netrwPlugin = 1
-          vim.loader.enable() -- byte-compile and cache lua files
-
-          require "lib"
-          require "options"
-          require "keymaps"
-          require "user.colorscheme"
-          require "user.cmp"
-          require "user.lsp"
-          require "user.telescope"
-          require "user.treesitter"
-          require "user.gitsigns"
-          require "user.bufferline"
-          require "user.toggleterm"
-          require "user.lualine"
-          require "user.project"
-          require "user.alpha"
-          require "user.whichkey"
-          require "user.leap"
-          require "user.guess-indent"
-          require "user.indent-blankline"
-          require "user.edgy"
-          require "user.mini"
-          require "user.lightbulb"
-          require "user.trouble"
-          require "user.noice"
-          require "user.nvim-notify"
-          require "user.neo-tree"
+          vim.g.mapleader = " "
+          require("lazy").setup({
+            spec = {
+              { import = "plugins" },
+              { import = "languages" },
+            },
+            performance = {
+              reset_packpath = false,
+              rtp = {
+                  reset = false,
+                }
+              },
+            dev = {
+              path = "${pkgs.vimUtils.packDir config.home-manager.users.nixchad.programs.neovim.finalPackage.passthru.packpathDirs}/pack/myNeovimPackages/start",
+            },
+            install = {
+              missing = false,
+            },
+          })
         '';
       };
 

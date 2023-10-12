@@ -1,0 +1,35 @@
+return {
+  -- measure startuptime
+  {
+    "dstein64/vim-startuptime",
+    dev = true,
+    cmd = "StartupTime",
+    config = function()
+      vim.g.startuptime_tries = 10
+    end,
+  },
+
+  -- Session management. This saves your session in the background,
+  -- keeping track of open buffers, window arrangement, and more.
+  -- You can restore sessions when returning through the dashboard.
+  {
+    "folke/persistence.nvim",
+    dev = true,
+    event = "BufReadPre",
+    opts = { options = { "buffers", "curdir", "tabpages", "winsize", "help", "globals", "skiprtp" } },
+    -- stylua: ignore
+    keys = {
+      { "<leader>qs", function() require("persistence").load() end, desc = "Restore Session" },
+      { "<leader>ql", function() require("persistence").load({ last = true }) end, desc = "Restore Last Session" },
+      { "<leader>qd", function() require("persistence").stop() end, desc = "Don't Save Current Session" },
+    },
+  },
+
+  {
+    "farmergreg/vim-lastplace",
+    dev = true,
+  },
+
+  -- library used by other plugins
+  { "nvim-lua/plenary.nvim", dev = true, lazy = true },
+}
