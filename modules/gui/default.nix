@@ -51,7 +51,7 @@ in {
           discord
           ardour
           lingot
-          teams
+          teams-for-linux
         ]
         #++ (optional config.services.pipewire.enable easyeffects)
         ++ (optional config.programs.wireshark.enable wireshark)

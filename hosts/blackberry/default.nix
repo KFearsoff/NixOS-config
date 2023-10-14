@@ -16,7 +16,7 @@ in {
     inputs.hardware.nixosModules.common-hidpi
   ];
 
-  users.users."${username}".passwordFile = "/secrets/nixchad-password";
+  users.users."${username}".hashedPasswordFile = "/secrets/nixchad-password";
 
   # hardware.firmware = [
   #   pkgs.rtl8761b-firmware

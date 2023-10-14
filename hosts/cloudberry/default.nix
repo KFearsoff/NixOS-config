@@ -10,7 +10,7 @@
     inputs.disko.nixosModules.disko
   ];
 
-  users.users."${username}".passwordFile = "/secrets/nixchad-password";
+  users.users."${username}".hashedPasswordFile = "/secrets/nixchad-password";
 
   networking.networkmanager.enable = false;
   nixchad.minimal.enable = true;
