@@ -56,6 +56,7 @@ return {
   -- Correctly setup lspconfig for Rust 🚀
   {
     "neovim/nvim-lspconfig",
+    dev = true,
     opts = {
       servers = {
         rust_analyzer = {
