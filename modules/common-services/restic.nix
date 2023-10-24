@@ -20,7 +20,6 @@ with lib; let
     initialize = true;
     timerConfig = {
       OnCalendar = "daily";
-      Persistent = true;
       RandomizedDelaySec = "5h";
     };
     pruneOpts = [

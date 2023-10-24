@@ -52,6 +52,7 @@ in {
           ardour
           lingot
           teams-for-linux
+          cinnamon.nemo
         ]
         #++ (optional config.services.pipewire.enable easyeffects)
         ++ (optional config.programs.wireshark.enable wireshark)
