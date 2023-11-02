@@ -30,9 +30,9 @@ in {
               user_pref("privacy.resistFingerprinting.letterboxing", false); // 4504, I hate the margins
               user_pref("webgl.disabled", false); // required for Zoom (also needs canvas exception)
 
-              lockPref("signon.rememberSignons", false) // bitwarden is used instead
-              lockPref("toolkit.legacyUserProfileCustomizations.stylesheets", true) // enable CSS styling
-              lockPref("browser.tabs.inTitlebar", "0") // use native decoration
+              lockPref("signon.rememberSignons", false); // bitwarden is used instead
+              lockPref("toolkit.legacyUserProfileCustomizations.stylesheets", true); // enable CSS styling
+              lockPref("browser.tabs.inTitlebar", "0"); // use native decoration
             '';
 
           userChrome = ''
