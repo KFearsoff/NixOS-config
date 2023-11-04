@@ -25,6 +25,13 @@ in {
         withNodeJs = true;
 
         plugins = with pkgs.vimPlugins; [
+          # base distro
+          LazyVim
+          conform-nvim
+          nvim-lint
+          markdown-preview-nvim
+          headlines-nvim
+
           # theme
           dracula-nvim
 
@@ -32,6 +39,7 @@ in {
           bufferline-nvim
           gitsigns-nvim
           edgy-nvim
+          dashboard-nvim
           toggleterm-nvim
           trouble-nvim
           lualine-nvim
@@ -45,9 +53,9 @@ in {
           neo-tree-nvim
           nvim-navic
           dressing-nvim
+          aerial-nvim
 
           # project management
-          alpha-nvim
           project-nvim
           neoconf-nvim
           persistence-nvim
@@ -63,14 +71,14 @@ in {
           crates-nvim
           null-ls-nvim
           nvim-lightbulb # lightbulb for quick actions
-          nvim-code-action-menu # code action menu
+          # nvim-code-action-menu # code action menu
           neodev-nvim
+          SchemaStore-nvim # load known formats for json and yaml
 
           # cmp plugins
           nvim-cmp # completion plugin
           cmp-buffer # buffer completions
           cmp-path # path completions
-          cmp-cmdline # cmdline completions
           cmp_luasnip # snipper completions
           cmp-nvim-lsp # LSP completions
 
@@ -86,23 +94,41 @@ in {
           flash-nvim
 
           # treesitter
+          nvim-treesitter-context
+          nvim-ts-autotag
+          nvim-treesitter-textobjects
           (nvim-treesitter.withPlugins (p:
             with p; [
+              # LazyVim defaults
               bash
               c
-              dockerfile
+              diff
+              html
+              javascript
+              jsdoc
               json
+              jsonc
               lua
-              nix
+              luadoc
+              luap
+              markdown
+              markdown_inline
+              python
               query
-              ron
-              rust
+              regex
               toml
+              tsx
+              typescript
               vim
               vimdoc
               yaml
+
+              # custom
+              dockerfile
+              nix
+              ron
+              rust
             ]))
-          SchemaStore-nvim # load known formats for json and yaml
 
           # comments
           nvim-ts-context-commentstring
@@ -127,48 +153,91 @@ in {
         ];
 
         extraPackages = with pkgs; [
-          rust-analyzer
-          graphviz
           gcc # needed for nvim-treesitter
 
-          # LSP
-          nodePackages.bash-language-server
-          nodePackages.dockerfile-language-server-nodejs
-          docker-compose-language-service
-          nodePackages.vscode-json-languageserver
+          # LazyVim defaults
           lua-language-server
-          rnix-lsp
-          nodePackages.yaml-language-server
-          marksman
-
-          # null-ls
-          shellcheck
-          statix
-          actionlint
-          deadnix
-          editorconfig-checker
           stylua
-          # hadolint
-          nodePackages.markdownlint-cli
-          alejandra
           shfmt
+
+          # Markdown extra
+          nodePackages.markdownlint-cli
+
+          # Docker extra
+          nodePackages.dockerfile-language-server-nodejs
+          hadolint
+
+          # JSON and YAML extras
+          nodePackages.vscode-json-languageserver
+          nodePackages.yaml-language-server
+
+          # Rust extra
+          rust-analyzer
+          taplo
+
+          # Custom
+          actionlint
+          editorconfig-checker
+          nodePackages.bash-language-server
+          shellcheck
+          rnix-lsp
+          statix
+          deadnix
+          alejandra
         ];
 
         extraLuaConfig = ''
           vim.g.mapleader = " "
           require("lazy").setup({
             spec = {
+              { "LazyVim/LazyVim", import = "lazyvim.plugins" },
+              -- import any extras modules here
+              { import = "lazyvim.plugins.extras.dap.core" },
+              { import = "lazyvim.plugins.extras.dap.nlua" },
+              { import = "lazyvim.plugins.extras.ui.edgy" },
+              { import = "lazyvim.plugins.extras.editor.aerial" },
+              { import = "lazyvim.plugins.extras.editor.leap" },
+              { import = "lazyvim.plugins.extras.editor.navic" },
+              { import = "lazyvim.plugins.extras.lang.docker" },
+              { import = "lazyvim.plugins.extras.lang.json" },
+              { import = "lazyvim.plugins.extras.lang.markdown" },
+              { import = "lazyvim.plugins.extras.lang.rust" },
+              { import = "lazyvim.plugins.extras.lang.yaml" },
+              { import = "lazyvim.plugins.extras.test.core" },
+              { import = "lazyvim.plugins.extras.ui.mini-animate" },
+              -- import/override with your plugins
               { import = "plugins" },
-              { import = "languages" },
+            },
+            defaults = {
+              -- By default, only LazyVim plugins will be lazy-loaded. Your custom plugins will load during startup.
+              -- If you know what you're doing, you can set this to `true` to have all your custom plugins lazy-loaded by default.
+              lazy = false,
+              -- It's recommended to leave version=false for now, since a lot the plugin that support versioning,
+              -- have outdated releases, which may break your Neovim install.
+              version = false, -- always use the latest git commit
+              -- version = "*", -- try installing the latest stable version for plugins that support semver
             },
             performance = {
+              -- Used for NixOS
               reset_packpath = false,
               rtp = {
                   reset = false,
+                  -- disable some rtp plugins
+                  disabled_plugins = {
+                    "gzip",
+                    -- "matchit",
+                    -- "matchparen",
+                    -- "netrwPlugin",
+                    "tarPlugin",
+                    "tohtml",
+                    "tutor",
+                    "zipPlugin",
+                  },
                 }
               },
             dev = {
               path = "${pkgs.vimUtils.packDir config.home-manager.users.nixchad.programs.neovim.finalPackage.passthru.packpathDirs}/pack/myNeovimPackages/start",
+              patterns = {"folke", "nvim-telescope", "hrsh7th", "akinsho", "stevearc", "LazyVim", "catppuccin", "saadparwaiz1", "nvimdev", "rafamadriz", "lewis6991", "lukas-reineke", "nvim-lualine", "L3MON4D3", "williamboman", "echasnovski", "nvim-neo-tree", "MunifTanjim", "mfussenegger", "rcarriga", "neovim", "nvim-pack", "nvim-treesitter", "windwp", "JoosepAlviste", "nvim-tree", "nvim-lua", "RRethy", "dstein64", "Saecki", "ggandor", "iamcco", "nvim-neotest", "rouge8", "theHamsta", "SmiteshP", "jbyuki", "simrat39", "b0o", "tpope", "kosayoda" },
             },
             install = {
               missing = false,
