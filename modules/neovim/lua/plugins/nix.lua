@@ -30,7 +30,9 @@ return {
     "neovim/nvim-lspconfig",
     opts = {
       servers = {
-        rnix = {},
+        rnix = {
+          document_formatting_provider = nil,
+        },
       },
     },
   },
