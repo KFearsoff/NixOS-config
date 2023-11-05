@@ -32,7 +32,10 @@ in {
       wantedBy = ["default.target"];
       serviceConfig = {
         ExecStart = "${inputs.tailforward.packages.x86_64-linux.default}/bin/tailforward";
-        ConfigurationDirectory = "";
+        ConfigurationDirectory = "tailforward";
+      };
+      environment = {
+        OTEL_SERVICE_NAME = "tailforward";
       };
     };
 
