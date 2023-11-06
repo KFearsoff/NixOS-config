@@ -162,10 +162,12 @@ in {
 
           # Markdown extra
           nodePackages.markdownlint-cli
+          marksman
 
           # Docker extra
           nodePackages.dockerfile-language-server-nodejs
           hadolint
+          docker-compose-language-service
 
           # JSON and YAML extras
           nodePackages.vscode-json-languageserver
