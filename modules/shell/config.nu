@@ -1,6 +1,6 @@
 # Nushell Config File
 #
-# version = 0.83.1
+# version = "0.86.0"
 
 # For more information on defining custom themes, see
 # https://www.nushell.sh/book/coloring_and_theming.html
@@ -14,39 +14,18 @@ let dark_theme = {
     empty: blue
     # Closures can be used to choose colors for specific values.
     # The value (in this case, a bool) is piped into the closure.
-    bool: {|| if $in { 'light_cyan' } else { 'light_gray' } }
+    # eg) {|| if $in { 'light_cyan' } else { 'light_gray' } }
+    bool: light_cyan
     int: white
-    filesize: {|e|
-        if $e == 0b {
-            'white'
-        } else if $e < 1mb {
-            'cyan'
-        } else { 'blue' }
-    }
+    filesize: cyan
     duration: white
-    date: {|| (date now) - $in |
-        if $in < 1hr {
-            'purple'
-        } else if $in < 6hr {
-            'red'
-        } else if $in < 1day {
-            'yellow'
-        } else if $in < 3day {
-            'green'
-        } else if $in < 1wk {
-            'light_green'
-        } else if $in < 6wk {
-            'cyan'
-        } else if $in < 52wk {
-            'blue'
-        } else { 'dark_gray' }
-    }
+    date: purple
     range: white
     float: white
     string: white
     nothing: white
     binary: white
-    cellpath: white
+    cell-path: white
     row_index: green_bold
     record: white
     list: white
@@ -98,39 +77,18 @@ let light_theme = {
     empty: blue
     # Closures can be used to choose colors for specific values.
     # The value (in this case, a bool) is piped into the closure.
-    bool: {|| if $in { 'dark_cyan' } else { 'dark_gray' } }
+    # eg) {|| if $in { 'dark_cyan' } else { 'dark_gray' } }
+    bool: dark_cyan
     int: dark_gray
-    filesize: {|e|
-        if $e == 0b {
-            'dark_gray'
-        } else if $e < 1mb {
-            'cyan_bold'
-        } else { 'blue_bold' }
-    }
+    filesize: cyan_bold
     duration: dark_gray
-    date: {|| (date now) - $in |
-        if $in < 1hr {
-            'purple'
-        } else if $in < 6hr {
-            'red'
-        } else if $in < 1day {
-            'yellow'
-        } else if $in < 3day {
-            'green'
-        } else if $in < 1wk {
-            'light_green'
-        } else if $in < 6wk {
-            'cyan'
-        } else if $in < 52wk {
-            'blue'
-        } else { 'dark_gray' }
-    }
+    date: purple
     range: dark_gray
     float: dark_gray
     string: dark_gray
     nothing: dark_gray
     binary: dark_gray
-    cellpath: dark_gray
+    cell-path: dark_gray
     row_index: green_bold
     record: white
     list: white
@@ -179,7 +137,6 @@ let light_theme = {
 #     carapace $spans.0 nushell $spans | from json
 # }
 
-
 # The default config record. This is where much of your global configuration is setup.
 $env.config = {
     show_banner: true # true or false to enable or disable the welcome banner at startup
@@ -193,20 +150,21 @@ $env.config = {
         always_trash: false # always act as if -t was given. Can be overridden with -p
     }
 
-    cd: {
-        abbreviations: false # allows `cd s/o/f` to expand to `cd some/other/folder`
-    }
-
     table: {
         mode: rounded # basic, compact, compact_double, light, thin, with_love, rounded, reinforced, heavy, none, other
         index_mode: always # "always" show indexes, "never" show indexes, "auto" = show indexes when a table has "index" column
         show_empty: true # show 'empty list' and 'empty record' placeholders for command output
+        padding: { left: 1, right: 1 } # a left right padding of each column in a table
         trim: {
             methodology: wrapping # wrapping or truncating
             wrapping_try_keep_words: true # A strategy used by the 'wrapping' methodology
             truncating_suffix: "..." # A suffix used by the 'truncating' methodology
         }
+        header_on_separator: false # show header text on separator/border line
+        # abbreviated_row_count: 10 # limit data rows from top and bottom after reaching a set point
     }
+
+    error_style: "fancy" # "fancy" or "plain" for screen reader-friendly error messages
 
     # datetime_format determines what a datetime rendered in the shell would look like.
     # Behavior without this configuration point will be to "humanize" the datetime display,
@@ -217,9 +175,6 @@ $env.config = {
     }
 
     explore: {
-        try: {
-            border_color: {fg: "white"}
-        },
         status_bar_background: {fg: "#1D1F21", bg: "#C4C9C6"},
         command_bar_text: {fg: "#C4C9C6"},
         highlight: {fg: "black", bg: "yellow"},
@@ -230,18 +185,9 @@ $env.config = {
         },
         table: {
             split_line: {fg: "#404040"},
-            selected_cell: {},
+            selected_cell: {bg: light_blue},
             selected_row: {},
             selected_column: {},
-            cursor: true,
-            line_head_top: true,
-            line_head_bottom: true,
-            line_shift: true,
-            line_index: true,
-        },
-        config: {
-            border_color: {fg: "white"}
-            cursor_color: {fg: "black", bg: "light_yellow"}
         },
     }
 
@@ -270,12 +216,12 @@ $env.config = {
     }
 
     cursor_shape: {
-        emacs: line # block, underscore, line, blink_block, blink_underscore, blink_line (line is the default)
-        vi_insert: block # block, underscore, line , blink_block, blink_underscore, blink_line (block is the default)
-        vi_normal: underscore # block, underscore, line, blink_block, blink_underscore, blink_line (underscore is the default)
+        emacs: line # block, underscore, line, blink_block, blink_underscore, blink_line, inherit to skip setting cursor shape (line is the default)
+        vi_insert: block # block, underscore, line, blink_block, blink_underscore, blink_line, inherit to skip setting cursor shape (block is the default)
+        vi_normal: underscore # block, underscore, line, blink_block, blink_underscore, blink_line, inherit to skip setting cursor shape (underscore is the default)
     }
 
-    color_config: {} # if you want a more interesting theme, you can replace the empty record with `$dark_theme`, `$light_theme` or another custom record
+    color_config: $dark_theme # if you want a more interesting theme, you can replace the empty record with `$dark_theme`, `$light_theme` or another custom record
     use_grid_icons: true
     footer_mode: "25" # always, never, number_of_rows, auto
     float_precision: 2 # the precision for displaying floats in tables
@@ -285,6 +231,7 @@ $env.config = {
     edit_mode: emacs # emacs, vi
     shell_integration: false # enables terminal shell integration. Off by default, as some terminals have issues with this.
     render_right_prompt_on_last_line: false # true or false to enable or disable right prompt to be rendered on last line of the prompt.
+    use_kitty_protocol: false # enables keyboard enhancement protocol implemented by kitty console, only if your terminal support this
 
     hooks: {
         pre_prompt: [{ null }] # run before the prompt is shown
@@ -292,7 +239,7 @@ $env.config = {
         env_change: {
             PWD: [{|before, after| null }] # run if the PWD environment is different since the last repl input
         }
-        display_output: { table } # run before the output of a command is drawn, example: `{ if (term size).columns >= 100 { table -e } else { table } }`
+        display_output: "if (term size).columns >= 100 { table -e } else { table }" # run to display the output of a pipeline
         command_not_found: { null } # return an error message when a command is not found
     }
 
@@ -359,6 +306,7 @@ $env.config = {
                 until: [
                     { send: menu name: completion_menu }
                     { send: menunext }
+                    { edit: complete }
                 ]
             }
         }
@@ -433,7 +381,7 @@ $env.config = {
         {
             name: search_history
             modifier: control
-            keycode: char_r
+            keycode: char_q
             mode: [emacs, vi_normal, vi_insert]
             event: { send: searchhistory }
         }
@@ -807,4 +755,3 @@ $env.config = {
         }
     ]
 }
-
