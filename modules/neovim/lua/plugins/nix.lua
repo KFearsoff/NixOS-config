@@ -24,16 +24,5 @@ return {
       --   },
       -- },
     },
-  },
-
-  {
-    "neovim/nvim-lspconfig",
-    opts = {
-      servers = {
-        rnix = {
-          document_formatting_provider = nil,
-        },
-      },
-    },
-  },
+  }
 }
