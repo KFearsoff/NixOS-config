@@ -22,6 +22,11 @@ in {
       initrd.verbose = false;
     };
 
+    initrd.systemd = {
+      enable = true;
+      emergencyAccess = true;
+    };
+
     boot.loader.systemd-boot = mkIf (cfg.bootloader == "systemd-boot") {
       enable = true;
       consoleMode = "max";
