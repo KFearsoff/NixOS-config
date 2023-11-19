@@ -12,11 +12,13 @@
       isNormalUser = true;
       extraGroups = ["wheel" "networkmanager" "video"];
     };
-    home-manager.useGlobalPkgs = true;
-    home-manager.useUserPackages = true;
-    home-manager.extraSpecialArgs = {inherit username;};
-    home-manager.verbose = true;
-    home-manager.sharedModules = [../modules/terminal.nix];
+    home-manager = {
+      useGlobalPkgs = true;
+      useUserPackages = true;
+      extraSpecialArgs = {inherit username;};
+      verbose = true;
+      sharedModules = [../modules/terminal.nix];
+    };
     hm = {
       systemd.user.startServices = "sd-switch";
       xdg = {

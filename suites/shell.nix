@@ -1,5 +1,7 @@
 {
-  nixchad.nushell.enable = true;
-  nixchad.zsh.enable = true;
-  nixchad.starship.enable = true;
+  nixchad = {
+    nushell.enable = true;
+    zsh.enable = true;
+    starship.enable = true;
+  };
 }

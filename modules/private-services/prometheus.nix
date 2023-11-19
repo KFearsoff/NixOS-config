@@ -12,7 +12,34 @@ in {
   };
 
   config = mkIf cfg.enable {
-    nixchad.alertmanager.enable = mkDefault true;
+    nixchad = {
+      alertmanager.enable = mkDefault true;
+
+      impermanence.persisted.values = [
+        {
+          directories =
+            lib.mkIf (config.nixchad.impermanence.presets.essential && config.nixchad.impermanence.presets.services)
+            [("/var/lib/" + config.services.prometheus.stateDir)];
+        }
+      ];
+
+      nginx.vhosts."prometheus" = {
+        port = prometheusPort;
+      };
+
+      grafana-agent.metrics_scrape_configs = [
+        {
+          job_name = "prometheus";
+          static_configs = [
+            {
+              targets = [
+                "localhost:${toString prometheusPort}"
+              ];
+            }
+          ];
+        }
+      ];
+    };
 
     services.prometheus = {
       enable = true;
@@ -27,31 +54,6 @@ in {
       extraFlags = ["--web.enable-remote-write-receiver"];
       enableReload = true;
     };
-
-    nixchad.impermanence.persisted.values = [
-      {
-        directories =
-          lib.mkIf (config.nixchad.impermanence.presets.essential && config.nixchad.impermanence.presets.services)
-          [("/var/lib/" + config.services.prometheus.stateDir)];
-      }
-    ];
-
-    nixchad.nginx.vhosts."prometheus" = {
-      port = prometheusPort;
-    };
-
-    nixchad.grafana-agent.metrics_scrape_configs = [
-      {
-        job_name = "prometheus";
-        static_configs = [
-          {
-            targets = [
-              "localhost:${toString prometheusPort}"
-            ];
-          }
-        ];
-      }
-    ];
     networking.firewall.interfaces.tailscale0.allowedTCPPorts = [9090];
   };
 }

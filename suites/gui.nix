@@ -1,11 +1,13 @@
 {
-  nixchad.gui.enable = true;
-  nixchad.newsboat.enable = true;
-  nixchad.fonts.enable = true;
-  nixchad.alacritty.enable = true;
-  #nixchad.mpv.enable = true;
-  nixchad.zathura.enable = true;
-  nixchad.theming.enable = true;
-  nixchad.firefox.enable = true;
-  nixchad.mpd.enable = true;
+  nixchad = {
+    gui.enable = true;
+    newsboat.enable = true;
+    fonts.enable = true;
+    alacritty.enable = true;
+    #nixchad.mpv.enable = true;
+    zathura.enable = true;
+    theming.enable = true;
+    firefox.enable = true;
+    mpd.enable = true;
+  };
 }

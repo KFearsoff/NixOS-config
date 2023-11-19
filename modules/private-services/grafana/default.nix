@@ -72,37 +72,38 @@ in {
         }
       ];
     };
+    nixchad = {
+      impermanence.persisted.values = [
+        {
+          directories =
+            lib.mkIf (config.nixchad.impermanence.presets.essential && config.nixchad.impermanence.presets.services)
+            [
+              {
+                directory = config.services.grafana.dataDir;
+                user = "grafana";
+                group = "grafana";
+              }
+            ];
+        }
+      ];
 
-    nixchad.impermanence.persisted.values = [
-      {
-        directories =
-          lib.mkIf (config.nixchad.impermanence.presets.essential && config.nixchad.impermanence.presets.services)
-          [
+      nginx.vhosts."grafana" = {
+        websockets = true;
+        port = grafanaPort;
+      };
+
+      grafana-agent.metrics_scrape_configs = [
+        {
+          job_name = "grafana";
+          static_configs = [
             {
-              directory = config.services.grafana.dataDir;
-              user = "grafana";
-              group = "grafana";
+              targets = [
+                "localhost:${toString grafanaPort}"
+              ];
             }
           ];
-      }
-    ];
-
-    nixchad.nginx.vhosts."grafana" = {
-      websockets = true;
-      port = grafanaPort;
+        }
+      ];
     };
-
-    nixchad.grafana-agent.metrics_scrape_configs = [
-      {
-        job_name = "grafana";
-        static_configs = [
-          {
-            targets = [
-              "localhost:${toString grafanaPort}"
-            ];
-          }
-        ];
-      }
-    ];
   };
 }

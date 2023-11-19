@@ -1,7 +1,9 @@
 {lib, ...}: {
-  nixchad.node-exporter.enable = true;
-  nixchad.smartctl-exporter.enable = lib.mkDefault true;
-  nixchad.grafana-agent.enable = true;
-  nixchad.cadvisor.enable = true;
-  nixchad.restic.enable = true;
+  nixchad = {
+    node-exporter.enable = true;
+    smartctl-exporter.enable = lib.mkDefault true;
+    grafana-agent.enable = true;
+    cadvisor.enable = true;
+    restic.enable = true;
+  };
 }

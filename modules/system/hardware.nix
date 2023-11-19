@@ -11,9 +11,11 @@ in {
   };
 
   config = mkIf cfg.enable {
-    services.smartd.enable = true;
-    services.smartd.defaults.monitored = mkDefault "-a -o on -s (S/../01/./03|L/(01|07)/.././03)";
-    services.fwupd.enable = true;
+    services = {
+      smartd.enable = true;
+      smartd.defaults.monitored = mkDefault "-a -o on -s (S/../01/./03|L/(01|07)/.././03)";
+      fwupd.enable = true;
+    };
 
     nixchad.impermanence.persisted.values = [
       {

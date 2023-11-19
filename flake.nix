@@ -251,7 +251,7 @@
             # Nix
             alejandra.enable = true;
             deadnix.enable = true;
-            # statix.enable = true;
+            statix.enable = true;
           };
         };
 

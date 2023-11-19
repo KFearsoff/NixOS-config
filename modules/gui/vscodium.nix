@@ -29,17 +29,21 @@ in {
         ];
 
         userSettings = {
-          workbench.colorTheme = "Dracula";
+          workbench = {
+            colorTheme = "Dracula";
+            enableExperiments = false;
+            settings.enableNaturalLanguageSearch = false;
+          };
           nix.enableLanguageServer = true;
           files.autoSave = "afterDelay";
-          editor.tabSize = 2;
-          editor.tabCompletion = "on";
-          editor.fontFamily = "'Iosevka', 'monospace', monospace";
-          editor.fontLigatures = true;
-          editor.formatOnSave = true;
+          editor = {
+            tabSize = 2;
+            tabCompletion = "on";
+            fontFamily = "'Iosevka', 'monospace', monospace";
+            fontLigatures = true;
+            formatOnSave = true;
+          };
           diffEditor.codeLens = true;
-          workbench.enableExperiments = false;
-          workbench.settings.enableNaturalLanguageSearch = false;
           update.mode = "manual";
           update.showReleaseNotes = false;
           json.schemaDownload.enable = false;

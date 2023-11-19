@@ -29,9 +29,13 @@ in {
   };
 
   config = mkIf cfg.enable {
-    nixchad.gui.obs = mkDefault true;
-    nixchad.gui.rofi = mkDefault true;
-    nixchad.gui.pipewire = mkDefault true;
+    nixchad = {
+      gui = {
+        obs = mkDefault true;
+        rofi = mkDefault true;
+        pipewire = mkDefault true;
+      };
+    };
 
     environment.systemPackages = with pkgs; [
       xdg-utils

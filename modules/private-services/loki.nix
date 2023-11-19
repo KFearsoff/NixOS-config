@@ -67,36 +67,37 @@ in {
         ruler.alertmanager_url = alertmanagerPort;
       };
     };
-
-    nixchad.grafana-agent.metrics_scrape_configs = [
-      {
-        job_name = "loki";
-        static_configs = [
-          {
-            targets = [
-              "localhost:${toString lokiHttpPort}"
-            ];
-          }
-        ];
-      }
-    ];
-
-    nixchad.impermanence.persisted.values = [
-      {
-        directories =
-          lib.mkIf (config.nixchad.impermanence.presets.essential && config.nixchad.impermanence.presets.services)
-          [
+    nixchad = {
+      grafana-agent.metrics_scrape_configs = [
+        {
+          job_name = "loki";
+          static_configs = [
             {
-              directory = config.services.loki.dataDir;
-              user = "loki";
-              group = "loki";
+              targets = [
+                "localhost:${toString lokiHttpPort}"
+              ];
             }
           ];
-      }
-    ];
+        }
+      ];
 
-    nixchad.nginx.vhosts."loki" = {
-      port = lokiHttpPort;
+      impermanence.persisted.values = [
+        {
+          directories =
+            lib.mkIf (config.nixchad.impermanence.presets.essential && config.nixchad.impermanence.presets.services)
+            [
+              {
+                directory = config.services.loki.dataDir;
+                user = "loki";
+                group = "loki";
+              }
+            ];
+        }
+      ];
+
+      nginx.vhosts."loki" = {
+        port = lokiHttpPort;
+      };
     };
     networking.firewall.interfaces.tailscale0.allowedTCPPorts = [lokiHttpPort lokiGrpcPort];
   };

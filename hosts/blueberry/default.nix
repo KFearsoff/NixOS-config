@@ -23,19 +23,20 @@
   boot.extraModprobeConfig = ''
     options snd_usb_audio vid=0x1235 pid=0x8210 device_setup=1
   '';
+  nixchad = {
+    boot.bootloader = "systemd-boot";
+    restic.usb-backups = true;
+    smartctl-exporter.devices = ["/dev/nvme0n1"];
+    waybar.battery = true;
 
-  nixchad.boot.bootloader = "systemd-boot";
-  nixchad.restic.usb-backups = true;
-  nixchad.smartctl-exporter.devices = ["/dev/nvme0n1"];
-  nixchad.waybar.battery = true;
-  programs.light.enable = true;
-
-  nixchad.impermanence.presets = {
-    enable = true;
-    essential = true;
-    system = true;
-    services = true;
+    impermanence.presets = {
+      enable = true;
+      essential = true;
+      system = true;
+      services = true;
+    };
   };
+  programs.light.enable = true;
 
   systemd.network = {
     enable = true;

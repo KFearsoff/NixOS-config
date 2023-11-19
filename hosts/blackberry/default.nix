@@ -28,17 +28,25 @@ in {
   boot.extraModprobeConfig = ''
     options snd_usb_audio vid=0x1235 pid=0x8210 device_setup=1
   '';
+  nixchad = {
+    boot.bootloader = "grub";
+    smartctl-exporter.devices = ["/dev/nvme0n1"];
+    waybar = {
+      backlight = false; # PC GPUs don't do that
+      battery = false; # PC, doesn't have a battery
+    };
+    swayidle.timeouts.lock = 6000;
+    restic.usb-backups = true;
+    firefox.enable = lib.mkForce false;
 
-  nixchad.boot.bootloader = "grub";
-  nixchad.smartctl-exporter.devices = ["/dev/nvme0n1"];
-  nixchad.waybar = {
-    backlight = false; # PC GPUs don't do that
-    battery = false; # PC, doesn't have a battery
+    impermanence.presets = {
+      enable = true;
+      essential = true;
+      system = true;
+      services = true;
+    };
   };
   programs.light.enable = false;
-  nixchad.swayidle.timeouts.lock = 6000;
-  nixchad.restic.usb-backups = true;
-  nixchad.firefox.enable = lib.mkForce false;
 
   systemd.network = {
     enable = true;
@@ -102,11 +110,4 @@ in {
   };
   networking.networkmanager.unmanaged = ["interface-name:${ifname}" "interface-name:br-libvirt" "interface-name:tailscale0" "interface-name:tun*"];
   systemd.services.NetworkManager-wait-online.enable = false;
-
-  nixchad.impermanence.presets = {
-    enable = true;
-    essential = true;
-    system = true;
-    services = true;
-  };
 }

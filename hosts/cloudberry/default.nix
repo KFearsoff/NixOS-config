@@ -13,10 +13,19 @@
   users.users."${username}".hashedPasswordFile = "/secrets/nixchad-password";
 
   networking.networkmanager.enable = false;
-  nixchad.minimal.enable = true;
-  nixchad.hardware.enable = false;
-  nixchad.boot.bootloader = "grub-noefi";
-  nixchad.photoprism.enable = false;
+  nixchad = {
+    minimal.enable = true;
+    hardware.enable = false;
+    boot.bootloader = "grub-noefi";
+    photoprism.enable = false;
+
+    impermanence.presets = {
+      enable = true;
+      essential = true;
+      system = true;
+      services = true;
+    };
+  };
   zramSwap.enable = true;
 
   networking = {
@@ -81,12 +90,5 @@
         }
       ];
     };
-  };
-
-  nixchad.impermanence.presets = {
-    enable = true;
-    essential = true;
-    system = true;
-    services = true;
   };
 }

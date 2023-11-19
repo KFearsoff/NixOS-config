@@ -1,7 +1,9 @@
 {
-  nixchad.neovim.enable = true;
-  nixchad.cli.enable = true;
-  nixchad.fzf.enable = true;
-  nixchad.bat.enable = true;
-  nixchad.nix-index.enable = true;
+  nixchad = {
+    neovim.enable = true;
+    cli.enable = true;
+    fzf.enable = true;
+    bat.enable = true;
+    nix-index.enable = true;
+  };
 }

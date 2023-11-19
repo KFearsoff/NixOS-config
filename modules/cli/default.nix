@@ -22,9 +22,11 @@ in {
   };
 
   config = mkIf cfg.enable {
-    nixchad.debug.enable = mkDefault true;
-    nixchad.utils.enable = mkDefault true;
-    nixchad.git.enable = mkDefault true;
+    nixchad = {
+      debug.enable = mkDefault true;
+      utils.enable = mkDefault true;
+      git.enable = mkDefault true;
+    };
 
     environment.systemPackages = with pkgs; [
       wget

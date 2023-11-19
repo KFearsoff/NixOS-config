@@ -13,10 +13,14 @@ in {
   };
 
   config = mkIf cfg.enable {
-    services.nitter.enable = true;
-    services.nitter.server.port = 32002;
-    services.nitter.server.hostname = nitterDomain;
-    services.redis.vmOverCommit = true;
+    services = {
+      nitter = {
+        enable = true;
+        server.port = 32002;
+        server.hostname = nitterDomain;
+      };
+      redis.vmOverCommit = true;
+    };
 
     nixchad.nginx.vhosts."nitter" = {
       port = nitterPort;

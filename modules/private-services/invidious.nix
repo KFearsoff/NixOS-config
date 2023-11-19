@@ -13,9 +13,13 @@ in {
   };
 
   config = mkIf cfg.enable {
-    services.invidious.enable = true;
-    services.invidious.port = 32000;
-    services.invidious.domain = invidiousDomain;
+    services = {
+      invidious = {
+        enable = true;
+        port = 32000;
+        domain = invidiousDomain;
+      };
+    };
 
     nixchad.nginx.vhosts."invidious" = {
       port = invidiousPort;

@@ -1,19 +1,21 @@
 {lib, ...}: {
-  nixchad.nginx.enable = true;
-  nixchad.prometheus.enable = true;
-  nixchad.grafana.enable = true;
-  nixchad.invidious.enable = true;
-  nixchad.libreddit.enable = true;
-  nixchad.nitter.enable = true;
-  nixchad.vaultwarden.enable = true;
-  nixchad.postgres.enable = true;
-  nixchad.postgres-exporter.enable = true;
-  nixchad.blackbox-exporter.enable = true;
-  nixchad.redis-exporter.enable = true;
-  nixchad.loki.enable = true;
-  nixchad.photoprism.enable = lib.mkDefault true;
+  nixchad = {
+    nginx.enable = true;
+    prometheus.enable = true;
+    grafana.enable = true;
+    invidious.enable = true;
+    libreddit.enable = true;
+    nitter.enable = true;
+    vaultwarden.enable = true;
+    postgres.enable = true;
+    postgres-exporter.enable = true;
+    blackbox-exporter.enable = true;
+    redis-exporter.enable = true;
+    loki.enable = true;
+    photoprism.enable = lib.mkDefault true;
+    tailforward.enable = true;
+    tempo.enable = true;
+    coredns.enable = true;
+  };
   networking.nat.enable = true;
-  nixchad.tailforward.enable = true;
-  nixchad.tempo.enable = true;
-  nixchad.coredns.enable = true;
 }
