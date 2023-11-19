@@ -102,6 +102,11 @@
         flake-compat.follows = "flake-compat-dep";
       };
     };
+
+    nu-scripts = {
+      url = "github:nushell/nu_scripts";
+      flake = false;
+    };
   };
 
   outputs = inputs: let

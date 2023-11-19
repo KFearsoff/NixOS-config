@@ -835,6 +835,22 @@
         "type": "indirect"
       }
     },
+    "nu-scripts": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1700275621,
+        "narHash": "sha256-sEKYf6JnqIFoAPPoDF/gBYpdr5ci0/LpRmjfArIda8k=",
+        "owner": "nushell",
+        "repo": "nu_scripts",
+        "rev": "9d02fb1ef85c73a1280c8d4cdd8797f376071586",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nushell",
+        "repo": "nu_scripts",
+        "type": "github"
+      }
+    },
     "nur": {
       "locked": {
         "lastModified": 1700306951,
@@ -956,6 +972,7 @@
         "neovim-nightly-overlay": "neovim-nightly-overlay",
         "nix-colors": "nix-colors",
         "nixpkgs": "nixpkgs",
+        "nu-scripts": "nu-scripts",
         "nur": "nur",
         "pre-commit-hooks": "pre-commit-hooks",
         "systems-dep": "systems-dep",

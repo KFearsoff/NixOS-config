@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  inputs,
   ...
 }:
 with lib; let
@@ -19,6 +20,14 @@ in {
         environmentVariables = {
           EDITOR = "nvim";
         };
+        extraConfig = ''
+          use ${inputs.nu-scripts}/aliases/git/git-aliases.nu *
+          use ${inputs.nu-scripts}/custom-completions/cargo/cargo-completions.nu *
+          use ${inputs.nu-scripts}/custom-completions/git/git-completions.nu *
+          use ${inputs.nu-scripts}/custom-completions/man/man-completions.nu *
+          use ${inputs.nu-scripts}/custom-completions/nix/nix-completions.nu *
+          use ${inputs.nu-scripts}/modules/docker/docker.nu *
+        '';
       };
     };
   };
