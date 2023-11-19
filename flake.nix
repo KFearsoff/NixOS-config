@@ -223,9 +223,11 @@
             pkgs.just
             inputs.deploy-rs.defaultPackage.${system}
             pkgs.nvd
+            pkgs.alejandra
           ];
 
           languages = {
+            nix.enable = true;
             lua.enable = true;
           };
 

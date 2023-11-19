@@ -177,9 +177,6 @@ in {
           editorconfig-checker
           nodePackages.bash-language-server
           shellcheck
-          statix
-          deadnix
-          alejandra
         ];
 
         extraLuaConfig = ''
