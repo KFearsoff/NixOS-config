@@ -4,7 +4,6 @@ return {
     opts = {
       linters_by_ft = {
         ["*"] = { "editorconfig-checker" },
-        yaml = { "actionlint" }
       },
     }
   },

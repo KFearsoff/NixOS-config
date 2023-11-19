@@ -173,9 +173,7 @@ in {
           nodePackages.yaml-language-server
 
           # Custom
-          actionlint
           editorconfig-checker
-          nodePackages.bash-language-server
           shellcheck
         ];
 
