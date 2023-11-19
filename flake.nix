@@ -61,10 +61,6 @@
         flake-utils.follows = "flake-utils-dep";
       };
     };
-    zsh-you-should-use = {
-      url = "github:MichaelAquilina/zsh-you-should-use";
-      flake = false;
-    };
     firefox = {
       url = "github:colemickens/flake-firefox-nightly";
       inputs = {

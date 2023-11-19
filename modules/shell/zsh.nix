@@ -1,5 +1,4 @@
 {
-  inputs,
   config,
   lib,
   pkgs,
@@ -7,9 +6,6 @@
 }:
 with lib; let
   cfg = config.nixchad.zsh;
-  rg = "${pkgs.ripgrep}/bin/rg";
-  fzf = "${pkgs.fzf}/bin/fzf";
-  bat = "${pkgs.bat}/bin/bat";
 in {
   imports = [./aliases.nix];
 
@@ -39,22 +35,6 @@ in {
         history.expireDuplicatesFirst = true;
         history.extended = true;
         initExtra = ''
-          # Search Files and Edit
-          fe() {
-            ${rg} --files ''${1:-.} | ${fzf} --preview '${bat} -fp {}' | xargs $EDITOR
-          }
-
-          # Search content and Edit
-          se() {
-            fileline=$(${rg} -n ''${1:-.} | ${fzf} | awk '{print $1}' | sed 's/.$//')
-            $EDITOR ''${fileline%%:*} +''${fileline##*:}
-          }
-
-          # Search git log, preview shows subject, body, and diff
-          fl() {
-            git log --oneline --color=always | ${fzf} --ansi --preview="echo {} | cut -d ' ' -f 1 | xargs -I @ sh -c 'git log --pretty=medium -n 1 @; git diff @^ @' | ${bat} --color=always" | cut -d ' ' -f 1 | xargs git log --pretty=short -n 1
-          }
-
           # Autocomplete "flake" to "flake.nix"
             zstyle ":completion:*:*:vim:*:*files" ignored-patterns '*.lock'
 
@@ -110,12 +90,6 @@ in {
 
           IFS=$SAVEIFS
         '';
-        plugins = [
-          {
-            name = "you-should-use";
-            src = inputs.zsh-you-should-use;
-          }
-        ];
       };
     };
   };

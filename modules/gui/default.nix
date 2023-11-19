@@ -50,7 +50,6 @@ in {
           tdesktop
           qbittorrent
           element-desktop
-          obsidian
           slack
           discord
           ardour

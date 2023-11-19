@@ -959,8 +959,7 @@
         "nur": "nur",
         "pre-commit-hooks": "pre-commit-hooks",
         "systems-dep": "systems-dep",
-        "tailforward": "tailforward",
-        "zsh-you-should-use": "zsh-you-should-use"
+        "tailforward": "tailforward"
       }
     },
     "rust-analyzer-src": {
@@ -1053,22 +1052,6 @@
       "original": {
         "owner": "KFearsoff",
         "repo": "tailforward",
-        "type": "github"
-      }
-    },
-    "zsh-you-should-use": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1681926346,
-        "narHash": "sha256-lKs6DhG3x/oRA5AxnRT+odCZFenpS86wPnPqxLonV2E=",
-        "owner": "MichaelAquilina",
-        "repo": "zsh-you-should-use",
-        "rev": "1f9cb008076d4f2011d5f814dfbcfbece94a99e0",
-        "type": "github"
-      },
-      "original": {
-        "owner": "MichaelAquilina",
-        "repo": "zsh-you-should-use",
         "type": "github"
       }
     }

@@ -7,7 +7,7 @@
 with lib; let
   cfg = config.terminal;
 in {
-  options.terminal = rec {
+  options.terminal = {
     enable = mkEnableOption "declarative management of terminal";
 
     package = mkOption {
