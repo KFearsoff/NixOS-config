@@ -120,7 +120,6 @@
       patches = f:
         with f; [
           #(pr <number> <sha>)
-          (pr 266598 "1w5lrr01k787sj9wpn6wc1s5ih2cfy1p2d4fckfzyj7b1q5wiv4y")
         ];
     };
     inherit (importedLib) buildSystem pkgs;
