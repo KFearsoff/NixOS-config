@@ -225,6 +225,10 @@
             pkgs.nvd
           ];
 
+          languages = {
+            lua.enable = true;
+          };
+
           # https://github.com/cachix/devenv/issues/528
           containers = pkgs.lib.mkForce {};
 

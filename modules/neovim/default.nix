@@ -156,7 +156,6 @@ in {
           gcc # needed for nvim-treesitter
 
           # LazyVim defaults
-          lua-language-server
           stylua
           shfmt
 
@@ -173,16 +172,11 @@ in {
           nodePackages.vscode-json-languageserver
           nodePackages.yaml-language-server
 
-          # Rust extra
-          rust-analyzer
-          taplo
-
           # Custom
           actionlint
           editorconfig-checker
           nodePackages.bash-language-server
           shellcheck
-          rnix-lsp
           statix
           deadnix
           alejandra
