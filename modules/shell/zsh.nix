@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }:
 with lib; let
@@ -26,6 +25,5 @@ in {
       zsh-autoenv.enable = true;
       syntaxHighlighting.enable = true;
     };
-    users.defaultUserShell = pkgs.nushell;
   };
 }

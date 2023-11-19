@@ -1,6 +1,7 @@
 {
   lib,
   username,
+  pkgs,
   ...
 }: {
   imports = [
@@ -11,6 +12,8 @@
     users.users."${username}" = {
       isNormalUser = true;
       extraGroups = ["wheel" "networkmanager" "video"];
+      shell = pkgs.nushell;
+      useDefaultShell = false;
     };
     home-manager = {
       useGlobalPkgs = true;
