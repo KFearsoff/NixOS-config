@@ -19,12 +19,14 @@ in {
     boot = {
       kernelParams = ["quiet" "udev.log_priority=3" "vt.global_cursor_default=0"];
       consoleLogLevel = 0;
-      initrd.verbose = false;
-    };
 
-    initrd.systemd = {
-      enable = true;
-      emergencyAccess = true;
+      initrd = {
+        verbose = false;
+        systemd = {
+          enable = true;
+          emergencyAccess = true;
+        };
+      };
     };
 
     boot.loader.systemd-boot = mkIf (cfg.bootloader == "systemd-boot") {
