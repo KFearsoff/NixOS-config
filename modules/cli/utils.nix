@@ -32,11 +32,7 @@ in {
     hm = {
       home = {
         packages = with pkgs; [
-          bottom # htop alternative
-          eza # alternative to ls
           tokei # list used programming languages
-          procs # alternative to ps
-          shellcheck
           ascii-image-converter
         ];
       };
