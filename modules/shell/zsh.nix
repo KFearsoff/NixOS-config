@@ -25,5 +25,14 @@ in {
       zsh-autoenv.enable = true;
       syntaxHighlighting.enable = true;
     };
+
+    hm = {
+      programs.zsh = {
+        enable = true;
+        autocd = true;
+        history.expireDuplicatesFirst = true;
+        history.extended = true;
+      };
+    };
   };
 }

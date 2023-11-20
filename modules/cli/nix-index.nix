@@ -23,6 +23,8 @@ in {
   };
 
   config = mkIf cfg.enable {
+    programs.command-not-found.enable = false;
+
     hm = {
       programs.nix-index.enable = true;
 
