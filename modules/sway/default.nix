@@ -46,12 +46,6 @@ in {
     hm = {config, ...}: {
       home.packages = [pkgs.wl-clipboard];
 
-      home.pointerCursor = {
-        package = pkgs.vanilla-dmz;
-        name = "Vanilla-DMZ";
-        gtk.enable = true;
-      };
-
       wayland.windowManager.sway = {
         enable = true;
         systemd.xdgAutostart = true;
