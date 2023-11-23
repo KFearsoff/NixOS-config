@@ -64,6 +64,7 @@ in {
       services = {
         udiskie.enable = true;
         safeeyes.enable = true;
+        caffeine.enable = true;
       };
 
       programs = {
