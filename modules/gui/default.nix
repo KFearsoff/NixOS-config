@@ -67,6 +67,7 @@ in {
       };
 
       programs = {
+        noti.enable = true;
         obs-studio.enable = cfg.obs;
         rofi = {
           enable = cfg.rofi;
