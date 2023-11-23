@@ -17,7 +17,6 @@ in {
         neofetch # the system won't boot without it
         ripgrep # alternative to grep
         fd # alternative to find
-        tldr
         nix-tree
         ncdu
       ]
@@ -38,6 +37,16 @@ in {
       };
 
       programs = {
+        tealdeer = {
+          enable = true;
+          settings = {
+            updates = {
+              auto_update = true;
+              auto_update_interval_hours = 24;
+            };
+          };
+        };
+
         direnv = {
           enable = true;
           nix-direnv.enable = true;
