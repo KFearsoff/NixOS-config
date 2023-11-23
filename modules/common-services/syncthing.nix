@@ -29,6 +29,8 @@ in {
       XDG_SYNC_DIR = "$HOME/Sync";
     };
 
+    services.syncthing.tray.enable = true;
+
     systemd.user.services."mirror-phone-photos" = {
       Unit.Description = "Mirror photos that were synced from phone to the general photo folder";
       Service = {

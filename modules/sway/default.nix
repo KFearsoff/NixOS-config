@@ -68,12 +68,23 @@ in {
         config = {
           inherit (cfg) modifier;
           bindkeysToCode = true;
-          window.titlebar = false;
           floating.titlebar = false;
 
           input = import ./input.nix;
           seat = {"*" = {hide_cursor = "10000";};};
           output = {"*" = {bg = "${wallpaper} fill";};};
+
+          window = {
+            titlebar = false;
+            commands = [
+              {
+                command = "floating enable, border none, resize set 450 400, move position 1470 0";
+                criteria = {
+                  title = "^Syncthing Tray( \(.*\))?$";
+                };
+              }
+            ];
+          };
 
           gaps = {inner = 10;};
           gaps.smartBorders = "on";
