@@ -47,11 +47,7 @@ in {
         userName = "KFears";
         extraConfig = {
           init.defaultBranch = "main";
-          merge.conflictStyle = "diff3";
           push.autoSetupRemote = "true";
-          diff = {
-            colorMoved = "default";
-          };
           sequence.editor = optionalString utilsEnabled "${pkgs.git-interactive-rebase-tool}/bin/interactive-rebase-tool";
           interactive-rebase-tool = {
             inputMoveLeft = "h";
@@ -69,14 +65,9 @@ in {
           user.signingkey = "~/.ssh/id_ed25519.pub";
           commit.gpgsign = true;
         };
-        delta = optionalAttrs utilsEnabled {
+        difftastic = optionalAttrs utilsEnabled {
           enable = true;
-          options = {
-            navigate = true;
-            line-numbers = true;
-            syntax-theme = "base16";
-            side-by-side = true;
-          };
+          display = "inline";
         };
         lfs.enable = true;
       };
