@@ -17,35 +17,34 @@ in {
 
     hm = {
       home.packages = optionals utilsEnabled [pkgs.git-filter-repo pkgs.git-absorb];
-      home.shellAliases = {
-        gd = "git diff ";
-        gdc = "git diff --cached";
-        gl = "git log --graph --color --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit";
-        gst = "git status ";
-        gsa = "git stash push ";
-        gsr = "git stash pop ";
-        gsl = "git stash list ";
-        gsd = "git stash drop ";
-        gc = "git commit ";
-        gca = "git commit --amend ";
-        gr = "git rebase ";
-        gpa = "git pull --all";
-        ga = "git add";
-        gre = "git restore ";
-        grs = "git restore --staged";
-        grc = "git rebase --continue";
-        gra = "git rebase --abort";
-        glp = "git log -p";
-        gcp = "git cherry-pick";
-        gcpc = "git cherry-pick --continue";
-        gcpa = "git cherry-pick --abort";
-      };
 
       programs.git = {
         enable = true;
         lfs.enable = true;
         userEmail = "kfearsoff@gmail.com";
         userName = "KFears";
+
+        aliases = {
+          a = "add";
+          d = "diff";
+          dc = "diff --cached";
+          sa = "stash push";
+          sr = "stash pop";
+          sl = "stash list";
+          sd = "stash drop";
+          c = "commit";
+          ca = "commit --amend";
+          r = "rebase";
+          re = "restore";
+          rs = "restore --staged";
+          rc = "rebase --continue";
+          ra = "rebase --abort";
+          lp = "log -p";
+          cp = "cherry-pick";
+          cpc = "cherry-pick --continue";
+          cpa = "cherry-pick --abort";
+        };
+
         extraConfig = {
           init.defaultBranch = "main";
           diff.algorithm = "histogram";
