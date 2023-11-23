@@ -61,7 +61,10 @@ in {
         ++ (optional config.programs.wireshark.enable wireshark)
         ++ (optional (!config.nixchad.firefox.enable) ungoogled-chromium);
 
-      services.udiskie.enable = true;
+      services = {
+        udiskie.enable = true;
+        safeeyes.enable = true;
+      };
 
       programs = {
         obs-studio.enable = cfg.obs;

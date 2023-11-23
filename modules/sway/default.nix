@@ -46,6 +46,8 @@ in {
     hm = {config, ...}: {
       home.packages = [pkgs.wl-clipboard];
 
+      services.swayosd.enable = true;
+
       wayland.windowManager.sway = {
         enable = true;
         systemd.xdgAutostart = true;
