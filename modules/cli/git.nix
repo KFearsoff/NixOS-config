@@ -43,11 +43,22 @@ in {
 
       programs.git = {
         enable = true;
+        lfs.enable = true;
         userEmail = "kfearsoff@gmail.com";
         userName = "KFears";
         extraConfig = {
           init.defaultBranch = "main";
+          diff.algorithm = "histogram";
+          branch.autoSetupRebase = "always";
+          rebase.autoStash = true;
           push.autoSetupRemote = "true";
+          push.default = "current";
+
+          url = {
+            "ssh://git@github.com/".insteadOf = "gh:";
+            "ssh://git@gitlab.com/".insteadOf = "gl:";
+          };
+
           sequence.editor = optionalString utilsEnabled "${pkgs.git-interactive-rebase-tool}/bin/interactive-rebase-tool";
           interactive-rebase-tool = {
             inputMoveLeft = "h";
@@ -65,11 +76,23 @@ in {
           user.signingkey = "~/.ssh/id_ed25519.pub";
           commit.gpgsign = true;
         };
+
+        includes = [
+          {
+            condition = "gitdir:/Documents/Work/**";
+            contents = {
+              user = {
+                email = "egor@naviteq.io";
+                name = "Egor Terentev";
+              };
+            };
+          }
+        ];
+
         difftastic = optionalAttrs utilsEnabled {
           enable = true;
           display = "inline";
         };
-        lfs.enable = true;
       };
     };
   };
