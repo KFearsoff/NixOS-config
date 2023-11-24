@@ -13,20 +13,11 @@ with lib; let
       mount -t btrfs -o subvol=/ /dev/disk/by-label/root "$MNTPOINT"
       trap 'umount "$MNTPOINT"' EXIT
 
-      echo "Archiving root subvolume"
-      TIMESTAMP=$(date -u --iso-8601=seconds)
-      btrfs subvolume snapshot "$MNTPOINT/root" "$MNTPOINT/root-archive-$TIMESTAMP"
-
-      echo "Pruning old archives"
-      PENDING_DELETION=$(ls -1d "/$MNTPOINT/root-archive-*" | sort -r | tail -n +11)
-
-      for subvol in "$PENDING_DELETION"; do
-        echo "Pruning archive $subvol"
-        btrfs subvolume list -o "$subvol" | cut -f9 -d ' ' |
-        while read -r subvolume; do
-          btrfs subvolume delete "$subvol/$subvolume"
-        done && btrfs subvolume delete "$subvol"
-      done
+      echo "Cleaning root subvolume"
+      btrfs subvolume list -o "$MNTPOINT/root" | cut -f9 -d ' ' |
+      while read -r subvolume; do
+        btrfs subvolume delete "$MNTPOINT/$subvolume"
+      done && btrfs subvolume delete "$MNTPOINT/root"
 
       echo "Restoring blank subvolume"
       btrfs subvolume snapshot "$MNTPOINT/root-blank" "$MNTPOINT/root"
