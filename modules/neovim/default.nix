@@ -97,38 +97,7 @@ in {
           nvim-treesitter-context
           nvim-ts-autotag
           nvim-treesitter-textobjects
-          (nvim-treesitter.withPlugins (p:
-            with p; [
-              # LazyVim defaults
-              bash
-              c
-              diff
-              html
-              javascript
-              jsdoc
-              json
-              jsonc
-              lua
-              luadoc
-              luap
-              markdown
-              markdown_inline
-              python
-              query
-              regex
-              toml
-              tsx
-              typescript
-              vim
-              vimdoc
-              yaml
-
-              # custom
-              dockerfile
-              nix
-              ron
-              rust
-            ]))
+          nvim-treesitter.withAllGrammars
 
           # comments
           nvim-ts-context-commentstring
