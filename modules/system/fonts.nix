@@ -25,6 +25,7 @@ in {
       packages = with pkgs; [
         (nerdfonts.override {fonts = ["FiraCode"];})
         noto-fonts
+        # TODO: rename to noto-fonts-color-emoji
         noto-fonts-emoji
         noto-fonts-cjk-sans
       ];

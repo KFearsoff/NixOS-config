@@ -18,6 +18,7 @@ in {
       ];
     };
 
+    # TODO: rename to fonts.packages
     fonts.fonts = with pkgs; [
       vistafonts
       corefonts
