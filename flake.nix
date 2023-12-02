@@ -68,13 +68,6 @@
         flake-utils.follows = "flake-utils-dep";
       };
     };
-    firefox = {
-      url = "github:colemickens/flake-firefox-nightly";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-compat.follows = "flake-compat-dep";
-      };
-    };
     arkenfox = {
       url = "github:arkenfox/user.js";
       flake = false;

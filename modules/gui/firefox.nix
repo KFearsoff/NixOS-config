@@ -17,7 +17,6 @@ in {
     hm = {
       programs.firefox = {
         enable = true;
-        package = inputs.firefox.packages.${pkgs.system}.firefox-nightly-bin;
         profiles = {
           "default" = {
             extraConfig =
@@ -34,6 +33,7 @@ in {
                 lockPref("signon.rememberSignons", false); // bitwarden is used instead
                 lockPref("toolkit.legacyUserProfileCustomizations.stylesheets", true); // enable CSS styling
                 lockPref("browser.tabs.inTitlebar", "0"); // use native decoration
+                lockPref("media.ffmpeg.vaapi.enabled", true); // enable hardware video acceleration
               '';
 
             userChrome = ''
