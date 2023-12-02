@@ -36,6 +36,13 @@
         flake-parts.follows = "flake-parts";
       };
     };
+    website = {
+      url = "github:KFearsoff/website";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        devenv.follows = "devenv";
+      };
+    };
 
     # User utils
     home-manager = {

@@ -16,6 +16,7 @@
     tailforward.enable = true;
     tempo.enable = true;
     coredns.enable = true;
+    website.enable = true;
   };
   networking.nat.enable = true;
 }

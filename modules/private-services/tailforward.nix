@@ -50,9 +50,6 @@ in {
 
         locations."/tailscale-webhook" = {
           proxyPass = "http://127.0.0.1:${port}";
-          extraConfig = ''
-            allow all;
-          '';
         };
       };
     };

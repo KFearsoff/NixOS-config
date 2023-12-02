@@ -17,5 +17,6 @@
     ./nginx.nix
     ./tempo.nix
     ./coredns.nix
+    ./website.nix
   ];
 }
