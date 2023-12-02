@@ -7,10 +7,8 @@
     };
   };
   console.useXkbConfig = true;
-  # TODO: services.xserver.xkb rename
-  services.xserver = {
+  services.xserver.xkb = {
     layout = "us,ru";
-    # TODO: options rename
-    xkbOptions = "caps:swapescape,grp:alt_shift_toggle,eurosign:e";
+    options = "caps:swapescape,grp:alt_shift_toggle,eurosign:e";
   };
 }
