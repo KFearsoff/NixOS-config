@@ -78,7 +78,7 @@ in {
 
         includes = [
           {
-            condition = "gitdir:/Documents/Work/**";
+            condition = "gitdir:~/Documents/Work/**";
             contents = {
               user = {
                 email = "egor@naviteq.io";
