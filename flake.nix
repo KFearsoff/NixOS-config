@@ -225,6 +225,7 @@
             inputs.deploy-rs.defaultPackage.${system}
             pkgs.nvd
             pkgs.alejandra
+            pkgs.nix-output-monitor
           ];
 
           languages = {

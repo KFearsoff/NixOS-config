@@ -19,6 +19,9 @@
 
   users.users."${username}".hashedPasswordFile = "/secrets/nixchad-password";
 
+  hardware.bluetooth.enable = true;
+  services.blueman.enable = true;
+
   # Focusrite Scarlett 2i2
   boot.extraModprobeConfig = ''
     options snd_usb_audio vid=0x1235 pid=0x8210 device_setup=1
