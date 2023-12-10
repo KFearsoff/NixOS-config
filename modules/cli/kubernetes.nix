@@ -14,11 +14,13 @@ in {
   config = mkIf cfg.enable {
     hm = {
       home = {
-        packages = with pkgs; [
-          kubectl
-          kubernetes-helm
-          minikube
-        ];
+        packages = with pkgs;
+          [
+            kubectl
+            kubernetes-helm
+            # minikube
+          ]
+          ++ optional config.nixchad.gui.enable openlens;
 
         file = optionalAttrs config.nixchad.libvirt.enable {
           # Patch Minikube kvm2 driver, see https://github.com/NixOS/nixpkgs/issues/115878

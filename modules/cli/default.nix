@@ -15,6 +15,7 @@ in {
     ./bat.nix
     ./fzf.nix
     ./nix-index.nix
+    ./cloud.nix
   ];
 
   options.nixchad.cli = {

@@ -1,6 +1,9 @@
 {
-  nixchad.containers.enable = true;
-  #nixchad.libvirt.enable = true;
-  #nixchad.vscodium.enable = true;
-  #nixchad.kubernetes.enable = true;
+  nixchad = {
+    containers.enable = true;
+    #libvirt.enable = true;
+    #vscodium.enable = true;
+    kubernetes.enable = true;
+    cloud.enable = true;
+  };
 }
