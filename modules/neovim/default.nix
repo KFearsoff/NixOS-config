@@ -124,6 +124,9 @@ in {
         extraPackages = with pkgs; [
           gcc # needed for nvim-treesitter
 
+          # HTML, CSS, JSON
+          vscode-langservers-extracted
+
           # LazyVim defaults
           stylua
           shfmt
@@ -138,7 +141,6 @@ in {
           docker-compose-language-service
 
           # JSON and YAML extras
-          nodePackages.vscode-json-languageserver
           nodePackages.yaml-language-server
 
           # Custom
