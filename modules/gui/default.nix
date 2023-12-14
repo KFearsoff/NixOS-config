@@ -54,7 +54,7 @@ in {
           discord
           ardour
           lingot
-          teams-for-linux
+          # teams-for-linux
           cinnamon.nemo
         ]
         #++ (optional config.services.pipewire.enable easyeffects)
