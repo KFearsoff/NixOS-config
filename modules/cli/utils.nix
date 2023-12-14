@@ -51,6 +51,8 @@ in {
           enable = true;
           nix-direnv.enable = true;
         };
+
+        btop.enable = true;
       };
     };
   };
