@@ -48,27 +48,14 @@ in {
   };
   programs.light.enable = false;
 
+  networking = {
+    networkmanager.enable = false;
+    useDHCP = false;
+    nat.externalInterface = ifname;
+  };
   systemd.network = {
     enable = true;
 
-    netdevs."br-libvirt".netdevConfig = {
-      Kind = "bridge";
-      Name = "br-libvirt";
-    };
-    networks = {
-      "${ifname}" = {
-        matchConfig.Name = "${ifname}";
-        networkConfig.Bridge = "br-libvirt";
-        linkConfig.RequiredForOnline = "enslaved";
-      };
-      "br-libvirt" = {
-        matchConfig.Name = "br-libvirt";
-        bridgeConfig = {};
-        address = ["192.168.1.104/24"];
-        routes = [{routeConfig.Gateway = "192.168.1.1";}];
-        linkConfig.RequiredForOnline = "routable";
-      };
-    };
     netdevs."10-wg0" = {
       netdevConfig = {
         Kind = "wireguard";
@@ -87,27 +74,33 @@ in {
         }
       ];
     };
-    networks.wg0 = {
-      matchConfig.Name = "wg0";
-      address = ["192.168.99.137/32" "2a01:4f8:c2c:a9a0:7767::137/32"];
-      routes = [
-        {
-          routeConfig.Destination = "192.168.99.0/24";
-          routeConfig.Scope = "link";
-        }
-        {
-          routeConfig.Destination = "2a01:4f8:c2c:a9a0:7767::/80";
-          routeConfig.Scope = "link";
-        }
-        {
-          routeConfig.Destination = "2a01:4f9:1a:f600:5650::/80";
-          routeConfig.Scope = "link";
-        }
-      ];
+    networks = {
+      main = {
+        name = "${ifname}";
+        gateway = ["192.168.1.1"];
+        address = ["192.168.1.104/24"];
+        routes = [{routeConfig.Destination = "192.168.1.1";}];
+      };
+      wg0 = {
+        matchConfig.Name = "wg0";
+        address = ["192.168.99.137/32" "2a01:4f8:c2c:a9a0:7767::137/32"];
+        routes = [
+          {
+            routeConfig.Destination = "192.168.99.0/24";
+            routeConfig.Scope = "link";
+          }
+          {
+            routeConfig.Destination = "2a01:4f8:c2c:a9a0:7767::/80";
+            routeConfig.Scope = "link";
+          }
+          {
+            routeConfig.Destination = "2a01:4f9:1a:f600:5650::/80";
+            routeConfig.Scope = "link";
+          }
+        ];
+      };
     };
 
     wait-online.ignoredInterfaces = ["tailscale0"];
   };
-  networking.networkmanager.unmanaged = ["interface-name:${ifname}" "interface-name:br-libvirt" "interface-name:tailscale0" "interface-name:tun*"];
-  systemd.services.NetworkManager-wait-online.enable = false;
 }
