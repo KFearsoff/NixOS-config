@@ -9,7 +9,7 @@
       keep-derivations = true;
       warn-dirty = false;
 
-      experimental-features = ["nix-command" "flakes" "ca-derivations"];
+      experimental-features = ["nix-command" "flakes" "ca-derivations" "auto-allocate-uids"];
 
       builders-use-substitutes = true;
       substituters = [
