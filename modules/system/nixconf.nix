@@ -1,6 +1,11 @@
-{pkgs, ...}: {
+{inputs, ...}: {
   nix = {
-    package = pkgs.nixUnstable;
+    # pin all the nixpkgs to the version in the flake
+    registry = {
+      self.flake = inputs.self;
+      nixpkgs.flake = inputs.nixpkgs;
+    };
+
     settings = {
       trusted-users = ["@wheel"];
       auto-optimise-store = true;
@@ -8,8 +13,9 @@
       keep-outputs = true;
       keep-derivations = true;
       warn-dirty = false;
+      log-lines = 9999;
 
-      experimental-features = ["nix-command" "flakes" "ca-derivations" "auto-allocate-uids"];
+      experimental-features = ["nix-command" "flakes" "ca-derivations"];
 
       builders-use-substitutes = true;
       substituters = [
@@ -23,6 +29,7 @@
         "nixpkgs-unfree.cachix.org-1:hqvoInulhbV4nJ9yJOEr+4wxhDV4xq2d1DK7S6Nj6rs="
       ];
     };
+
     gc = {
       automatic = true;
       options = "--delete-older-than 7d";

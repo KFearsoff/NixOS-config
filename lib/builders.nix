@@ -4,39 +4,45 @@
   patches ? _: [],
   hostSystem ? "x86_64-linux",
   targetSystems ? ["x86_64-linux" "aarch64-linux"],
+  config ? {},
 }: let
-  patchFetchers = {
-    pr = id: hash:
+  patchFetchers = rec {
+    pr = repo: id: hash:
       builtins.fetchurl {
-        url = "https://github.com/NixOS/nixpkgs/pull/${builtins.toString id}.diff";
+        url = "https://github.com/${repo}/pull/${builtins.toString id}.diff";
         sha256 = hash;
       };
+    npr = pr "NixOS/nixpkgs";
+    hmpr = pr "nix-community/home-manager";
   };
+
   pkgsForPatching = import inputs.nixpkgs {system = hostSystem;};
-  patchesToApply = patches patchFetchers;
-  patchedNixpkgsDrv =
-    if patchesToApply != []
-    then
-      pkgsForPatching.applyPatches
-      {
-        name = "nixpkgs-patched";
-        src = inputs.nixpkgs;
-        patches = patchesToApply;
-      }
-    else inputs.nixpkgs;
-  patchedNixpkgs = import patchedNixpkgsDrv;
+
+  fetchedPackages = patches patchFetchers;
+
+  patchInput = name: value:
+    if (fetchedPackages.${name} or []) != []
+    then let
+      patchedSrc = pkgsForPatching.applyPatches {
+        name = "source";
+        src = value;
+        patches = fetchedPackages.${name};
+      };
+    in
+      patchedSrc
+    else value;
+
+  patchedInputs = builtins.mapAttrs patchInput inputs;
+
+  patchedNixpkgs = import patchedInputs.nixpkgs;
+
   patchedNixpkgsBySystem = pkgsForPatching.lib.attrsets.genAttrs targetSystems (system:
     patchedNixpkgs {
       inherit system;
-      config.allowUnfree = true;
+      config = config // {allowUnfree = true;};
       overlays = builtins.attrValues overlays;
     });
   patchedNixpkgsHost = patchedNixpkgsBySystem.${hostSystem};
-  patchedInputs =
-    inputs
-    // {
-      nixpkgs = patchedNixpkgsDrv;
-    };
 
   buildSystem = {
     hostname,
@@ -51,19 +57,14 @@
       else [];
     pkgs = patchedNixpkgsBySystem.${system};
   in
-    import "${patchedNixpkgsDrv}/nixos/lib/eval-config.nix" {
+    import "${patchedInputs.nixpkgs}/nixos/lib/eval-config.nix" {
       inherit system;
+
       modules =
         [
           {
             networking.hostName = hostname;
             nixpkgs.pkgs = pkgs;
-
-            # pin all the nixpkgs to the version in the flake
-            nix = {
-              registry.nixpkgs.flake = patchedNixpkgsDrv;
-              nixPath = ["nixpkgs=${patchedNixpkgsDrv}"];
-            };
           }
           inputs.home-manager.nixosModules.home-manager
           inputs.impermanence.nixosModules.impermanence
@@ -74,8 +75,11 @@
         ]
         ++ machineSpecificModules
         ++ extraModules;
+
       specialArgs = {
         inputs = patchedInputs;
+        rawInputs = inputs;
+        pkgsHost = patchedNixpkgsHost;
         inherit username;
         inherit (patchedInputs) nix-colors;
         servername = "cloudberry";
