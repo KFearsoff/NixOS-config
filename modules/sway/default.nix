@@ -43,7 +43,7 @@ in {
     xdg.portal = {
       enable = true;
       extraPortals = [pkgs.xdg-desktop-portal-gtk pkgs.xdg-desktop-portal-wlr];
-      xdgOpenUsePortal = true;
+      # xdgOpenUsePortal = true;
       config.sway.default = lib.mkDefault ["wlr" "gtk"];
     };
 
