@@ -15,7 +15,6 @@
     photoprism.enable = lib.mkDefault true;
     tailforward.enable = true;
     tempo.enable = true;
-    coredns.enable = true;
     website.enable = true;
     freshrss.enable = true;
   };

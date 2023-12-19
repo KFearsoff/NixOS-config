@@ -16,7 +16,6 @@
     ./tailforward.nix
     ./nginx.nix
     ./tempo.nix
-    ./coredns.nix
     ./website.nix
     ./freshrss.nix
   ];
