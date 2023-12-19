@@ -8,6 +8,7 @@
     (import ./disko.nix {})
     ./hardware-configuration.nix
     inputs.disko.nixosModules.disko
+    ../../lib/update-pg.nix
   ];
 
   users.users."${username}".hashedPasswordFile = "/secrets/nixchad-password";
