@@ -118,10 +118,13 @@
     hostSystem = "x86_64-linux";
     importedLib = import ./lib/builders.nix {
       inherit inputs overlays hostSystem;
-      patches = f:
-        with f; [
+      patches = fetchers:
+        with fetchers; {
+          nixpkgs = [
+            ./overlays/freshrss.patch
+          ];
           #(pr <number> <sha>)
-        ];
+        };
     };
     inherit (importedLib) buildSystem pkgs;
   in

@@ -1,7 +1,7 @@
 {
   inputs,
   overlays ? {},
-  patches ? _: [],
+  patches ? _: {},
   hostSystem ? "x86_64-linux",
   targetSystems ? ["x86_64-linux" "aarch64-linux"],
   config ? {},
@@ -18,15 +18,15 @@
 
   pkgsForPatching = import inputs.nixpkgs {system = hostSystem;};
 
-  fetchedPackages = patches patchFetchers;
+  fetchedPatches = patches patchFetchers;
 
   patchInput = name: value:
-    if (fetchedPackages.${name} or []) != []
+    if (fetchedPatches.${name} or []) != []
     then let
       patchedSrc = pkgsForPatching.applyPatches {
         name = "source";
         src = value;
-        patches = fetchedPackages.${name};
+        patches = fetchedPatches.${name};
       };
     in
       patchedSrc
