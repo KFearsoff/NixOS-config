@@ -17,7 +17,8 @@ in {
       freshrss = {
         enable = true;
         baseUrl = "https://${domain}";
-        authType = "none";
+        # authType = "none";
+        passwordFile = ./freshrss-pass;
         virtualHost = domain;
         database = {
           type = "pgsql";
