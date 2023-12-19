@@ -15,7 +15,7 @@ in {
     services.postgresql = {
       enable = true;
       enableJIT = true;
-      package = pkgs.postgresql_14;
+      package = pkgs.postgresql_15;
     };
 
     nixchad.impermanence.persisted.values = [
