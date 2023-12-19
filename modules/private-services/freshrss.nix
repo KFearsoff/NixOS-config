@@ -41,6 +41,11 @@ in {
         useACMEHost = baseDomain;
         quic = true;
         kTLS = true;
+
+        extraConfig = ''
+          allow 100.0.0.0/8;
+          deny  all;
+        '';
       };
     };
 
