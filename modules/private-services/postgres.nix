@@ -24,7 +24,7 @@ in {
           lib.mkIf (config.nixchad.impermanence.presets.essential && config.nixchad.impermanence.presets.services)
           [
             {
-              directory = config.services.postgresql.dataDir;
+              directory = "/var/lib/postgresql"; # backup the whole dir recursively
               user = "postgres";
               group = "postgres";
             }
