@@ -17,6 +17,7 @@
     tempo.enable = true;
     coredns.enable = true;
     website.enable = true;
+    freshrss.enable = true;
   };
   networking.nat.enable = true;
 }

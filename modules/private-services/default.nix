@@ -18,5 +18,6 @@
     ./tempo.nix
     ./coredns.nix
     ./website.nix
+    ./freshrss.nix
   ];
 }
