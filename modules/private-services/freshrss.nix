@@ -13,48 +13,47 @@ in {
   };
 
   config = mkIf cfg.enable {
-    # services = {
-    #   freshrss = {
-    #     enable = true;
-    #     baseUrl = "https://${domain}";
-    #     authType = "none";
-    #     virtualHost = domain;
-    #     database = {
-    #       type = "pgsql";
-    #       # passFile = ./freshrss-pass; # empty password
-    #       host = "/run/postgresql"; # socket auth
-    #     };
-    #   };
-    #
-    #   postgresql = {
-    #     ensureDatabases = ["freshrss"];
-    #     ensureUsers = [
-    #       {
-    #         name = "freshrss";
-    #         ensureDBOwnership = true;
-    #       }
-    #     ];
-    #   };
-    #
-    #   nginx.virtualHosts."${domain}" = {
-    #     forceSSL = true;
-    #     useACMEHost = baseDomain;
-    #     quic = true;
-    #     kTLS = true;
-    #   };
-    # };
+    services = {
+      freshrss = {
+        enable = true;
+        baseUrl = "https://${domain}";
+        authType = "none";
+        virtualHost = domain;
+        database = {
+          type = "pgsql";
+          host = "/run/postgresql"; # socket auth
+        };
+      };
+
+      postgresql = {
+        ensureDatabases = ["freshrss"];
+        ensureUsers = [
+          {
+            name = "freshrss";
+            ensureDBOwnership = true;
+          }
+        ];
+      };
+
+      nginx.virtualHosts."${domain}" = {
+        forceSSL = true;
+        useACMEHost = baseDomain;
+        quic = true;
+        kTLS = true;
+      };
+    };
 
     security.acme.certs."${baseDomain}".extraDomainNames = [domain];
 
-    # # make sure we don't crash because postgres isn't ready
-    # systemd.services.phpfpm-freshrss.after = ["postgresql.service"];
-    #
-    # nixchad.impermanence.persisted.values = [
-    #   {
-    #     directories =
-    #       lib.mkIf (config.nixchad.impermanence.presets.essential && config.nixchad.impermanence.presets.services)
-    #       [config.services.freshrss.dataDir];
-    #   }
-    # ];
+    # make sure we don't crash because postgres isn't ready
+    systemd.services.phpfpm-freshrss.after = ["postgresql.service"];
+
+    nixchad.impermanence.persisted.values = [
+      {
+        directories =
+          lib.mkIf (config.nixchad.impermanence.presets.essential && config.nixchad.impermanence.presets.services)
+          [config.services.freshrss.dataDir];
+      }
+    ];
   };
 }

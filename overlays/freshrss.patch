@@ -1,0 +1,12 @@
+diff --git a/nixos/modules/services/web-apps/freshrss.nix b/nixos/modules/services/web-apps/freshrss.nix
+index 9683730bbe1f..9a14ea811766 100644
+--- a/nixos/modules/services/web-apps/freshrss.nix
++++ b/nixos/modules/services/web-apps/freshrss.nix
+@@ -249,6 +249,7 @@ in
+               ${if cfg.database.user != null then "--db-user" else null} = ''"${cfg.database.user}"'';
+               ${if cfg.database.tableprefix != null then "--db-prefix" else null} = ''"${cfg.database.tableprefix}"'';
+               ${if cfg.database.host != null && cfg.database.port != null then "--db-host" else null} = ''"${cfg.database.host}:${toString cfg.database.port}"'';
++              ${if cfg.database.host != null && cfg.database.port == null then "--db-host" else null} = ''"${cfg.database.host}"'';
+             });
+         in
+         {
