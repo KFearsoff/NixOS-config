@@ -50,6 +50,7 @@ in {
       home = {
         packages = [
           (pkgs.lutris.override {extraPkgs = _: cfg.lutrisPackages;})
+          pkgs.path-of-building
         ];
       };
 
