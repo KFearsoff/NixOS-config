@@ -18,6 +18,7 @@ in {
         enable = true;
         port = 32000;
         domain = invidiousDomain;
+        settings.db.user = "invidious";
       };
     };
 
