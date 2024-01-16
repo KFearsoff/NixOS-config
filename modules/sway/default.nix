@@ -40,17 +40,17 @@ in {
     hardware.opengl.enable = true;
     programs.dconf.enable = true;
     programs.light.enable = lib.mkDefault true;
-    xdg.portal = {
-      enable = true;
-      extraPortals = [pkgs.xdg-desktop-portal-gtk pkgs.xdg-desktop-portal-wlr];
-      # xdgOpenUsePortal = true;
-      config.sway.default = lib.mkDefault ["wlr" "gtk"];
-    };
 
     hm = {config, ...}: {
       home.packages = [pkgs.wl-clipboard];
 
       services.swayosd.enable = true;
+      xdg.portal = {
+        enable = true;
+        extraPortals = [pkgs.xdg-desktop-portal-gtk pkgs.xdg-desktop-portal-wlr];
+        xdgOpenUsePortal = true;
+        configPackages = [pkgs.sway];
+      };
 
       wayland.windowManager.sway = {
         enable = true;
