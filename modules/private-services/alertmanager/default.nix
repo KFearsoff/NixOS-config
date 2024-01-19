@@ -58,16 +58,6 @@ in {
           ];
         }
       ];
-
-      ruleFiles = [
-        ./blackbox.yaml
-        ./prometheus.yaml
-        ./node-exporter.yaml
-        ./cadvisor.yaml
-        ./postgres.yaml
-        ./redis.yaml
-        ./loki.yaml
-      ];
     };
 
     nixchad.nginx.vhosts."alertmanager" = {

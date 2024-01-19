@@ -49,17 +49,6 @@ in {
             (mkDatasource "tempo" "http://localhost:33102" {})
           ];
         };
-
-        dashboards.settings = {
-          providers = [
-            {
-              options = {
-                path = ./dashboards;
-                foldersFromFilesStructure = true;
-              };
-            }
-          ];
-        };
       };
     };
 
