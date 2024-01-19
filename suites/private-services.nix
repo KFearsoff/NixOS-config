@@ -5,7 +5,7 @@
     grafana.enable = true;
     invidious.enable = true;
     libreddit.enable = true;
-    nitter.enable = false;
+    nitter.enable = true;
     vaultwarden.enable = true;
     postgres.enable = true;
     postgres-exporter.enable = true;
