@@ -15,6 +15,7 @@ in {
   options.nixchad.games = {
     enable = mkEnableOption "games profile";
     gamemode.enable = mkEnableOption "gamemode";
+    lutris.enable = mkEnableOption "lutris";
 
     lutrisPackages = mkOption {
       type = types.listOf types.package;
@@ -48,10 +49,12 @@ in {
 
     hm = {
       home = {
-        packages = [
-          (pkgs.lutris.override {extraPkgs = _: cfg.lutrisPackages;})
-          pkgs.path-of-building
-        ];
+        packages =
+          [
+            pkgs.path-of-building
+          ]
+          ++ optional cfg.lutris.enable
+          (pkgs.lutris.override {extraPkgs = _: cfg.lutrisPackages;});
       };
 
       programs.mangohud = {

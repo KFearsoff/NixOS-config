@@ -56,6 +56,7 @@ in {
           lingot
           teams-for-linux
           cinnamon.nemo
+          remmina
         ]
         #++ (optional config.services.pipewire.enable easyeffects)
         ++ (optional config.programs.wireshark.enable wireshark)
