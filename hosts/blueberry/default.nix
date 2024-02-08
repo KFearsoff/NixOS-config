@@ -31,12 +31,24 @@
     restic.usb-backups = true;
     smartctl-exporter.devices = ["/dev/nvme0n1"];
     waybar.battery = true;
+    impermanence = {
+      presets = {
+        enable = true;
+        essential = true;
+        system = true;
+        services = true;
+      };
 
-    impermanence.presets = {
-      enable = true;
-      essential = true;
-      system = true;
-      services = true;
+      persisted.values = [
+        {
+          directories = [
+            {
+              directory = "/var/lib/bluetooth";
+              mode = "0700";
+            }
+          ];
+        }
+      ];
     };
   };
   programs.light.enable = true;
