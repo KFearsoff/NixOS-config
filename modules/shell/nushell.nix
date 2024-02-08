@@ -18,7 +18,7 @@ in {
         configFile.source = ./config.nu;
         envFile.source = ./env.nu;
         environmentVariables = {
-          EDITOR = "nvim";
+          EDITOR = "hx";
         };
         extraConfig = ''
           use ${inputs.nu-scripts}/aliases/git/git-aliases.nu *

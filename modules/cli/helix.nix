@@ -11,13 +11,15 @@ in {
   };
 
   config = mkIf cfg.enable {
-    hm.programs.helix = {
-      enable = true;
-      defaultEditor = true;
-      settings = {
-        theme = "dracula";
-        editor = {
-          line-number = "relative";
+    hm = {
+      programs.helix = {
+        enable = true;
+        defaultEditor = true;
+        settings = {
+          theme = "dracula";
+          editor = {
+            line-number = "relative";
+          };
         };
       };
     };

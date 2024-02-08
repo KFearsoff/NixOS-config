@@ -121,8 +121,6 @@
       patches = fetchers:
         with fetchers; {
           nixpkgs = [
-            ./overlays/freshrss.patch
-            (npr 281213 "1rrr8x0jni4c4479qp3mdxak35amw4g0xx0bijxy5pg5brqbbng9")
           ];
           #(pr <number> <sha>)
         };
