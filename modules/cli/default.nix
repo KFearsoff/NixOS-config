@@ -16,6 +16,7 @@ in {
     ./fzf.nix
     ./nix-index.nix
     ./cloud.nix
+    ./helix.nix
   ];
 
   options.nixchad.cli = {
