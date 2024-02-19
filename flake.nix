@@ -52,22 +52,6 @@
     nix-colors.url = "github:misterio77/nix-colors";
 
     # User aplications
-    neovim-nightly-overlay = {
-      url = "github:nix-community/neovim-nightly-overlay";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-compat.follows = "flake-compat-dep";
-        neovim-flake.follows = "neovim-flake-dep";
-        flake-parts.follows = "flake-parts";
-      };
-    };
-    neovim-flake-dep = {
-      url = "github:neovim/neovim?dir=contrib";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "flake-utils-dep";
-      };
-    };
     arkenfox = {
       url = "github:arkenfox/user.js";
       flake = false;
@@ -111,10 +95,7 @@
 
   outputs = inputs: let
     overlays =
-      {
-        neovim-nightly-overlay = inputs.neovim-nightly-overlay.overlay;
-      }
-      // (import ./overlays);
+      import ./overlays;
     hostSystem = "x86_64-linux";
     importedLib = import ./lib/builders.nix {
       inherit inputs overlays hostSystem;
