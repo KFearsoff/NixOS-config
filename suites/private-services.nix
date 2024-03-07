@@ -4,8 +4,8 @@
     prometheus.enable = true;
     grafana.enable = true;
     invidious.enable = true;
-    libreddit.enable = true;
-    nitter.enable = true;
+    libreddit.enable = false;
+    nitter.enable = false;
     vaultwarden.enable = true;
     postgres.enable = true;
     postgres-exporter.enable = true;
