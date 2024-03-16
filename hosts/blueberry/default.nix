@@ -1,6 +1,7 @@
 {
   inputs,
   username,
+  pkgs,
   ...
 }: {
   imports = [
@@ -26,6 +27,7 @@
   boot.extraModprobeConfig = ''
     options snd_usb_audio vid=0x1235 pid=0x8210 device_setup=1
   '';
+  boot.kernelPackages = pkgs.linuxPackages;
   nixchad = {
     boot.bootloader = "systemd-boot";
     restic.usb-backups = true;

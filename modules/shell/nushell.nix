@@ -26,8 +26,8 @@ in {
           use ${inputs.nu-scripts}/custom-completions/git/git-completions.nu *
           use ${inputs.nu-scripts}/custom-completions/man/man-completions.nu *
           use ${inputs.nu-scripts}/custom-completions/nix/nix-completions.nu *
-          use ${inputs.nu-scripts}/modules/docker/docker.nu *
         '';
+        # use ${inputs.nu-scripts}/modules/docker/docker.nu *
       };
     };
   };
