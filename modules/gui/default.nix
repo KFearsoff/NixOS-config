@@ -31,7 +31,7 @@ in {
   config = mkIf cfg.enable {
     nixchad = {
       gui = {
-        obs = mkDefault true;
+        obs = mkDefault false;
         rofi = mkDefault true;
         pipewire = mkDefault true;
       };
@@ -54,7 +54,6 @@ in {
           discord
           ardour
           lingot
-          teams-for-linux
           cinnamon.nemo
           remmina
         ]
