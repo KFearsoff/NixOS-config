@@ -49,7 +49,7 @@ in {
         enable = true;
         extraPortals = [pkgs.xdg-desktop-portal-gtk pkgs.xdg-desktop-portal-wlr];
         xdgOpenUsePortal = true;
-        configPackages = [pkgs.sway];
+        configPackages = [config.wayland.windowManager.sway.package];
       };
 
       wayland.windowManager.sway = {
