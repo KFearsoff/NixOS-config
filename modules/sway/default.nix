@@ -42,24 +42,17 @@ in {
     programs.light.enable = lib.mkDefault true;
 
     hm = {config, ...}: {
-      home.packages = [pkgs.wl-clipboard];
+      home.packages = [pkgs.wl-clipboard pkgs.grim];
 
       services.swayosd.enable = true;
       xdg.portal = {
         enable = true;
         extraPortals = [pkgs.xdg-desktop-portal-gtk pkgs.xdg-desktop-portal-wlr];
         xdgOpenUsePortal = true;
-        config = {
-          sway = {
-            default = ["wlr" "gtk"];
-            # "org.freedesktop.impl.portal.Screencast" = ["wlr"];
-            # "org.freedesktop.impl.portal.Screenshot" = ["wlr"];
-          };
-        };
+        config.sway.default = ["wlr" "gtk"];
       };
 
       services.flameshot.enable = true;
-      systemd.user.services.flameshot.Service.Environment = mkForce "PATH=${config.home.profileDirectory}/bin:${pkgs.grim}/bin";
 
       wayland.windowManager.sway = {
         enable = true;
