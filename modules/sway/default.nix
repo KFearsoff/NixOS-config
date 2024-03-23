@@ -49,8 +49,17 @@ in {
         enable = true;
         extraPortals = [pkgs.xdg-desktop-portal-gtk pkgs.xdg-desktop-portal-wlr];
         xdgOpenUsePortal = true;
-        configPackages = [config.wayland.windowManager.sway.package];
+        config = {
+          sway = {
+            default = ["wlr" "gtk"];
+            # "org.freedesktop.impl.portal.Screencast" = ["wlr"];
+            # "org.freedesktop.impl.portal.Screenshot" = ["wlr"];
+          };
+        };
       };
+
+      services.flameshot.enable = true;
+      systemd.user.services.flameshot.Service.Environment = mkForce "PATH=${config.home.profileDirectory}/bin:${pkgs.grim}/bin";
 
       wayland.windowManager.sway = {
         enable = true;
@@ -64,7 +73,7 @@ in {
           export QT_AUTO_SCREEN_SCALE_FACTOR=1 # QT_WAYLAND_FORCE_DPI=physical forces some Qt apps to scale twice, is undesirable
           export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
           # required for some Java apps to work on Wayland
-          export _JAWA_AWT_WM_NONREPARENTING=1
+          export _JAVA_AWT_WM_NONREPARENTING=1
           # don't remember, let it be for now
           export DESKTOP_SESSION=sway
           export XDG_CURRENT_DESKTOP=sway
@@ -87,6 +96,12 @@ in {
                 command = "floating enable, border none, resize set 450 400, move position 1470 0";
                 criteria = {
                   title = "^Syncthing Tray( \(.*\))?$";
+                };
+              }
+              {
+                command = "border pixel 0, floating enable, fullscreen disable, move absolute position 0 0";
+                criteria = {
+                  app_id = "flameshot";
                 };
               }
             ];

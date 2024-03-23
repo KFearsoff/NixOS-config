@@ -33,8 +33,8 @@ with lib; let
       "XF86AudioMute" = "--no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle";
       "XF86AudioMicMute" = "--no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle";
 
-      "Print" = "${pkgs.sway-contrib.grimshot}/bin/grimshot copy area";
-      "${mod}+Print" = "${pkgs.sway-contrib.grimshot}/bin/grimshot save area";
+      # "Print" = "${pkgs.sway-contrib.grimshot}/bin/grimshot copy area";
+      # "${mod}+Print" = "${pkgs.sway-contrib.grimshot}/bin/grimshot save area";
     }
     // optionalAttrs config.nixchad.sway.backlight {
       "XF86MonBrightnessUp" = "${pkgs.light}/bin/light -A 5";

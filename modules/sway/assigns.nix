@@ -11,8 +11,8 @@ in {
       type = types.attrs;
       default = {
         "1" = [{app_id = "org.telegram.desktop";} {app_id = "Element";}];
-        "2" = [{app_id = "chromium-browser";} {app_id = "firefox-nightly";}];
-        "4" = [{class = "FreeTube";}];
+        "2" = [{app_id = "chromium-browser";} {app_id = "firefox";}];
+        "4" = [{app_id = "FreeTube";}];
         "7" = [
           # General Gaming
           {app_id = "lutris";}
