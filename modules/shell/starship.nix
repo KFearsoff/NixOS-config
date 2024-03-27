@@ -5,7 +5,7 @@
 }:
 with lib; let
   cfg = config.nixchad.starship;
-  inherit (config.hm) colorscheme;
+  inherit (config.hm) colorScheme;
 in {
   options.nixchad.starship = {
     enable = mkEnableOption "starship";
@@ -20,17 +20,17 @@ in {
           directory = {
             truncation_length = 1;
             fish_style_pwd_dir_length = 1;
-            style = "bold #${colorscheme.colors.base0B}";
+            style = "bold #${colorScheme.palette.base0B}";
           };
-          cmd_duration.style = "bold #${colorscheme.colors.base0A}";
-          hostname.style = "bold #${colorscheme.colors.base08}";
-          git_branch.style = "bold #${colorscheme.colors.base0E}";
-          git_status.style = "bold #${colorscheme.colors.base08}";
-          username.style_user = "bold #${colorscheme.colors.base09}";
+          cmd_duration.style = "bold #${colorScheme.palette.base0A}";
+          hostname.style = "bold #${colorScheme.palette.base08}";
+          git_branch.style = "bold #${colorScheme.palette.base0E}";
+          git_status.style = "bold #${colorScheme.palette.base08}";
+          username.style_user = "bold #${colorScheme.palette.base09}";
           character = {
-            success_symbol = "[❯](bold #${colorscheme.colors.base05})";
-            error_symbol = "[❯](bold #${colorscheme.colors.base08})";
-            vicmd_symbol = "[❮](bold #${colorscheme.colors.base05})";
+            success_symbol = "[❯](bold #${colorScheme.palette.base05})";
+            error_symbol = "[❯](bold #${colorScheme.palette.base08})";
+            vicmd_symbol = "[❮](bold #${colorScheme.palette.base05})";
           };
 
           line_break.disabled = true;

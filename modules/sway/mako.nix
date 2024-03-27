@@ -5,7 +5,7 @@
 }:
 with lib; let
   cfg = config.nixchad.mako;
-  inherit (config.hm) colorscheme;
+  inherit (config.hm) colorScheme;
 in {
   options.nixchad.mako = {
     enable = mkEnableOption "mako";
@@ -16,20 +16,20 @@ in {
       services.mako = {
         enable = true;
 
-        backgroundColor = "#${colorscheme.colors.base00}";
-        textColor = "#${colorscheme.colors.base05}";
-        borderColor = "#${colorscheme.colors.base0D}";
+        backgroundColor = "#${colorScheme.palette.base00}";
+        textColor = "#${colorScheme.palette.base05}";
+        borderColor = "#${colorScheme.palette.base0D}";
 
         extraConfig = ''
           [urgency=low]
-          background-color=#${colorscheme.colors.base00}
-          text-color=#${colorscheme.colors.base0A}
-          border-color=#${colorscheme.colors.base0D}
+          background-color=#${colorScheme.palette.base00}
+          text-color=#${colorScheme.palette.base0A}
+          border-color=#${colorScheme.palette.base0D}
 
           [urgency=high]
-          background-color=#${colorscheme.colors.base00}
-          text-color=#${colorscheme.colors.base08}
-          border-color=#${colorscheme.colors.base0D}
+          background-color=#${colorScheme.palette.base00}
+          text-color=#${colorScheme.palette.base08}
+          border-color=#${colorScheme.palette.base0D}
         '';
 
         defaultTimeout = 5000; # ms

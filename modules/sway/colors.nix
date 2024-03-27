@@ -1,5 +1,5 @@
-{colorscheme, ...}:
-with colorscheme.colors; {
+{colorScheme, ...}:
+with colorScheme.palette; {
   background = "#${base07}";
 
   focused = {

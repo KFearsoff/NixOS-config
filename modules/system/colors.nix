@@ -37,8 +37,8 @@ in {
   config = mkIf cfg.enable {
     hm = {
       imports = [nix-colors.homeManagerModule];
-      # config.colorscheme = nix-colors.colorSchemes.dracula;
-      config.colorscheme = dracula-patched;
+      # config.colorScheme = nix-colors.colorSchemes.dracula;
+      config.colorScheme = dracula-patched;
     };
   };
 }

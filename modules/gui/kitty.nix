@@ -6,7 +6,7 @@
 }:
 with lib; let
   cfg = config.nixchad.kitty;
-  inherit (config.hm) colorscheme;
+  inherit (config.hm) colorScheme;
 in {
   options.nixchad.kitty = {
     enable = mkEnableOption "kitty";
@@ -44,46 +44,46 @@ in {
           italic_font = "Iosevka Term Italic Nerd Font Complete Mono";
           bold_italic_font = "Iosevka Term Bold Italic Nerd Font Complete Mono";
 
-          background = "#${colorscheme.colors.base00}";
-          foreground = "#${colorscheme.colors.base05}";
+          background = "#${colorScheme.palette.base00}";
+          foreground = "#${colorScheme.palette.base05}";
 
-          selection_background = "#${colorscheme.colors.base05}";
-          selection_foreground = "#${colorscheme.colors.base00}";
+          selection_background = "#${colorScheme.palette.base05}";
+          selection_foreground = "#${colorScheme.palette.base00}";
 
-          url_color = "#${colorscheme.colors.base04}";
-          cursor = "#${colorscheme.colors.base05}";
-          active_border_color = "#${colorscheme.colors.base03}";
-          inactive_border_color = "#${colorscheme.colors.base01}";
-          active_tab_background = "#${colorscheme.colors.base00}";
-          active_tab_foreground = "#${colorscheme.colors.base05}";
-          inactive_tab_background = "#${colorscheme.colors.base01}";
-          inactive_tab_foreground = "#${colorscheme.colors.base04}";
-          tab_bar_background = "#${colorscheme.colors.base01}";
+          url_color = "#${colorScheme.palette.base04}";
+          cursor = "#${colorScheme.palette.base05}";
+          active_border_color = "#${colorScheme.palette.base03}";
+          inactive_border_color = "#${colorScheme.palette.base01}";
+          active_tab_background = "#${colorScheme.palette.base00}";
+          active_tab_foreground = "#${colorScheme.palette.base05}";
+          inactive_tab_background = "#${colorScheme.palette.base01}";
+          inactive_tab_foreground = "#${colorScheme.palette.base04}";
+          tab_bar_background = "#${colorScheme.palette.base01}";
 
-          color0 = "#${colorscheme.colors.base00}";
-          color1 = "#${colorscheme.colors.base08}";
-          color2 = "#${colorscheme.colors.base0B}";
-          color3 = "#${colorscheme.colors.base0A}";
-          color4 = "#${colorscheme.colors.base0D}";
-          color5 = "#${colorscheme.colors.base0E}";
-          color6 = "#${colorscheme.colors.base0C}";
-          color7 = "#${colorscheme.colors.base05}";
+          color0 = "#${colorScheme.palette.base00}";
+          color1 = "#${colorScheme.palette.base08}";
+          color2 = "#${colorScheme.palette.base0B}";
+          color3 = "#${colorScheme.palette.base0A}";
+          color4 = "#${colorScheme.palette.base0D}";
+          color5 = "#${colorScheme.palette.base0E}";
+          color6 = "#${colorScheme.palette.base0C}";
+          color7 = "#${colorScheme.palette.base05}";
 
-          color8 = "#${colorscheme.colors.base03}";
-          color9 = "#${colorscheme.colors.base08}";
-          color10 = "#${colorscheme.colors.base0B}";
-          color11 = "#${colorscheme.colors.base0A}";
-          color12 = "#${colorscheme.colors.base0D}";
-          color13 = "#${colorscheme.colors.base0E}";
-          color14 = "#${colorscheme.colors.base0C}";
-          color15 = "#${colorscheme.colors.base07}";
+          color8 = "#${colorScheme.palette.base03}";
+          color9 = "#${colorScheme.palette.base08}";
+          color10 = "#${colorScheme.palette.base0B}";
+          color11 = "#${colorScheme.palette.base0A}";
+          color12 = "#${colorScheme.palette.base0D}";
+          color13 = "#${colorScheme.palette.base0E}";
+          color14 = "#${colorScheme.palette.base0C}";
+          color15 = "#${colorScheme.palette.base07}";
 
-          color16 = "#${colorscheme.colors.base09}";
-          color17 = "#${colorscheme.colors.base0F}";
-          color18 = "#${colorscheme.colors.base01}";
-          color19 = "#${colorscheme.colors.base02}";
-          color20 = "#${colorscheme.colors.base04}";
-          color21 = "#${colorscheme.colors.base06}";
+          color16 = "#${colorScheme.palette.base09}";
+          color17 = "#${colorScheme.palette.base0F}";
+          color18 = "#${colorScheme.palette.base01}";
+          color19 = "#${colorScheme.palette.base02}";
+          color20 = "#${colorScheme.palette.base04}";
+          color21 = "#${colorScheme.palette.base06}";
         };
       };
     };

@@ -5,7 +5,7 @@
 }:
 with lib; let
   cfg = config.nixchad.zathura;
-  inherit (config.hm) colorscheme;
+  inherit (config.hm) colorScheme;
 in {
   options.nixchad.zathura = {
     enable = mkEnableOption "zathura";
@@ -27,38 +27,38 @@ in {
           zoom-min = 10;
           guioptions = "";
 
-          default-bg = "#${colorscheme.colors.base00}";
-          default-fg = "#${colorscheme.colors.base01}";
+          default-bg = "#${colorScheme.palette.base00}";
+          default-fg = "#${colorScheme.palette.base01}";
 
-          statusbar-bg = "#${colorscheme.colors.base02}";
-          statusbar-fg = "#${colorscheme.colors.base04}";
+          statusbar-bg = "#${colorScheme.palette.base02}";
+          statusbar-fg = "#${colorScheme.palette.base04}";
 
-          inputbar-bg = "#${colorscheme.colors.base00}";
-          inputbar-fg = "#${colorscheme.colors.base07}";
+          inputbar-bg = "#${colorScheme.palette.base00}";
+          inputbar-fg = "#${colorScheme.palette.base07}";
 
-          notification-bg = "#${colorscheme.colors.base00}";
-          notification-fg = "#${colorscheme.colors.base07}";
+          notification-bg = "#${colorScheme.palette.base00}";
+          notification-fg = "#${colorScheme.palette.base07}";
 
-          notification-error-bg = "#${colorscheme.colors.base00}";
-          notification-error-fg = "#${colorscheme.colors.base08}";
+          notification-error-bg = "#${colorScheme.palette.base00}";
+          notification-error-fg = "#${colorScheme.palette.base08}";
 
-          notification-warning-bg = "#${colorscheme.colors.base00}";
-          notification-warning-fg = "#${colorscheme.colors.base08}";
+          notification-warning-bg = "#${colorScheme.palette.base00}";
+          notification-warning-fg = "#${colorScheme.palette.base08}";
 
-          highlight-color = "#${colorscheme.colors.base0A}";
-          highlight-active-color = "#${colorscheme.colors.base0D}";
+          highlight-color = "#${colorScheme.palette.base0A}";
+          highlight-active-color = "#${colorScheme.palette.base0D}";
 
-          completion-bg = "#${colorscheme.colors.base01}";
-          completion-fg = "#${colorscheme.colors.base0D}";
+          completion-bg = "#${colorScheme.palette.base01}";
+          completion-fg = "#${colorScheme.palette.base0D}";
 
-          completion-highlight-bg = "#${colorscheme.colors.base0D}";
-          completion-highlight-fg = "#${colorscheme.colors.base07}";
+          completion-highlight-bg = "#${colorScheme.palette.base0D}";
+          completion-highlight-fg = "#${colorScheme.palette.base07}";
 
           # recoloring is bugged with mupdf:
           # https://git.pwmt.org/pwmt/zathura/-/issues/184
           # recolor = true;
-          recolor-lightcolor = "#${colorscheme.colors.base00}";
-          recolor-darkcolor = "#${colorscheme.colors.base06}";
+          recolor-lightcolor = "#${colorScheme.palette.base00}";
+          recolor-darkcolor = "#${colorScheme.palette.base06}";
           recolor-reverse-video = true;
           recolor-keephue = true;
 

@@ -6,7 +6,7 @@
 }:
 with lib; let
   cfg = config.nixchad.alacritty;
-  inherit (config.hm) colorscheme;
+  inherit (config.hm) colorScheme;
 in {
   options.nixchad.alacritty = {
     enable = mkEnableOption "alacritty";
@@ -29,61 +29,61 @@ in {
 
           colors = {
             primary = {
-              background = "0x${colorscheme.colors.base00}";
-              foreground = "0x${colorscheme.colors.base05}";
+              background = "0x${colorScheme.palette.base00}";
+              foreground = "0x${colorScheme.palette.base05}";
             };
 
             cursor = {
-              text = "0x${colorscheme.colors.base00}";
-              cursor = "0x${colorscheme.colors.base05}";
+              text = "0x${colorScheme.palette.base00}";
+              cursor = "0x${colorScheme.palette.base05}";
             };
 
             normal = {
-              black = "0x${colorscheme.colors.base00}";
-              red = "0x${colorscheme.colors.base08}";
-              green = "0x${colorscheme.colors.base0B}";
-              yellow = "0x${colorscheme.colors.base0A}";
-              blue = "0x${colorscheme.colors.base0D}";
-              magenta = "0x${colorscheme.colors.base0E}";
-              cyan = "0x${colorscheme.colors.base0C}";
-              white = "0x${colorscheme.colors.base05}";
+              black = "0x${colorScheme.palette.base00}";
+              red = "0x${colorScheme.palette.base08}";
+              green = "0x${colorScheme.palette.base0B}";
+              yellow = "0x${colorScheme.palette.base0A}";
+              blue = "0x${colorScheme.palette.base0D}";
+              magenta = "0x${colorScheme.palette.base0E}";
+              cyan = "0x${colorScheme.palette.base0C}";
+              white = "0x${colorScheme.palette.base05}";
             };
 
             bright = {
-              black = "0x${colorscheme.colors.base03}";
-              red = "0x${colorscheme.colors.base08}";
-              green = "0x${colorscheme.colors.base0B}";
-              yellow = "0x${colorscheme.colors.base0A}";
-              blue = "0x${colorscheme.colors.base0D}";
-              magenta = "0x${colorscheme.colors.base0E}";
-              cyan = "0x${colorscheme.colors.base0C}";
-              white = "0x${colorscheme.colors.base07}";
+              black = "0x${colorScheme.palette.base03}";
+              red = "0x${colorScheme.palette.base08}";
+              green = "0x${colorScheme.palette.base0B}";
+              yellow = "0x${colorScheme.palette.base0A}";
+              blue = "0x${colorScheme.palette.base0D}";
+              magenta = "0x${colorScheme.palette.base0E}";
+              cyan = "0x${colorScheme.palette.base0C}";
+              white = "0x${colorScheme.palette.base07}";
             };
 
             indexed_colors = [
               {
                 index = 16;
-                color = "0x${colorscheme.colors.base09}";
+                color = "0x${colorScheme.palette.base09}";
               }
               {
                 index = 17;
-                color = "0x${colorscheme.colors.base0F}";
+                color = "0x${colorScheme.palette.base0F}";
               }
               {
                 index = 18;
-                color = "0x${colorscheme.colors.base01}";
+                color = "0x${colorScheme.palette.base01}";
               }
               {
                 index = 19;
-                color = "0x${colorscheme.colors.base02}";
+                color = "0x${colorScheme.palette.base02}";
               }
               {
                 index = 20;
-                color = "0x${colorscheme.colors.base04}";
+                color = "0x${colorScheme.palette.base04}";
               }
               {
                 index = 21;
-                color = "0x${colorscheme.colors.base06}";
+                color = "0x${colorScheme.palette.base06}";
               }
             ];
 

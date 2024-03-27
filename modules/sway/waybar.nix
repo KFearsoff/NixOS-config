@@ -6,7 +6,7 @@
 }:
 with lib; let
   cfg = config.nixchad.waybar;
-  inherit (config.hm) colorscheme;
+  inherit (config.hm) colorScheme;
 in {
   options.nixchad.waybar = {
     enable = mkEnableOption "waybar";
@@ -150,7 +150,7 @@ in {
                 on = " ";
               };
               random-icons = {
-                off = "<span color=\"#${colorscheme.colors.base08}\"></span> ";
+                off = "<span color=\"#${colorScheme.palette.base08}\"></span> ";
                 on = " ";
               };
               repeat-icons = {
@@ -206,7 +206,7 @@ in {
           }
         ];
         style = let
-          inherit (colorscheme) colors;
+          colors = colorScheme.palette;
         in ''
           * {
             background: inherit;
