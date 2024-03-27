@@ -1,5 +1,6 @@
 {
   username,
+  config,
   lib,
   pkgs,
   ...
@@ -29,7 +30,7 @@ in {
       XDG_SYNC_DIR = "$HOME/Sync";
     };
 
-    services.syncthing.tray.enable = true;
+    services.syncthing.tray.enable = config.nixchad.gui.enable;
 
     systemd.user.services."mirror-phone-photos" = {
       Unit.Description = "Mirror photos that were synced from phone to the general photo folder";
