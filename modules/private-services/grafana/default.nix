@@ -47,6 +47,12 @@ in {
             (mkDatasource "prometheus" "http://localhost:9090" {})
             (mkDatasource "loki" "http://localhost:33100" {})
             (mkDatasource "tempo" "http://localhost:33102" {})
+            (mkDatasource "alertmanager" "http://localhost:${toString config.services.prometheus.alertmanager.port}" {
+              jsonData = {
+                implementation = "prometheus";
+                handleGrafanaManagedAlerts = true;
+              };
+            })
           ];
         };
       };
