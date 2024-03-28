@@ -22,6 +22,10 @@ in {
           };
         };
       };
+      # FIXME: nushell isn't included in `programs.helix.defaultEditor` in upstream
+      programs.nushell.environmentVariables = {
+        EDITOR = "hx";
+      };
     };
   };
 }

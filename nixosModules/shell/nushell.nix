@@ -17,9 +17,6 @@ in {
         enable = true;
         configFile.source = ./config.nu;
         envFile.source = ./env.nu;
-        environmentVariables = {
-          EDITOR = "hx";
-        };
         extraConfig = ''
           use ${inputs.nu-scripts}/aliases/git/git-aliases.nu *
           use ${inputs.nu-scripts}/custom-completions/cargo/cargo-completions.nu *
