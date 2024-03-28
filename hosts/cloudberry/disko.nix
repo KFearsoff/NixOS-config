@@ -29,6 +29,7 @@
           end = "100%";
           content = {
             type = "btrfs";
+            extraArgs = "--label root";
             subvolumes = {
               "/root" = {
                 mountpoint = "/";

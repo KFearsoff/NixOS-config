@@ -96,7 +96,7 @@ in {
         requires = ["dev-disk-by\\x2dlabel-root.device"];
         after = [
           "dev-disk-by\\x2dlabel-root.device"
-          #"systemd-cryptsetup@root.service" # TODO: check this!
+          "systemd-cryptsetup@crypted.service" # has to be "unlockedpartname.service"
         ];
         before = ["sysroot.mount"];
         unitConfig.DefaultDependencies = "no";
