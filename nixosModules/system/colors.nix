@@ -10,7 +10,7 @@ with lib; let
     slug = "dracula";
     name = "Dracula";
     author = "https://github.com/m-dango/base16-dracula-scheme/tree/76cf0bf41d8a1098ce1f43f86bb0413a1dc26e69";
-    colors = {
+    palette = {
       base00 = "282a36"; # Background
       base01 = "343746"; # Lighter Background
       base02 = "44475a"; # Selection
