@@ -16,11 +16,7 @@
       useDefaultShell = false;
     };
     home-manager = {
-      useGlobalPkgs = true;
-      useUserPackages = true;
       extraSpecialArgs = {inherit username;};
-      verbose = true;
-      sharedModules = [../modules/terminal.nix];
     };
     hm = {
       systemd.user.startServices = "sd-switch";

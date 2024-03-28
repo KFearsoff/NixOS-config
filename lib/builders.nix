@@ -69,8 +69,8 @@
           inputs.home-manager.nixosModules.home-manager
           inputs.impermanence.nixosModules.impermanence
           inputs.nur.nixosModules.nur
-          (../users + "/${username}.nix")
-          ../modules
+          ../users
+          ../nixosModules
           ./metadata.nix
         ]
         ++ machineSpecificModules
