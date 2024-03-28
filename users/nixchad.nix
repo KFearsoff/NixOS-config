@@ -1,22 +1,29 @@
 {
+  inputs,
+  config,
   lib,
   username,
   pkgs,
   ...
-}: {
+}: let
+  inherit (lib) mkAliasOptionModule optionalAttrs;
+in {
   imports = [
-    (lib.mkAliasOptionModule ["hm"] ["home-manager" "users" username])
+    (mkAliasOptionModule ["hm"] ["home-manager" "users" username])
   ];
 
   config = {
-    users.users."${username}" = {
-      isNormalUser = true;
-      extraGroups = ["wheel" "networkmanager" "video"];
-      shell = pkgs.nushell;
-      useDefaultShell = false;
-    };
+    users.users."${username}" =
+      {
+        isNormalUser = true;
+        extraGroups = ["wheel" "networkmanager" "video"];
+      }
+      // (optionalAttrs config.hm.nixchad.nushell.enable {
+        shell = pkgs.nushell;
+        useDefaultShell = false;
+      });
     home-manager = {
-      extraSpecialArgs = {inherit username;};
+      extraSpecialArgs = {inherit inputs username;};
     };
     hm = {
       systemd.user.startServices = "sd-switch";
