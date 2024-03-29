@@ -8,7 +8,7 @@
   inherit (lib) mkEnableOption mkIf;
 in {
   options.nixchad.nushell = {
-    enable = mkEnableOption "nushell";
+    enable = mkEnableOption "nushell" // {default = true;};
   };
 
   config = mkIf cfg.enable {
