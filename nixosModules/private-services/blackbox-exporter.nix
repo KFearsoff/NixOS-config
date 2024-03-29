@@ -35,12 +35,14 @@ with lib; let
         targets = let
           preTargetsIcmp = [
             "nixalted.com"
-            #"api.tailscale.com"
+            "bills-service-frontend.fly.dev"
+            "bills-service-backend.fly.dev"
+            "georgian-translator-bot.fly.dev"
           ];
           preTargetsHttps = [
-            #"nixalted.com"
-            #"api.tailscale.com"
-            #"api.telegram.org"
+            "nixalted.com"
+            "bills-service-frontend.fly.dev"
+            "bills-service-backend.fly.dev"
           ];
         in
           if (module == "icmp_v4" || module == "icmp_v6")
@@ -64,7 +66,7 @@ in {
 
       scrapeConfigs = map makeJobConfig (optionals (config.lib.metadata.hasIpv4 hostname) [
           "icmp_v4"
-          #"http_v4"
+          "http_v4"
         ]
         ++ optionals (config.lib.metadata.hasIpv6 hostname) [
           "icmp_v6"
