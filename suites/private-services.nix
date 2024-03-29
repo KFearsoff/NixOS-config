@@ -4,13 +4,10 @@
     prometheus.enable = true;
     grafana.enable = true;
     invidious.enable = true;
-    libreddit.enable = false;
-    nitter.enable = false;
     vaultwarden.enable = true;
     postgres.enable = true;
     postgres-exporter.enable = true;
     blackbox-exporter.enable = true;
-    redis-exporter.enable = true;
     loki.enable = true;
     photoprism.enable = lib.mkDefault true;
     tailforward.enable = true;

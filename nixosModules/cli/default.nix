@@ -12,7 +12,6 @@ in {
     ./utils.nix
     ./git.nix
     ./kubernetes.nix
-    ./bat.nix
     ./fzf.nix
     ./nix-index.nix
     ./cloud.nix

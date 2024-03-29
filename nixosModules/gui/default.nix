@@ -9,12 +9,10 @@ with lib; let
 in {
   imports = [
     ./alacritty.nix
-    ./kitty.nix
     ./mpv.nix
     ./zathura.nix
     ./office.nix
     ./graphics.nix
-    ./vscodium.nix
     ./newsboat.nix
     ./pipewire.nix
     ./theming.nix

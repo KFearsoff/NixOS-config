@@ -1,22 +1,18 @@
 {...}: {
   imports = [
-    ./grafana
+    ./grafana.nix
     ./invidious.nix
-    ./libreddit.nix
     ./loki.nix
-    ./nitter.nix
     ./postgres.nix
     ./postgres-exporter.nix
     ./blackbox-exporter.nix
-    ./redis-exporter.nix
     ./prometheus.nix
-    ./alertmanager
+    ./alertmanager.nix
     ./vaultwarden.nix
     ./photoprism.nix
     ./tailforward.nix
     ./nginx.nix
     ./tempo.nix
     ./website.nix
-    ./freshrss.nix
   ];
 }
