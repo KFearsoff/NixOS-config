@@ -13,7 +13,6 @@ in {
     ./waybar.nix
     ./greetd.nix
     ./mako.nix
-    ./swayidle.nix
     ./keybindings.nix
     ./startup.nix
     ./assigns.nix
@@ -33,8 +32,6 @@ in {
   };
 
   config = mkIf cfg.enable {
-    nixchad.swayidle.enable = mkDefault true;
-
     security.polkit.enable = true;
     security.pam.services.swaylock = {};
     hardware.opengl.enable = true;

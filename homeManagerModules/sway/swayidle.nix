@@ -2,13 +2,15 @@
   config,
   lib,
   pkgs,
+  osConfig,
   ...
-}:
-with lib; let
+}: let
   cfg = config.nixchad.swayidle;
+  inherit (lib) mkEnableOption mkIf mkOption types;
+  swaypkg = config.wayland.windowManager.sway.package;
 in {
   options.nixchad.swayidle = {
-    enable = mkEnableOption "swayidle";
+    enable = mkEnableOption "swayidle" // {default = osConfig.nixchad.sway.enable;};
     timeouts = {
       lock = mkOption {
         type = types.int;
@@ -21,7 +23,7 @@ in {
     };
   };
 
-  config.hm = mkIf cfg.enable {
+  config = mkIf cfg.enable {
     programs.swaylock = {
       enable = true;
       settings = {
@@ -49,8 +51,8 @@ in {
         }
         {
           timeout = cfg.timeouts.screen;
-          command = "${pkgs.sway}/bin/swaymsg \"output * dpms off\"";
-          resumeCommand = "${pkgs.sway}/bin/swaymsg \"output * dpms on\"";
+          command = "${swaypkg}/bin/swaymsg \"output * dpms off\"";
+          resumeCommand = "${swaypkg}/bin/swaymsg \"output * dpms on\"";
         }
       ];
     };
