@@ -11,7 +11,6 @@
       auto-optimise-store = true;
       keep-going = true;
       keep-outputs = true;
-      keep-derivations = true;
       warn-dirty = false;
       log-lines = 9999;
 
