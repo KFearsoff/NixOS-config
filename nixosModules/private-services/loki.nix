@@ -94,11 +94,6 @@ in {
             ];
         }
       ];
-
-      nginx.vhosts."loki" = {
-        port = lokiHttpPort;
-      };
     };
-    networking.firewall.interfaces.tailscale0.allowedTCPPorts = [lokiHttpPort lokiGrpcPort];
   };
 }

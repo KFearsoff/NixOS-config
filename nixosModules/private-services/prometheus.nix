@@ -23,10 +23,6 @@ in {
         }
       ];
 
-      nginx.vhosts."prometheus" = {
-        port = prometheusPort;
-      };
-
       grafana-agent.metrics_scrape_configs = [
         {
           job_name = "prometheus";

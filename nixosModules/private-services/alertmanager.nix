@@ -59,9 +59,5 @@ in {
         }
       ];
     };
-
-    nixchad.nginx.vhosts."alertmanager" = {
-      port = alertmanagerPort;
-    };
   };
 }
