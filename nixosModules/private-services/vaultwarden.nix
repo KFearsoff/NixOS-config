@@ -17,12 +17,14 @@ in {
       enable = true;
       dbBackend = "postgresql";
       config = {
-        rocketAddress = "0.0.0.0";
-        rocketPort = vaultwardenPort;
+        ROCKET_ADDRESS = "127.0.0.1";
+        ROCKET_PORT = vaultwardenPort;
+        DOMAIN = "https://${domain}";
 
-        databaseUrl = "postgresql://vaultwarden@/vaultwarden";
+        DATABASE_URL = "postgresql://vaultwarden@/vaultwarden";
 
-        domain = "https://${domain}";
+        SIGNUPS_ALLOWED = false;
+        SHOW_PASSWORD_HINT = false;
       };
     };
 
