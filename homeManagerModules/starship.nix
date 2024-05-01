@@ -8,7 +8,7 @@
   inherit (lib) mkEnableOption mkIf;
 in {
   options.nixchad.starship = {
-    enable = mkEnableOption "starship" // {default = true;};
+    enable = mkEnableOption "starship" // {default = config.nixchad.full.enable;};
   };
 
   config = mkIf cfg.enable {

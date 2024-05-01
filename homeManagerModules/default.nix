@@ -5,5 +5,6 @@
     ./starship.nix
     ./sway
     ./zoxide.nix
+    ./full.nix
   ];
 }

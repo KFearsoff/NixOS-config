@@ -7,7 +7,7 @@
   inherit (lib) mkEnableOption mkIf;
 in {
   options.nixchad.zoxide = {
-    enable = mkEnableOption "zoxide" // {default = true;};
+    enable = mkEnableOption "zoxide" // {default = config.nixchad.full.enable;};
   };
 
   config = mkIf cfg.enable {

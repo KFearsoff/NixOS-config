@@ -11,6 +11,7 @@
   ];
 
   users.users."${username}".hashedPasswordFile = "/secrets/nixchad-password";
+  hm.nixchad.full.enable = false;
 
   networking.networkmanager.enable = false;
   nixchad = {
