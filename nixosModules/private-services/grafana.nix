@@ -36,6 +36,18 @@ in {
           password = "";
         };
 
+        "auth.github" = {
+          enabled = true;
+          client_id = "$__file{/secrets/github_client_id}";
+          client_secret = "$__file{/secrets/github_client_secret}";
+          auto_login = true;
+          role_attribute_path = "[login=='KFearsoff'][0] && 'Admin' || 'Viewer'";
+        };
+        "auth.basic" = {
+          enabled = false;
+        };
+        auth.disable_login_form = true;
+
         "tracing.opentelemetry.otlp".address = "localhost:4317";
       };
 
