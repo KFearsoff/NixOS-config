@@ -33,6 +33,10 @@ in {
       wget
       jq
       git
+      terraform-mpl
+      awscli2
+      aws-vault
+      terragrunt
     ];
   };
 }
