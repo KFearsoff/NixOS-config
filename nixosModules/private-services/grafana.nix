@@ -56,9 +56,47 @@ in {
 
         datasources.settings = {
           datasources = [
-            (mkDatasource "prometheus" "http://localhost:9090" {})
-            (mkDatasource "loki" "http://localhost:33100" {})
-            (mkDatasource "tempo" "http://localhost:33102" {})
+            (mkDatasource "prometheus" "http://localhost:9090" {
+              jsonData = {
+                exemplarTraceIdDestinations = {
+                  datasourceUid = "provisioned_uid_tempo";
+                  traceIdLabelName = "traceID";
+                };
+              };
+            })
+            (mkDatasource "loki" "http://localhost:33100" {
+              jsonData = {
+                derivedFields = [
+                  {
+                    datasourceUid = "provisioned_uid_tempo";
+                    matcherRegex = "(?:traceID|traceId|trace_id)=(\\w+)";
+                    name = "TraceID";
+                    url = "$${__value.raw}";
+                    urlDisplayLabel = "View Trace";
+                  }
+                ];
+              };
+            })
+            (mkDatasource "tempo" "http://localhost:33102" {
+              jsonData = {
+                tracesToLogsV2 = {
+                  datasourceUid = "provisioned_uid_loki";
+                  spanStartTimeShift = "-5m";
+                  spanEndTimeShift = "5m";
+                  filterByTraceID = false;
+                  filterBySpanID = false;
+                };
+                serviceMap = {
+                  datasourceUid = "provisioned_uid_prometheus";
+                };
+                nodeGraph = {
+                  enabled = true;
+                };
+                lokiSearch = {
+                  datasourceUid = "provisioned_uid_loki";
+                };
+              };
+            })
             (mkDatasource "alertmanager" "http://localhost:${toString config.services.prometheus.alertmanager.port}" {
               jsonData = {
                 implementation = "prometheus";
