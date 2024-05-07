@@ -7,6 +7,7 @@ in {
     ./starship.nix
     ./sway
     ./zoxide.nix
+    ./cli
   ];
 
   options.nixchad.full = {

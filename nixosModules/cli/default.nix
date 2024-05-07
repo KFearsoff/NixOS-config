@@ -14,7 +14,6 @@ in {
     ./kubernetes.nix
     ./fzf.nix
     ./nix-index.nix
-    ./cloud.nix
     ./helix.nix
   ];
 
@@ -34,8 +33,6 @@ in {
       jq
       git
       terraform-mpl
-      awscli2
-      aws-vault
       terragrunt
     ];
   };

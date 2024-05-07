@@ -4,6 +4,5 @@
     # libvirt.enable = true;
     # vscodium.enable = true;
     # kubernetes.enable = true;
-    # cloud.enable = true;
   };
 }

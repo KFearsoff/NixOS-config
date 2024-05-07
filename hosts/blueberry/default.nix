@@ -17,6 +17,7 @@
   ];
   services.thermald.enable = true;
   systemd.services.NetworkManager-wait-online.enable = false;
+  hm.nixchad.clouds.aws = true;
 
   users.users."${username}".hashedPasswordFile = "/secrets/nixchad-password";
 
