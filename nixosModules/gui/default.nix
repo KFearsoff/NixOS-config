@@ -55,6 +55,7 @@ in {
           cinnamon.nemo
           remmina
           pinta
+          chromium
         ]
         #++ (optional config.services.pipewire.enable easyeffects)
         ++ (optional config.programs.wireshark.enable wireshark)
