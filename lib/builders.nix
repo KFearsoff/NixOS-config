@@ -68,6 +68,7 @@
           }
           inputs.home-manager.nixosModules.home-manager
           inputs.impermanence.nixosModules.impermanence
+          inputs.stylix.nixosModules.stylix
           inputs.nur.nixosModules.nur
           ../users
           ../nixosModules
@@ -81,7 +82,6 @@
         rawInputs = inputs;
         pkgsHost = patchedNixpkgsHost;
         inherit username;
-        inherit (patchedInputs) nix-colors;
         servername = "cloudberry";
       };
     };

@@ -16,7 +16,6 @@ in {
         enable = true;
         defaultEditor = true;
         settings = {
-          theme = "dracula";
           editor = {
             line-number = "relative";
           };

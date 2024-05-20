@@ -5,8 +5,6 @@
   ...
 }:
 with lib; let
-  wallpaper = ../../assets/nix-wallpaper-nineish-dark-gray.png;
-  inherit (config.hm) colorScheme;
   cfg = config.nixchad.sway;
 in {
   imports = [
@@ -77,7 +75,6 @@ in {
 
           input = import ./input.nix;
           seat = {"*" = {hide_cursor = "10000";};};
-          output = {"*" = {bg = "${wallpaper} fill";};};
 
           window = {
             titlebar = false;
@@ -107,8 +104,6 @@ in {
           workspaceAutoBackAndForth = true;
           menu = "rofi -show drun";
           terminal = "${config.terminal.binaryPath}";
-
-          colors = import ./colors.nix {inherit colorScheme;};
         };
       };
     };

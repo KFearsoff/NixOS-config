@@ -4,7 +4,7 @@
   ...
 }: let
   cfg = config.nixchad.starship;
-  inherit (config) colorScheme;
+  inherit (config.lib.stylix.colors) base05 base08 base09 base0A base0B base0E;
   inherit (lib) mkEnableOption mkIf;
 in {
   options.nixchad.starship = {
@@ -19,17 +19,17 @@ in {
         directory = {
           truncation_length = 1;
           fish_style_pwd_dir_length = 1;
-          style = "bold #${colorScheme.palette.base0B}";
+          style = "bold #${base0B}";
         };
-        cmd_duration.style = "bold #${colorScheme.palette.base0A}";
-        hostname.style = "bold #${colorScheme.palette.base08}";
-        git_branch.style = "bold #${colorScheme.palette.base0E}";
-        git_status.style = "bold #${colorScheme.palette.base08}";
-        username.style_user = "bold #${colorScheme.palette.base09}";
+        cmd_duration.style = "bold #${base0A}";
+        hostname.style = "bold #${base08}";
+        git_branch.style = "bold #${base0E}";
+        git_status.style = "bold #${base08}";
+        username.style_user = "bold #${base09}";
         character = {
-          success_symbol = "[❯](bold #${colorScheme.palette.base05})";
-          error_symbol = "[❯](bold #${colorScheme.palette.base08})";
-          vicmd_symbol = "[❮](bold #${colorScheme.palette.base05})";
+          success_symbol = "[❯](bold #${base05})";
+          error_symbol = "[❯](bold #${base08})";
+          vicmd_symbol = "[❮](bold #${base05})";
         };
 
         line_break.disabled = true;

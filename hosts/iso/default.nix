@@ -14,7 +14,6 @@
     networking.enable = lib.mkForce false;
     boot.enable = lib.mkForce false;
     filesystem.enable = lib.mkForce false;
-    colors.enable = lib.mkForce false;
   };
 
   networking.wireless.enable = lib.mkForce false;

@@ -15,7 +15,6 @@ in {
     ./graphics.nix
     ./newsboat.nix
     ./pipewire.nix
-    ./theming.nix
     ./firefox.nix
     ./mpd.nix
   ];
@@ -73,7 +72,6 @@ in {
         rofi = {
           enable = cfg.rofi;
           package = pkgs.rofi-wayland;
-          theme = "purple";
           terminal = "alacritty";
           extraConfig = {
             show-icons = true;

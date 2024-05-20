@@ -15,6 +15,8 @@ in {
 
   config = mkIf cfg.enable {
     hm = {
+      stylix.targets.firefox.profileNames = ["default" "conferencing"];
+
       programs.firefox = {
         enable = true;
         profiles = {
@@ -57,7 +59,6 @@ in {
 
               # extensions I like/need
               nur.repos.rycee.firefox-addons.bitwarden
-              nur.repos.rycee.firefox-addons.dracula-dark-colorscheme
               nur.repos.rycee.firefox-addons.istilldontcareaboutcookies
               nur.repos.rycee.firefox-addons.privacy-redirect
               nur.repos.rycee.firefox-addons.tree-style-tab
@@ -160,7 +161,6 @@ in {
             extensions = [
               nur.repos.rycee.firefox-addons.ublock-origin
               nur.repos.rycee.firefox-addons.bitwarden
-              nur.repos.rycee.firefox-addons.dracula-dark-colorscheme
               nur.repos.rycee.firefox-addons.istilldontcareaboutcookies
             ];
 

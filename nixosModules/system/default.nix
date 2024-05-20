@@ -10,7 +10,6 @@ with lib; let
 in {
   imports = [
     ./containers.nix
-    ./fonts.nix
     ./libvirt.nix
     ./location.nix
     ./nixconf.nix
@@ -18,7 +17,7 @@ in {
     ./networking.nix
     ./boot.nix
     ./filesystem.nix
-    ./colors.nix
+    ./stylix.nix
     ./tty.nix
     ./minimal.nix
     ./hardware.nix
@@ -35,7 +34,6 @@ in {
       networking.enable = mkDefault true;
       boot.enable = mkDefault true;
       filesystem.enable = mkDefault true;
-      colors.enable = mkDefault true;
       hardware.enable = mkDefault true;
     };
 
