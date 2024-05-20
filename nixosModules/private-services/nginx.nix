@@ -37,10 +37,7 @@ in {
           };
           extraConfig = mkOption {
             type = types.lines;
-            default = ''
-              allow 100.0.0.0/8;
-              deny  all;
-            '';
+            default = "";
           };
           domain = mkOption {
             type = types.str;
