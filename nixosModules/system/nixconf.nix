@@ -1,11 +1,5 @@
-{inputs, ...}: {
+{
   nix = {
-    # pin all the nixpkgs to the version in the flake
-    registry = {
-      self.flake = inputs.self;
-      nixpkgs.flake = inputs.nixpkgs;
-    };
-
     settings = {
       trusted-users = ["@wheel"];
       auto-optimise-store = true;

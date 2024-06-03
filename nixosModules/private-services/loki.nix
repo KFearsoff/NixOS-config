@@ -39,21 +39,19 @@ in {
           };
         };
 
-        # TODO: remove after 2024-05-02
-        limits_config.allow_structured_metadata = false;
+        compactor = {
+          working_directory = "${lokiData}/compactor";
+          compaction_interval = "10m";
+          retention_enabled = true;
+          retention_delete_delay = "1s";
+          retention_delete_worker_count = 150;
+          delete_request_store = "filesystem";
+        };
+
+        limits_config.retention_period = "1w";
 
         schema_config = {
           configs = [
-            {
-              from = "2022-05-15";
-              store = "boltdb-shipper";
-              object_store = "filesystem";
-              schema = "v11";
-              index = {
-                prefix = "index_";
-                period = "24h";
-              };
-            }
             {
               from = "2022-07-25";
               store = "tsdb";
@@ -80,6 +78,7 @@ in {
         ruler.alertmanager_url = alertmanagerPort;
       };
     };
+
     nixchad = {
       grafana-agent.metrics_scrape_configs = [
         {
