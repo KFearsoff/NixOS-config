@@ -52,7 +52,6 @@ in {
           ardour
           lingot
           cinnamon.nemo
-          remmina
           pinta
           chromium
         ]
@@ -62,8 +61,8 @@ in {
 
       services = {
         udiskie.enable = true;
-        safeeyes.enable = true;
-        caffeine.enable = true;
+        safeeyes.enable = false;
+        caffeine.enable = false;
       };
 
       programs = {

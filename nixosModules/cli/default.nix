@@ -34,6 +34,7 @@ in {
       git
       terraform-mpl
       terragrunt
+      packer-mpl
     ];
   };
 }
