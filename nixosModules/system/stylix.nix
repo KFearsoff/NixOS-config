@@ -2,6 +2,7 @@
   firaCode = pkgs.nerdfonts.override {fonts = ["FiraCode"];};
 in {
   stylix = {
+    enable = true;
     image = ../../assets/nix-wallpaper-nineish-dark-gray.png;
     base16Scheme = "${pkgs.base16-schemes}/share/themes/dracula.yaml";
     # polarity = "dark";
