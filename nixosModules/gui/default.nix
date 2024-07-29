@@ -51,7 +51,7 @@ in {
           discord
           ardour
           lingot
-          cinnamon.nemo
+          nemo
           pinta
           chromium
         ]

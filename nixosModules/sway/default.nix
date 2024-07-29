@@ -32,7 +32,7 @@ in {
   config = mkIf cfg.enable {
     security.polkit.enable = true;
     security.pam.services.swaylock = {};
-    hardware.opengl.enable = true;
+    hardware.graphics.enable = true;
     programs.dconf.enable = true;
     programs.light.enable = lib.mkDefault true;
 

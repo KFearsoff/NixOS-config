@@ -2,9 +2,10 @@
   hm = {
     services.kanshi = {
       enable = true;
-      profiles = {
-        home = {
-          outputs = [
+      settings = [
+        {
+          profile.name = "home";
+          profile.outputs = [
             {
               criteria = "DP-1";
               status = "enable";
@@ -12,8 +13,8 @@
               adaptiveSync = true;
             }
           ];
-        };
-      };
+        }
+      ];
     };
   };
 }

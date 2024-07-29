@@ -47,10 +47,10 @@
       address = ["37.27.0.141/32" "2a01:4f9:c012:a517::1/64" "fe80::9400:2ff:fe2e:b2c9/64"];
       routes = [
         {
-          routeConfig.Destination = "172.31.1.1";
+          Destination = "172.31.1.1";
         }
         {
-          routeConfig.Destination = "fe80::1";
+          Destination = "fe80::1";
         }
       ];
       linkConfig.RequiredForOnline = "routable";
@@ -65,11 +65,9 @@
       };
       wireguardPeers = [
         {
-          wireguardPeerConfig = {
-            PublicKey = "wBQhgyAwAmf/0x166auR1QTMUXZBz8AKlMGSAc4SUSg=";
-            AllowedIPs = ["192.168.99.0/24" "2a01:4f8:c2c:a9a0:7767::/80" "2a01:4f9:1a:f600:5650::/80"];
-            Endpoint = "4.sosiego.sphalerite.org:23542";
-          };
+          PublicKey = "wBQhgyAwAmf/0x166auR1QTMUXZBz8AKlMGSAc4SUSg=";
+          AllowedIPs = ["192.168.99.0/24" "2a01:4f8:c2c:a9a0:7767::/80" "2a01:4f9:1a:f600:5650::/80"];
+          Endpoint = "4.sosiego.sphalerite.org:23542";
         }
       ];
     };
@@ -78,16 +76,16 @@
       address = ["192.168.99.137/32" "2a01:4f8:c2c:a9a0:7767::137/32"];
       routes = [
         {
-          routeConfig.Destination = "192.168.99.0/24";
-          routeConfig.Scope = "link";
+          Destination = "192.168.99.0/24";
+          Scope = "link";
         }
         {
-          routeConfig.Destination = "2a01:4f8:c2c:a9a0:7767::/80";
-          routeConfig.Scope = "link";
+          Destination = "2a01:4f8:c2c:a9a0:7767::/80";
+          Scope = "link";
         }
         {
-          routeConfig.Destination = "2a01:4f9:1a:f600:5650::/80";
-          routeConfig.Scope = "link";
+          Destination = "2a01:4f9:1a:f600:5650::/80";
+          Scope = "link";
         }
       ];
     };

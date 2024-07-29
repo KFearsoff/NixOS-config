@@ -2,9 +2,10 @@
   hm = {
     services.kanshi = {
       enable = true;
-      profiles = {
-        unplugged = {
-          outputs = [
+      settings = [
+        {
+          profile.name = "unplugged";
+          profile.outputs = [
             {
               criteria = "eDP-2";
               status = "enable";
@@ -13,9 +14,10 @@
               adaptiveSync = true;
             }
           ];
-        };
-        plugged = {
-          outputs = [
+        }
+        {
+          profile.name = "plugged";
+          profile.outputs = [
             {
               criteria = "eDP-2";
               status = "enable";
@@ -30,8 +32,8 @@
               adaptiveSync = true;
             }
           ];
-        };
-      };
+        }
+      ];
     };
   };
 }
