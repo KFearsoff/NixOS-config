@@ -28,7 +28,7 @@ in {
                 // OVERRIDES
 
                 user_pref("browser.startup.page", 3); // 0102, session restore
-                user_pref("privacy.clearOnShutdown.history", false); // 2811, don't clear history
+                user_pref("privacy.clearOnShutdown_v2.historyFormDataAndDownloads", false); // 2811, don't clear history
                 user_pref("privacy.resistFingerprinting.letterboxing", false); // 4504, I hate the margins
                 user_pref("webgl.disabled", false); // required for Zoom (also needs canvas exception)
 
