@@ -3,9 +3,11 @@
   lib,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.nixchad.helix;
-in {
+in
+{
   options.nixchad.helix = {
     enable = mkEnableOption "helix";
   };
@@ -23,7 +25,7 @@ in {
       };
       # FIXME: nushell isn't included in `programs.helix.defaultEditor` in upstream
       programs.nushell.environmentVariables = {
-        EDITOR = "hx";
+        EDITOR = "'hx'";
       };
     };
   };
