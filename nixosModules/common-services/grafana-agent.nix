@@ -4,10 +4,12 @@
   servername,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.nixchad.grafana-agent;
   hostname = config.networking.hostName;
-in {
+in
+{
   options.nixchad.grafana-agent = {
     enable = mkEnableOption "Grafana Agent, universal observability exporter";
     metrics_scrape_configs = mkOption {
@@ -24,16 +26,11 @@ in {
         };
 
         logs = {
+          global.clients = [ { url = "http://${servername}:33100/loki/api/v1/push"; } ];
           configs = [
             {
               name = "default";
-              positions.filename = "\${STATE_DIRECTORY}/positions.yaml";
-              clients = [
-                {
-                  url = "http://${servername}:33100/loki/api/v1/push";
-                }
-              ];
-
+              positions.filename = "\${STATE_DIRECTORY}/positions";
               scrape_configs = [
                 {
                   job_name = "systemd-journal";
@@ -46,7 +43,7 @@ in {
                   };
                   relabel_configs = [
                     {
-                      source_labels = ["__journal__systemd_unit"];
+                      source_labels = [ "__journal__systemd_unit" ];
                       target_label = "unit";
                     }
                   ];
@@ -73,21 +70,20 @@ in {
           configs = [
             {
               name = "default";
-              scrape_configs =
-                builtins.map
-                (job:
-                  job
-                  // {
-                    relabel_configs = [
-                      {
-                        source_labels = ["__address__"];
-                        regex = "(.*):(.*)"; # The regex to match the whole address and separate it into two groups: before and after the colon
-                        replacement = "${config.networking.hostName}:\${2}"; # Keep the colon and port number and replace the first part with hostname
-                        target_label = "instance";
-                      }
-                    ];
-                  })
-                cfg.metrics_scrape_configs;
+              scrape_configs = builtins.map (
+                job:
+                job
+                // {
+                  relabel_configs = [
+                    {
+                      source_labels = [ "__address__" ];
+                      regex = "(.*):(.*)"; # The regex to match the whole address and separate it into two groups: before and after the colon
+                      replacement = "${config.networking.hostName}:\${2}"; # Keep the colon and port number and replace the first part with hostname
+                      target_label = "instance";
+                    }
+                  ];
+                }
+              ) cfg.metrics_scrape_configs;
             }
           ];
         };
