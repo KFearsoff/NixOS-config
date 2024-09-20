@@ -70,6 +70,7 @@
           inputs.impermanence.nixosModules.impermanence
           inputs.stylix.nixosModules.stylix
           inputs.nur.nixosModules.nur
+          inputs.lix-module.nixosModules.default
           ../users
           ../nixosModules
           ./metadata.nix

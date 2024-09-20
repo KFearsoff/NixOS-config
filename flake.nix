@@ -6,6 +6,24 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nur.url = "github:nix-community/NUR";
 
+    # Lix
+    lix = {
+      url = "git+https://gerrit.lix.systems/lix";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        # pre-commit-hooks.follows = "pre-commit-hooks";
+        # flake-compat.follows = "flake-compat-dep";
+      };
+    };
+    lix-module = {
+      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.91.0.tar.gz";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        # lix.follows = "lix";
+        # flake-utils.follows = "flake-utils-dep";
+      };
+    };
+
     # Libraries
     systems-dep.url = "github:nix-systems/default";
     flake-utils-dep = {
