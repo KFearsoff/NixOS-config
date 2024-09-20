@@ -117,28 +117,32 @@
     };
   };
 
-  outputs = inputs: let
-    overlays =
-      import ./overlays;
-    hostSystem = "x86_64-linux";
-    importedLib = import ./lib/builders.nix {
-      inherit inputs overlays hostSystem;
-      patches = fetchers:
-        with fetchers; {
-          nixpkgs = [
-            # (npr 305569 "0n0nbriaxfcbalyqp59d3qg91vni1p56avv19wlqhgghy74wr5f1")
-          ];
-          #(pr <number> <sha>)
-        };
-    };
-    inherit (importedLib) buildSystem pkgs;
-  in
-    inputs.flake-parts.lib.mkFlake {inherit inputs;} {
+  outputs =
+    inputs:
+    let
+      overlays = import ./overlays;
+      hostSystem = "x86_64-linux";
+      importedLib = import ./lib/builders.nix {
+        inherit inputs overlays hostSystem;
+        patches =
+          fetchers: with fetchers; {
+            nixpkgs = [
+              # (npr 305569 "0n0nbriaxfcbalyqp59d3qg91vni1p56avv19wlqhgghy74wr5f1")
+            ];
+            #(pr <number> <sha>)
+          };
+      };
+      inherit (importedLib) buildSystem pkgs;
+    in
+    inputs.flake-parts.lib.mkFlake { inherit inputs; } {
       imports = [
         inputs.devenv.flakeModule
       ];
 
-      systems = ["x86_64-linux" "aarch64-linux"];
+      systems = [
+        "x86_64-linux"
+        "aarch64-linux"
+      ];
 
       flake = {
         nixosConfigurations = {
@@ -179,13 +183,14 @@
           };
         };
 
-        allMachines = let
-          toLink = name: value: {
-            inherit name;
-            path = value.config.system.build.toplevel;
-          };
-          links = pkgs.lib.mapAttrsToList toLink inputs.self.nixosConfigurations;
-        in
+        allMachines =
+          let
+            toLink = name: value: {
+              inherit name;
+              path = value.config.system.build.toplevel;
+            };
+            links = pkgs.lib.mapAttrsToList toLink inputs.self.nixosConfigurations;
+          in
           pkgs.linkFarm "all-machines" links;
 
         deploy.nodes = with inputs.deploy-rs.lib; {
@@ -214,68 +219,71 @@
           };
         };
 
-        checks = builtins.mapAttrs (_: deployLib: deployLib.deployChecks inputs.self.deploy) inputs.deploy-rs.lib;
+        checks = builtins.mapAttrs (
+          _: deployLib: deployLib.deployChecks inputs.self.deploy
+        ) inputs.deploy-rs.lib;
       };
 
-      perSystem = {
-        config,
-        pkgs,
-        system,
-        ...
-      }: {
-        formatter = pkgs.alejandra;
+      perSystem =
+        {
+          config,
+          pkgs,
+          system,
+          ...
+        }:
+        {
+          formatter = pkgs.nixfmt-rfc-style;
 
-        devenv.shells.default = {
-          packages = [
-            pkgs.just
-            inputs.deploy-rs.defaultPackage.${system}
-            pkgs.nvd
-            pkgs.alejandra
-            pkgs.nix-output-monitor
-          ];
+          devenv.shells.default = {
+            packages = [
+              pkgs.just
+              inputs.deploy-rs.defaultPackage.${system}
+              pkgs.nvd
+              pkgs.nixfmt-rfc-style
+              pkgs.nix-output-monitor
+            ];
 
-          languages = {
-            nix.enable = true;
-            lua.enable = true;
+            languages = {
+              nix.enable = true;
+              lua.enable = true;
+            };
+
+            # https://github.com/cachix/devenv/issues/528
+            containers = pkgs.lib.mkForce { };
+
+            pre-commit.hooks = {
+              # Shell
+              shellcheck.enable = true;
+              shfmt.enable = true;
+
+              # Markdown
+              mdsh.enable = true;
+              markdownlint.enable = true;
+
+              # Variety
+              actionlint.enable = true;
+              commitizen.enable = true;
+              editorconfig-checker.enable = true;
+
+              # Nix
+              nixfmt-rfc-style.enable = true;
+              deadnix.enable = true;
+              statix.enable = true;
+            };
           };
 
-          # https://github.com/cachix/devenv/issues/528
-          containers = pkgs.lib.mkForce {};
-
-          pre-commit.hooks = {
-            # Shell
-            shellcheck.enable = true;
-            shfmt.enable = true;
-
-            # Markdown
-            mdsh.enable = true;
-            markdownlint.enable = true;
-
-            # Variety
-            actionlint.enable = true;
-            commitizen.enable = true;
-            editorconfig-checker.enable = true;
-
-            # Nix
-            alejandra.enable = true;
-            deadnix.enable = true;
-            statix.enable = true;
+          apps.default = {
+            type = "app";
+            program = "${inputs.deploy-rs.defaultPackage.${system}}/bin/deploy";
           };
-        };
 
-        apps.default = {
-          type = "app";
-          program = "${inputs.deploy-rs.defaultPackage.${system}}/bin/deploy";
-        };
-
-        packages =
-          {
-            iso = let
-              image = buildSystem {hostname = "iso";};
-            in
+          packages = {
+            iso =
+              let
+                image = buildSystem { hostname = "iso"; };
+              in
               image.config.system.build."isoImage";
-          }
-          // pkgs.lib.mapAttrs (_: v: v) (import ./pkgs {inherit pkgs;});
-      };
+          } // pkgs.lib.mapAttrs (_: v: v) (import ./pkgs { inherit pkgs; });
+        };
     };
 }
