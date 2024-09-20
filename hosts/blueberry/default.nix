@@ -3,11 +3,12 @@
   username,
   pkgs,
   ...
-}: {
+}:
+{
   imports = [
     ./hardware-configuration.nix
     ./kanshi.nix
-    (import ./disko.nix {})
+    (import ./disko.nix { })
     inputs.disko.nixosModules.disko
     inputs.hardware.nixosModules.common-gpu-amd
     inputs.hardware.nixosModules.common-cpu-amd-pstate
@@ -32,7 +33,7 @@
   nixchad = {
     boot.bootloader = "systemd-boot";
     restic.usb-backups = true;
-    smartctl-exporter.devices = ["/dev/nvme0n1"];
+    smartctl-exporter.devices = [ "/dev/nvme0n1" ];
     waybar.battery = true;
     impermanence = {
       presets = {
@@ -71,14 +72,21 @@
       wireguardPeers = [
         {
           PublicKey = "wBQhgyAwAmf/0x166auR1QTMUXZBz8AKlMGSAc4SUSg=";
-          AllowedIPs = ["192.168.99.0/24" "2a01:4f8:c2c:a9a0:7767::/80" "2a01:4f9:1a:f600:5650::/80"];
+          AllowedIPs = [
+            "192.168.99.0/24"
+            "2a01:4f8:c2c:a9a0:7767::/80"
+            "2a01:4f9:1a:f600:5650::/80"
+          ];
           Endpoint = "4.sosiego.sphalerite.org:23542";
         }
       ];
     };
     networks.wg0 = {
       matchConfig.Name = "wg0";
-      address = ["192.168.99.137/32" "2a01:4f8:c2c:a9a0:7767::137/32"];
+      address = [
+        "192.168.99.137/32"
+        "2a01:4f8:c2c:a9a0:7767::137/32"
+      ];
       routes = [
         {
           Destination = "192.168.99.0/24";
@@ -98,6 +106,9 @@
     wait-online.enable = false;
   };
 
-  networking.networkmanager.unmanaged = ["interface-name:tailscale0" "interface-name:tun*"];
+  networking.networkmanager.unmanaged = [
+    "interface-name:tailscale0"
+    "interface-name:tun*"
+  ];
   zramSwap.enable = true;
 }

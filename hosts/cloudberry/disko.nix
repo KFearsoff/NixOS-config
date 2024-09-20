@@ -1,4 +1,8 @@
-{disks ? ["/dev/sda"], ...}: {
+{
+  disks ? [ "/dev/sda" ],
+  ...
+}:
+{
   disko.devices.disk."sda" = {
     type = "disk";
     device = builtins.elemAt disks 0;
@@ -10,7 +14,7 @@
           name = "bios";
           start = "0";
           end = "1M";
-          flags = ["bios_grub"];
+          flags = [ "bios_grub" ];
         }
         {
           name = "boot";
@@ -33,23 +37,38 @@
             subvolumes = {
               "/root" = {
                 mountpoint = "/";
-                mountOptions = ["compress-force=zstd" "noatime"];
+                mountOptions = [
+                  "compress-force=zstd"
+                  "noatime"
+                ];
               };
               "/home-nixchad" = {
                 mountpoint = "/home/nixchad";
-                mountOptions = ["compress-force=zstd" "noatime"];
+                mountOptions = [
+                  "compress-force=zstd"
+                  "noatime"
+                ];
               };
               "/nix" = {
                 mountpoint = "/nix";
-                mountOptions = ["compress-force=zstd" "noatime"];
+                mountOptions = [
+                  "compress-force=zstd"
+                  "noatime"
+                ];
               };
               "/persist" = {
                 mountpoint = "/persist";
-                mountOptions = ["compress-force=zstd" "noatime"];
+                mountOptions = [
+                  "compress-force=zstd"
+                  "noatime"
+                ];
               };
               "/secrets" = {
                 mountpoint = "/secrets";
-                mountOptions = ["compress-force=zstd" "noatime"];
+                mountOptions = [
+                  "compress-force=zstd"
+                  "noatime"
+                ];
               };
             };
           };

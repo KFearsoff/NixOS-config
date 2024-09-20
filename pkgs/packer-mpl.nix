@@ -18,11 +18,14 @@ buildGoModule rec {
 
   vendorHash = "sha256-aalecIoKUUj0siDIBXXeyCjkpsyjlPPX6XohDC6WDoY=";
 
-  subPackages = ["."];
+  subPackages = [ "." ];
 
-  ldflags = ["-s" "-w"];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
-  nativeBuildInputs = [installShellFiles];
+  nativeBuildInputs = [ installShellFiles ];
 
   postInstall = ''
     installShellCompletion --zsh contrib/zsh-completion/_packer
@@ -32,7 +35,12 @@ buildGoModule rec {
     description = "A tool for creating identical machine images for multiple platforms from a single source configuration";
     homepage = "https://www.packer.io";
     license = licenses.mpl20;
-    maintainers = with maintainers; [zimbatm ma27 techknowlogick qjoly];
+    maintainers = with maintainers; [
+      zimbatm
+      ma27
+      techknowlogick
+      qjoly
+    ];
     changelog = "https://github.com/hashicorp/packer/blob/v${version}/CHANGELOG.md";
   };
 }

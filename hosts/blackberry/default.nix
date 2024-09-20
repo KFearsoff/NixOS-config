@@ -3,9 +3,11 @@
   username,
   lib,
   ...
-}: let
+}:
+let
   ifname = "enp4s0";
-in {
+in
+{
   imports = [
     ./hardware-configuration.nix
     ./kanshi.nix
@@ -30,7 +32,7 @@ in {
   '';
   nixchad = {
     boot.bootloader = "grub";
-    smartctl-exporter.devices = ["/dev/nvme0n1"];
+    smartctl-exporter.devices = [ "/dev/nvme0n1" ];
     waybar = {
       backlight = false; # PC GPUs don't do that
       battery = false; # PC, doesn't have a battery
@@ -67,7 +69,11 @@ in {
       wireguardPeers = [
         {
           PublicKey = "wBQhgyAwAmf/0x166auR1QTMUXZBz8AKlMGSAc4SUSg=";
-          AllowedIPs = ["192.168.99.0/24" "2a01:4f8:c2c:a9a0:7767::/80" "2a01:4f9:1a:f600:5650::/80"];
+          AllowedIPs = [
+            "192.168.99.0/24"
+            "2a01:4f8:c2c:a9a0:7767::/80"
+            "2a01:4f9:1a:f600:5650::/80"
+          ];
           Endpoint = "4.sosiego.sphalerite.org:23542";
         }
       ];
@@ -75,13 +81,16 @@ in {
     networks = {
       main = {
         name = "${ifname}";
-        gateway = ["192.168.1.1"];
-        address = ["192.168.1.104/24"];
-        routes = [{Destination = "192.168.1.1";}];
+        gateway = [ "192.168.1.1" ];
+        address = [ "192.168.1.104/24" ];
+        routes = [ { Destination = "192.168.1.1"; } ];
       };
       wg0 = {
         matchConfig.Name = "wg0";
-        address = ["192.168.99.137/32" "2a01:4f8:c2c:a9a0:7767::137/32"];
+        address = [
+          "192.168.99.137/32"
+          "2a01:4f8:c2c:a9a0:7767::137/32"
+        ];
         routes = [
           {
             Destination = "192.168.99.0/24";
@@ -99,6 +108,6 @@ in {
       };
     };
 
-    wait-online.ignoredInterfaces = ["tailscale0"];
+    wait-online.ignoredInterfaces = [ "tailscale0" ];
   };
 }

@@ -1,4 +1,5 @@
-{lib, ...}: {
+{ lib, ... }:
+{
   nixchad = {
     node-exporter.enable = true;
     smartctl-exporter.enable = lib.mkDefault true;

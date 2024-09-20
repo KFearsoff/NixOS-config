@@ -1,4 +1,5 @@
-{lib, ...}: {
+{ lib, ... }:
+{
   nixchad = {
     nginx.enable = true;
     prometheus.enable = true;
