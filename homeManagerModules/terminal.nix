@@ -4,9 +4,11 @@
   pkgs,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.terminal;
-in {
+in
+{
   options.terminal = {
     enable = mkEnableOption "declarative management of terminal";
 

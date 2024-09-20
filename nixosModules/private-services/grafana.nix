@@ -3,9 +3,11 @@
   lib,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.nixchad.grafana;
-  mkDatasource = type: url: extraConfig:
+  mkDatasource =
+    type: url: extraConfig:
     {
       name = type;
       inherit type;
@@ -15,7 +17,8 @@ with lib; let
     // extraConfig;
   grafanaPort = config.services.grafana.settings.server.http_port;
   domain = "grafana.nixalted.com";
-in {
+in
+{
   options.nixchad.grafana = {
     enable = mkEnableOption "Grafana dashboard";
   };
@@ -96,19 +99,22 @@ in {
                 };
               };
             })
-            (mkDatasource "alertmanager" "http://localhost:${toString config.services.prometheus.alertmanager.port}" {
-              jsonData = {
-                implementation = "prometheus";
-                handleGrafanaManagedAlerts = true;
-              };
-            })
+            (mkDatasource "alertmanager"
+              "http://localhost:${toString config.services.prometheus.alertmanager.port}"
+              {
+                jsonData = {
+                  implementation = "prometheus";
+                  handleGrafanaManagedAlerts = true;
+                };
+              }
+            )
           ];
         };
       };
     };
 
     services.postgresql = {
-      ensureDatabases = ["grafana"];
+      ensureDatabases = [ "grafana" ];
       ensureUsers = [
         {
           name = "grafana";
@@ -120,14 +126,15 @@ in {
       impermanence.persisted.values = [
         {
           directories =
-            lib.mkIf (config.nixchad.impermanence.presets.essential && config.nixchad.impermanence.presets.services)
-            [
-              {
-                directory = config.services.grafana.dataDir;
-                user = "grafana";
-                group = "grafana";
-              }
-            ];
+            lib.mkIf
+              (config.nixchad.impermanence.presets.essential && config.nixchad.impermanence.presets.services)
+              [
+                {
+                  directory = config.services.grafana.dataDir;
+                  user = "grafana";
+                  group = "grafana";
+                }
+              ];
         }
       ];
 

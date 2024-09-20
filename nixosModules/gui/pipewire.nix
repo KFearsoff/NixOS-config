@@ -4,7 +4,8 @@
   config,
   ...
 }:
-with lib; {
+with lib;
+{
   options.nixchad.gui = {
     pipewire = mkEnableOption "pipewire and related packages";
   };

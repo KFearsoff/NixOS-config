@@ -5,12 +5,15 @@
   servername,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.nixchad.nginx;
   hostname = config.networking.hostName;
   exporter-port = 33001;
   domainBase = "nixalted.com";
-  collectVhosts = lib.mapAttrs' (name: val: lib.nameValuePair "${name}.${domainBase}" (vhostBase val)) cfg.vhosts;
+  collectVhosts = lib.mapAttrs' (
+    name: val: lib.nameValuePair "${name}.${domainBase}" (vhostBase val)
+  ) cfg.vhosts;
   vhostBase = opts: {
     forceSSL = true;
     useACMEHost = domainBase;
@@ -24,27 +27,33 @@ with lib; let
 
     inherit (opts) extraConfig;
   };
-in {
+in
+{
   options.nixchad.nginx = {
     enable = mkEnableOption "nginx";
 
     vhosts = mkOption {
-      type = types.attrsOf (types.submodule ({name, ...}: {
-        options = {
-          websockets = mkEnableOption "websocket proxying";
-          port = mkOption {
-            type = types.ints.u16;
-          };
-          extraConfig = mkOption {
-            type = types.lines;
-            default = "";
-          };
-          domain = mkOption {
-            type = types.str;
-            default = "${name}.${domainBase}";
-          };
-        };
-      }));
+      type = types.attrsOf (
+        types.submodule (
+          { name, ... }:
+          {
+            options = {
+              websockets = mkEnableOption "websocket proxying";
+              port = mkOption {
+                type = types.ints.u16;
+              };
+              extraConfig = mkOption {
+                type = types.lines;
+                default = "";
+              };
+              domain = mkOption {
+                type = types.str;
+                default = "${name}.${domainBase}";
+              };
+            };
+          }
+        )
+      );
     };
   };
 
@@ -85,7 +94,7 @@ in {
       statusPage = true;
       enableReload = true;
 
-      resolver.addresses = ["127.0.0.1:53"];
+      resolver.addresses = [ "127.0.0.1:53" ];
       proxyResolveWhileRunning = true;
 
       virtualHosts = collectVhosts;
@@ -109,14 +118,20 @@ in {
       }
     ];
 
-    networking.firewall.allowedTCPPorts = [80 443];
-    networking.firewall.allowedUDPPorts = [80 443];
+    networking.firewall.allowedTCPPorts = [
+      80
+      443
+    ];
+    networking.firewall.allowedUDPPorts = [
+      80
+      443
+    ];
 
     nixchad.impermanence.persisted.values = [
       {
-        directories =
-          lib.mkIf (config.nixchad.impermanence.presets.essential && config.nixchad.impermanence.presets.services)
-          ["/var/lib/acme"]; # FIXME: Is this more correct than the snippet below?
+        directories = lib.mkIf (
+          config.nixchad.impermanence.presets.essential && config.nixchad.impermanence.presets.services
+        ) [ "/var/lib/acme" ]; # FIXME: Is this more correct than the snippet below?
         #directories = builtins.map (x: x.directory) (builtins.attrValues cfg);
       }
     ];

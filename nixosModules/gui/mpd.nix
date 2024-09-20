@@ -3,9 +3,11 @@
   lib,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.nixchad.mpd;
-in {
+in
+{
   options.nixchad.mpd = {
     enable = mkEnableOption "mpd";
   };

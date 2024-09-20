@@ -3,9 +3,11 @@
   lib,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.nixchad.waybar;
-in {
+in
+{
   options.nixchad.waybar = {
     enable = mkEnableOption "waybar";
     backlight = mkEnableOption "backlight info";

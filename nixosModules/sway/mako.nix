@@ -3,9 +3,11 @@
   lib,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.nixchad.mako;
-in {
+in
+{
   options.nixchad.mako = {
     enable = mkEnableOption "mako";
   };

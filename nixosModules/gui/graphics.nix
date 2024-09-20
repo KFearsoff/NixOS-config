@@ -4,9 +4,11 @@
   pkgs,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.nixchad.graphics;
-in {
+in
+{
   options.nixchad.graphics = {
     enable = mkEnableOption "graphics";
   };

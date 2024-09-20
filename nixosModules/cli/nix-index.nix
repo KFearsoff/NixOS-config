@@ -6,7 +6,8 @@
 }:
 # https://libredd.it/r/NixOS/comments/uqfw3k/an_automaticallyupdated_nixindex/
 # https://gist.github.com/InternetUnexplorer/58e979642102d66f57188764bbf11701
-with lib; let
+with lib;
+let
   cfg = config.nixchad.nix-index;
   nix-index-autoupdate = pkgs.writeShellScriptBin "nix-index-autoupdate" ''
     set -euo pipefail
@@ -17,7 +18,8 @@ with lib; let
     wget -q -N https://github.com/Mic92/nix-index-database/releases/latest/download/$filename
     ln -f $filename files
   '';
-in {
+in
+{
   options.nixchad.nix-index = {
     enable = mkEnableOption "nix-index";
   };
@@ -29,17 +31,25 @@ in {
       programs.nix-index.enable = true;
 
       systemd.user.services.nix-index-update = {
-        Unit = {Description = "Update nix-index";};
-        Service = {ExecStart = "${nix-index-autoupdate}/bin/nix-index-autoupdate";};
+        Unit = {
+          Description = "Update nix-index";
+        };
+        Service = {
+          ExecStart = "${nix-index-autoupdate}/bin/nix-index-autoupdate";
+        };
       };
 
       systemd.user.timers.nix-index-update = {
-        Unit = {Description = "Update nix-index";};
+        Unit = {
+          Description = "Update nix-index";
+        };
         Timer = {
           OnCalendar = "daily";
           Unit = "nix-index-update.service";
         };
-        Install = {WantedBy = ["timers.target"];};
+        Install = {
+          WantedBy = [ "timers.target" ];
+        };
       };
     };
   };

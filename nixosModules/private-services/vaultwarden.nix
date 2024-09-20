@@ -3,11 +3,13 @@
   lib,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.nixchad.vaultwarden;
   vaultwardenPort = 32003;
   domain = "vaultwarden.nixalted.com";
-in {
+in
+{
   options.nixchad.vaultwarden = {
     enable = mkEnableOption "Vaultwarden";
   };
@@ -29,7 +31,7 @@ in {
     };
 
     services.postgresql = {
-      ensureDatabases = ["vaultwarden"];
+      ensureDatabases = [ "vaultwarden" ];
       ensureUsers = [
         {
           name = "vaultwarden";
@@ -44,6 +46,6 @@ in {
     };
 
     # make sure we don't crash because postgres isn't ready
-    systemd.services.vaultwarden.after = ["postgresql.service"];
+    systemd.services.vaultwarden.after = [ "postgresql.service" ];
   };
 }

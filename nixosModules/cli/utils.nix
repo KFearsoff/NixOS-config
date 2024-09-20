@@ -4,15 +4,18 @@
   pkgs,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.nixchad.utils;
-in {
+in
+{
   options.nixchad.utils = {
     enable = mkEnableOption "utils";
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = with pkgs;
+    environment.systemPackages =
+      with pkgs;
       [
         neofetch # the system won't boot without it
         ripgrep # alternative to grep

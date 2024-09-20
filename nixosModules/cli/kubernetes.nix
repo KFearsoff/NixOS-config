@@ -4,9 +4,11 @@
   pkgs,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.nixchad.kubernetes;
-in {
+in
+{
   options.nixchad.kubernetes = {
     enable = mkEnableOption "kubernetes";
   };
@@ -14,7 +16,8 @@ in {
   config = mkIf cfg.enable {
     hm = {
       home = {
-        packages = with pkgs;
+        packages =
+          with pkgs;
           [
             kubectl
             kubernetes-helm

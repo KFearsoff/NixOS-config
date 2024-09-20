@@ -3,15 +3,17 @@
   lib,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.nixchad.smartctl-exporter;
-in {
+in
+{
   options.nixchad.smartctl-exporter = {
     enable = mkEnableOption "Prometheus smartctl exporter";
 
     devices = mkOption {
       type = types.listOf types.str;
-      default = [];
+      default = [ ];
     };
   };
 

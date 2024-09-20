@@ -2,12 +2,16 @@
   config,
   lib,
   ...
-}: let
+}:
+let
   cfg = config.nixchad.zoxide;
   inherit (lib) mkEnableOption mkIf;
-in {
+in
+{
   options.nixchad.zoxide = {
-    enable = mkEnableOption "zoxide" // {default = config.nixchad.full.enable;};
+    enable = mkEnableOption "zoxide" // {
+      default = config.nixchad.full.enable;
+    };
   };
 
   config = mkIf cfg.enable {

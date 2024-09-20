@@ -4,9 +4,11 @@
   pkgs,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.nixchad.neovim;
-in {
+in
+{
   options.nixchad.neovim = {
     enable = mkEnableOption "neovim";
   };

@@ -2,13 +2,24 @@
   config,
   lib,
   ...
-}: let
+}:
+let
   cfg = config.nixchad.starship;
-  inherit (config.lib.stylix.colors) base05 base08 base09 base0A base0B base0E;
+  inherit (config.lib.stylix.colors)
+    base05
+    base08
+    base09
+    base0A
+    base0B
+    base0E
+    ;
   inherit (lib) mkEnableOption mkIf;
-in {
+in
+{
   options.nixchad.starship = {
-    enable = mkEnableOption "starship" // {default = config.nixchad.full.enable;};
+    enable = mkEnableOption "starship" // {
+      default = config.nixchad.full.enable;
+    };
   };
 
   config = mkIf cfg.enable {

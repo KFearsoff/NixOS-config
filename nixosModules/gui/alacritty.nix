@@ -4,9 +4,11 @@
   pkgs,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.nixchad.alacritty;
-in {
+in
+{
   options.nixchad.alacritty = {
     enable = mkEnableOption "alacritty";
   };

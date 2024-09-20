@@ -3,9 +3,11 @@
   lib,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.nixchad.node-exporter;
-in {
+in
+{
   options.nixchad.node-exporter = {
     enable = mkEnableOption "Prometheus node exporter";
   };
@@ -13,7 +15,10 @@ in {
   config = mkIf cfg.enable {
     services.prometheus.exporters.node = {
       enable = true;
-      enabledCollectors = ["processes" "systemd"];
+      enabledCollectors = [
+        "processes"
+        "systemd"
+      ];
       port = 33000;
     };
 

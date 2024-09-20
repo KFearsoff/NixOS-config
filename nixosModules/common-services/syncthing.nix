@@ -3,27 +3,34 @@
   lib,
   pkgs,
   ...
-}: let
+}:
+let
   syncthingEntries = {
     blackberry = "S3S7WIB-2J2YK4E-VIKFG4K-FZ7N4OI-43RXU3D-T5FX3AD-PQCJPSX-LNQNRA5";
     blueberry = "SL3S7GW-EQEX37K-3COOIHY-BBWOIUH-TALXXCN-B4IQOOD-E5STX5U-IKU2HAX";
     cloudberry = "PTFQGBZ-ZJ7PPKR-EDO2NOZ-IHFWCY6-AO7CW3X-G7VVFBH-R7IEE6G-Y2KK3QJ";
     pixel-4a = "74LQXWB-GVD5FVU-7CYZUFK-MNIIYA4-X3ZJCHR-VQM7UM7-HBNL4VM-PUNYTAW";
   };
-  syncthingHostsHighStorage = ["blackberry" "blueberry"];
-  syncthingHostsList = syncthingHostsHighStorage ++ ["cloudberry"];
-  syncthingStorageAndPhone = syncthingHostsHighStorage ++ ["pixel-4a"];
+  syncthingHostsHighStorage = [
+    "blackberry"
+    "blueberry"
+  ];
+  syncthingHostsList = syncthingHostsHighStorage ++ [ "cloudberry" ];
+  syncthingStorageAndPhone = syncthingHostsHighStorage ++ [ "pixel-4a" ];
 
-  syncthingDevicesConfig =
-    lib.mapAttrs
-    (n: v: {
-      addresses = ["tcp://${n}" "quic://${n}"];
-      id = v;
-    })
-    syncthingEntries;
+  syncthingDevicesConfig = lib.mapAttrs (n: v: {
+    addresses = [
+      "tcp://${n}"
+      "quic://${n}"
+    ];
+    id = v;
+  }) syncthingEntries;
 
-  clear-phone-photos = pkgs.writeScript "clear-phone-photos" (builtins.readFile ./clear-phone-photos.nu);
-in {
+  clear-phone-photos = pkgs.writeScript "clear-phone-photos" (
+    builtins.readFile ./clear-phone-photos.nu
+  );
+in
+{
   hm = {
     xdg.userDirs.extraConfig = {
       XDG_SYNC_DIR = "$HOME/Sync";
@@ -45,7 +52,7 @@ in {
         OnCalendar = "hourly";
         Unit = "mirror-phone-photos.service";
       };
-      Install.WantedBy = ["timers.target"];
+      Install.WantedBy = [ "timers.target" ];
     };
   };
 

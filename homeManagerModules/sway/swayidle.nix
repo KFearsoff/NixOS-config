@@ -4,13 +4,22 @@
   pkgs,
   osConfig,
   ...
-}: let
+}:
+let
   cfg = config.nixchad.swayidle;
-  inherit (lib) mkEnableOption mkIf mkOption types;
+  inherit (lib)
+    mkEnableOption
+    mkIf
+    mkOption
+    types
+    ;
   swaypkg = config.wayland.windowManager.sway.package;
-in {
+in
+{
   options.nixchad.swayidle = {
-    enable = mkEnableOption "swayidle" // {default = osConfig.nixchad.sway.enable;};
+    enable = mkEnableOption "swayidle" // {
+      default = osConfig.nixchad.sway.enable;
+    };
     timeouts = {
       lock = mkOption {
         type = types.int;

@@ -3,9 +3,11 @@
   lib,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.nixchad.hardware;
-in {
+in
+{
   options.nixchad.hardware = {
     enable = mkEnableOption "enable settings that make sense for a baremetal host";
   };
@@ -19,8 +21,7 @@ in {
 
     nixchad.impermanence.persisted.values = [
       {
-        directories =
-          lib.mkIf config.nixchad.impermanence.presets.essential ["/var/lib/fwupd"];
+        directories = lib.mkIf config.nixchad.impermanence.presets.essential [ "/var/lib/fwupd" ];
       }
     ];
   };

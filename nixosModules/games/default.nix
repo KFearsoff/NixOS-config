@@ -4,9 +4,11 @@
   pkgs,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.nixchad.games;
-in {
+in
+{
   imports = [
     ./league-of-legends.nix
     ./legends-of-runeterra.nix
@@ -19,7 +21,7 @@ in {
 
     lutrisPackages = mkOption {
       type = types.listOf types.package;
-      default = [];
+      default = [ ];
       defaultText = literalExpression "[]";
       description = ''
         Packages to add to Lutris
@@ -49,12 +51,9 @@ in {
 
     hm = {
       home = {
-        packages =
-          [
-            pkgs.path-of-building
-          ]
-          ++ optional cfg.lutris.enable
-          (pkgs.lutris.override {extraPkgs = _: cfg.lutrisPackages;});
+        packages = [
+          pkgs.path-of-building
+        ] ++ optional cfg.lutris.enable (pkgs.lutris.override { extraPkgs = _: cfg.lutrisPackages; });
       };
 
       programs.mangohud = {

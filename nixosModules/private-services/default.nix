@@ -1,4 +1,5 @@
-{...}: {
+{ ... }:
+{
   imports = [
     ./grafana.nix
     ./invidious.nix

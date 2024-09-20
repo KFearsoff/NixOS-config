@@ -3,12 +3,16 @@
   lib,
   inputs,
   ...
-}: let
+}:
+let
   cfg = config.nixchad.nushell;
   inherit (lib) mkEnableOption mkIf;
-in {
+in
+{
   options.nixchad.nushell = {
-    enable = mkEnableOption "nushell" // {default = config.nixchad.full.enable;};
+    enable = mkEnableOption "nushell" // {
+      default = config.nixchad.full.enable;
+    };
   };
 
   config = mkIf cfg.enable {

@@ -4,9 +4,11 @@
   pkgs,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.nixchad.mpv;
-in {
+in
+{
   options.nixchad.mpv = {
     enable = mkEnableOption "mpv";
   };
@@ -15,8 +17,8 @@ in {
     hm = {
       programs.mpv = {
         enable = true;
-        defaultProfiles = ["gpu-hq"];
-        scripts = [pkgs.mpvScripts.uosc];
+        defaultProfiles = [ "gpu-hq" ];
+        scripts = [ pkgs.mpvScripts.uosc ];
         config = {
           hwdec = "auto";
           ytdl-format = "bestvideo+bestaudio";

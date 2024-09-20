@@ -3,9 +3,11 @@
   lib,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.nixchad.minimal;
-in {
+in
+{
   options.nixchad.minimal = {
     enable = mkEnableOption "various options to reduce system size";
   };
@@ -16,7 +18,7 @@ in {
 
     # save some space on servers
     boot.enableContainers = false;
-    environment.defaultPackages = [];
+    environment.defaultPackages = [ ];
     # system.disableInstallerTools = true;
     documentation.enable = false;
 

@@ -1,6 +1,8 @@
-{lib, ...}: let
+{ lib, ... }:
+let
   inherit (lib) mkEnableOption;
-in {
+in
+{
   imports = [
     ./nushell
     ./terminal.nix
@@ -11,6 +13,8 @@ in {
   ];
 
   options.nixchad.full = {
-    enable = mkEnableOption "fully customized configuration" // {default = true;};
+    enable = mkEnableOption "fully customized configuration" // {
+      default = true;
+    };
   };
 }

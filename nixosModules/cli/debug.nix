@@ -5,9 +5,11 @@
   username,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.nixchad.debug;
-in {
+in
+{
   options.nixchad.debug = {
     enable = mkEnableOption "debug utilities";
   };
@@ -15,7 +17,7 @@ in {
   config = mkIf cfg.enable {
     programs.mtr.enable = true;
     programs.wireshark.enable = true;
-    users.users."${username}".extraGroups = ["wireshark"];
+    users.users."${username}".extraGroups = [ "wireshark" ];
 
     environment.systemPackages = with pkgs; [
       htop

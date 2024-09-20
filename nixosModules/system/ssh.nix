@@ -2,13 +2,19 @@
   config,
   lib,
   ...
-}: let
+}:
+let
   cfg = config.nixchad.impermanence;
-in {
+in
+{
   nixchad.impermanence.persisted.values = [
     {
-      files =
-        lib.mkIf cfg.presets.essential (lib.concatMap (key: [key.path (key.path + ".pub")]) config.services.openssh.hostKeys);
+      files = lib.mkIf cfg.presets.essential (
+        lib.concatMap (key: [
+          key.path
+          (key.path + ".pub")
+        ]) config.services.openssh.hostKeys
+      );
     }
   ];
 

@@ -3,13 +3,15 @@
   lib,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.nixchad.tempo;
   tempoHttpPort = 33102;
   tempoGrpcPort = 33112;
   receiverHttpPort = 33103;
   receiverGrpcPort = 33113;
-in {
+in
+{
   options.nixchad.tempo = {
     enable = mkEnableOption "Tempo tracing storage";
   };
@@ -37,6 +39,6 @@ in {
       };
     };
 
-    networking.firewall.interfaces.tailscale0.allowedTCPPorts = [receiverGrpcPort];
+    networking.firewall.interfaces.tailscale0.allowedTCPPorts = [ receiverGrpcPort ];
   };
 }

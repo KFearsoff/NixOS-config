@@ -4,15 +4,20 @@
   pkgs,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.nixchad.games;
-in {
+in
+{
   options.nixchad.games = {
     legends-of-runeterra.enable = mkEnableOption "Legends of Runeterra";
   };
 
   config = mkIf cfg.legends-of-runeterra.enable {
-    nixchad.games.lutrisPackages = with pkgs; [openssl wineWowPackages.full];
+    nixchad.games.lutrisPackages = with pkgs; [
+      openssl
+      wineWowPackages.full
+    ];
 
     hm.xdg.desktopEntries = {
       LoR = {

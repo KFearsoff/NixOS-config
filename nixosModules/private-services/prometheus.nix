@@ -3,10 +3,12 @@
   lib,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.nixchad.prometheus;
   prometheusPort = config.services.prometheus.port;
-in {
+in
+{
   options.nixchad.prometheus = {
     enable = mkEnableOption "Prometheus monitoring";
   };
@@ -17,9 +19,9 @@ in {
 
       impermanence.persisted.values = [
         {
-          directories =
-            lib.mkIf (config.nixchad.impermanence.presets.essential && config.nixchad.impermanence.presets.services)
-            [("/var/lib/" + config.services.prometheus.stateDir)];
+          directories = lib.mkIf (
+            config.nixchad.impermanence.presets.essential && config.nixchad.impermanence.presets.services
+          ) [ ("/var/lib/" + config.services.prometheus.stateDir) ];
         }
       ];
 
@@ -47,9 +49,9 @@ in {
         evaluation_interval = "15s";
       };
       webExternalUrl = "https://prometheus.nixalted.com";
-      extraFlags = ["--web.enable-remote-write-receiver"];
+      extraFlags = [ "--web.enable-remote-write-receiver" ];
       enableReload = true;
     };
-    networking.firewall.interfaces.tailscale0.allowedTCPPorts = [9090];
+    networking.firewall.interfaces.tailscale0.allowedTCPPorts = [ 9090 ];
   };
 }

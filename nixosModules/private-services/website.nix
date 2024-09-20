@@ -4,9 +4,11 @@
   lib,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.nixchad.website;
-in {
+in
+{
   options.nixchad.website = {
     enable = mkEnableOption "my personal website";
   };

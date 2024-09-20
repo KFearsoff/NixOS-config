@@ -4,7 +4,8 @@
   pkgs,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.nixchad.games;
 
   # https://libredd.it/r/leagueoflinux/comments/ultxfo/cannot_enter_in_game_after_champ_select_error/
@@ -35,13 +36,17 @@ with lib; let
 
     main
   '';
-in {
+in
+{
   options.nixchad.games = {
     league-of-legends.enable = mkEnableOption "League of Legends";
   };
 
   config = mkIf cfg.league-of-legends.enable {
-    nixchad.games.lutrisPackages = with pkgs; [openssl wineWowPackages.full];
+    nixchad.games.lutrisPackages = with pkgs; [
+      openssl
+      wineWowPackages.full
+    ];
 
     hm.xdg.desktopEntries = {
       LoL = {

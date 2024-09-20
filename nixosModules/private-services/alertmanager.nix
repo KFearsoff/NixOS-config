@@ -3,10 +3,12 @@
   lib,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.nixchad.alertmanager;
   alertmanagerPort = config.services.prometheus.alertmanager.port;
-in {
+in
+{
   options.nixchad.alertmanager = {
     enable = mkEnableOption "Alertmanager alerting";
   };
@@ -21,10 +23,10 @@ in {
         configuration = {
           route = {
             receiver = "telegram";
-            group_by = ["severity"];
+            group_by = [ "severity" ];
             routes = [
               {
-                matchers = ["alertname =~ HostMemoryIsUnderUtilized|HostCpuIsUnderUtilized"];
+                matchers = [ "alertname =~ HostMemoryIsUnderUtilized|HostCpuIsUnderUtilized" ];
                 repeat_interval = "1w";
               }
             ];

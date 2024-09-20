@@ -3,9 +3,11 @@
   lib,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.nixchad.location;
-in {
+in
+{
   options.nixchad.location = {
     timezone = mkOption {
       type = types.str;

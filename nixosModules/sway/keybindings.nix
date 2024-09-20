@@ -4,10 +4,21 @@
   pkgs,
   ...
 }:
-with lib; let
+with lib;
+let
   mod = config.nixchad.sway.modifier;
   # TODO: rename workspaces to get extra style points
-  workspaces = ["" "" "" "" "" "" "" "" ""];
+  workspaces = [
+    ""
+    ""
+    ""
+    ""
+    ""
+    ""
+    ""
+    ""
+    ""
+  ];
   numbers = map toString (range 1 9);
   workspaceNumbers = zipListsWith (x: y: x + "" + y) numbers workspaces;
 
@@ -16,18 +27,15 @@ with lib; let
 
   swap = pkgs.writeShellScript "swap-workspaces" (builtins.readFile ./swap-workspaces.sh);
 
-  navigationList =
-    zipListsWith
-    (number: workspace: {
-      "${mod}+${number}" = "exec --no-startup-id ${swap} ${workspace}";
-      "${mod}+Shift+${number}" = "move container to workspace ${workspace}; workspace ${workspace}";
-    })
-    numbers
-    workspaceNumbers;
+  navigationList = zipListsWith (number: workspace: {
+    "${mod}+${number}" = "exec --no-startup-id ${swap} ${workspace}";
+    "${mod}+Shift+${number}" = "move container to workspace ${workspace}; workspace ${workspace}";
+  }) numbers workspaceNumbers;
 
-  navigation = foldl (old: new: old // new) {} navigationList;
+  navigation = foldl (old: new: old // new) { } navigationList;
 
-  functionKeys = appendExecToCommand ({
+  functionKeys = appendExecToCommand (
+    {
       "XF86AudioRaiseVolume" = "--no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%";
       "XF86AudioLowerVolume" = "--no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5%";
       "XF86AudioMute" = "--no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle";
@@ -38,7 +46,8 @@ with lib; let
     // optionalAttrs config.nixchad.sway.backlight {
       "XF86MonBrightnessUp" = "${pkgs.light}/bin/light -A 5";
       "XF86MonBrightnessDown" = "${pkgs.light}/bin/light -U 5";
-    });
+    }
+  );
 
   general = useWithModifier {
     "Caps_Lock" = "exec ${pkgs.systemd}/bin/loginctl lock-session";
@@ -49,8 +58,11 @@ with lib; let
 
     "o" = "exec --no-startup-id ${pkgs.wtype}/bin/wtype $(grep -v '^//' ~/Documents/Notes/Reference\\ notes/Bookmarks.md | rofi -dmenu | cut -d' ' -f1)"; # bookmark script by LukeSmith: https://youtu.be/d_11QaTlf1I
   };
-in {
+in
+{
   hm = {
-    wayland.windowManager.sway.config.keybindings = mkOptionDefault (general // navigation // functionKeys);
+    wayland.windowManager.sway.config.keybindings = mkOptionDefault (
+      general // navigation // functionKeys
+    );
   };
 }

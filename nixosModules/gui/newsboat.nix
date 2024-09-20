@@ -4,9 +4,11 @@
   pkgs,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.nixchad.newsboat;
-in {
+in
+{
   options.nixchad.newsboat = {
     enable = mkEnableOption "newsboat";
   };
@@ -42,17 +44,25 @@ in {
       };
 
       systemd.user.services.newsboat-update = {
-        Unit = {Description = "Update Newsboat feeds";};
-        Service = {ExecStart = "${pkgs.newsboat}/bin/newsboat -x reload";};
+        Unit = {
+          Description = "Update Newsboat feeds";
+        };
+        Service = {
+          ExecStart = "${pkgs.newsboat}/bin/newsboat -x reload";
+        };
       };
 
       systemd.user.timers.newsboat-update = {
-        Unit = {Description = "Update Newsboat feeds";};
+        Unit = {
+          Description = "Update Newsboat feeds";
+        };
         Timer = {
           OnCalendar = "hourly";
           Unit = "newsboat-update.service";
         };
-        Install = {WantedBy = ["timers.target"];};
+        Install = {
+          WantedBy = [ "timers.target" ];
+        };
       };
     };
   };

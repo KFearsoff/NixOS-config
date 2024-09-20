@@ -5,17 +5,22 @@
   inputs,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.nixchad.firefox;
   inherit (config) nur;
-in {
+in
+{
   options.nixchad.firefox = {
     enable = mkEnableOption "firefox";
   };
 
   config = mkIf cfg.enable {
     hm = {
-      stylix.targets.firefox.profileNames = ["default" "conferencing"];
+      stylix.targets.firefox.profileNames = [
+        "default"
+        "conferencing"
+      ];
 
       programs.firefox = {
         enable = true;
@@ -68,7 +73,7 @@ in {
             search = {
               force = true;
               default = "DuckDuckGo";
-              order = ["DuckDuckGo"];
+              order = [ "DuckDuckGo" ];
               engines = {
                 "Amazon.com".metaData.hidden = true;
                 "Bing".metaData.hidden = true;
@@ -97,7 +102,7 @@ in {
                   ];
 
                   icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
-                  definedAliases = ["@np"];
+                  definedAliases = [ "@np" ];
                 };
 
                 "NixOS Options" = {
@@ -122,14 +127,14 @@ in {
                   ];
 
                   icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
-                  definedAliases = ["@no"];
+                  definedAliases = [ "@no" ];
                 };
 
                 "NixOS Wiki" = {
-                  urls = [{template = "https://nixos.wiki/index.php?search={searchTerms}";}];
+                  urls = [ { template = "https://nixos.wiki/index.php?search={searchTerms}"; } ];
                   iconUpdateURL = "https://nixos.wiki/favicon.png";
                   updateInterval = 24 * 60 * 60 * 1000; # every day
-                  definedAliases = ["@nw"];
+                  definedAliases = [ "@nw" ];
                 };
               };
             };
@@ -166,7 +171,7 @@ in {
             search = {
               force = true;
               default = "DuckDuckGo";
-              order = ["DuckDuckGo"];
+              order = [ "DuckDuckGo" ];
               engines = {
                 "Amazon.com".metaData.hidden = true;
                 "Bing".metaData.hidden = true;

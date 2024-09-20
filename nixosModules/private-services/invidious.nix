@@ -3,11 +3,13 @@
   lib,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.nixchad.invidious;
   invidiousPort = config.services.invidious.port;
   invidiousDomain = "invidious.nixalted.com";
-in {
+in
+{
   options.nixchad.invidious = {
     enable = mkEnableOption "Invidious Youtube proxying service";
   };

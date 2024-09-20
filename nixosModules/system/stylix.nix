@@ -1,6 +1,8 @@
-{pkgs, ...}: let
-  firaCode = pkgs.nerdfonts.override {fonts = ["FiraCode"];};
-in {
+{ pkgs, ... }:
+let
+  firaCode = pkgs.nerdfonts.override { fonts = [ "FiraCode" ]; };
+in
+{
   stylix = {
     enable = true;
     image = ../../assets/nix-wallpaper-nineish-dark-gray.png;
@@ -31,31 +33,33 @@ in {
     pkgs.noto-fonts-cjk-sans
   ];
 
-  hm = {config, ...}: {
-    gtk = {
-      iconTheme = {
-        package = pkgs.papirus-icon-theme;
-        name = "Papirus-Dark";
+  hm =
+    { config, ... }:
+    {
+      gtk = {
+        iconTheme = {
+          package = pkgs.papirus-icon-theme;
+          name = "Papirus-Dark";
+        };
+        gtk2 = {
+          configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
+          extraConfig = ''
+            gtk-alternative-button-order = 1
+          '';
+        };
+        gtk3.extraConfig = {
+          gtk-application-prefer-dark-theme = true;
+          gtk-decoration-layout = "icon:minimize,maximize,close";
+        };
+        gtk4.extraConfig = {
+          color-scheme = "prefer-dark";
+          gtk-decoration-layout = "icon:minimize,maximize,close";
+        };
       };
-      gtk2 = {
-        configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
-        extraConfig = ''
-          gtk-alternative-button-order = 1
-        '';
-      };
-      gtk3.extraConfig = {
-        gtk-application-prefer-dark-theme = true;
-        gtk-decoration-layout = "icon:minimize,maximize,close";
-      };
-      gtk4.extraConfig = {
-        color-scheme = "prefer-dark";
-        gtk-decoration-layout = "icon:minimize,maximize,close";
-      };
-    };
 
-    qt = {
-      enable = true;
-      platformTheme.name = "gtk";
+      qt = {
+        enable = true;
+        platformTheme.name = "gtk";
+      };
     };
-  };
 }

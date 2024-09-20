@@ -4,9 +4,11 @@
   pkgs,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.nixchad.cli;
-in {
+in
+{
   imports = [
     ./debug.nix
     ./utils.nix

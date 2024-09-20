@@ -4,9 +4,11 @@
   pkgs,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.nixchad.gui;
-in {
+in
+{
   imports = [
     ./alacritty.nix
     ./mpv.nix
@@ -41,7 +43,8 @@ in {
     services.gvfs.enable = true;
 
     hm = {
-      home.packages = with pkgs;
+      home.packages =
+        with pkgs;
         [
           freetube
           tdesktop

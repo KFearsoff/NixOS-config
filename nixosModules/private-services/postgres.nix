@@ -4,9 +4,11 @@
   pkgs,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.nixchad.postgres;
-in {
+in
+{
   options.nixchad.postgres = {
     enable = mkEnableOption "Prometheus Postgres";
   };
@@ -21,14 +23,15 @@ in {
     nixchad.impermanence.persisted.values = [
       {
         directories =
-          lib.mkIf (config.nixchad.impermanence.presets.essential && config.nixchad.impermanence.presets.services)
-          [
-            {
-              directory = "/var/lib/postgresql"; # backup the whole dir recursively
-              user = "postgres";
-              group = "postgres";
-            }
-          ];
+          lib.mkIf
+            (config.nixchad.impermanence.presets.essential && config.nixchad.impermanence.presets.services)
+            [
+              {
+                directory = "/var/lib/postgresql"; # backup the whole dir recursively
+                user = "postgres";
+                group = "postgres";
+              }
+            ];
       }
     ];
   };

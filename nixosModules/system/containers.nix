@@ -3,9 +3,11 @@
   lib,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.nixchad.containers;
-in {
+in
+{
   options.nixchad.containers = {
     enable = mkEnableOption "containers";
   };
@@ -18,8 +20,7 @@ in {
 
     nixchad.impermanence.persisted.values = [
       {
-        directories =
-          lib.mkIf config.nixchad.impermanence.presets.system ["/var/lib/containers"];
+        directories = lib.mkIf config.nixchad.impermanence.presets.system [ "/var/lib/containers" ];
       }
     ];
   };

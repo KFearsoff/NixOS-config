@@ -2,7 +2,8 @@
   inputs,
   pkgs,
   ...
-}: {
+}:
+{
   nix = {
     # pin all the nixpkgs to the version in the flake
     registry = {
@@ -13,14 +14,17 @@
     package = pkgs.lix;
 
     settings = {
-      trusted-users = ["@wheel"];
+      trusted-users = [ "@wheel" ];
       auto-optimise-store = true;
       keep-going = true;
       keep-outputs = true;
       warn-dirty = false;
       log-lines = 9999;
 
-      experimental-features = ["nix-command" "flakes"];
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
 
       builders-use-substitutes = true;
       substituters = [

@@ -3,9 +3,11 @@
   lib,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.nixchad.zathura;
-in {
+in
+{
   options.nixchad.zathura = {
     enable = mkEnableOption "zathura";
   };

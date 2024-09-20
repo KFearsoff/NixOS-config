@@ -4,9 +4,11 @@
   pkgs,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.nixchad.office;
-in {
+in
+{
   options.nixchad.office = {
     enable = mkEnableOption "office";
   };

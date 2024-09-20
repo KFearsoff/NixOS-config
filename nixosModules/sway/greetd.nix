@@ -4,9 +4,11 @@
   username,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.nixchad.greetd;
-in {
+in
+{
   options.nixchad.greetd = {
     enable = mkEnableOption "greetd";
   };

@@ -3,13 +3,15 @@
   lib,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.nixchad.loki;
   lokiHttpPort = 33100;
   lokiGrpcPort = 33110;
   alertmanagerPort = config.services.prometheus.alertmanager.port;
   lokiData = config.services.loki.dataDir;
-in {
+in
+{
   options.nixchad.loki = {
     enable = mkEnableOption "Loki log aggregator";
   };
@@ -96,14 +98,15 @@ in {
       impermanence.persisted.values = [
         {
           directories =
-            lib.mkIf (config.nixchad.impermanence.presets.essential && config.nixchad.impermanence.presets.services)
-            [
-              {
-                directory = config.services.loki.dataDir;
-                user = "loki";
-                group = "loki";
-              }
-            ];
+            lib.mkIf
+              (config.nixchad.impermanence.presets.essential && config.nixchad.impermanence.presets.services)
+              [
+                {
+                  directory = config.services.loki.dataDir;
+                  user = "loki";
+                  group = "loki";
+                }
+              ];
         }
       ];
     };

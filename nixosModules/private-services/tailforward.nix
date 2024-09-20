@@ -5,7 +5,8 @@
   lib,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.nixchad.tailforward;
   port = "54321";
   configFile = pkgs.writeText "tailforward.toml" ''
@@ -20,16 +21,17 @@ with lib; let
     file_format = "Alertmanager"
     chat_id = -1001864190705
   '';
-in {
+in
+{
   options.nixchad.tailforward = {
     enable = mkEnableOption "Tailforward, a self-written Rust program to send Tailscale webhook events to Telegram";
   };
 
   config = mkIf cfg.enable {
     systemd.services.tailforward = {
-      after = ["network.target"];
-      wants = ["network.target"];
-      wantedBy = ["default.target"];
+      after = [ "network.target" ];
+      wants = [ "network.target" ];
+      wantedBy = [ "default.target" ];
       serviceConfig = {
         ExecStart = "${inputs.tailforward.packages.x86_64-linux.default}/bin/tailforward";
         ConfigurationDirectory = "tailforward";

@@ -5,7 +5,8 @@
   username,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.nixchad.restic;
   device = "dev-disk-by\\x2duuid-8277\\x2dDD24.device";
 
@@ -35,16 +36,24 @@ with lib; let
       paths = [
         "/secrets"
       ];
-      extraBackupArgs = ["--verbose" "--tag secrets"];
+      extraBackupArgs = [
+        "--verbose"
+        "--tag secrets"
+      ];
     };
     stuff = {
       paths = [
         "/home/${username}/Sync"
       ];
-      extraBackupArgs = ["--verbose" "--host common" "--tag stuff"];
+      extraBackupArgs = [
+        "--verbose"
+        "--host common"
+        "--tag stuff"
+      ];
     };
   };
-in {
+in
+{
   options.nixchad.restic = {
     enable = mkEnableOption "Restic backups";
     usb-backups = mkEnableOption "backups to USB drive";
@@ -61,13 +70,17 @@ in {
             "/home/${username}/Pictures/Photos"
             "/home/${username}/Pictures/Photos-phone"
           ];
-          extraBackupArgs = ["--verbose" "--host common" "--tag photos"];
+          extraBackupArgs = [
+            "--verbose"
+            "--host common"
+            "--tag photos"
+          ];
         };
       };
     })
     (mkIf (cfg.enable && cfg.usb-backups) {
       systemd.services."usb-restic-backup" = {
-        path = [pkgs.openssh];
+        path = [ pkgs.openssh ];
         environment = {
           RESTIC_CACHE_DIR = "%C/restic-backups";
           RESTIC_FROM_PASSWORD_FILE = /secrets/restic-backup-linus;
@@ -80,8 +93,8 @@ in {
           ${pkgs.restic}/bin/restic snapshots || ${pkgs.restic}/bin/restic init
         '';
         script = "${pkgs.restic}/bin/restic copy";
-        after = [device];
-        wantedBy = [device];
+        after = [ device ];
+        wantedBy = [ device ];
         serviceConfig = {
           User = "nixchad";
           Type = "oneshot";
@@ -98,7 +111,10 @@ in {
           paths = [
             "/tmp/postgres"
           ];
-          extraBackupArgs = ["--verbose" "--tag postgres"];
+          extraBackupArgs = [
+            "--verbose"
+            "--tag postgres"
+          ];
           backupPrepareCommand = ''
             echo 'creating temporary directory'
             mkdir -p /tmp/postgres
@@ -117,7 +133,10 @@ in {
           paths = [
             "/tmp/vaultwarden"
           ];
-          extraBackupArgs = ["--verbose" "--tag vaultwarden"];
+          extraBackupArgs = [
+            "--verbose"
+            "--tag vaultwarden"
+          ];
           backupPrepareCommand = ''
             echo 'creating temporary directory'
             mkdir -p /tmp/vaultwarden

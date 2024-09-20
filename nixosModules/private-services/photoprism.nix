@@ -3,10 +3,12 @@
   lib,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.nixchad.photoprism;
   photoprismPort = 2342;
-in {
+in
+{
   options.nixchad.photoprism = {
     enable = mkEnableOption "Photoprism photo gallery service";
   };
@@ -14,7 +16,7 @@ in {
   config = mkIf cfg.enable {
     virtualisation.oci-containers.containers."photoprism" = {
       image = "photoprism/photoprism";
-      ports = ["${builtins.toString photoprismPort}:2342"];
+      ports = [ "${builtins.toString photoprismPort}:2342" ];
       volumes = [
         "/home/nixchad/Pictures/Photos:/photoprism/originals:ro"
         "/home/nixchad/Pictures/Photoprism:/photoprism/storage"

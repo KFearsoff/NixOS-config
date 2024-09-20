@@ -4,7 +4,8 @@
   lib,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.nixchad.blackbox-exporter;
   hostname = config.networking.hostName;
   blackboxPort = 33005;
@@ -12,16 +13,16 @@ with lib; let
   makeJobConfig = module: {
     job_name = module;
     metrics_path = "/probe";
-    params.module = [module];
+    params.module = [ module ];
     scrape_interval = "60s"; # reduce API spam
 
     relabel_configs = [
       {
-        source_labels = ["__address__"];
+        source_labels = [ "__address__" ];
         target_label = "__param_target";
       }
       {
-        source_labels = ["__param_target"];
+        source_labels = [ "__param_target" ];
         target_label = "instance";
       }
       {
@@ -32,26 +33,29 @@ with lib; let
 
     static_configs = [
       {
-        targets = let
-          preTargetsIcmp = [
-            "nixalted.com"
-            "bills-service-frontend.fly.dev"
-            "bills-service-backend.fly.dev"
-            "georgian-translator-bot.fly.dev"
-          ];
-          preTargetsHttps = [
-            "nixalted.com"
-            "bills-service-frontend.fly.dev"
-            "bills-service-backend.fly.dev"
-          ];
-        in
-          if (module == "icmp_v4" || module == "icmp_v6")
-          then preTargetsIcmp
-          else map (x: "https://${x}") preTargetsHttps;
+        targets =
+          let
+            preTargetsIcmp = [
+              "nixalted.com"
+              "bills-service-frontend.fly.dev"
+              "bills-service-backend.fly.dev"
+              "georgian-translator-bot.fly.dev"
+            ];
+            preTargetsHttps = [
+              "nixalted.com"
+              "bills-service-frontend.fly.dev"
+              "bills-service-backend.fly.dev"
+            ];
+          in
+          if (module == "icmp_v4" || module == "icmp_v6") then
+            preTargetsIcmp
+          else
+            map (x: "https://${x}") preTargetsHttps;
       }
     ];
   };
-in {
+in
+{
   options.nixchad.blackbox-exporter = {
     enable = mkEnableOption "Prometheus blackbox exporter";
   };
@@ -64,14 +68,16 @@ in {
         port = blackboxPort;
       };
 
-      scrapeConfigs = map makeJobConfig (optionals (config.lib.metadata.hasIpv4 hostname) [
+      scrapeConfigs = map makeJobConfig (
+        optionals (config.lib.metadata.hasIpv4 hostname) [
           "icmp_v4"
           "http_v4"
         ]
         ++ optionals (config.lib.metadata.hasIpv6 hostname) [
           "icmp_v6"
           "http_v6"
-        ]);
+        ]
+      );
     };
   };
 }
