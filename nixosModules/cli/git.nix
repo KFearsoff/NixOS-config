@@ -4,10 +4,12 @@
   pkgs,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.nixchad.git;
   utilsEnabled = config.nixchad.utils.enable;
-in {
+in
+{
   options.nixchad.git = {
     enable = mkEnableOption "git";
   };
@@ -16,7 +18,10 @@ in {
     programs.git.enable = true;
 
     hm = {
-      home.packages = optionals utilsEnabled [pkgs.git-filter-repo pkgs.git-absorb];
+      home.packages = optionals utilsEnabled [
+        pkgs.git-filter-repo
+        pkgs.git-absorb
+      ];
 
       programs.git = {
         enable = true;
@@ -54,8 +59,9 @@ in {
           push.default = "current";
 
           url = {
-            "ssh://git@github.com/".insteadOf = "gh:";
-            "ssh://git@gitlab.com/".insteadOf = "gl:";
+            "git@github.com/".insteadOf = "gh:";
+            "git@gitlab.com/".insteadOf = "gl:";
+            "ssh://kfearsoff@gerrit.lix.systems:2022/".insteadOf = "lix:";
           };
 
           sequence.editor = optionalString utilsEnabled "${pkgs.git-interactive-rebase-tool}/bin/interactive-rebase-tool";
@@ -83,6 +89,16 @@ in {
               user = {
                 email = "egor@naviteq.io";
                 name = "Egor Terentev";
+              };
+            };
+          }
+          {
+            condition = "gitdir:~/Documents/Projects/lix/**";
+            contents = {
+              remote = {
+                origin = {
+                  push = "HEAD:refs/for/main";
+                };
               };
             };
           }
