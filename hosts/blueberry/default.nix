@@ -111,4 +111,5 @@
     "interface-name:tun*"
   ];
   zramSwap.enable = true;
+  hm.nixchad.gui.enable = true;
 }

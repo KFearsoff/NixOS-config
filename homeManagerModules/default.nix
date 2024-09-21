@@ -10,6 +10,7 @@ in
     ./sway
     ./zoxide.nix
     ./cli
+    ./gui
   ];
 
   options.nixchad.full = {
