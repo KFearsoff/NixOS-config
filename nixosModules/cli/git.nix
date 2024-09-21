@@ -59,8 +59,8 @@ in
           push.default = "current";
 
           url = {
-            "git@github.com/".insteadOf = "gh:";
-            "git@gitlab.com/".insteadOf = "gl:";
+            "git@github.com".insteadOf = "gh";
+            "git@gitlab.com".insteadOf = "gl";
             "ssh://kfearsoff@gerrit.lix.systems:2022/".insteadOf = "lix:";
           };
 
