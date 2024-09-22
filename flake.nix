@@ -128,6 +128,8 @@
           fetchers: with fetchers; {
             nixpkgs = [
               # (npr 305569 "0n0nbriaxfcbalyqp59d3qg91vni1p56avv19wlqhgghy74wr5f1")
+              # Steam chop
+              (npr 341219 "0z104cbl4g55czs2b4f05ynz8xhh0drdvm8pl6kngwb6zkzcy76k")
             ];
             #(pr <number> <sha>)
           };
