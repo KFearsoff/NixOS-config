@@ -8,7 +8,7 @@
 
     # Lix
     lix = {
-      url = "git+https://gerrit.lix.systems/lix";
+      url = "https://git.lix.systems/lix-project/lix/archive/main.tar.gz";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         # pre-commit-hooks.follows = "pre-commit-hooks";
@@ -16,10 +16,10 @@
       };
     };
     lix-module = {
-      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.91.0.tar.gz";
+      url = "https://git.lix.systems/lix-project/nixos-module/archive/main.tar.gz";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        # lix.follows = "lix";
+        lix.follows = "lix";
         # flake-utils.follows = "flake-utils-dep";
       };
     };
