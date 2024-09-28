@@ -51,6 +51,10 @@ in
       webExternalUrl = "https://prometheus.nixalted.com";
       extraFlags = [ "--web.enable-remote-write-receiver" ];
       enableReload = true;
+      ruleFiles = [
+        ./alerts.yaml
+        ./rules.yaml
+      ];
     };
     networking.firewall.interfaces.tailscale0.allowedTCPPorts = [ 9090 ];
   };

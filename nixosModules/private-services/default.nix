@@ -7,7 +7,7 @@
     ./postgres.nix
     ./postgres-exporter.nix
     ./blackbox-exporter.nix
-    ./prometheus.nix
+    ./prometheus
     ./alertmanager.nix
     ./vaultwarden.nix
     ./photoprism.nix
