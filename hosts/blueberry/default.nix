@@ -18,7 +18,6 @@
   ];
   services.thermald.enable = true;
   systemd.services.NetworkManager-wait-online.enable = false;
-  hm.nixchad.clouds.aws = true;
 
   users.users."${username}".hashedPasswordFile = "/secrets/nixchad-password";
 
@@ -111,5 +110,8 @@
     "interface-name:tun*"
   ];
   zramSwap.enable = true;
-  hm.nixchad.gui.enable = true;
+  hm.nixchad = {
+    gui.enable = true;
+    clouds.gcp = true;
+  };
 }
