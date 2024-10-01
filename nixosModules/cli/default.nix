@@ -34,9 +34,6 @@ in
       wget
       jq
       git
-      terraform-mpl
-      terragrunt
-      packer-mpl
     ];
   };
 }

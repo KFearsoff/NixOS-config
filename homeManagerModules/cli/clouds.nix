@@ -26,7 +26,11 @@ in
   config = mkIf cfg.enable {
     home.packages =
       with pkgs;
-      (optional cfg.azure azure-cli)
+      [
+        opentofu
+        terragrunt
+      ]
+      ++ (optional cfg.azure azure-cli)
       ++ (optionals cfg.aws [
         awscli2
         aws-vault
