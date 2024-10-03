@@ -18,6 +18,7 @@ let
     extraOptions = [
       "sftp.command='ssh kfears@sol.sphalerite.tech -i /home/${username}/.ssh/id_ed25519 -o StrictHostKeyChecking=no -s sftp'"
     ];
+    inhibitsSleep = true;
     initialize = true;
     timerConfig = {
       OnCalendar = "daily";
