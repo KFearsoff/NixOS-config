@@ -24,6 +24,7 @@ in
         jnoortheen.nix-ide
         mads-hartmann.bash-ide-vscode
         rust-lang.rust-analyzer
+        llvm-vs-code-extensions.vscode-clangd
       ];
 
       userSettings = {
