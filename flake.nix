@@ -34,7 +34,6 @@
       url = "github:edolstra/flake-compat";
       flake = false;
     };
-    flake-parts.url = "github:hercules-ci/flake-parts";
 
     # NixOS utils
     hardware.url = "github:NixOS/nixos-hardware/master";
@@ -132,154 +131,134 @@
       };
       inherit (importedLib) buildSystem pkgs;
     in
-    inputs.flake-parts.lib.mkFlake { inherit inputs; } {
-      systems = [
-        "x86_64-linux"
-        "aarch64-linux"
-      ];
-
-      flake = {
-        nixosConfigurations = {
-          blackberry = buildSystem {
-            hostname = "blackberry";
-            extraModules = [
-              ./suites/cli.nix
-              ./suites/sway.nix
-              ./suites/games.nix
-              ./suites/gui.nix
-              ./suites/work.nix
-              ./suites/common-services.nix
-              #./suites/office.nix
-              #./suites/graphics.nix
-            ];
-          };
-
-          cloudberry = buildSystem {
-            hostname = "cloudberry";
-            extraModules = [
-              ./suites/common-services.nix
-              ./suites/private-services.nix
-            ];
-          };
-
-          blueberry = buildSystem {
-            hostname = "blueberry";
-            extraModules = [
-              ./suites/cli.nix
-              ./suites/sway.nix
-              ./suites/games.nix
-              ./suites/gui.nix
-              ./suites/work.nix
-              ./suites/common-services.nix
-              #./suites/office.nix
-              #./suites/graphics.nix
-            ];
-          };
+    {
+      nixosConfigurations = {
+        blackberry = buildSystem {
+          hostname = "blackberry";
+          extraModules = [
+            ./suites/cli.nix
+            ./suites/sway.nix
+            ./suites/games.nix
+            ./suites/gui.nix
+            ./suites/work.nix
+            ./suites/common-services.nix
+            #./suites/office.nix
+            #./suites/graphics.nix
+          ];
         };
 
-        allMachines =
-          let
-            toLink = name: value: {
-              inherit name;
-              path = value.config.system.build.toplevel;
-            };
-            links = pkgs.lib.mapAttrsToList toLink inputs.self.nixosConfigurations;
-          in
-          pkgs.linkFarm "all-machines" links;
-
-        deploy.nodes = with inputs.deploy-rs.lib; {
-          blackberry = {
-            hostname = "blackberry";
-            user = "root";
-            sshUser = "nixchad";
-            profiles.system.path = x86_64-linux.activate.nixos inputs.self.nixosConfigurations.blackberry;
-            fastConnection = true;
-          };
-
-          cloudberry = {
-            hostname = "cloudberry";
-            user = "root";
-            sshUser = "nixchad";
-            profiles.system.path = x86_64-linux.activate.nixos inputs.self.nixosConfigurations.cloudberry;
-            fastConnection = true;
-          };
-
-          blueberry = {
-            hostname = "blueberry";
-            user = "root";
-            sshUser = "nixchad";
-            profiles.system.path = x86_64-linux.activate.nixos inputs.self.nixosConfigurations.blueberry;
-            fastConnection = true;
-          };
+        cloudberry = buildSystem {
+          hostname = "cloudberry";
+          extraModules = [
+            ./suites/common-services.nix
+            ./suites/private-services.nix
+          ];
         };
 
-        checks = builtins.mapAttrs (
-          _: deployLib: deployLib.deployChecks inputs.self.deploy
-        ) inputs.deploy-rs.lib;
+        blueberry = buildSystem {
+          hostname = "blueberry";
+          extraModules = [
+            ./suites/cli.nix
+            ./suites/sway.nix
+            ./suites/games.nix
+            ./suites/gui.nix
+            ./suites/work.nix
+            ./suites/common-services.nix
+            #./suites/office.nix
+            #./suites/graphics.nix
+          ];
+        };
       };
 
-      perSystem =
-        {
-          config,
-          pkgs,
-          system,
-          ...
-        }:
-        {
-          formatter = pkgs.nixfmt-rfc-style;
-
-          devShells.default = pkgs.mkShellNoCC {
-            packages = [
-              pkgs.just
-              inputs.deploy-rs.defaultPackage.${system}
-              pkgs.nvd
-              pkgs.nixfmt-rfc-style
-              pkgs.nix-output-monitor
-
-              pkgs.lua
-              pkgs.lua-language-server
-            ];
-
-            inherit (inputs.self.checks.${system}.pre-commit-check) shellHook;
+      allMachines =
+        let
+          toLink = name: value: {
+            inherit name;
+            path = value.config.system.build.toplevel;
           };
+          links = pkgs.lib.mapAttrsToList toLink inputs.self.nixosConfigurations;
+        in
+        pkgs.linkFarm "all-machines" links;
 
-          checks = {
-            pre-commit-check = inputs.pre-commit-hooks.lib.${system}.run {
-              src = ./.;
-              hooks = {
-                # Shell
-                shellcheck.enable = true;
-                shfmt.enable = true;
-
-                # Markdown
-                mdsh.enable = true;
-                markdownlint.enable = true;
-
-                # Variety
-                actionlint.enable = true;
-                commitizen.enable = true;
-                editorconfig-checker.enable = true;
-
-                # Nix
-                nixfmt-rfc-style.enable = true;
-                deadnix.enable = true;
-                statix.enable = true;
-              };
-            };
-          };
-
-          apps.default = {
-            type = "app";
-            program = "${inputs.deploy-rs.defaultPackage.${system}}/bin/deploy";
-          };
-
-          packages = {
-            iso =
-              let
-                image = buildSystem { hostname = "iso"; };
-              in
-              image.config.system.build."isoImage";
-          } // pkgs.lib.mapAttrs (_: v: v) (import ./pkgs { inherit pkgs; });
+      deploy.nodes = with inputs.deploy-rs.lib; {
+        blackberry = {
+          hostname = "blackberry";
+          user = "root";
+          sshUser = "nixchad";
+          profiles.system.path = x86_64-linux.activate.nixos inputs.self.nixosConfigurations.blackberry;
+          fastConnection = true;
         };
+
+        cloudberry = {
+          hostname = "cloudberry";
+          user = "root";
+          sshUser = "nixchad";
+          profiles.system.path = x86_64-linux.activate.nixos inputs.self.nixosConfigurations.cloudberry;
+          fastConnection = true;
+        };
+
+        blueberry = {
+          hostname = "blueberry";
+          user = "root";
+          sshUser = "nixchad";
+          profiles.system.path = x86_64-linux.activate.nixos inputs.self.nixosConfigurations.blueberry;
+          fastConnection = true;
+        };
+      };
+
+      formatter.${hostSystem} = pkgs.nixfmt-rfc-style;
+
+      devShells.${hostSystem}.default = pkgs.mkShellNoCC {
+        packages = [
+          pkgs.just
+          inputs.deploy-rs.defaultPackage.${hostSystem}
+          pkgs.nvd
+          pkgs.nixfmt-rfc-style
+          pkgs.nix-output-monitor
+
+          pkgs.lua
+          pkgs.lua-language-server
+        ];
+
+        inherit (inputs.self.checks.${hostSystem}.pre-commit-check) shellHook;
+      };
+
+      checks.${hostSystem} = {
+        pre-commit-check = inputs.pre-commit-hooks.lib.${hostSystem}.run {
+          src = ./.;
+          hooks = {
+            # Shell
+            shellcheck.enable = true;
+            shfmt.enable = true;
+
+            # Markdown
+            mdsh.enable = true;
+            markdownlint.enable = true;
+
+            # Variety
+            actionlint.enable = true;
+            commitizen.enable = true;
+            editorconfig-checker.enable = true;
+
+            # Nix
+            nixfmt-rfc-style.enable = true;
+            deadnix.enable = true;
+            statix.enable = true;
+          };
+        };
+      };
+
+      apps.${hostSystem}.default = {
+        type = "app";
+        program = "${inputs.deploy-rs.defaultPackage.${hostSystem}}/bin/deploy";
+      };
+
+      packages.${hostSystem} = {
+        iso =
+          let
+            image = buildSystem { hostname = "iso"; };
+          in
+          image.config.system.build."isoImage";
+      } // pkgs.lib.mapAttrs (_: v: v) (import ./pkgs { inherit pkgs; });
     };
 }
