@@ -55,7 +55,7 @@
       url = "github:KFearsoff/website";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        devenv.follows = "devenv";
+        pre-commit-hooks.follows = "pre-commit-hooks";
       };
     };
 
