@@ -301,11 +301,11 @@
         "pyproject-nix": "pyproject-nix"
       },
       "locked": {
-        "lastModified": 1709801460,
-        "narHash": "sha256-PsxwJdY4KJhv0BF9LEEj9r8TLYQT2tYI3mPwwdSo4TE=",
+        "lastModified": 1728585693,
+        "narHash": "sha256-rhx5SYpIkPu7d+rjF9FGGBVxS0BwAEkmYIsJg2a3E20=",
         "owner": "nix-community",
         "repo": "dream2nix",
-        "rev": "3b9e0780a0561ea6e180ec00977b7ea939eaed84",
+        "rev": "c6935471f7e1a9e190aaa9ac9823dca34e00d92a",
         "type": "github"
       },
       "original": {
@@ -323,11 +323,11 @@
         "rust-analyzer-src": "rust-analyzer-src"
       },
       "locked": {
-        "lastModified": 1709792596,
-        "narHash": "sha256-DQL1KJ9AaoQjwMkZkSBrW9/az2dwbbBnhNIbIzgeDIE=",
+        "lastModified": 1728973961,
+        "narHash": "sha256-Jkqaw9O7WXTf5SHrK7xr9HpVU/mEPVg0Sp6s3AENC90=",
         "owner": "nix-community",
         "repo": "fenix",
-        "rev": "221fedb628b1e86e88d8fbfbd20b699448e58fa9",
+        "rev": "d6a9ff4d1e60c347a23bc96ccdb058d37a810541",
         "type": "github"
       },
       "original": {
@@ -369,6 +369,22 @@
       }
     },
     "flake-compat_2": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1696426674,
+        "narHash": "sha256-kvjfFW7WAETZlt09AgDn1MrtKzP7t90Vf7vypd3OL1U=",
+        "owner": "edolstra",
+        "repo": "flake-compat",
+        "rev": "0f9255e01c2351cc7d116c072cb317785dd33b33",
+        "type": "github"
+      },
+      "original": {
+        "owner": "edolstra",
+        "repo": "flake-compat",
+        "type": "github"
+      }
+    },
+    "flake-compat_3": {
       "flake": false,
       "locked": {
         "lastModified": 1696426674,
@@ -1209,6 +1225,7 @@
     },
     "purescript-overlay": {
       "inputs": {
+        "flake-compat": "flake-compat_3",
         "nixpkgs": [
           "tailforward",
           "dream2nix",
@@ -1217,11 +1234,11 @@
         "slimlock": "slimlock"
       },
       "locked": {
-        "lastModified": 1696022621,
-        "narHash": "sha256-eMjFmsj2G1E0Q5XiibUNgFjTiSz0GxIeSSzzVdoN730=",
+        "lastModified": 1724504251,
+        "narHash": "sha256-TIw+sac0NX0FeAneud+sQZT+ql1G/WEb7/Vb436rUXM=",
         "owner": "thomashoneyman",
         "repo": "purescript-overlay",
-        "rev": "047c7933abd6da8aa239904422e22d190ce55ead",
+        "rev": "988b09676c2a0e6a46dfa3589aa6763c90476b8a",
         "type": "github"
       },
       "original": {
@@ -1274,11 +1291,11 @@
     "rust-analyzer-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1709749600,
-        "narHash": "sha256-jLGAyPPi4PVo/9y6ayWgdAtzPotFWvNTCxrDzxO+Uj0=",
+        "lastModified": 1728921748,
+        "narHash": "sha256-BOCZ5osPOMh2BPHnkK4sVdTGj7sn47rBn1nxjrzWe5U=",
         "owner": "rust-lang",
         "repo": "rust-analyzer",
-        "rev": "ce15e73a8ece3cf9e7958bbad3aedb03daa10135",
+        "rev": "0319586ef2a2636f6d6b891690b7ebebf4337c85",
         "type": "github"
       },
       "original": {
@@ -1298,11 +1315,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1688610262,
-        "narHash": "sha256-Wg0ViDotFWGWqKIQzyYCgayeH8s4U1OZcTiWTQYdAp4=",
+        "lastModified": 1688756706,
+        "narHash": "sha256-xzkkMv3neJJJ89zo3o2ojp7nFeaZc2G0fYwNXNJRFlo=",
         "owner": "thomashoneyman",
         "repo": "slimlock",
-        "rev": "b5c6cdcaf636ebbebd0a1f32520929394493f1a6",
+        "rev": "cf72723f59e2340d24881fd7bf61cb113b4c407c",
         "type": "github"
       },
       "original": {
@@ -1424,27 +1441,21 @@
     },
     "tailforward": {
       "inputs": {
-        "devenv": [
-          "devenv"
-        ],
         "dream2nix": "dream2nix",
         "fenix": "fenix",
-        "flake-parts": [
-          "flake-parts"
-        ],
         "nixpkgs": [
           "nixpkgs"
         ],
-        "systems": [
-          "systems-dep"
+        "pre-commit-hooks": [
+          "pre-commit-hooks"
         ]
       },
       "locked": {
-        "lastModified": 1709831981,
-        "narHash": "sha256-tEBZF72ZCj2WrJkPRvwt9lQvSw8P9rnb7eAGFdtBzc0=",
+        "lastModified": 1729102490,
+        "narHash": "sha256-DD2BXYZ9dXHCW7gUCGU4TLp5F+2GcNCVl3heH+YS2rA=",
         "owner": "KFearsoff",
         "repo": "tailforward",
-        "rev": "315416e909cd2603cc35041fce5c3f7470c51ad5",
+        "rev": "3d3a22dad6ad140924bac5af5d476c70c92f6201",
         "type": "github"
       },
       "original": {

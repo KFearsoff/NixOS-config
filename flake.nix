@@ -49,9 +49,7 @@
       url = "github:KFearsoff/tailforward";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        systems.follows = "systems-dep";
-        devenv.follows = "devenv";
-        flake-parts.follows = "flake-parts";
+        pre-commit-hooks.follows = "pre-commit-hooks";
       };
     };
     website = {
@@ -135,10 +133,6 @@
       inherit (importedLib) buildSystem pkgs;
     in
     inputs.flake-parts.lib.mkFlake { inherit inputs; } {
-      imports = [
-        inputs.devenv.flakeModule
-      ];
-
       systems = [
         "x86_64-linux"
         "aarch64-linux"
@@ -234,41 +228,43 @@
         {
           formatter = pkgs.nixfmt-rfc-style;
 
-          devenv.shells.default = {
+          devShells.default = pkgs.mkShellNoCC {
             packages = [
               pkgs.just
               inputs.deploy-rs.defaultPackage.${system}
               pkgs.nvd
               pkgs.nixfmt-rfc-style
               pkgs.nix-output-monitor
+
+              pkgs.lua
+              pkgs.lua-language-server
             ];
 
-            languages = {
-              nix.enable = true;
-              lua.enable = true;
-            };
+            inherit (inputs.self.checks.${system}.pre-commit-check) shellHook;
+          };
 
-            # https://github.com/cachix/devenv/issues/528
-            containers = pkgs.lib.mkForce { };
+          checks = {
+            pre-commit-check = inputs.pre-commit-hooks.lib.${system}.run {
+              src = ./.;
+              hooks = {
+                # Shell
+                shellcheck.enable = true;
+                shfmt.enable = true;
 
-            pre-commit.hooks = {
-              # Shell
-              shellcheck.enable = true;
-              shfmt.enable = true;
+                # Markdown
+                mdsh.enable = true;
+                markdownlint.enable = true;
 
-              # Markdown
-              mdsh.enable = true;
-              markdownlint.enable = true;
+                # Variety
+                actionlint.enable = true;
+                commitizen.enable = true;
+                editorconfig-checker.enable = true;
 
-              # Variety
-              actionlint.enable = true;
-              commitizen.enable = true;
-              editorconfig-checker.enable = true;
-
-              # Nix
-              nixfmt-rfc-style.enable = true;
-              deadnix.enable = true;
-              statix.enable = true;
+                # Nix
+                nixfmt-rfc-style.enable = true;
+                deadnix.enable = true;
+                statix.enable = true;
+              };
             };
           };
 
