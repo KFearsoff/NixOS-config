@@ -55,7 +55,6 @@
     };
   };
   programs.light.enable = true;
-  programs.openvpn3.enable = true;
 
   systemd.network = {
     enable = true;
