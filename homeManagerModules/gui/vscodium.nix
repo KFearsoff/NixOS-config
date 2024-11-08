@@ -10,9 +10,7 @@ let
 in
 {
   options.nixchad.vscodium = {
-    enable = mkEnableOption "vscodium" // {
-      default = config.nixchad.gui.enable;
-    };
+    enable = mkEnableOption "vscodium";
   };
 
   config = mkIf cfg.enable {
