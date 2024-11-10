@@ -18,6 +18,9 @@ in
       home.sessionVariables = {
         EDITOR = "nvim";
       };
+      programs.nushell.environmentVariables = {
+        EDITOR = "'nvim'";
+      };
 
       programs.neovim = {
         enable = true;
