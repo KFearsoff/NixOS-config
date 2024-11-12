@@ -79,16 +79,6 @@
       flake = false;
     };
 
-    # Development
-    devenv = {
-      url = "github:cachix/devenv";
-      inputs = {
-        flake-compat.follows = "flake-compat-dep";
-        pre-commit-hooks.follows = "pre-commit-hooks";
-        nixpkgs.follows = "nixpkgs";
-      };
-    };
-
     # CI
     pre-commit-hooks = {
       url = "github:cachix/pre-commit-hooks.nix";
