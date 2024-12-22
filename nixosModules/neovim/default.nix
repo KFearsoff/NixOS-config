@@ -39,9 +39,15 @@ in
           cmp-path
           nvim-snippets
           friendly-snippets
+          mini-pairs
+          mini-ai
           ts-comments-nvim
           lazydev-nvim
           luvit-meta
+          mini-comment
+          mini-surround
+          mini-diff
+          mini-animate
 
           # Editor
           neo-tree-nvim
@@ -71,7 +77,9 @@ in
           lualine-nvim
           indent-blankline-nvim
           noice-nvim
+          mini-icons
           nui-nvim
+          snacks-nvim
           dashboard-nvim
 
           # Util
@@ -161,7 +169,6 @@ in
           vim-startuptime
 
           nvim-web-devicons
-          mini-nvim
           nvim-notify
           nvim-lsp-notify
 

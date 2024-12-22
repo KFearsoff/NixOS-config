@@ -1,6 +1,6 @@
 { pkgs, ... }:
 let
-  firaCode = pkgs.nerdfonts.override { fonts = [ "FiraCode" ]; };
+  firaCode = pkgs.nerd-fonts.fira-code;
 in
 {
   stylix = {

@@ -8,7 +8,7 @@
 with lib;
 let
   cfg = config.nixchad.firefox;
-  inherit (config) nur;
+  inherit (pkgs) nur;
 in
 {
   options.nixchad.firefox = {

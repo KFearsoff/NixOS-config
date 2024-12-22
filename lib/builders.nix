@@ -71,20 +71,23 @@ let
     import "${patchedInputs.nixpkgs}/nixos/lib/eval-config.nix" {
       inherit system;
 
-      modules = [
-        {
-          networking.hostName = hostname;
-          nixpkgs.pkgs = pkgs;
-        }
-        inputs.home-manager.nixosModules.home-manager
-        inputs.impermanence.nixosModules.impermanence
-        inputs.stylix.nixosModules.stylix
-        inputs.nur.nixosModules.nur
-        inputs.lix-module.nixosModules.default
-        ../users
-        ../nixosModules
-        ./metadata.nix
-      ] ++ machineSpecificModules ++ extraModules;
+      modules =
+        [
+          {
+            networking.hostName = hostname;
+            nixpkgs.pkgs = pkgs;
+          }
+          inputs.home-manager.nixosModules.home-manager
+          inputs.impermanence.nixosModules.impermanence
+          inputs.stylix.nixosModules.stylix
+          inputs.nur.modules.nixos.default
+          inputs.lix-module.nixosModules.default
+          ../users
+          ../nixosModules
+          ./metadata.nix
+        ]
+        ++ machineSpecificModules
+        ++ extraModules;
 
       specialArgs = {
         inputs = patchedInputs;
