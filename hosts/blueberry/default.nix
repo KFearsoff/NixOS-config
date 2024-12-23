@@ -17,7 +17,10 @@
     inputs.hardware.nixosModules.common-hidpi
   ];
   services.thermald.enable = true;
-  systemd.services.NetworkManager-wait-online.enable = false;
+  systemd.services = {
+    NetworkManager-wait-online.enable = false;
+    systemd-networkd.environment.SYSTEMD_LOG_LEVEL = "debug";
+  };
 
   users.users."${username}".hashedPasswordFile = "/secrets/nixchad-password";
 
