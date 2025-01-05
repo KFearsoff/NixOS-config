@@ -52,10 +52,10 @@ in
           element-desktop
           slack
           discord
-          ardour
-          lingot
+          # ardour
+          # lingot
           nemo
-          pinta
+          # pinta
           chromium
         ]
         #++ (optional config.services.pipewire.enable easyeffects)
