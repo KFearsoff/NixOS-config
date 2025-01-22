@@ -81,6 +81,13 @@ in
       };
     };
 
+    systemd.services.loki = {
+      serviceConfig = {
+        MemoryHigh = 300 * 1024 * 1024; # 300MiB
+        MemoryMax = 500 * 1024 * 1024; # 500MiB
+      };
+    };
+
     nixchad = {
       grafana-agent.metrics_scrape_configs = [
         {
