@@ -29,25 +29,20 @@ in
         withNodeJs = true;
 
         plugins = with pkgs.vimPlugins; [
-          # base distro
+          # Plugin Manager
+          lazy-nvim
+          # Base Distro
           LazyVim
 
           # Coding
-          nvim-cmp
-          cmp-nvim-lsp
-          cmp-buffer
-          cmp-path
-          nvim-snippets
-          friendly-snippets
           mini-pairs
-          mini-ai
           ts-comments-nvim
+          mini-ai
           lazydev-nvim
-          luvit-meta
-          mini-comment
-          mini-surround
-          mini-diff
-          mini-animate
+
+          # Blink
+          blink-cmp
+          friendly-snippets
 
           # Editor
           neo-tree-nvim
@@ -57,6 +52,9 @@ in
           gitsigns-nvim
           trouble-nvim
           todo-comments-nvim
+
+          # Fzf
+          fzf-lua
 
           # Formatting
           conform-nvim
@@ -75,52 +73,52 @@ in
           # UI
           bufferline-nvim
           lualine-nvim
-          indent-blankline-nvim
           noice-nvim
           mini-icons
           nui-nvim
-          snacks-nvim
-          dashboard-nvim
 
           # Util
+          snacks-nvim
           persistence-nvim
           plenary-nvim
 
-          # fzf
-          fzf-lua
+          # Mini-comment Extra
+          mini-comment
+          nvim-ts-context-commentstring
 
-          # Telescope
-          telescope-nvim
-          dressing-nvim
-          telescope-fzf-native-nvim
+          # Mini-surround Extra
+          mini-surround
 
-          # DAP Core
+          # DAP Core Extra
           nvim-dap
           nvim-dap-ui
           nvim-dap-virtual-text
           nvim-nio
 
-          # DAP Neovim Lua Adapter
+          # DAP Neovim Lua Adapter Extra
           # one-small-step-for-vimkind
 
-          # Aerial
+          # Aerial Extra
           aerial-nvim
 
-          # Illuminate
+          # Illuminate Extra
           vim-illuminate
 
-          # Inc-rename
+          # Inc-rename Extra
           inc-rename-nvim
 
-          # Leap
+          # Leap Extra
           flit-nvim
           leap-nvim
           vim-repeat
 
-          # Navic
+          # Mini-diff Extra
+          mini-diff
+
+          # Navic Extra
           nvim-navic
 
-          # Overseer
+          # Overseer Extra
           overseer-nvim
 
           # Clangd Extra
@@ -159,6 +157,9 @@ in
           # Edgy Extra
           edgy-nvim
 
+          # Mini-animate Extra
+          mini-animate
+
           # Treesitter-context Extra
           nvim-treesitter-context
 
@@ -178,8 +179,6 @@ in
           # LSP
           nvim-lightbulb # lightbulb for quick actions
           nvim-code-action-menu # code action menu
-
-          lazy-nvim
         ];
 
         extraPackages = with pkgs; [
