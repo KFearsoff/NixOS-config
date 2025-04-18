@@ -1,12 +1,8 @@
 {
   inputs,
   username,
-  lib,
   ...
 }:
-let
-  ifname = "enp4s0";
-in
 {
   imports = [
     ./hardware-configuration.nix
@@ -37,9 +33,7 @@ in
       backlight = false; # PC GPUs don't do that
       battery = false; # PC, doesn't have a battery
     };
-    swayidle.timeouts.lock = 6000;
     restic.usb-backups = true;
-    firefox.enable = lib.mkForce false;
 
     impermanence.presets = {
       enable = true;
@@ -51,9 +45,7 @@ in
   programs.light.enable = false;
 
   networking = {
-    networkmanager.enable = false;
-    useDHCP = false;
-    nat.externalInterface = ifname;
+    networkmanager.enable = true;
   };
   systemd.network = {
     enable = true;
@@ -79,12 +71,6 @@ in
       ];
     };
     networks = {
-      main = {
-        name = "${ifname}";
-        gateway = [ "192.168.1.1" ];
-        address = [ "192.168.1.104/24" ];
-        routes = [ { Destination = "192.168.1.1"; } ];
-      };
       wg0 = {
         matchConfig.Name = "wg0";
         address = [
@@ -109,5 +95,9 @@ in
     };
 
     wait-online.ignoredInterfaces = [ "tailscale0" ];
+  };
+  hm.nixchad = {
+    gui.enable = true;
+    swayidle.timeouts.lock = 6000;
   };
 }
