@@ -39,6 +39,9 @@ in
       hardware.enable = mkDefault true;
     };
 
+    # Fix CVE until update
+    systemd.shutdownRamfs.enable = false;
+
     users.mutableUsers = false;
 
     boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
