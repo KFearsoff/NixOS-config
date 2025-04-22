@@ -219,6 +219,7 @@
           hooks = {
             # Shell
             shellcheck.enable = true;
+            shellcheck.excludes = [ "\\.envrc" ];
             shfmt.enable = true;
 
             # Markdown
