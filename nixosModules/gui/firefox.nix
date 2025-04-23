@@ -46,12 +46,8 @@ in
 
             userChrome = ''
               /* Hide horizontal tabs on top of the window */
-              #main-window[tabsintitlebar="true"]:not([extradragspace="true"]) #TabsToolbar > .toolbar-items {
-                opacity: 0;
-                pointer-events: none;
-              }
-              #main-window:not([tabsintitlebar="true"]) #TabsToolbar {
-                visibility: collapse !important;
+              #main-window #TabsToolbar {
+                display: none;
               }
             '';
 
@@ -67,7 +63,6 @@ in
               nur.repos.rycee.firefox-addons.bitwarden
               nur.repos.rycee.firefox-addons.istilldontcareaboutcookies
               nur.repos.rycee.firefox-addons.tree-style-tab
-              nur.repos.rycee.firefox-addons.auto-tab-discard
               nur.repos.rycee.firefox-addons.temporary-containers
             ];
 
@@ -154,12 +149,8 @@ in
 
             userChrome = ''
               /* Hide horizontal tabs on top of the window */
-              #main-window[tabsintitlebar="true"]:not([extradragspace="true"]) #TabsToolbar > .toolbar-items {
-                opacity: 0;
-                pointer-events: none;
-              }
-              #main-window:not([tabsintitlebar="true"]) #TabsToolbar {
-                visibility: collapse !important;
+              #main-window #TabsToolbar {
+                display: none;
               }
             '';
 
