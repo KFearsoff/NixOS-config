@@ -60,7 +60,10 @@ in
           ];
         };
 
-        services.flameshot.enable = true;
+        services.flameshot = {
+          enable = true;
+          package = pkgs.flameshot.override { enableWlrSupport = true; };
+        };
 
         wayland.windowManager.sway = {
           enable = true;
