@@ -17,8 +17,8 @@ declare "scrape" {
                   url = "http://cloudberry:9090/api/v1/write"
                 }
 
-                external_labels {
-                    hostname = constants.hostname
+                external_labels = {
+                    hostname = constants.hostname,
                   }
             }
 
