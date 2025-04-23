@@ -70,6 +70,7 @@
         flake-compat.follows = "flake-compat-dep";
         home-manager.follows = "home-manager";
         nixpkgs.follows = "nixpkgs";
+        nur.follows = "nur";
       };
     };
 

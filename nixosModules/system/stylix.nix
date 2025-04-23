@@ -57,9 +57,6 @@ in
         };
       };
 
-      qt = {
-        enable = true;
-        platformTheme.name = "gtk";
-      };
+      qt.enable = true;
     };
 }

@@ -122,6 +122,14 @@ in
         }
       ];
     };
+
+    environment.etc."alloy/grafana.alloy".text = ''
+      scrape_url "grafana" {
+        name = "grafana"
+        url = "localhost:${toString grafanaPort}
+      }
+    '';
+
     nixchad = {
       impermanence.persisted.values = [
         {
@@ -142,19 +150,6 @@ in
         websockets = true;
         port = grafanaPort;
       };
-
-      grafana-agent.metrics_scrape_configs = [
-        {
-          job_name = "grafana";
-          static_configs = [
-            {
-              targets = [
-                "localhost:${toString grafanaPort}"
-              ];
-            }
-          ];
-        }
-      ];
     };
   };
 }

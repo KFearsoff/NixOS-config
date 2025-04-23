@@ -14,26 +14,43 @@ in
   };
 
   config = mkIf cfg.enable {
-    services.prometheus.exporters.postgres = {
-      enable = true;
-      port = strings.toInt port;
-      dataSourceName = "user=postgres-exporter database=postgres host=/run/postgresql sslmode=disable";
-      extraFlags = [ "--auto-discover-databases" ];
+    services = {
+      prometheus.exporters.postgres = {
+        enable = true;
+        port = strings.toInt port;
+        runAsLocalSuperUser = true;
+        extraFlags = [
+          "--auto-discover-databases"
+          "--collector.long_running_transactions"
+          "--collector.stat_activity_autovacuum"
+          "--collector.stat_statements"
+        ];
+      };
+
+      pgscv = {
+        enable = true;
+        logLevel = "debug";
+        settings = {
+          services.postgres = {
+            service_type = "postgres";
+            conninfo = "postgres://";
+          };
+        };
+      };
     };
 
-    services.postgresql.ensureUsers = [ { name = "postgres-exporter"; } ];
-
-    nixchad.grafana-agent.metrics_scrape_configs = [
-      {
-        job_name = "postgres";
-        static_configs = [
-          {
-            targets = [
-              "localhost:${port}"
-            ];
-          }
-        ];
+    environment.etc."alloy/postgres.alloy".text = ''
+      scrape_url "pgscv" {
+        name = "pgscv"
+        url = "localhost:9890"
       }
-    ];
+
+      // FIXME: Can't use the build-in postgres_exporter
+      // See: https://github.com/grafana/alloy/issues/3181
+      scrape_url "postgres" {
+        name = "postgres"
+        url = "localhost:${port}
+      }
+    '';
   };
 }

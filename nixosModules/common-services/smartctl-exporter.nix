@@ -24,24 +24,11 @@ in
       inherit (cfg) devices;
     };
 
-    nixchad.grafana-agent.metrics_scrape_configs = [
-      {
-        job_name = "smartctl";
-        static_configs = [
-          {
-            targets = [
-              "localhost:33004"
-            ];
-          }
-        ];
+    environment.etc."alloy/smartctl.alloy".text = ''
+      scrape_url "smartctl" {
+        name = "smartctl"
+        url = "localhost:33004"
       }
-    ];
-
-    # TODO: remove once https://github.com/NixOS/nixpkgs/pull/176553 is merged
-    systemd.services."prometheus-smartctl-exporter".serviceConfig.DeviceAllow = lib.mkOverride 50 [
-      "block-blkext rw"
-      "block-sd rw"
-      "char-nvme rw"
-    ];
+    '';
   };
 }

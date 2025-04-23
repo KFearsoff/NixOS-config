@@ -33,7 +33,8 @@ in
                 // OVERRIDES
 
                 user_pref("browser.startup.page", 3); // 0102, session restore
-                user_pref("privacy.clearOnShutdown_v2.historyFormDataAndDownloads", false); // 2811, don't clear history
+                user_pref("privacy.clearOnShutdown_v2.historyFormDataAndDownloads", false); // 2811, don't clear history; FF 128-135
+                user_pref("privacy.clearOnShutdown_v2.browsingHistoryAndDownloads", false); // 2812, don't clear history; FF 136+
                 user_pref("privacy.resistFingerprinting.letterboxing", false); // 4504, I hate the margins
                 user_pref("webgl.disabled", false); // required for Zoom (also needs canvas exception)
 
@@ -54,7 +55,7 @@ in
               }
             '';
 
-            extensions = [
+            extensions.packages = [
               # recommended by arkenfox
               nur.repos.rycee.firefox-addons.ublock-origin
               nur.repos.rycee.firefox-addons.skip-redirect
@@ -72,13 +73,13 @@ in
 
             search = {
               force = true;
-              default = "DuckDuckGo";
-              order = [ "DuckDuckGo" ];
+              default = "ddg";
+              order = [ "ddg" ];
               engines = {
-                "Amazon.com".metaData.hidden = true;
-                "Bing".metaData.hidden = true;
-                "Google".metaData.hidden = true;
-                "Wikipedia (en)".metaData.alias = "@w";
+                "amazondotcom-us".metaData.hidden = true;
+                "bing".metaData.hidden = true;
+                "google".metaData.hidden = true;
+                "wikipedia".metaData.alias = "@w";
 
                 "Nix Packages" = {
                   urls = [
@@ -132,7 +133,7 @@ in
 
                 "NixOS Wiki" = {
                   urls = [ { template = "https://nixos.wiki/index.php?search={searchTerms}"; } ];
-                  iconUpdateURL = "https://nixos.wiki/favicon.png";
+                  icon = "https://nixos.wiki/favicon.png";
                   updateInterval = 24 * 60 * 60 * 1000; # every day
                   definedAliases = [ "@nw" ];
                 };
@@ -162,7 +163,7 @@ in
               }
             '';
 
-            extensions = [
+            extensions.packages = [
               nur.repos.rycee.firefox-addons.ublock-origin
               nur.repos.rycee.firefox-addons.bitwarden
               nur.repos.rycee.firefox-addons.istilldontcareaboutcookies
@@ -170,13 +171,13 @@ in
 
             search = {
               force = true;
-              default = "DuckDuckGo";
-              order = [ "DuckDuckGo" ];
+              default = "ddg";
+              order = [ "ddg" ];
               engines = {
-                "Amazon.com".metaData.hidden = true;
-                "Bing".metaData.hidden = true;
-                "Google".metaData.hidden = true;
-                "Wikipedia (en)".metaData.alias = "@w";
+                "amazondotcom-us".metaData.hidden = true;
+                "bing".metaData.hidden = true;
+                "google".metaData.hidden = true;
+                "wikipedia".metaData.alias = "@w";
               };
             };
           };

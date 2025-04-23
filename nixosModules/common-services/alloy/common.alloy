@@ -1,0 +1,140 @@
+declare "scrape" {
+    argument "name" {
+        optional = false
+      }
+
+      argument "targets" {
+          optional = false
+        }
+
+        argument "metrics_path" {
+            optional = true
+            default = "/metrics"
+          }
+
+          prometheus.remote_write "default" {
+              endpoint {
+                  url = "http://cloudberry:9090/api/v1/write"
+                }
+
+                external_labels {
+                    hostname = constants.hostname
+                  }
+            }
+
+            prometheus.scrape "scrape" {
+                scrape_interval = "10s"
+                job_name = argument.name.value
+                targets = argument.targets.value
+                metrics_path = argument.metrics_path.value
+                forward_to = [prometheus.remote_write.default.receiver]
+              }
+  }
+
+declare "scrape_url" {
+    argument "name" {
+        optional = false
+      }
+
+      argument "url" {
+          optional = false
+        }
+
+        argument "metrics_path" {
+            optional = true
+            default = "/metrics"
+          }
+
+          scrape {
+              name = argument.name.value
+              metrics_path = argument.metrics_path.value
+              targets = [
+              {"__address__" = argument.url.value},
+              ]
+            }
+  }
+
+prometheus.exporter.cadvisor "default" {}
+
+scrape "cadvisor" {
+    name = "cadvisor"
+    targets = prometheus.exporter.cadvisor.default.targets
+  }
+
+prometheus.exporter.self "default" { }
+
+scrape "self" {
+  name    = "self"
+  targets = prometheus.exporter.self.default.targets
+}
+
+prometheus.exporter.unix "default" {
+  enable_collectors = ["processes", "systemd"]
+}
+
+scrape "unix" {
+  name    = "unix"
+  targets = prometheus.exporter.unix.default.targets
+}
+
+loki.write "default" {
+    endpoint {
+        url = "http://cloudberry:33100/loki/api/v1/push"
+      }
+  }
+
+loki.relabel "journal" {
+    forward_to = []
+
+    rule {
+        source_labels = ["__journal__systemd_unit"]
+        target_label = "unit"
+      }
+  }
+
+loki.source.journal "default" {
+    relabel_rules = loki.relabel.journal.rules
+    forward_to = [loki.write.default.receiver]
+    max_age = "12h"
+    labels = {
+        job = "systemd-journal",
+        host = constants.hostname,
+      }
+  }
+
+otelcol.receiver.otlp "default" {
+  grpc {
+    include_metadata = true
+  }
+
+  http {
+    include_metadata = true
+  }
+
+  output {
+    traces = [otelcol.processor.batch.default.input]
+  }
+}
+
+otelcol.processor.batch "default" {
+  timeout         = "10s"
+  send_batch_size = 10000
+
+  output {
+    traces = [otelcol.exporter.otlp.default.input]
+  }
+}
+
+otelcol.exporter.otlp "default" {
+  retry_on_failure {
+    max_elapsed_time = "1m0s"
+  }
+
+  client {
+    endpoint = "cloudberry:33113"
+
+    tls {
+      insecure = true
+    }
+  }
+}

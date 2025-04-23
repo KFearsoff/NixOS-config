@@ -24,20 +24,15 @@ in
           ) [ ("/var/lib/" + config.services.prometheus.stateDir) ];
         }
       ];
-
-      grafana-agent.metrics_scrape_configs = [
-        {
-          job_name = "prometheus";
-          static_configs = [
-            {
-              targets = [
-                "localhost:${toString prometheusPort}"
-              ];
-            }
-          ];
-        }
-      ];
     };
+
+    environment.etc."alloy/prometheus.alloy".text = ''
+      scrape_url "prometheus" {
+        name = "prometheus"
+        url = "localhost:${toString prometheusPort}"
+      }
+    '';
+    systemd.services.alloy.after = [ "prometheus.service" ];
 
     services.prometheus = {
       enable = true;

@@ -55,16 +55,6 @@ in
         schema_config = {
           configs = [
             {
-              from = "2022-07-25";
-              store = "tsdb";
-              object_store = "filesystem";
-              schema = "v12";
-              index = {
-                prefix = "index_";
-                period = "24h";
-              };
-            }
-            {
               from = "2024-05-02";
               store = "tsdb";
               object_store = "filesystem";
@@ -81,27 +71,24 @@ in
       };
     };
 
-    systemd.services.loki = {
-      serviceConfig = {
-        MemoryHigh = 300 * 1024 * 1024; # 300MiB
-        MemoryMax = 500 * 1024 * 1024; # 500MiB
+    systemd.services = {
+      alloy.after = [ "loki.service" ];
+      loki = {
+        serviceConfig = {
+          MemoryHigh = 300 * 1024 * 1024; # 300MiB
+          MemoryMax = 500 * 1024 * 1024; # 500MiB
+        };
       };
     };
 
-    nixchad = {
-      grafana-agent.metrics_scrape_configs = [
-        {
-          job_name = "loki";
-          static_configs = [
-            {
-              targets = [
-                "localhost:${toString lokiHttpPort}"
-              ];
-            }
-          ];
-        }
-      ];
+    environment.etc."alloy/loki.alloy".text = ''
+      scrape_url "loki" {
+        name = "loki"
+        url = "localhost:${toString lokiHttpPort}"
+      }
+    '';
 
+    nixchad = {
       impermanence.persisted.values = [
         {
           directories =

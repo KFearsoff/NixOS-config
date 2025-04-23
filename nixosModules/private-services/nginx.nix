@@ -103,20 +103,15 @@ in
     services.prometheus.exporters.nginx = {
       enable = true;
       port = exporter-port;
+      sslVerify = false;
     };
 
-    nixchad.grafana-agent.metrics_scrape_configs = [
-      {
-        job_name = "nginx";
-        static_configs = [
-          {
-            targets = [
-              "localhost:${toString exporter-port}"
-            ];
-          }
-        ];
+    environment.etc."alloy/nginx.alloy".text = ''
+      scrape_url "nginx" {
+        name = "nginx"
+        url  = "localhost:${toString exporter-port}"
       }
-    ];
+    '';
 
     networking.firewall.allowedTCPPorts = [
       80

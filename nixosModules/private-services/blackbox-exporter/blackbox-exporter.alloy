@@ -1,0 +1,45 @@
+prometheus.exporter.blackbox "default" {
+  config_file = file.path_join(module_path, "blackbox_exporter.yaml")
+
+  target {
+    name    = "blackbox"
+    module  = "http_2xx"
+    address = "https://nixalted.com/"
+  }
+
+  target {
+    name    = "blackbox"
+    module  = "http_2xx"
+    address = "https://biils-service-frontend.fly.dev/"
+  }
+
+  target {
+    name    = "blackbox"
+    module  = "http_2xx"
+    address = "https://biils-service-backend.fly.dev/"
+  }
+
+  target {
+    name    = "ipv4"
+    module  = "icmp_v4"
+    address = "nixalted.com"
+  }
+
+  target {
+    name    = "ipv4"
+    module  = "icmp_v4"
+    address = "biils-service-frontend.fly.dev"
+  }
+
+  target {
+    name    = "ipv4"
+    module  = "icmp_v4"
+    address = "biils-service-backend.fly.dev"
+  }
+
+  target {
+    name    = "ipv4"
+    module  = "icmp_v4"
+    address = "georgian-translator-bot.fly.dev"
+  }
+}
