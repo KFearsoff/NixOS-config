@@ -10,13 +10,13 @@ prometheus.exporter.blackbox "default" {
   target {
     name    = "blackbox"
     module  = "http_2xx"
-    address = "https://biils-service-frontend.fly.dev/"
+    address = "https://bills-service-frontend.fly.dev/"
   }
 
   target {
     name    = "blackbox"
     module  = "http_2xx"
-    address = "https://biils-service-backend.fly.dev/"
+    address = "https://bills-service-backend.fly.dev/"
   }
 
   target {
@@ -28,13 +28,13 @@ prometheus.exporter.blackbox "default" {
   target {
     name    = "ipv4"
     module  = "icmp_v4"
-    address = "biils-service-frontend.fly.dev"
+    address = "bills-service-frontend.fly.dev"
   }
 
   target {
     name    = "ipv4"
     module  = "icmp_v4"
-    address = "biils-service-backend.fly.dev"
+    address = "bills-service-backend.fly.dev"
   }
 
   target {
@@ -43,3 +43,17 @@ prometheus.exporter.blackbox "default" {
     address = "georgian-translator-bot.fly.dev"
   }
 }
+
+discovery.relabel "blackbox" {
+    targets = prometheus.exporter.blackbox.default.targets
+
+    rule {
+        source_labels = ["__param_target"]
+        target_label = "instance"
+      }
+  }
+
+scrape "blackbox" {
+    name = "blackbox"
+    targets = discovery.relabel.blackbox.output
+  }
