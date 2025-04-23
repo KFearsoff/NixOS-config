@@ -126,7 +126,7 @@ in
     environment.etc."alloy/grafana.alloy".text = ''
       scrape_url "grafana" {
         name = "grafana"
-        url = "localhost:${toString grafanaPort}
+        url = "localhost:${toString grafanaPort}"
       }
     '';
 

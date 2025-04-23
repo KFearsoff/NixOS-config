@@ -49,7 +49,7 @@ in
       // See: https://github.com/grafana/alloy/issues/3181
       scrape_url "postgres" {
         name = "postgres"
-        url = "localhost:${port}
+        url = "localhost:${port}"
       }
     '';
   };

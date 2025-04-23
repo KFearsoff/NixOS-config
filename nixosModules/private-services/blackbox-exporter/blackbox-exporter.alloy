@@ -1,5 +1,5 @@
 prometheus.exporter.blackbox "default" {
-  config_file = file.path_join(module_path, "blackbox_exporter.yaml")
+  config_file = file.path_join(module_path, "blackbox-exporter.yaml")
 
   target {
     name    = "blackbox"
