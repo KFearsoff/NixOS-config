@@ -33,5 +33,8 @@ wat OPTION HOST=`uname -n`:
 deploy +TARGETS=".#":
   @deploy --targets {{TARGETS}} -s -k -- -v
 
+deploy-boot +TARGETS=".#":
+  @deploy --targets {{TARGETS}} -s -k --boot -- -v
+
 eval HOST=`uname -n`:
   @nom build .#nixosConfigurations.{{HOST}}.config.system.build.toplevel
