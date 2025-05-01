@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ config, lib, ... }:
 let
   inherit (lib) mkEnableOption;
 in
@@ -8,6 +8,8 @@ in
   ];
 
   options.nixchad.gui = {
-    enable = mkEnableOption "gui programs";
+    enable = mkEnableOption "gui programs" // {
+      default = config.nixchad.full.enable;
+    };
   };
 }

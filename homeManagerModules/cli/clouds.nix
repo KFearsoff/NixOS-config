@@ -15,9 +15,7 @@ let
 in
 {
   options.nixchad.clouds = {
-    enable = mkEnableOption "cloud tools" // {
-      default = config.nixchad.full.enable;
-    };
+    enable = mkEnableOption "cloud tools";
     azure = mkEnableOption "Azure CLI";
     aws = mkEnableOption "AWS CLI";
     gcp = mkEnableOption "GCP CLI";
@@ -26,10 +24,10 @@ in
   config = mkIf cfg.enable {
     home.packages =
       with pkgs;
-      [
-        opentofu
+      (optionals cfg.enable [
+        terraform
         terragrunt
-      ]
+      ])
       ++ (optional cfg.azure azure-cli)
       ++ (optionals cfg.aws [
         awscli2

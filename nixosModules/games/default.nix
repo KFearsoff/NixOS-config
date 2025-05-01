@@ -16,6 +16,7 @@ in
 
   options.nixchad.games = {
     enable = mkEnableOption "games profile";
+    poe.enable = mkEnableOption "Path of Exile tools";
     gamemode.enable = mkEnableOption "gamemode";
     lutris.enable = mkEnableOption "lutris";
 
@@ -51,9 +52,9 @@ in
 
     hm = {
       home = {
-        packages = [
-          pkgs.path-of-building
-        ] ++ optional cfg.lutris.enable (pkgs.lutris.override { extraPkgs = _: cfg.lutrisPackages; });
+        packages =
+          optional cfg.poe.enable pkgs.path-of-building
+          ++ optional cfg.lutris.enable (pkgs.lutris.override { extraPkgs = _: cfg.lutrisPackages; });
       };
 
       programs.mangohud = {

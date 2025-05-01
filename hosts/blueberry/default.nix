@@ -114,6 +114,5 @@
   zramSwap.enable = true;
   hm.nixchad = {
     gui.enable = true;
-    clouds.gcp = true;
   };
 }
