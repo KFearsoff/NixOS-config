@@ -137,7 +137,6 @@ in
           # Python Extra
           neotest-python
           nvim-dap-python
-          # venv-selector-nvim
 
           # Rust Extra
           crates-nvim
