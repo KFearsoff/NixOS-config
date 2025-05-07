@@ -177,7 +177,6 @@
           user = "root";
           sshUser = "nixchad";
           profiles.system.path = x86_64-linux.activate.nixos inputs.self.nixosConfigurations.blackberry;
-          fastConnection = true;
         };
 
         cloudberry = {
@@ -185,7 +184,6 @@
           user = "root";
           sshUser = "nixchad";
           profiles.system.path = x86_64-linux.activate.nixos inputs.self.nixosConfigurations.cloudberry;
-          fastConnection = true;
         };
 
         blueberry = {
@@ -193,7 +191,6 @@
           user = "root";
           sshUser = "nixchad";
           profiles.system.path = x86_64-linux.activate.nixos inputs.self.nixosConfigurations.blueberry;
-          fastConnection = true;
         };
       };
 
