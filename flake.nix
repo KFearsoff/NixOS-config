@@ -4,7 +4,10 @@
   inputs = {
     # Pkg sources
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nur.url = "github:nix-community/NUR";
+    nur = {
+      url = "github:nix-community/NUR";
+      inputs.flake-parts.follows = "flake-parts-dep";
+    };
 
     # Lix
     lix = {
@@ -33,6 +36,9 @@
     flake-compat-dep = {
       url = "github:edolstra/flake-compat";
       flake = false;
+    };
+    flake-parts-dep = {
+      url = "github:hercules-ci/flake-parts";
     };
 
     # NixOS utils
@@ -65,12 +71,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     stylix = {
-      url = "github:danth/stylix";
+      url = "github:nix-community/stylix";
       inputs = {
         flake-compat.follows = "flake-compat-dep";
         home-manager.follows = "home-manager";
         nixpkgs.follows = "nixpkgs";
         nur.follows = "nur";
+        flake-parts.follows = "flake-parts-dep";
       };
     };
 
