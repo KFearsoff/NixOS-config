@@ -2,7 +2,6 @@
 {
   imports = [
     ./grafana.nix
-    ./invidious.nix
     ./loki.nix
     ./postgres.nix
     ./postgres-exporter.nix

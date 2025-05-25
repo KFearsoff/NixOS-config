@@ -4,7 +4,6 @@
     nginx.enable = true;
     prometheus.enable = true;
     grafana.enable = true;
-    invidious.enable = true;
     vaultwarden.enable = true;
     postgres.enable = true;
     postgres-exporter.enable = true;
