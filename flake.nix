@@ -206,7 +206,7 @@
       devShells.${hostSystem}.default = pkgs.mkShellNoCC {
         packages = [
           pkgs.just
-          inputs.deploy-rs.defaultPackage.${hostSystem}
+          inputs.deploy-rs.packages.${hostSystem}.default
           pkgs.nvd
           pkgs.nixfmt-rfc-style
           pkgs.nix-output-monitor
@@ -246,7 +246,7 @@
 
       apps.${hostSystem}.default = {
         type = "app";
-        program = "${inputs.deploy-rs.defaultPackage.${hostSystem}}/bin/deploy";
+        program = "${inputs.deploy-rs.packages.${hostSystem}.default}/bin/deploy";
       };
 
       packages.${hostSystem} = {
