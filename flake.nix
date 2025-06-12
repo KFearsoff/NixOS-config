@@ -123,6 +123,7 @@
           fetchers: with fetchers; {
             nixpkgs = [
               # (npr 305569 "0n0nbriaxfcbalyqp59d3qg91vni1p56avv19wlqhgghy74wr5f1")
+              ./overlays/pob.patch
             ];
             #(pr <number> <sha>)
           };
