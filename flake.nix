@@ -123,7 +123,6 @@
           fetchers: with fetchers; {
             nixpkgs = [
               # (npr 305569 "0n0nbriaxfcbalyqp59d3qg91vni1p56avv19wlqhgghy74wr5f1")
-              (npr 416350 "sha256-5HjUd6Rjz+FoaHIv8UIsdn2+kRMDe74o+/dRLjzGLhw=")
             ];
             #(pr <number> <sha>)
           };
