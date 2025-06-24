@@ -14,5 +14,6 @@
     ./nginx.nix
     ./tempo.nix
     ./website.nix
+    ./anki-sync-server.nix
   ];
 }

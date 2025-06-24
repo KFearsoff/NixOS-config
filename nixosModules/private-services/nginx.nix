@@ -74,7 +74,7 @@ in
 
       certs."${domainBase}" = {
         dnsProvider = "namecheap";
-        extraDomainNames = lib.mapAttrsToList (_: val: val.domain) cfg.vhosts;
+        extraDomainNames = [ "*.${domainBase}" ];
         group = "nginx";
         credentialsFile = "/secrets/acme";
       };

@@ -13,6 +13,7 @@
     tailforward.enable = true;
     tempo.enable = true;
     website.enable = true;
+    anki-sync-server.enable = true;
   };
   networking.nat.enable = true;
 }
