@@ -14,13 +14,13 @@ in
       type = types.listOf types.attrs;
       default =
         [
-          { command = "${pkgs.tdesktop}/bin/telegram-desktop"; }
-          { command = "${pkgs.freetube}/bin/freetube"; }
-          { command = "NIXOS_OZONE_WL= ${pkgs.element-desktop}/bin/element-desktop"; }
-          { command = "${pkgs.slack}/bin/slack"; }
+          { command = lib.getExe pkgs.tdesktop; }
+          { command = lib.getExe pkgs.freetube; }
+          { command = "NIXOS_OZONE_WL= ${lib.getExe pkgs.element-desktop}"; }
+          { command = lib.getExe pkgs.slack; }
         ]
         ++ optional (!config.nixchad.firefox.enable) {
-          command = "${pkgs.ungoogled-chromium}/bin/chromium";
+          command = lib.getExe pkgs.ungoogled-chromium;
         };
     };
 
