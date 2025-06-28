@@ -71,7 +71,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     stylix = {
-      url = "github:nix-community/stylix";
+      # Pin to 1 commit older bcs HEAD broke rofi
+      url = "github:nix-community/stylix/c700d41bb8ee32baed490c8128c1077b2b27183b";
       inputs = {
         flake-compat.follows = "flake-compat-dep";
         home-manager.follows = "home-manager";
