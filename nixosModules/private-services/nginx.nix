@@ -89,7 +89,6 @@ in
       recommendedBrotliSettings = true;
       recommendedGzipSettings = true;
       recommendedProxySettings = true;
-      recommendedZstdSettings = true;
 
       statusPage = true;
       enableReload = true;
