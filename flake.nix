@@ -124,6 +124,8 @@
           fetchers: with fetchers; {
             nixpkgs = [
               # (npr 305569 "0n0nbriaxfcbalyqp59d3qg91vni1p56avv19wlqhgghy74wr5f1")
+              # https://github.com/NixOS/nixpkgs/pull/428161#issuecomment-3145895543
+              ./overlays/neotest.patch
             ];
             #(pr <number> <sha>)
           };
@@ -256,6 +258,7 @@
             image = buildSystem { hostname = "iso"; };
           in
           image.config.system.build."isoImage";
-      } // pkgs.lib.mapAttrs (_: v: v) (import ./pkgs { inherit pkgs; });
+      }
+      // pkgs.lib.mapAttrs (_: v: v) (import ./pkgs { inherit pkgs; });
     };
 }

@@ -1,0 +1,43 @@
+diff --git c/pkgs/development/lua-modules/generated-packages.nix i/pkgs/development/lua-modules/generated-packages.nix
+index 1dfa3a9607a1..cb951c7f0867 100644
+--- c/pkgs/development/lua-modules/generated-packages.nix
++++ i/pkgs/development/lua-modules/generated-packages.nix
+@@ -3992,6 +3992,10 @@ final: prev: {
+         sha256 = "1rqfxhy0c721hzz9azp1w403b8bccq6q24miynb42z4hc14qh8nm";
+       };
+ 
++      patches = [
++        ./neotest.patch
++      ];
++
+       disabled = luaOlder "5.1";
+       propagatedBuildInputs = [
+         nvim-nio
+diff --git c/pkgs/development/lua-modules/neotest.patch i/pkgs/development/lua-modules/neotest.patch
+new file mode 100644
+index 000000000000..210176fe2d30
+--- /dev/null
++++ i/pkgs/development/lua-modules/neotest.patch
+@@ -0,0 +1,22 @@
++diff --git i/tests/unit/client/strategies/integrated_spec.lua w/tests/unit/client/strategies/integrated_spec.lua
++index 196c2e7..42a3df7 100644
++--- i/tests/unit/client/strategies/integrated_spec.lua
+++++ w/tests/unit/client/strategies/integrated_spec.lua
++@@ -34,7 +34,7 @@ describe("integrated strategy", function()
++ 
++   a.it("stops the job", function()
++     local process = strategy({
++-      command = { "bash", "-c", "sleep 1" },
+++      command = { "bash", "-c", "sleep 10" },
++       strategy = {
++         height = 10,
++         width = 10,
++@@ -47,7 +47,7 @@ describe("integrated strategy", function()
++ 
++   a.it("streams output", function()
++     local process = strategy({
++-      command = { "bash", "-c", "printf hello; sleep 0; printf world" },
+++      command = { "bash", "-c", "printf hello; sleep 0.1; printf world" },
++       strategy = {
++         height = 10,
++         width = 10,
