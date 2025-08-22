@@ -13,10 +13,10 @@ dry:
   @sudo nixos-rebuild --flake .# dry-activate -v
 
 gc:
-  @nix-collect-garbage --delete-older-than 7d
+  @nix-collect-garbage --delete-older-than 7d && sudo nix-collect-garbage --delete-older-than 7d
 
 gc-full:
-  @nix-collect-garbage --delete-old
+  @nix-collect-garbage --delete-old && sudo nix-collect-garbage --delete-old
 
 update:
   @nix flake update
