@@ -99,7 +99,9 @@
 
     # CD
     deploy-rs = {
-      url = "github:serokell/deploy-rs";
+      # pinned until this regression is fixed
+      # https://github.com/serokell/deploy-rs/issues/325
+      url = "github:serokell/deploy-rs/5829cec63845eb50984dc8787b0edfe81bf5b980";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         utils.follows = "flake-utils-dep";
