@@ -12,16 +12,15 @@ in
   options.nixchad.startup = {
     entries = mkOption {
       type = types.listOf types.attrs;
-      default =
-        [
-          { command = lib.getExe pkgs.tdesktop; }
-          { command = lib.getExe pkgs.freetube; }
-          { command = "NIXOS_OZONE_WL= ${lib.getExe pkgs.element-desktop}"; }
-          { command = lib.getExe pkgs.slack; }
-        ]
-        ++ optional (!config.nixchad.firefox.enable) {
-          command = lib.getExe pkgs.ungoogled-chromium;
-        };
+      default = [
+        { command = lib.getExe pkgs.telegram-desktop; }
+        { command = lib.getExe pkgs.freetube; }
+        { command = "NIXOS_OZONE_WL= ${lib.getExe pkgs.element-desktop}"; }
+        { command = lib.getExe pkgs.slack; }
+      ]
+      ++ optional (!config.nixchad.firefox.enable) {
+        command = lib.getExe pkgs.ungoogled-chromium;
+      };
     };
 
     autotiling = mkEnableOption "autotiling";

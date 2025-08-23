@@ -97,15 +97,14 @@
       };
     };
 
-    # CD
-    deploy-rs = {
-      # pinned until this regression is fixed
-      # https://github.com/serokell/deploy-rs/issues/325
-      url = "github:serokell/deploy-rs/5829cec63845eb50984dc8787b0edfe81bf5b980";
+    colmena = {
+      url = "github:zhaofengli/colmena";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        utils.follows = "flake-utils-dep";
+        # stable.follows = "nixpkgs";
+        # nix-github-actions.follows = "nix-github-actions";
         flake-compat.follows = "flake-compat-dep";
+        flake-utils.follows = "flake-utils-dep";
       };
     };
 
@@ -132,11 +131,16 @@
             #(pr <number> <sha>)
           };
       };
-      inherit (importedLib) buildSystem pkgs;
+      inherit (importedLib) buildSystem hiveMeta pkgs;
     in
     {
-      nixosConfigurations = {
+      nixosConfigurations = inputs.self.colmenaHive.nodes;
+
+      colmenaHive = inputs.colmena.lib.makeHive {
+        meta = hiveMeta;
+
         blackberry = buildSystem {
+          allowLocalDeployment = true;
           hostname = "blackberry";
           extraModules = [
             ./suites/cli.nix
@@ -159,6 +163,7 @@
         };
 
         blueberry = buildSystem {
+          allowLocalDeployment = true;
           hostname = "blueberry";
           extraModules = [
             ./suites/cli.nix
@@ -173,45 +178,14 @@
         };
       };
 
-      allMachines =
-        let
-          toLink = name: value: {
-            inherit name;
-            path = value.config.system.build.toplevel;
-          };
-          links = pkgs.lib.mapAttrsToList toLink inputs.self.nixosConfigurations;
-        in
-        pkgs.linkFarm "all-machines" links;
-
-      deploy.nodes = with inputs.deploy-rs.lib; {
-        blackberry = {
-          hostname = "blackberry";
-          user = "root";
-          sshUser = "nixchad";
-          profiles.system.path = x86_64-linux.activate.nixos inputs.self.nixosConfigurations.blackberry;
-        };
-
-        cloudberry = {
-          hostname = "cloudberry";
-          user = "root";
-          sshUser = "nixchad";
-          profiles.system.path = x86_64-linux.activate.nixos inputs.self.nixosConfigurations.cloudberry;
-        };
-
-        blueberry = {
-          hostname = "blueberry";
-          user = "root";
-          sshUser = "nixchad";
-          profiles.system.path = x86_64-linux.activate.nixos inputs.self.nixosConfigurations.blueberry;
-        };
-      };
-
       formatter.${hostSystem} = pkgs.nixfmt-rfc-style;
 
       devShells.${hostSystem}.default = pkgs.mkShellNoCC {
         packages = [
           pkgs.just
-          inputs.deploy-rs.packages.${hostSystem}.default
+          (inputs.colmena.packages.${hostSystem}.colmena.override {
+            inherit (inputs.lix.packages.${hostSystem}) nix-eval-jobs;
+          })
           pkgs.nvd
           pkgs.nixfmt-rfc-style
           pkgs.nix-output-monitor
@@ -247,11 +221,6 @@
             statix.enable = true;
           };
         };
-      };
-
-      apps.${hostSystem}.default = {
-        type = "app";
-        program = "${inputs.deploy-rs.packages.${hostSystem}.default}/bin/deploy";
       };
 
       packages.${hostSystem} = {

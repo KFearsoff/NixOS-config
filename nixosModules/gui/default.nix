@@ -47,7 +47,7 @@ in
         with pkgs;
         [
           freetube
-          tdesktop
+          telegram-desktop
           qbittorrent
           element-desktop
           slack

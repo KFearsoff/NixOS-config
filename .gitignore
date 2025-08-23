@@ -1,7 +1,6 @@
 result
 *.qcow2
 .direnv
-.devenv
 .pre-commit-config.yaml
-.deploy-gc
 .luarc.json
+.gcroots/

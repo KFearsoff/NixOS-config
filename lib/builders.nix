@@ -3,18 +3,13 @@
   overlays ? { },
   patches ? _: { },
   hostSystem ? "x86_64-linux",
-  targetSystems ? [
-    "x86_64-linux"
-    "aarch64-linux"
-  ],
-  config ? { },
 }:
 let
   patchFetchers = rec {
     pr =
       repo: id: hash:
       builtins.fetchurl {
-        url = "https://github.com/${repo}/pull/${builtins.toString id}.diff";
+        url = "https://github.com/${repo}/pull/${builtins.toString id}.diff?full_index=1";
         sha256 = hash;
       };
     npr = pr "NixOS/nixpkgs";
@@ -42,63 +37,66 @@ let
   patchedInputs = builtins.mapAttrs patchInput inputs;
 
   patchedNixpkgs = import patchedInputs.nixpkgs;
+  patchedNixpkgsHost = patchedNixpkgs { system = hostSystem; };
 
-  patchedNixpkgsBySystem = pkgsForPatching.lib.attrsets.genAttrs targetSystems (
-    system:
-    patchedNixpkgs {
-      inherit system;
-      config = config // {
-        allowUnfree = true;
-      };
-      overlays = builtins.attrValues overlays;
-    }
-  );
-  patchedNixpkgsHost = patchedNixpkgsBySystem.${hostSystem};
+  specialArgs = {
+    inputs = patchedInputs;
+    rawInputs = inputs;
+    pkgsHost = patchedNixpkgsHost;
+    username = "nixchad";
+    servername = "cloudberry";
+  };
 
   buildSystem =
     {
       hostname,
       extraModules ? [ ],
       system ? "x86_64-linux",
-      username ? "nixchad",
+      allowLocalDeployment ? false,
+      targetUser ? "nixchad",
     }:
     let
       machineSpecificConfig = ../hosts + "/${hostname}";
       machineSpecificModules =
         if builtins.pathExists machineSpecificConfig then [ machineSpecificConfig ] else [ ];
-      pkgs = patchedNixpkgsBySystem.${system};
     in
-    import "${patchedInputs.nixpkgs}/nixos/lib/eval-config.nix" {
-      inherit system;
+    {
+      imports = [
+        {
+          networking.hostName = hostname;
+          nixpkgs = {
+            config = {
+              allowAliases = false;
+              allowUnfree = true;
+            };
+            overlays = builtins.attrValues overlays;
+            hostPlatform = system;
+          };
 
-      modules =
-        [
-          {
-            networking.hostName = hostname;
-            nixpkgs.pkgs = pkgs;
-          }
-          inputs.home-manager.nixosModules.home-manager
-          inputs.impermanence.nixosModules.impermanence
-          inputs.stylix.nixosModules.stylix
-          inputs.nur.modules.nixos.default
-          inputs.lix-module.nixosModules.default
-          ../users
-          ../nixosModules
-          ./metadata.nix
-        ]
-        ++ machineSpecificModules
-        ++ extraModules;
-
-      specialArgs = {
-        inputs = patchedInputs;
-        rawInputs = inputs;
-        pkgsHost = patchedNixpkgsHost;
-        inherit username;
-        servername = "cloudberry";
-      };
+          deployment = {
+            inherit allowLocalDeployment targetUser;
+            targetHost = hostname;
+          };
+        }
+        inputs.home-manager.nixosModules.home-manager
+        inputs.impermanence.nixosModules.impermanence
+        inputs.stylix.nixosModules.stylix
+        inputs.nur.modules.nixos.default
+        inputs.lix-module.nixosModules.default
+        ../users
+        ../nixosModules
+        ./metadata.nix
+      ]
+      ++ machineSpecificModules
+      ++ extraModules;
     };
+
+  hiveMeta = {
+    nixpkgs = patchedNixpkgsHost;
+    inherit specialArgs;
+  };
 in
 {
-  inherit buildSystem;
+  inherit buildSystem hiveMeta;
   pkgs = patchedNixpkgsHost;
 }

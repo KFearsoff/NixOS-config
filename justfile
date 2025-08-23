@@ -1,3 +1,5 @@
+COLMENA_FLAGS := "--verbose --keep-result"
+
 default: update deploy
 
 switch:
@@ -30,11 +32,14 @@ preview:
 wat OPTION HOST=`uname -n`:
   @nix eval ".#nixosConfigurations.{{HOST}}.config.{{OPTION}}"
 
-deploy +TARGETS=".#":
-  @deploy -s -k --targets {{TARGETS}}
+deploy TARGETS="blueberry,cloudberry" +ARGS="":
+  @colmena apply --on {{TARGETS}} {{COLMENA_FLAGS}} {{ARGS}}
 
-deploy-boot +TARGETS=".#":
-  @deploy -s -k --boot --targets {{TARGETS}}
+deploy-boot TARGETS="blueberry,cloudberry" +ARGS="":
+  @colmena apply boot --on {{TARGETS}} {{COLMENA_FLAGS}} {{ARGS}}
+
+build-all +ARGS="":
+  @colmena build {{COLMENA_FLAGS}} {{ARGS}}
 
 eval HOST=`uname -n`:
   @nom build .#nixosConfigurations.{{HOST}}.config.system.build.toplevel

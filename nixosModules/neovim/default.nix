@@ -195,7 +195,7 @@ in
           marksman
 
           # JSON and YAML extras
-          nodePackages.yaml-language-server
+          yaml-language-server
 
           # Custom
           editorconfig-checker
