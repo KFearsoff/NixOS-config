@@ -24,103 +24,116 @@ in
   };
 
   config = mkIf cfg.enable {
-    services.grafana = {
-      enable = true;
-
-      settings = {
-        server.root_url = "https://${domain}";
-        analytics.reporting_enabled = false;
-
-        database = {
-          type = "postgres";
-          user = "grafana";
-          host = "/run/postgresql";
-          name = "grafana";
-          password = "";
-        };
-
-        "auth.github" = {
-          enabled = true;
-          client_id = "$__file{/secrets/github_client_id}";
-          client_secret = "$__file{/secrets/github_client_secret}";
-          role_attribute_path = "[login=='KFearsoff'][0] && 'Admin' || 'Viewer'";
-        };
-        "auth.basic" = {
-          enabled = false;
-        };
-        auth.disable_login_form = true;
-
-        "tracing.opentelemetry.otlp".address = "localhost:4317";
-      };
-
-      provision = {
+    services = {
+      grafana = {
         enable = true;
 
-        datasources.settings = {
-          datasources = [
-            (mkDatasource "prometheus" "http://localhost:9090" {
-              jsonData = {
-                exemplarTraceIdDestinations = {
-                  datasourceUid = "provisioned_uid_tempo";
-                  traceIdLabelName = "traceID";
-                };
-              };
-            })
-            (mkDatasource "loki" "http://localhost:33100" {
-              jsonData = {
-                derivedFields = [
-                  {
-                    datasourceUid = "provisioned_uid_tempo";
-                    matcherRegex = "(?:traceID|traceId|trace_id)=(\\w+)";
-                    name = "TraceID";
-                    url = "$${__value.raw}";
-                    urlDisplayLabel = "View Trace";
-                  }
-                ];
-              };
-            })
-            (mkDatasource "tempo" "http://localhost:33102" {
-              jsonData = {
-                tracesToLogsV2 = {
-                  datasourceUid = "provisioned_uid_loki";
-                  spanStartTimeShift = "-5m";
-                  spanEndTimeShift = "5m";
-                  filterByTraceID = false;
-                  filterBySpanID = false;
-                };
-                serviceMap = {
-                  datasourceUid = "provisioned_uid_prometheus";
-                };
-                nodeGraph = {
-                  enabled = true;
-                };
-                lokiSearch = {
-                  datasourceUid = "provisioned_uid_loki";
-                };
-              };
-            })
-            (mkDatasource "alertmanager"
-              "http://localhost:${toString config.services.prometheus.alertmanager.port}"
-              {
+        settings = {
+          server.root_url = "https://${domain}";
+          analytics.reporting_enabled = false;
+
+          database = {
+            type = "postgres";
+            user = "grafana";
+            host = "/run/postgresql";
+            name = "grafana";
+            password = "";
+          };
+
+          "auth.github" = {
+            enabled = true;
+            client_id = "$__file{/secrets/github_client_id}";
+            client_secret = "$__file{/secrets/github_client_secret}";
+            role_attribute_path = "[login=='KFearsoff'][0] && 'Admin' || 'Viewer'";
+          };
+          "auth.basic" = {
+            enabled = false;
+          };
+          auth.disable_login_form = true;
+
+          "tracing.opentelemetry.otlp".address = "localhost:4317";
+        };
+
+        provision = {
+          enable = true;
+
+          datasources.settings = {
+            datasources = [
+              (mkDatasource "prometheus" "http://localhost:9090" {
                 jsonData = {
-                  implementation = "prometheus";
-                  handleGrafanaManagedAlerts = true;
+                  exemplarTraceIdDestinations = {
+                    datasourceUid = "provisioned_uid_tempo";
+                    traceIdLabelName = "traceID";
+                  };
                 };
-              }
-            )
-          ];
+              })
+              (mkDatasource "loki" "http://localhost:33100" {
+                jsonData = {
+                  derivedFields = [
+                    {
+                      datasourceUid = "provisioned_uid_tempo";
+                      matcherRegex = "(?:traceID|traceId|trace_id)=(\\w+)";
+                      name = "TraceID";
+                      url = "$${__value.raw}";
+                      urlDisplayLabel = "View Trace";
+                    }
+                  ];
+                };
+              })
+              (mkDatasource "tempo" "http://localhost:33102" {
+                jsonData = {
+                  tracesToLogsV2 = {
+                    datasourceUid = "provisioned_uid_loki";
+                    spanStartTimeShift = "-5m";
+                    spanEndTimeShift = "5m";
+                    filterByTraceID = false;
+                    filterBySpanID = false;
+                  };
+                  serviceMap = {
+                    datasourceUid = "provisioned_uid_prometheus";
+                  };
+                  nodeGraph = {
+                    enabled = true;
+                  };
+                  lokiSearch = {
+                    datasourceUid = "provisioned_uid_loki";
+                  };
+                };
+              })
+              (mkDatasource "alertmanager"
+                "http://localhost:${toString config.services.prometheus.alertmanager.port}"
+                {
+                  jsonData = {
+                    implementation = "prometheus";
+                    handleGrafanaManagedAlerts = true;
+                  };
+                }
+              )
+            ];
+          };
         };
       };
-    };
 
-    services.postgresql = {
-      ensureDatabases = [ "grafana" ];
-      ensureUsers = [
-        {
-          name = "grafana";
-          ensureDBOwnership = true;
-        }
-      ];
+      postgresql = {
+        ensureDatabases = [ "grafana" ];
+        ensureUsers = [
+          {
+            name = "grafana";
+            ensureDBOwnership = true;
+          }
+        ];
+      };
+
+      caddy.virtualHosts."grafana.nixalted.com" = {
+        logFormat = ''
+          output file ${config.services.caddy.logDir}/access-grafana.nixalted.com.log {
+            mode 0640
+          }
+        '';
+        extraConfig = ''
+          reverse_proxy :${toString grafanaPort}
+        '';
+      };
     };
 
     environment.etc."alloy/grafana.alloy".text = ''
@@ -145,11 +158,6 @@ in
               ];
         }
       ];
-
-      nginx.vhosts."grafana" = {
-        websockets = true;
-        port = grafanaPort;
-      };
     };
   };
 }

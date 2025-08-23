@@ -1,7 +1,8 @@
 { lib, ... }:
 {
   nixchad = {
-    nginx.enable = true;
+    nginx.enable = false;
+    caddy.enable = true;
     prometheus.enable = true;
     grafana.enable = true;
     vaultwarden.enable = true;

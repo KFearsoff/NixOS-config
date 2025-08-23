@@ -28,8 +28,15 @@ in
       };
     };
 
-    nixchad.nginx.vhosts."photoprism" = {
-      port = photoprismPort;
+    services.caddy.virtualHosts."photoprism.nixalted.com" = {
+      logFormat = ''
+        output file ${config.services.caddy.logDir}/access-photoprism.nixalted.com.log {
+          mode 0640
+        }
+      '';
+      extraConfig = ''
+        reverse_proxy :${lib.toString photoprismPort}
+      '';
     };
   };
 }

@@ -12,6 +12,7 @@
     ./photoprism.nix
     ./tailforward.nix
     ./nginx.nix
+    ./caddy.nix
     ./tempo.nix
     ./website.nix
     ./anki-sync-server.nix

@@ -44,16 +44,5 @@ in
     environment.etc = {
       "tailforward/tailforward.toml".source = configFile;
     };
-
-    services.nginx = {
-      virtualHosts."nixalted.com" = {
-        forceSSL = true;
-        useACMEHost = "nixalted.com";
-
-        locations."/tailscale-webhook" = {
-          proxyPass = "http://127.0.0.1:${port}";
-        };
-      };
-    };
   };
 }

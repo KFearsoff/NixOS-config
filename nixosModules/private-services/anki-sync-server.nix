@@ -30,6 +30,17 @@ in
     };
     systemd.services.anki-sync-server.serviceConfig.DynamicUser = lib.mkForce false;
 
+    services.caddy.virtualHosts."anki.nixalted.com" = {
+      logFormat = ''
+        output file ${config.services.caddy.logDir}/access-anki.nixalted.com.log {
+          mode 0640
+        }
+      '';
+      extraConfig = ''
+        reverse_proxy :${toString ankiPort}
+      '';
+    };
+
     nixchad = {
       impermanence.persisted.values = [
         {
@@ -43,10 +54,6 @@ in
               ];
         }
       ];
-
-      nginx.vhosts."anki" = {
-        port = ankiPort;
-      };
     };
   };
 }
