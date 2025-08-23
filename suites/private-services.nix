@@ -1,7 +1,6 @@
 { lib, ... }:
 {
   nixchad = {
-    nginx.enable = false;
     caddy.enable = true;
     prometheus.enable = true;
     grafana.enable = true;
