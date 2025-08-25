@@ -17,6 +17,7 @@ in
     ./fzf.nix
     ./nix-index.nix
     ./helix.nix
+    ./jj.nix
   ];
 
   options.nixchad.cli = {
@@ -28,6 +29,7 @@ in
       debug.enable = mkDefault true;
       utils.enable = mkDefault true;
       git.enable = mkDefault true;
+      jj.enable = mkDefault true;
     };
 
     environment.systemPackages = with pkgs; [
