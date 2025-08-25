@@ -39,9 +39,6 @@ in
       hardware.enable = mkDefault true;
     };
 
-    # Fix CVE until update
-    systemd.shutdownRamfs.enable = false;
-
     users.mutableUsers = false;
 
     boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
@@ -53,6 +50,32 @@ in
     ];
 
     services.journald.extraConfig = "SystemMaxUse=100M";
+
+    systemd = {
+      oomd.enable = true;
+
+      slices = {
+        "root".sliceConfig = {
+          # Start throttling things, and possibly trigger oomd at 90% usage
+          MemoryHigh = "90%";
+        };
+
+        "system".sliceConfig = {
+          ManagedOOMMemoryPressure = "kill";
+          ManagedOOMMemoryPressureLimit = "60%";
+        };
+        "user".sliceConfig = {
+          ManagedOOMMemoryPressure = "kill";
+          ManagedOOMMemoryPressureLimit = "40%";
+        };
+      };
+
+      # Never kill the sshd service. We need that one :)
+      services."sshd".serviceConfig = {
+        MemoryMin = "50M";
+        ManagedOOMPreference = "omit";
+      };
+    };
 
     # This value determines the NixOS release from which the default
     # settings for stateful data, like file locations and database versions
