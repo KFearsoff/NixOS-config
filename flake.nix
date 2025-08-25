@@ -187,7 +187,7 @@
             inherit (inputs.lix.packages.${hostSystem}) nix-eval-jobs;
           })
           pkgs.nvd
-          pkgs.nixfmt-rfc-style
+          pkgs.nixfmt
           pkgs.nix-output-monitor
 
           pkgs.lua
@@ -219,6 +219,7 @@
             nixfmt-rfc-style.enable = true;
             deadnix.enable = true;
             statix.enable = true;
+            statix.package = pkgs.statix;
           };
         };
       };

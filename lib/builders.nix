@@ -22,7 +22,7 @@ let
 
   patchInput =
     name: value:
-    if (fetchedPatches.${name} or [ ]) != [ ] then
+    if fetchedPatches.${name} or [ ] != [ ] then
       let
         patchedSrc = pkgsForPatching.applyPatches {
           name = "source";
@@ -37,7 +37,14 @@ let
   patchedInputs = builtins.mapAttrs patchInput inputs;
 
   patchedNixpkgs = import patchedInputs.nixpkgs;
-  patchedNixpkgsHost = patchedNixpkgs { system = hostSystem; };
+  patchedNixpkgsHost = patchedNixpkgs {
+    system = hostSystem;
+    config = {
+      allowUnfree = true;
+      # allowAliases = false; # Unsupported by colmena
+    };
+    overlays = builtins.attrValues overlays;
+  };
 
   specialArgs = {
     inputs = patchedInputs;
