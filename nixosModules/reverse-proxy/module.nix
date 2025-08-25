@@ -7,14 +7,14 @@ with lib;
 let
   cfg = config.nixchad.reverseProxy;
   toCaddyVirtualHosts = name: val: {
-    logFormat = ''
-      output file ${config.services.caddy.logDir}/access-${name}.log {
-        mode 0640
-      }
-    '';
+    logFormat = "";
     extraConfig =
+      let
+        snippets = lib.lists.forEach val.snippets (i: "import ${i}") |> lib.strings.concatLines;
+      in
       if (val.extraConfig == null) then
         ''
+          ${snippets}
           reverse_proxy unix//run/anubis/anubis-${name}/anubis-${name}.sock {
             header_up X-Real-Ip {remote_host}
             header_up X-Http-Version {http.request.proto}
@@ -29,7 +29,7 @@ let
 in
 {
   options.nixchad.reverseProxy = {
-    enable = mkEnableOption "reverse proxy abstraction";
+    enable = mkEnableOption "reverse proxy abstraction built on top of Caddy";
 
     virtualHosts = mkOption {
       type = types.attrsOf (
@@ -51,6 +51,10 @@ in
               };
               enableAnubis = mkEnableOption "Anubis proxying" // {
                 default = true;
+              };
+              snippets = mkOption {
+                type = types.listOf types.str;
+                default = [ "default-snippets" ];
               };
             };
           }

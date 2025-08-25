@@ -20,6 +20,70 @@ in
           per_host
         }
       '';
+      logFormat = ''
+        level INFO
+        format json
+      '';
+
+      extraConfig = ''
+        (skip-favicon-log) {
+          log_skip /favicon.ico
+        }
+
+        (no-server-header) {
+          header {
+            -Server
+            -Via
+          }
+        }
+
+        (search-engine-opt-out) {
+          header {
+            +x-robots-tag: "noindex, nofollow, nosnippet, noimageindex, noarchive, nocache, notranslate"
+          }
+        }
+
+        (robots-txt) {
+          @robotstxt path /robots.txt
+          respond @robotstxt 200 {
+            body <<TXT
+            User-Agent: *
+            Disallow: /
+
+            TXT
+          }
+        }
+
+        (compress) {
+          encode zstd gzip
+        }
+
+        # https://pages.madhouse-project.org/algernon/infrastructure.org/services_caddy_snippets_policies
+        (policies) {
+          header {
+            >Permission-Policy "interest-cohort=(), browsing-topics=()"
+            >Referrer-Policy "no-referrer"
+            >X-Content-Type-Options "nosniff"
+            >Content-Security-Policy "frame-ancestors 'self'"
+          }
+        }
+
+        (mandatory-snippets) {
+          import skip-favicon-log
+          import no-server-header
+        }
+
+        (recommended-snippets) {
+          import search-engine-opt-out
+          import robots-txt
+          import compress
+        }
+
+        (default-snippets) {
+          import recommended-snippets
+          import policies
+        }
+      '';
     };
 
     environment.etc."alloy/caddy.alloy".text = ''
@@ -27,18 +91,7 @@ in
         name = "caddy"
         url  = "localhost:2019"
       }
-
-      local.file_match "caddy" {
-        path_targets = [{"__path__" = "/var/log/caddy/*.log", "job" = "caddy", "hostname" = constants.hostname}]
-      }
-
-      loki.source.file "caddy" {
-        targets = local.file_match.caddy.targets
-        forward_to = [loki.write.default.receiver]
-        tail_from_end = true
-      }
     '';
-    systemd.services.alloy.serviceConfig.SupplementaryGroups = [ "caddy" ];
     systemd.services.caddy.serviceConfig.SupplementaryGroups = [ "anubis" ];
 
     networking.firewall.allowedTCPPorts = [
