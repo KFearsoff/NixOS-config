@@ -127,6 +127,7 @@
               # (npr 305569 "0n0nbriaxfcbalyqp59d3qg91vni1p56avv19wlqhgghy74wr5f1")
               # https://github.com/NixOS/nixpkgs/pull/428161#issuecomment-3145895543
               ./overlays/neotest.patch
+              (npr 436857 "sha256-3BOcRKoZeF2kVZig/A4cf8ZYn3GFQyKt2Pxaoc+dDvY=")
             ];
             #(pr <number> <sha>)
           };

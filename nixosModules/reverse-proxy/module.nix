@@ -15,7 +15,7 @@ let
     extraConfig =
       if (val.extraConfig == null) then
         ''
-          reverse_proxy unix//run/anubis/anubis-${name}.sock {
+          reverse_proxy unix//run/anubis/anubis-${name}/anubis-${name}.sock {
             header_up X-Real-Ip {remote_host}
             header_up X-Http-Version {http.request.proto}
           }
