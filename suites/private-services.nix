@@ -2,6 +2,7 @@
 {
   nixchad = {
     caddy.enable = true;
+    reverseProxy.enable = true;
     prometheus.enable = true;
     grafana.enable = true;
     vaultwarden.enable = true;

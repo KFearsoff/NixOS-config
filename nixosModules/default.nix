@@ -8,6 +8,7 @@
     ./neovim
     ./cli
     ./sway
+    ./reverse-proxy
   ];
 
   config.nixchad.system.enable = true;

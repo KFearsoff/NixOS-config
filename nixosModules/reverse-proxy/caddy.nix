@@ -39,6 +39,7 @@ in
       }
     '';
     systemd.services.alloy.serviceConfig.SupplementaryGroups = [ "caddy" ];
+    systemd.services.caddy.serviceConfig.SupplementaryGroups = [ "anubis" ];
 
     networking.firewall.allowedTCPPorts = [
       80

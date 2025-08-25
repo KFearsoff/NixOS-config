@@ -11,7 +11,6 @@
     ./vaultwarden.nix
     ./photoprism.nix
     ./tailforward.nix
-    ./caddy.nix
     ./tempo.nix
     ./website.nix
     ./anki-sync-server.nix

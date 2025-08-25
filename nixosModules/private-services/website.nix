@@ -16,17 +16,24 @@ in
   config = mkIf cfg.enable {
     environment.etc.website.source = "${inputs.website.packages.x86_64-linux.default}";
 
-    services.caddy.virtualHosts."nixalted.com" = {
-      logFormat = ''
-        output file ${config.services.caddy.logDir}/access-nixalted.com.log {
-          mode 0640
-        }
-      '';
-      extraConfig = ''
-        root * /etc/website
-        reverse_proxy /tailscale-webhook :54321
-        file_server
-      '';
+    nixchad.reverseProxy.virtualHosts = {
+      "nixalted.com" = {
+        reverseProxy = "http://localhost:54320";
+        extraConfig = ''
+          reverse_proxy /tailscale-webhook :54321
+          reverse_proxy unix//run/anubis/anubis-nixalted.com.sock {
+            header_up X-Real-Ip {remote_host}
+            header_up X-Http-Version {http.request.proto}
+          }
+        '';
+      };
+      ":54320" = {
+        enableAnubis = false;
+        extraConfig = ''
+          root * /etc/website
+          file_server
+        '';
+      };
     };
   };
 }

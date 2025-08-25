@@ -123,16 +123,11 @@ in
           }
         ];
       };
+    };
 
-      caddy.virtualHosts."grafana.nixalted.com" = {
-        logFormat = ''
-          output file ${config.services.caddy.logDir}/access-grafana.nixalted.com.log {
-            mode 0640
-          }
-        '';
-        extraConfig = ''
-          reverse_proxy :${toString grafanaPort}
-        '';
+    nixchad.reverseProxy.virtualHosts = {
+      "grafana.nixalted.com" = {
+        reverseProxy = "http://localhost:${toString grafanaPort}";
       };
     };
 

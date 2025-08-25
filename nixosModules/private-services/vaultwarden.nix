@@ -40,16 +40,11 @@ in
           }
         ];
       };
+    };
 
-      caddy.virtualHosts."vaultwarden.nixalted.com" = {
-        logFormat = ''
-          output file ${config.services.caddy.logDir}/access-vaultwarden.nixalted.com.log {
-            mode 0640
-          }
-        '';
-        extraConfig = ''
-          reverse_proxy :${toString vaultwardenPort}
-        '';
+    nixchad.reverseProxy.virtualHosts = {
+      "vaultwarden.nixalted.com" = {
+        reverseProxy = "http://localhost:${toString vaultwardenPort}";
       };
     };
 
