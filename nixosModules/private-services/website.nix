@@ -21,7 +21,7 @@ in
         reverseProxy = "http://localhost:54320";
         extraConfig = ''
           reverse_proxy /tailscale-webhook :54321
-          reverse_proxy unix//run/anubis/anubis-nixalted.com.sock {
+          reverse_proxy unix//run/anubis/anubis-nixalted.com/anubis-nixalted.com.sock {
             header_up X-Real-Ip {remote_host}
             header_up X-Http-Version {http.request.proto}
           }
