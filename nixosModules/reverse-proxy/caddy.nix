@@ -92,7 +92,10 @@ in
         url  = "localhost:2019"
       }
     '';
-    systemd.services.caddy.serviceConfig.SupplementaryGroups = [ "anubis" ];
+    systemd.services.caddy.serviceConfig = {
+      SupplementaryGroups = [ "anubis" ]; # to access Anubis sockets
+      Environment = "OTEL_EXPORTER_OTLP_TRACES_ENDPOINT=http://localhost:4317 OTEL_SERVICE_NAME=caddy";
+    };
 
     networking.firewall.allowedTCPPorts = [
       80

@@ -20,6 +20,9 @@ in
       "nixalted.com" = {
         reverseProxy = "http://localhost:54320";
         extraConfig = ''
+          tracing {
+            span "nixalted.com"
+          }
           reverse_proxy /tailscale-webhook :54321
           reverse_proxy unix//run/anubis/anubis-nixalted.com/anubis-nixalted.com.sock {
             header_up X-Real-Ip {remote_host}
@@ -30,6 +33,9 @@ in
       ":54320" = {
         enableAnubis = false;
         extraConfig = ''
+          tracing {
+            span "website"
+          }
           root * /etc/website
           file_server
         '';

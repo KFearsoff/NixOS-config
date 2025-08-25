@@ -72,7 +72,7 @@ in
                   derivedFields = [
                     {
                       datasourceUid = "provisioned_uid_tempo";
-                      matcherRegex = "(?:traceID|traceId|trace_id)=(\\w+)";
+                      matcherRegex = "(?:traceID|traceId|trace_id)\"?[=:]\"?(\\w+)";
                       name = "TraceID";
                       url = "$${__value.raw}";
                       urlDisplayLabel = "View Trace";

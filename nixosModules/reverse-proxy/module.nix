@@ -15,6 +15,9 @@ let
       if (val.extraConfig == null) then
         ''
           ${snippets}
+          tracing {
+            span {host}
+          }
           reverse_proxy unix//run/anubis/anubis-${name}/anubis-${name}.sock {
             header_up X-Real-Ip {remote_host}
             header_up X-Http-Version {http.request.proto}
