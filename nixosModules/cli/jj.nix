@@ -26,6 +26,7 @@ in
             backend = "ssh";
             key = "~/.ssh/id_ed25519.pub";
           };
+          ui.pager = "less -FRX";
         };
       };
     };

@@ -19,7 +19,7 @@ in
         EDITOR = "nvim";
       };
       programs.nushell.environmentVariables = {
-        EDITOR = "'nvim'";
+        EDITOR = "nvim";
       };
 
       programs.neovim = {
