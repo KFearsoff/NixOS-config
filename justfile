@@ -29,6 +29,9 @@ history:
 preview:
   @nixos-rebuild --flake .# build -v && nvd diff /run/current-system ./result
 
+preview-remote HOST=`uname -n`:
+  @nixos-rebuild --flake ".#{{HOST}}" build -v && nvd diff ".gcroots/node-{{HOST}}" ./result
+
 wat OPTION HOST=`uname -n`:
   @nix eval ".#nixosConfigurations.{{HOST}}.config.{{OPTION}}"
 
