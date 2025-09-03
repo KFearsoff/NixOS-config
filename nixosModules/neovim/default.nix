@@ -162,9 +162,6 @@ in
           # Treesitter-context Extra
           nvim-treesitter-context
 
-          # Project Extra
-          project-nvim
-
           # Startuptime
           vim-startuptime
 
@@ -236,7 +233,6 @@ in
               { import = "lazyvim.plugins.extras.test.core" },
               { import = "lazyvim.plugins.extras.ui.mini-animate" },
               { import = "lazyvim.plugins.extras.ui.treesitter-context" },
-              { import = "lazyvim.plugins.extras.util.project" },
               { import = "lazyvim.plugins.extras.util.startuptime" },
               -- import/override with your plugins
               { import = "plugins" },
