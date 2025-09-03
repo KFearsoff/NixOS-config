@@ -26,6 +26,10 @@ in
           username = "mari";
           passwordFile = "/secrets/mari-anki";
         }
+        {
+          username = "shared";
+          passwordFile = "/secrets/shared-anki";
+        }
       ];
     };
     systemd.services.anki-sync-server.serviceConfig.DynamicUser = lib.mkForce false;
