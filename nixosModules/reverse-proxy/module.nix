@@ -11,6 +11,16 @@ let
     extraConfig =
       let
         snippets = lib.lists.forEach val.snippets (i: "import ${i}") |> lib.strings.concatLines;
+        anubisProxy = ''
+          reverse_proxy unix//run/anubis/anubis-${name}/anubis.sock {
+            header_up X-Real-Ip {remote_host}
+            header_up X-Http-Version {http.request.proto}
+          }
+        '';
+        rawProxy = ''
+          reverse_proxy ${val.reverseProxy}
+        '';
+        proxy = if val.enableAnubis then anubisProxy else rawProxy;
       in
       if (val.extraConfig == null) then
         ''
@@ -18,10 +28,7 @@ let
           tracing {
             span {host}
           }
-          reverse_proxy unix//run/anubis/anubis-${name}/anubis.sock {
-            header_up X-Real-Ip {remote_host}
-            header_up X-Http-Version {http.request.proto}
-          }
+          ${proxy}
         ''
       else
         val.extraConfig;
