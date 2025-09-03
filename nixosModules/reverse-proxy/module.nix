@@ -18,7 +18,7 @@ let
           tracing {
             span {host}
           }
-          reverse_proxy unix//run/anubis/anubis-${name}/anubis-${name}.sock {
+          reverse_proxy unix//run/anubis/anubis-${name}/anubis.sock {
             header_up X-Real-Ip {remote_host}
             header_up X-Http-Version {http.request.proto}
           }
@@ -26,8 +26,12 @@ let
       else
         val.extraConfig;
   };
-  toAnubisVirtualHosts = _: val: {
-    settings.TARGET = val.reverseProxy;
+  toAnubisVirtualHosts = name: val: {
+    settings = {
+      TARGET = val.reverseProxy;
+      BIND = "/run/anubis/anubis-${name}/anubis.sock";
+      METRICS_BIND = "/run/anubis/anubis-${name}/anubis-metrics.sock";
+    };
   };
 in
 {
