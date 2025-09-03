@@ -71,11 +71,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     stylix = {
-      # Pin to 1 commit older bcs HEAD broke rofi
-      url = "github:nix-community/stylix/c700d41bb8ee32baed490c8128c1077b2b27183b";
+      url = "github:nix-community/stylix";
       inputs = {
-        flake-compat.follows = "flake-compat-dep";
-        home-manager.follows = "home-manager";
         nixpkgs.follows = "nixpkgs";
         nur.follows = "nur";
         flake-parts.follows = "flake-parts-dep";
@@ -129,6 +126,7 @@
               ./overlays/neotest.patch
               # (npr 436857 "sha256-3BOcRKoZeF2kVZig/A4cf8ZYn3GFQyKt2Pxaoc+dDvY=")
               (npr 437667 "sha256-iclyZj5VYhhYz3RWLcKXHfyp747EzmyAAkbOWST5kbg=")
+              (npr 438729 "sha256-43T9zzcRVLkT5UU2Ma9t/PDEYokTL1/pruqxu2MK+08=")
             ];
             #(pr <number> <sha>)
           };
