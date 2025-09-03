@@ -45,6 +45,7 @@ in
     nixchad.reverseProxy.virtualHosts = {
       "vaultwarden.nixalted.com" = {
         reverseProxy = "http://localhost:${toString vaultwardenPort}";
+        enableAnubis = false;
       };
     };
 
