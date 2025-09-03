@@ -45,9 +45,15 @@ in
     };
     networking.nameservers = cloudflare-tls ++ quad9-tls ++ google-tls;
 
-    # https://libredd.it/r/NixOS/comments/vdz86j/how_to_remove_boot_dependency_on_network_for_a/
-    #systemd.targets.network-online.wantedBy = pkgs.lib.mkForce []; # Normally ["multi-user.target"]
-    #systemd.services.NetworkManager-wait-online.wantedBy = pkgs.lib.mkForce []; # Normally ["network-online.target"]
+    # systemd.services.NetworkManager-wait-online.requires = ["persist-persist-var-lib-NetworkManager-seen\x2dbssids.service" "persist-persist-var-lib-NetworkManager-timestamps.service"];
+    systemd.services.NetworkManager.requires = [
+      "persist-persist-var-lib-NetworkManager-seen\\x2dbssids.service"
+      "persist-persist-var-lib-NetworkManager-timestamps.service"
+    ];
+    systemd.services.NetworkManager.after = [
+      "persist-persist-var-lib-NetworkManager-seen\\x2dbssids.service"
+      "persist-persist-var-lib-NetworkManager-timestamps.service"
+    ];
 
     networking.networkmanager.enable = mkDefault true;
     services.tailscale.enable = true;
