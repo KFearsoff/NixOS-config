@@ -36,16 +36,16 @@ let
 
   functionKeys = appendExecToCommand (
     {
-      "XF86AudioRaiseVolume" = "--no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%";
-      "XF86AudioLowerVolume" = "--no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5%";
+      "XF86AudioRaiseVolume" = "--no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +1%";
+      "XF86AudioLowerVolume" = "--no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -1%";
       "XF86AudioMute" = "--no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle";
       "XF86AudioMicMute" = "--no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle";
 
       "Print" = "flameshot gui";
     }
     // optionalAttrs config.nixchad.sway.backlight {
-      "XF86MonBrightnessUp" = "${pkgs.light}/bin/light -A 5";
-      "XF86MonBrightnessDown" = "${pkgs.light}/bin/light -U 5";
+      "XF86MonBrightnessUp" = "brightnessctl set +1%";
+      "XF86MonBrightnessDown" = "brightnessctl set 1%-";
     }
   );
 
@@ -56,7 +56,8 @@ let
     "Shift+equal" = "gaps inner current plus 1";
     "Shift+plus" = "gaps inner current minus 1";
 
-    "o" = "exec --no-startup-id ${pkgs.wtype}/bin/wtype $(grep -v '^//' ~/Documents/Notes/Reference\\ notes/Bookmarks.md | rofi -dmenu | cut -d' ' -f1)"; # bookmark script by LukeSmith: https://youtu.be/d_11QaTlf1I
+    "o" =
+      "exec --no-startup-id ${pkgs.wtype}/bin/wtype $(grep -v '^//' ~/Documents/Notes/Reference\\ notes/Bookmarks.md | rofi -dmenu | cut -d' ' -f1)"; # bookmark script by LukeSmith: https://youtu.be/d_11QaTlf1I
   };
 in
 {

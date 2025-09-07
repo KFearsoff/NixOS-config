@@ -32,11 +32,11 @@ in
   };
 
   config = mkIf cfg.enable {
-    security.polkit.enable = true;
-    security.pam.services.swaylock = { };
-    hardware.graphics.enable = true;
-    programs.dconf.enable = true;
-    programs.light.enable = lib.mkDefault true;
+    programs.sway = {
+      enable = true;
+      package = null;
+      extraPackages = lib.mkForce [ ];
+    };
 
     hm =
       { config, ... }:
@@ -44,25 +44,11 @@ in
         home.packages = [
           pkgs.wl-clipboard
           pkgs.grim
+          pkgs.brightnessctl
         ];
-
-        services.swayosd.enable = true;
-        xdg.portal = {
-          enable = true;
-          extraPortals = [
-            pkgs.xdg-desktop-portal-gtk
-            pkgs.xdg-desktop-portal-wlr
-          ];
-          xdgOpenUsePortal = true;
-          config.sway.default = [
-            "wlr"
-            "gtk"
-          ];
-        };
 
         services.flameshot = {
           enable = true;
-          package = pkgs.flameshot.override { enableWlrSupport = true; };
         };
 
         wayland.windowManager.sway = {

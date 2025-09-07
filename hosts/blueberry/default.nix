@@ -57,7 +57,6 @@
       ];
     };
   };
-  programs.light.enable = true;
 
   systemd.network = {
     enable = true;
