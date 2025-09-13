@@ -19,6 +19,11 @@ in
       ];
       default = "systemd-boot";
     };
+
+    device = mkOption {
+      type = types.str;
+      default = "";
+    };
   };
 
   config = mkIf cfg.enable {
@@ -49,7 +54,7 @@ in
     boot.loader.grub = mkIf (cfg.bootloader == "grub" || cfg.bootloader == "grub-noefi") {
       enable = true;
       efiSupport = cfg.bootloader == "grub";
-      device = if cfg.bootloader == "grub" then "nodev" else "/dev/sda";
+      device = if cfg.bootloader == "grub" then "nodev" else cfg.device;
       efiInstallAsRemovable = cfg.bootloader == "grub";
     };
   };

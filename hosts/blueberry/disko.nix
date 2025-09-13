@@ -7,22 +7,22 @@
     type = "disk";
     device = builtins.elemAt disks 0;
     content = {
-      type = "table";
-      format = "gpt";
-      partitions = [
-        {
-          name = "ESP";
+      type = "gpt";
+      partitions = {
+        ESP = {
+          priority = 1;
           start = "1MiB";
           end = "512MiB";
-          bootable = true;
+          type = "EF00";
           content = {
             type = "filesystem";
             format = "vfat";
             mountpoint = "/boot";
+            mountOptions = [ "umask=0077" ];
           };
-        }
-        {
-          name = "root";
+        };
+        root = {
+          priority = 2;
           start = "512MiB";
           end = "100%";
           content = {
@@ -76,8 +76,8 @@
               };
             };
           };
-        }
-      ];
+        };
+      };
     };
   };
 

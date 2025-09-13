@@ -7,28 +7,27 @@
     type = "disk";
     device = builtins.elemAt disks 0;
     content = {
-      type = "table";
-      format = "gpt";
-      partitions = [
-        {
-          name = "bios";
+      type = "gpt";
+      partitions = {
+        bios = {
+          priority = 1;
           start = "0";
           end = "1M";
-          flags = [ "bios_grub" ];
-        }
-        {
-          name = "boot";
+          type = "EF02";
+        };
+        boot = {
+          priority = 2;
           start = "1M";
           end = "128MiB";
-          fs-type = "fat32";
           content = {
             type = "filesystem";
             format = "vfat";
             mountpoint = "/boot";
+            mountOptions = [ "umask=0077" ];
           };
-        }
-        {
-          name = "root";
+        };
+        root = {
+          priority = 3;
           start = "128MiB";
           end = "100%";
           content = {
@@ -72,8 +71,8 @@
               };
             };
           };
-        }
-      ];
+        };
+      };
     };
   };
 
