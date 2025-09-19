@@ -60,8 +60,7 @@ in
               # extensions I like/need
               nur.repos.rycee.firefox-addons.bitwarden
               nur.repos.rycee.firefox-addons.istilldontcareaboutcookies
-              nur.repos.rycee.firefox-addons.tree-style-tab
-              nur.repos.rycee.firefox-addons.temporary-containers
+              nur.repos.rycee.firefox-addons.sidebery
               nur.repos.rycee.firefox-addons.auto-tab-discard
             ];
 
