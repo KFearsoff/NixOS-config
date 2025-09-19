@@ -44,12 +44,12 @@ let
       # allowAliases = false; # Unsupported by colmena
     };
     overlays = builtins.attrValues overlays;
+    inherit specialArgs;
   };
 
   specialArgs = {
     inputs = patchedInputs;
     rawInputs = inputs;
-    pkgsHost = patchedNixpkgsHost;
     username = "nixchad";
     servername = "cloudberry";
   };
