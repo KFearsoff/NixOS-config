@@ -122,11 +122,11 @@
           fetchers: with fetchers; {
             nixpkgs = [
               # (npr 305569 "0n0nbriaxfcbalyqp59d3qg91vni1p56avv19wlqhgghy74wr5f1")
-              # https://github.com/NixOS/nixpkgs/pull/428161#issuecomment-3145895543
-              ./overlays/neotest.patch
               # (npr 436857 "sha256-3BOcRKoZeF2kVZig/A4cf8ZYn3GFQyKt2Pxaoc+dDvY=")
-              (npr 437667 "sha256-iclyZj5VYhhYz3RWLcKXHfyp747EzmyAAkbOWST5kbg=")
-              (npr 438729 "sha256-43T9zzcRVLkT5UU2Ma9t/PDEYokTL1/pruqxu2MK+08=")
+              (builtins.fetchurl {
+                url = "https://github.com/NixOS/nixpkgs/pull/437667/commits/03797749fdc8d10441606de12504f0e836b24f3b.diff?full_index=1";
+                sha256 = "sha256-gdw+aN0z7K47/eq97etAxZPb2HedgM96no3jBzLdK1A=";
+              })
             ];
             #(pr <number> <sha>)
           };

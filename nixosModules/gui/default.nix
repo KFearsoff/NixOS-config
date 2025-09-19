@@ -73,7 +73,6 @@ in
         obs-studio.enable = cfg.obs;
         rofi = {
           enable = cfg.rofi;
-          package = pkgs.rofi-wayland;
           terminal = "alacritty";
           extraConfig = {
             show-icons = true;
