@@ -68,11 +68,6 @@ in
     boot.tmp.cleanOnBoot = true;
     programs.fuse.userAllowOther = true;
 
-    security.sudo.extraConfig = ''
-      Defaults lecture = never
-      Defaults insults
-    '';
-
     environment.persistence.${cfg.persisted.path} = mkIf cfg.presets.enable collectPersistedValues;
 
     nixchad.impermanence.persisted.values = [
