@@ -212,7 +212,7 @@
 
             # Variety
             actionlint.enable = true;
-            commitizen.enable = true;
+            # commitizen.enable = true;
             editorconfig-checker.enable = true;
 
             # Nix
