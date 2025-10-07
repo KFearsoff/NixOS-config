@@ -18,7 +18,9 @@ let
           }
         '';
         rawProxy = ''
-          reverse_proxy ${val.reverseProxy}
+          reverse_proxy ${val.reverseProxy} {
+            header_up X-Real-Ip {remote_host}
+          }
         '';
         proxy = if val.enableAnubis then anubisProxy else rawProxy;
       in

@@ -81,7 +81,7 @@ in
 
         (default-snippets) {
           import recommended-snippets
-          import policies
+          # import policies
         }
       '';
     };
