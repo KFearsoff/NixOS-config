@@ -39,11 +39,12 @@ in
       enable = true;
       fallbackDns = cloudflare ++ quad9 ++ google;
       dnssec = "true";
-      extraConfig = ''
-        DNSOverTLS=true
-      '';
+      # extraConfig = ''
+      #   DNSOverTLS=true
+      # '';
     };
-    networking.nameservers = cloudflare-tls ++ quad9-tls ++ google-tls;
+    # networking.nameservers = cloudflare-tls ++ quad9-tls ++ google-tls;
+    networking.nameservers = cloudflare ++ quad9 ++ google;
 
     # systemd.services.NetworkManager-wait-online.requires = ["persist-persist-var-lib-NetworkManager-seen\x2dbssids.service" "persist-persist-var-lib-NetworkManager-timestamps.service"];
     systemd.services.NetworkManager.requires = [
