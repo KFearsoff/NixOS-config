@@ -49,6 +49,7 @@ in
           # Custom
           editorconfig-checker
           shellcheck
+          nixd
         ];
       };
 
