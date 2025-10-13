@@ -37,4 +37,22 @@ return {
     "nvim-treesitter/nvim-treesitter",
     opts = { ensure_installed = { "nix" } },
   },
+  {
+    -- https://github.com/LazyVim/LazyVim/discussions/5638
+    "mrcjkb/rustaceanvim",
+    ---@param opts rustaceanvim.Opts
+    opts = {
+      server = {
+        default_settings = {
+          ["rust-analyzer"] = {
+            procMacro = {
+              ignored = {
+                ["async-trait"] = vim.NIL,
+              },
+            },
+          },
+        },
+      },
+    },
+  },
 }
