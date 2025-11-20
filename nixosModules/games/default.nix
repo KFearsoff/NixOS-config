@@ -53,7 +53,7 @@ in
     hm = {
       home = {
         packages =
-          optional cfg.poe.enable pkgs.path-of-building
+          optional cfg.poe.enable pkgs.rusty-path-of-building
           ++ optional cfg.lutris.enable (pkgs.lutris.override { extraPkgs = _: cfg.lutrisPackages; });
       };
 
