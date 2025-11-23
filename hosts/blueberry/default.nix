@@ -111,6 +111,7 @@
     "interface-name:tun*"
   ];
   zramSwap.enable = true;
+  zramSwap.memoryPercent = 200;
   hm.nixchad = {
     gui.enable = true;
   };
