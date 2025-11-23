@@ -26,31 +26,33 @@ in
       programs.git = {
         enable = true;
         lfs.enable = true;
-        userEmail = "kfearsoff@gmail.com";
-        userName = "KFears";
+        settings = {
+          user = {
+            email = "kfearsoff@gmail.com";
+            name = "KFears";
+          };
 
-        aliases = {
-          a = "add";
-          d = "diff";
-          dc = "diff --cached";
-          sa = "stash push";
-          sr = "stash pop";
-          sl = "stash list";
-          sd = "stash drop";
-          c = "commit";
-          ca = "commit --amend";
-          r = "rebase";
-          re = "restore";
-          rs = "restore --staged";
-          rc = "rebase --continue";
-          ra = "rebase --abort";
-          lp = "log -p";
-          cp = "cherry-pick";
-          cpc = "cherry-pick --continue";
-          cpa = "cherry-pick --abort";
-        };
+          alias = {
+            a = "add";
+            d = "diff";
+            dc = "diff --cached";
+            sa = "stash push";
+            sr = "stash pop";
+            sl = "stash list";
+            sd = "stash drop";
+            c = "commit";
+            ca = "commit --amend";
+            r = "rebase";
+            re = "restore";
+            rs = "restore --staged";
+            rc = "rebase --continue";
+            ra = "rebase --abort";
+            lp = "log -p";
+            cp = "cherry-pick";
+            cpc = "cherry-pick --continue";
+            cpa = "cherry-pick --abort";
+          };
 
-        extraConfig = {
           init.defaultBranch = "main";
           diff.algorithm = "histogram";
           branch.autoSetupRebase = "always";
@@ -103,11 +105,12 @@ in
             };
           }
         ];
+      };
 
-        difftastic = optionalAttrs utilsEnabled {
-          enable = true;
-          display = "inline";
-        };
+      programs.difftastic = optionalAttrs utilsEnabled {
+        enable = true;
+        git.enable = true;
+        options.display = "inline";
       };
     };
   };
