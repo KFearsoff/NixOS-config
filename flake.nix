@@ -60,7 +60,7 @@
     website = {
       url = "github:KFearsoff/website";
       inputs = {
-        nixpkgs.follows = "nixpkgs";
+        # nixpkgs.follows = "nixpkgs"; # FIXME: Waiting for https://github.com/NixOS/nixpkgs/pull/467009
         pre-commit-hooks.follows = "pre-commit-hooks";
       };
     };
