@@ -1227,11 +1227,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1767584966,
-        "narHash": "sha256-h1YJsxkJUeJaLc/FHDMKZ1i/MmRKiZ+23bi0Qhbp9vo=",
+        "lastModified": 1767819462,
+        "narHash": "sha256-cfOgqvpEgfTaBh8cIiAajmtrMtMfgC7ehwHLsI1Oejw=",
         "owner": "KFearsoff",
         "repo": "website",
-        "rev": "6d0294d80e77eb6f1ccfad618f08246e98edce7b",
+        "rev": "aa7710a8e2f09a14a42af5fdc1bf124b75bd44d8",
         "type": "github"
       },
       "original": {
