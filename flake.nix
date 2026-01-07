@@ -40,6 +40,10 @@
     flake-parts-dep = {
       url = "github:hercules-ci/flake-parts";
     };
+    treefmt-nix-dep = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # NixOS utils
     hardware.url = "github:NixOS/nixos-hardware/master";
@@ -63,6 +67,19 @@
         nixpkgs.follows = "nixpkgs";
         pre-commit-hooks.follows = "pre-commit-hooks";
       };
+    };
+    nixocaine = {
+      url = "https://git.madhouse-project.org/iocaine/nixocaine/archive/stable.tar.gz";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        pre-commit-hooks.follows = "pre-commit-hooks";
+        systems.follows = "systems-dep";
+        treefmt-nix.follows = "treefmt-nix-dep";
+      };
+    };
+    ai-robots-txt = {
+      url = "github:ai-robots-txt/ai.robots.txt";
+      flake = false;
     };
 
     # User utils
@@ -114,7 +131,10 @@
   outputs =
     inputs:
     let
-      overlays = import ./overlays;
+      # FIXME: file a bug to Algernon that overlay should be done unconditionally
+      overlays = (import ./overlays) // {
+        iocaine = inputs.nixocaine.overlays.default;
+      };
       hostSystem = "x86_64-linux";
       importedLib = import ./lib/builders.nix {
         inherit inputs overlays hostSystem;

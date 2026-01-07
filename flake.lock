@@ -1,5 +1,21 @@
 {
   "nodes": {
+    "ai-robots-txt": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1766279226,
+        "narHash": "sha256-O/W/gX7EazxzR+ghdxg4i6S0SHEUZoX1afB//HKUNgY=",
+        "owner": "ai-robots-txt",
+        "repo": "ai.robots.txt",
+        "rev": "aa8519ec107d7cfa29b03005c9176708e1269965",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ai-robots-txt",
+        "repo": "ai.robots.txt",
+        "type": "github"
+      }
+    },
     "arkenfox": {
       "flake": false,
       "locked": {
@@ -14,6 +30,40 @@
         "owner": "arkenfox",
         "repo": "user.js",
         "type": "github"
+      }
+    },
+    "avalanche": {
+      "inputs": {
+        "nixpkgs": [
+          "nixocaine",
+          "nam-shub-of-enki",
+          "nixpkgs"
+        ],
+        "nixpkgs-2505": "nixpkgs-2505",
+        "pre-commit-hooks": [
+          "nixocaine",
+          "nam-shub-of-enki",
+          "pre-commit-hooks"
+        ],
+        "systems": "systems_3",
+        "treefmt-nix": [
+          "nixocaine",
+          "nam-shub-of-enki",
+          "treefmt-nix"
+        ]
+      },
+      "locked": {
+        "lastModified": 1765198317,
+        "narHash": "sha256-IQoB7lK8cJzWG3hEZrPe0Zoa8/1LRwcgTSoX9mpr20E=",
+        "ref": "refs/heads/main",
+        "rev": "01af515b690125cb0b636a86ab95cace3c0cc8c6",
+        "revCount": 160,
+        "type": "git",
+        "url": "https://git.madhouse-project.org/algernon/avalanche.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://git.madhouse-project.org/algernon/avalanche.git"
       }
     },
     "base16": {
@@ -419,6 +469,34 @@
         "type": "github"
       }
     },
+    "iocaine-stable": {
+      "inputs": {
+        "nixpkgs": [
+          "nixocaine",
+          "nixpkgs"
+        ],
+        "pre-commit-hooks": [
+          "nixocaine",
+          "pre-commit-hooks"
+        ],
+        "systems": "systems_2",
+        "treefmt-nix": [
+          "nixocaine",
+          "treefmt-nix"
+        ]
+      },
+      "locked": {
+        "lastModified": 1766482669,
+        "narHash": "sha256-4aSH+StMUiWbscwvZcqaWOsnAMaxueNEx+FK85Mro/w=",
+        "rev": "bfecc81e0164a8f248c88d40d968be50e66fbdda",
+        "type": "tarball",
+        "url": "https://git.madhouse-project.org/api/v1/repos/iocaine/iocaine/archive/bfecc81e0164a8f248c88d40d968be50e66fbdda.tar.gz?rev=bfecc81e0164a8f248c88d40d968be50e66fbdda"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://git.madhouse-project.org/iocaine/iocaine/archive/iocaine-3.1.0.tar.gz"
+      }
+    },
     "lix": {
       "inputs": {
         "flake-compat": "flake-compat",
@@ -479,6 +557,38 @@
         "owner": "kristapsdz",
         "repo": "lowdown",
         "type": "github"
+      }
+    },
+    "nam-shub-of-enki": {
+      "inputs": {
+        "avalanche": "avalanche",
+        "iocaine": [
+          "nixocaine",
+          "iocaine-stable"
+        ],
+        "nixpkgs": [
+          "nixocaine",
+          "nixpkgs"
+        ],
+        "pre-commit-hooks": [
+          "nixocaine",
+          "pre-commit-hooks"
+        ],
+        "treefmt-nix": [
+          "nixocaine",
+          "treefmt-nix"
+        ]
+      },
+      "locked": {
+        "lastModified": 1766487857,
+        "narHash": "sha256-Inkx0g6Dvn/lAC2bQh/rNKvoP8NGpm/YqPDiagfAdKQ=",
+        "rev": "9e333811b45c7245b8744c0d9f292912513459b0",
+        "type": "tarball",
+        "url": "https://git.madhouse-project.org/api/v1/repos/iocaine/nam-shub-of-enki/archive/9e333811b45c7245b8744c0d9f292912513459b0.tar.gz?rev=9e333811b45c7245b8744c0d9f292912513459b0"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://git.madhouse-project.org/iocaine/nam-shub-of-enki/archive/iocaine-3.x.tar.gz"
       }
     },
     "nix-github-actions": {
@@ -546,6 +656,35 @@
         "type": "github"
       }
     },
+    "nixocaine": {
+      "inputs": {
+        "iocaine-stable": "iocaine-stable",
+        "nam-shub-of-enki": "nam-shub-of-enki",
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "pre-commit-hooks": [
+          "pre-commit-hooks"
+        ],
+        "systems": [
+          "systems-dep"
+        ],
+        "treefmt-nix": [
+          "treefmt-nix-dep"
+        ]
+      },
+      "locked": {
+        "lastModified": 1766487985,
+        "narHash": "sha256-1lf9iyBmFrDdoH1r5h56FvximUHs+PQktU/S5EFGlrI=",
+        "rev": "1e607be339fd1864328708dc80ec9b266a2bd7f5",
+        "type": "tarball",
+        "url": "https://git.madhouse-project.org/api/v1/repos/iocaine/nixocaine/archive/1e607be339fd1864328708dc80ec9b266a2bd7f5.tar.gz?rev=1e607be339fd1864328708dc80ec9b266a2bd7f5"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://git.madhouse-project.org/iocaine/nixocaine/archive/stable.tar.gz"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1705033721,
@@ -558,6 +697,22 @@
       "original": {
         "owner": "NixOS",
         "ref": "nixos-23.05-small",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs-2505": {
+      "locked": {
+        "lastModified": 1764939437,
+        "narHash": "sha256-4TLFHUwXraw9Df5mXC/vCrJgb50CRr3CzUzF0Mn3CII=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "00d2457e2f608b4be6fe8b470b0a36816324b0ae",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-25.05",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -745,6 +900,7 @@
     },
     "root": {
       "inputs": {
+        "ai-robots-txt": "ai-robots-txt",
         "arkenfox": "arkenfox",
         "colmena": "colmena",
         "disko": "disko",
@@ -756,6 +912,7 @@
         "impermanence": "impermanence",
         "lix": "lix",
         "lix-module": "lix-module",
+        "nixocaine": "nixocaine",
         "nixpkgs": "nixpkgs_2",
         "nu-scripts": "nu-scripts",
         "nur": "nur",
@@ -763,6 +920,7 @@
         "stylix": "stylix",
         "systems-dep": "systems-dep",
         "tailforward": "tailforward",
+        "treefmt-nix-dep": "treefmt-nix-dep",
         "website": "website"
       }
     },
@@ -839,7 +997,7 @@
         "nur": [
           "nur"
         ],
-        "systems": "systems_2",
+        "systems": "systems_4",
         "tinted-foot": "tinted-foot",
         "tinted-kitty": "tinted-kitty",
         "tinted-schemes": "tinted-schemes",
@@ -891,6 +1049,34 @@
       }
     },
     "systems_2": {
+      "locked": {
+        "lastModified": 1681028828,
+        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
+        "owner": "nix-systems",
+        "repo": "default",
+        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
+        "type": "github"
+      },
+      "original": {
+        "id": "systems",
+        "type": "indirect"
+      }
+    },
+    "systems_3": {
+      "locked": {
+        "lastModified": 1681028828,
+        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
+        "owner": "nix-systems",
+        "repo": "default",
+        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
+        "type": "github"
+      },
+      "original": {
+        "id": "systems",
+        "type": "indirect"
+      }
+    },
+    "systems_4": {
       "locked": {
         "lastModified": 1681028828,
         "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
@@ -1008,6 +1194,26 @@
       "original": {
         "owner": "tinted-theming",
         "repo": "base16-zed",
+        "type": "github"
+      }
+    },
+    "treefmt-nix-dep": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1767468822,
+        "narHash": "sha256-MpffQxHxmjVKMiQd0Tg2IM/bSjjdQAM+NDcX6yxj7rE=",
+        "owner": "numtide",
+        "repo": "treefmt-nix",
+        "rev": "d56486eb9493ad9c4777c65932618e9c2d0468fc",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "treefmt-nix",
         "type": "github"
       }
     },

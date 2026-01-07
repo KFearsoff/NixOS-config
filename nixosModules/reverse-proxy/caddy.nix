@@ -19,6 +19,7 @@ in
         metrics {
           per_host
         }
+        order respond after reverse_proxy
       '';
       logFormat = ''
         level INFO
@@ -26,6 +27,34 @@ in
       '';
 
       extraConfig = ''
+        (bad-method) {
+          header allow "GET, HEAD"
+          respond 405
+        }
+
+        (reverse-proxy) {
+          reverse_proxy {args[0]} {
+            header_up x-real-ip {remote_host}
+          }
+        }
+
+        # TODO: migrate website to garage
+        # (static-site) {
+        #   uri path_regexp /$ /index.html
+        #
+        #   reverse_proxy <<wireguard/aman>>:8096 {
+        #     rewrite /sites/{args[0]}{uri}
+        #
+        #     @not-found status 404
+        #     handle_response @not-found {
+        #       rewrite /sites/{args[0]}/404.html
+        #       reverse_proxy <<wireguard/aman>>:8096 {
+        #         replace_status 404
+        #       }
+        #     }
+        #   }
+        # }
+
         (skip-favicon-log) {
           log_skip /favicon.ico
         }
@@ -34,6 +63,25 @@ in
           header {
             -Server
             -Via
+          }
+        }
+
+        (iocaine) {
+          import mandatory-snippets
+
+          @read method GET HEAD
+          @not-read not {
+            method GET HEAD
+          }
+          reverse_proxy @read 127.0.0.1:42069 {
+            @fallback status 421
+            # header_up x-request-id {http.request_id}
+            handle_response @fallback {
+              {blocks.handler}
+            }
+          }
+          handle @not-read {
+            {blocks.default}
           }
         }
 
@@ -93,7 +141,6 @@ in
       }
     '';
     systemd.services.caddy.serviceConfig = {
-      SupplementaryGroups = [ "anubis" ]; # to access Anubis sockets
       Environment = "OTEL_EXPORTER_OTLP_TRACES_ENDPOINT=http://localhost:4317 OTEL_SERVICE_NAME=caddy";
     };
 

@@ -18,26 +18,23 @@ in
 
     nixchad.reverseProxy.virtualHosts = {
       "nixalted.com" = {
-        reverseProxy = "http://localhost:54320";
         extraConfig = ''
           tracing {
             span "nixalted.com"
           }
-          reverse_proxy /tailscale-webhook :54321
-          reverse_proxy unix//run/anubis/anubis-nixalted.com/anubis.sock {
-            header_up X-Real-Ip {remote_host}
-            header_up X-Http-Version {http.request.proto}
+          import iocaine {
+            handler {
+              import default-snippets
+              import reverse-proxy /tailscale-webhook :54321
+              root * /etc/website
+              file_server
+            }
+            default {
+              import default-snippets
+              import reverse-proxy /tailscale-webhook :54321
+              import bad-method
+            }
           }
-        '';
-      };
-      ":54320" = {
-        enableAnubis = false;
-        extraConfig = ''
-          tracing {
-            span "website"
-          }
-          root * /etc/website
-          file_server
         '';
       };
     };
