@@ -39,6 +39,17 @@ in
       };
     };
 
+    systemd.services = {
+      alloy.after = [ "tempo.service" ];
+      tempo = {
+        serviceConfig = {
+          MemoryHigh = 300 * 1024 * 1024; # 300MiB
+          MemoryMax = 500 * 1024 * 1024; # 500MiB
+          CPUQuota = "50%";
+        };
+      };
+    };
+
     networking.firewall.interfaces.tailscale0.allowedTCPPorts = [ receiverGrpcPort ];
   };
 }
