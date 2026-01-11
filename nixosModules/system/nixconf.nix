@@ -15,7 +15,6 @@
 
     settings = {
       trusted-users = [ "@wheel" ];
-      auto-optimise-store = true;
       keep-going = true;
       keep-outputs = true;
       warn-dirty = false;
