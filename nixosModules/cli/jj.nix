@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }:
 with lib;
@@ -34,6 +35,17 @@ in
             key = "~/.ssh/id_ed25519.pub";
           };
           ui.pager = "less -FRX";
+
+          aliases = {
+            push = [
+              "util"
+              "exec"
+              "--"
+              (lib.getExe pkgs.jj-pre-push)
+              "push"
+            ];
+          };
+
           "--scope" = [
             {
               "--when".repositories = [ "~/Documents/Work" ];
