@@ -51,7 +51,13 @@
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    impermanence.url = "github:nix-community/impermanence";
+    impermanence = {
+      url = "github:nix-community/impermanence";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        home-manager.follows = "home-manager";
+      };
+    };
 
     # Services
     tailforward = {
@@ -194,7 +200,7 @@
         };
       };
 
-      formatter.${hostSystem} = pkgs.nixfmt-rfc-style;
+      formatter.${hostSystem} = pkgs.nixfmt;
 
       devShells.${hostSystem}.default = pkgs.mkShellNoCC {
         packages = [

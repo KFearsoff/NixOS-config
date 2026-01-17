@@ -43,7 +43,7 @@ in
               [
                 {
                   directory = config.services.paperless.dataDir;
-                  user = config.services.paperless.user;
+                  inherit (config.services.paperless) user;
                   group = "paperless";
                   mode = "0700";
                 }

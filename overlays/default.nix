@@ -5,13 +5,13 @@
       src = prev.fetchFromGitHub {
         owner = "oppiliappan";
         repo = "statix";
-        rev = "f76adab8920438c39edbf3463b7a7150f9875617";
-        sha256 = "sha256-g1fFexvaHiW4qc3XfVaoqoCe2mp1yeaDG4wgaDgcuGM=";
+        rev = "43681f0da4bf1cc6ecd487ef0a5c6ad72e3397c7";
+        hash = "sha256-LXvbkO/H+xscQsyHIo/QbNPw2EKqheuNjphdLfIZUv4=";
       };
 
-      cargoDeps = prev.rustPlatform.fetchCargoVendor {
-        inherit src;
-        hash = "sha256-jiMv28kSqCfaYnVsE/q/EtaPmSrANvJYjI9FQ2+Biz8=";
+      cargoDeps = prev.rustPlatform.importCargoLock {
+        lockFile = src + "/Cargo.lock";
+        allowBuiltinFetchGit = true;
       };
     });
   };

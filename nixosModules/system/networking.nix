@@ -37,11 +37,11 @@ in
   config = mkIf cfg.enable {
     services.resolved = {
       enable = true;
-      fallbackDns = cloudflare ++ quad9 ++ google;
-      dnssec = "true";
-      extraConfig = ''
-        DNSOverTLS=true
-      '';
+      settings.Resolve = {
+        DNSOverTLS = true;
+        DNSSEC = "true";
+        FallbackDNS = cloudflare ++ quad9 ++ google;
+      };
     };
     networking.nameservers = cloudflare-tls ++ quad9-tls ++ google-tls;
 
