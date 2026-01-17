@@ -150,5 +150,18 @@ in
         };
       };
     })
+    (mkIf config.services.paperless.enable {
+      services.restic.backups = backup-builder {
+        paperless = {
+          paths = [
+            config.services.paperless.dataDir
+          ];
+          extraBackupArgs = [
+            "--verbose"
+            "--tag paperless"
+          ];
+        };
+      };
+    })
   ];
 }

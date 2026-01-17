@@ -10,6 +10,7 @@
     postgres-exporter.enable = true;
     blackbox-exporter.enable = true;
     loki.enable = true;
+    paperless.enable = true;
     photoprism.enable = lib.mkDefault true;
     tailforward.enable = true;
     tempo.enable = true;

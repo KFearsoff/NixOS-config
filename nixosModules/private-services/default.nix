@@ -9,6 +9,7 @@
     ./prometheus
     ./alertmanager.nix
     ./vaultwarden.nix
+    ./paperless.nix
     ./photoprism.nix
     ./tailforward.nix
     ./tempo.nix
