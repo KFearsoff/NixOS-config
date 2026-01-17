@@ -59,6 +59,7 @@ in
                   directory = "/var/lib/bitwarden_rs";
                   user = "vaultwarden";
                   group = "vaultwarden";
+                  mode = "0700";
                 }
               ];
         }

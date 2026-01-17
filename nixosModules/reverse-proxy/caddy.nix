@@ -155,9 +155,17 @@ in
 
     nixchad.impermanence.persisted.values = [
       {
-        directories = lib.mkIf (
-          config.nixchad.impermanence.presets.essential && config.nixchad.impermanence.presets.services
-        ) [ config.services.caddy.dataDir ];
+        directories =
+          lib.mkIf
+            (config.nixchad.impermanence.presets.essential && config.nixchad.impermanence.presets.services)
+            [
+              {
+                directory = config.services.caddy.dataDir;
+                user = "caddy";
+                group = "caddy";
+                mode = "0700";
+              }
+            ];
       }
     ];
   };
