@@ -61,7 +61,7 @@ in
               nur.repos.rycee.firefox-addons.bitwarden
               nur.repos.rycee.firefox-addons.istilldontcareaboutcookies
               nur.repos.rycee.firefox-addons.sidebery
-              nur.repos.rycee.firefox-addons.auto-tab-discard
+              nur.repos.rycee.firefox-addons.violentmonkey
             ];
 
             search = {
@@ -125,7 +125,7 @@ in
                 };
 
                 "NixOS Wiki" = {
-                  urls = [ { template = "https://nixos.wiki/index.php?search={searchTerms}"; } ];
+                  urls = [ { template = "https://wiki.nixos.org/w/index.php?search={searchTerms}"; } ];
                   icon = "https://nixos.wiki/favicon.png";
                   updateInterval = 24 * 60 * 60 * 1000; # every day
                   definedAliases = [ "@nw" ];
