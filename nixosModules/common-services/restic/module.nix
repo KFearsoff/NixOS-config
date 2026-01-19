@@ -85,6 +85,18 @@ in
                 '';
                 example = "find /home/matt/git -type d -name .git";
               };
+
+              extraBackupArgs = lib.mkOption {
+                type = lib.types.listOf lib.types.str;
+                default = [ ];
+                description = ''
+                  Extra arguments passed to restic backup.
+                '';
+                example = [
+                  "--cleanup-cache"
+                  "--exclude-file=/etc/nixos/restic-ignore"
+                ];
+              };
             };
           }
         )
@@ -227,7 +239,7 @@ in
       extraOptions =
         name:
         lib.concatMapStrings (arg: " -o ${arg}") (
-          lib.getAttrFromPath [ name "extraOptions" ] config.nixchad.resticModule.destinations
+          lib.attrByPath [ name "extraOptions" ] [ ] config.nixchad.resticModule.destinations
         );
       inhibitCmd =
         name:
@@ -258,6 +270,10 @@ in
         };
       };
 
+      args = source: lib.concatStringsSep " " (source.extraBackupArgs);
+      argsExtractSource =
+        mapping: args (lib.getAttrFromPath [ mapping ] config.nixchad.resticModule.sources);
+
       # mapping is { sources = "foo"; destinations = "bar"; }
       backupTemplater = mapping: {
         environment = lib.getAttrFromPath [
@@ -266,11 +282,17 @@ in
         ] config.nixchad.resticModule.destinations;
         path = [ config.programs.ssh.package ];
         restartIfChanged = false;
-        wants = [ "network-online.target" ];
-        after = [ "network-online.target" ];
+        wants = [
+          "network-online.target"
+          "restic-destination-${mapping.destinations}.service"
+        ];
+        after = [
+          "network-online.target"
+          "restic-destination-${mapping.destinations}.service"
+        ];
         serviceConfig = {
           Type = "oneshot";
-          ExecStart = "${resticCmd} backup";
+          ExecStart = "${resticCmd mapping.sources} backup ${argsExtractSource mapping.sources}";
           User = "root";
           Group = "root";
           RuntimeDirectory = "restic-destination-${mapping.destinations}";
@@ -292,22 +314,27 @@ in
       transformMapping =
         mapping:
         mapping
+        # { sources = [x y]; destinations = [z w]; } -> [{ sources = x; destinations = z; } { sources = y; destinations = z; } ..]
         |> lib.cartesianProduct
+        # [{ sources = x; destinations = z; } ..] -> [{ name = "restic-backup-source-to-destination"; value = { sources = x; destinations = z; }; } ..]
         |> lib.map (attrset: {
           name = "restic-backup-${attrset.sources}-to-${attrset.destinations}";
           value = backupTemplater attrset;
         })
+        # Turns that thing above into { "restic-backup-source-to-destination" = { sources = x; .. }; ..}
         |> lib.listToAttrs;
 
       backupServices =
         config.nixchad.resticModule.mappings
+        # { mapping-name = { sources = [x y]; ..}; ..} -> { mapping-name = { "restic-backup-source-to-destination" = { sources = x; ..}; ..}; ..}
         |> lib.mapAttrs (name: mapping: transformMapping mapping)
+        # Flatten attrs: { mapping-name = { "restic-backup-source-to-destination" = {..}; }; ..} -> { "restic-backup-source-to-destination" = {..}; ..}
         |> lib.foldlAttrs (
           acc: _name: value:
           acc // value
         ) { };
     in
     {
-      systemd.services = destinationServices // backupServices;
+      systemd.services = lib.traceVal (destinationServices // backupServices);
     };
 }
