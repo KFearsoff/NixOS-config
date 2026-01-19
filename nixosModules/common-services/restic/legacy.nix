@@ -86,7 +86,7 @@ in
           RESTIC_CACHE_DIR = "%C/restic-backups";
           RESTIC_FROM_PASSWORD_FILE = "/secrets/restic-backup-linus";
           RESTIC_PASSWORD_FILE = "/secrets/usb-flash-drive-backup";
-          RESTIC_FROM_REPOSITORY = "sftp:kfears@sol.sphalerite.tech:/backup";
+          RESTIC_FROM_REPOSITORY = "sftp:kfears@yew.sphalerite.tech:/backup";
           RESTIC_REPOSITORY = "/run/media/${username}/Ventoy/restic-backups";
         };
         preStart = ''
