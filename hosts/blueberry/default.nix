@@ -34,7 +34,6 @@
   boot.kernelPackages = pkgs.linuxPackages;
   nixchad = {
     boot.bootloader = "systemd-boot";
-    restic.usb-backups = true;
     smartctl-exporter.devices = [ "/dev/nvme0n1" ];
     waybar.battery = true;
     impermanence = {

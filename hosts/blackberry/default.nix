@@ -33,7 +33,6 @@
       backlight = false; # PC GPUs don't do that
       battery = false; # PC, doesn't have a battery
     };
-    restic.usb-backups = true;
 
     impermanence.presets = {
       enable = true;
