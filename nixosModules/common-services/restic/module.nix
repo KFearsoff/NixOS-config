@@ -30,6 +30,18 @@ in
                 default = { };
               };
 
+              backupPre = lib.mkOption {
+                description = "Commands to run before the backup";
+                type = lib.types.nullOr lib.types.str;
+                default = "";
+              };
+
+              backupPost = lib.mkOption {
+                description = "Commands to run after the backup";
+                type = lib.types.nullOr lib.types.str;
+                default = "";
+              };
+
               paths = lib.mkOption {
                 type = lib.types.listOf lib.types.str;
                 default = [ ];
@@ -267,12 +279,37 @@ in
           CacheDirectory = "restic-destination-${name}";
           CacheDirectoryMode = "0700";
           PrivateTmp = true;
+          # We don't want this to re-run needlessly
+          RemainAfterExit = true;
         };
       };
 
-      args = source: lib.concatStringsSep " " (source.extraBackupArgs);
+      args =
+        source: destination:
+        lib.concatStringsSep " " (
+          source.extraBackupArgs
+          ++ lib.optionals fileBackup (
+            (excludeFlags source) ++ [ "--files-from=${filesFromTmpFile source destination}" ]
+          )
+          ++ lib.optionals commandBackup ([ "--stdin-from-command=true --" ]) source.command
+        );
       argsExtractSource =
-        mapping: args (lib.getAttrFromPath [ mapping ] config.nixchad.resticModule.sources);
+        mapping:
+        args (lib.getAttrFromPath [ mapping ] config.nixchad.resticModule.sources) (
+          lib.getAttrFromPath [ mapping ] config.nixchad.resticModule.destinations
+        );
+
+      excludeFlags =
+        backup:
+        lib.optional (
+          backup.exclude != [ ]
+        ) "--exclude-file=${pkgs.writeText "exclude-patterns" (lib.concatStringsSep "\n" backup.exclude)}";
+      fileBackup = backup: (backup.dynamicFilesFrom != null) || (backup.paths != [ ]);
+      commandBackup = backup: backup.command != [ ];
+      doBackup = fileBackup || commandBackup;
+
+      # FIXME: function expects strings, but is provided with attrsets
+      filesFromTmpFile = sources: destinations: "/run/restic-backup-${sources}-to-${destinations}";
 
       # mapping is { sources = "foo"; destinations = "bar"; }
       backupTemplater = mapping: {
@@ -295,10 +332,32 @@ in
           ExecStart = "${resticCmd mapping.sources} backup ${argsExtractSource mapping.sources}";
           User = "root";
           Group = "root";
-          RuntimeDirectory = "restic-destination-${mapping.destinations}";
+          RuntimeDirectory = "restic-backup-${mapping.sources}-to-${mapping.destinations}";
           CacheDirectory = "restic-destination-${mapping.destinations}";
           CacheDirectoryMode = "0700";
           PrivateTmp = true;
+          # FIXME: some things expect attrsets and some strings
+          ExecStartPre = ''
+            ${lib.optionalString (mapping.sources.backupPre != null) ''
+              ${pkgs.writeScript "backupPre" mapping.sources.backupPre}
+            ''}
+            ${lib.optionalString (mapping.sources.paths != [ ]) ''
+              cat ${pkgs.writeText "staticPaths" (lib.concatLines mapping.sources.paths)} >> ${filesFromTmpFile mapping.sources mapping.destinations}
+            ''}
+            ${lib.optionalString (mapping.sources.dynamicFilesFrom != null) ''
+              ${pkgs.writeScript "dynamicFilesFromScript" mapping.sources.dynamicFilesFrom} >> ${filesFromTmpFile mapping.sources mapping.destinations}
+            ''}
+          '';
+          # FIXME: some things expect attrsets and some strings
+          ExecStopPost = ''
+            ${lib.optionalString (mapping.sources.backupPost != null) ''
+              ${pkgs.writeScript "backupPost" mapping.sources.backupPost}
+            ''}
+            ${lib.optionalString fileBackup ''
+              rm -f ${filesFromTmpFile}
+            ''}
+          '';
+          Slice = "restic-destination-${mapping.destinations}.slice";
         };
       };
 
