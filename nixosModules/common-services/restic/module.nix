@@ -20,98 +20,95 @@ in
         Sources from which backups will be created.
       '';
       type = lib.types.attrsOf (
-        lib.types.submodule (
-          { name, ... }:
-          {
-            options = {
-              unitOptions = lib.mkOption {
-                description = "Additional systemd unit options";
-                type = unitOption;
-                default = { };
-              };
-
-              backupPre = lib.mkOption {
-                description = "Commands to run before the backup";
-                type = lib.types.nullOr lib.types.str;
-                default = "";
-              };
-
-              backupPost = lib.mkOption {
-                description = "Commands to run after the backup";
-                type = lib.types.nullOr lib.types.str;
-                default = "";
-              };
-
-              paths = lib.mkOption {
-                type = lib.types.listOf lib.types.str;
-                default = [ ];
-                description = ''
-                  Which paths to backup, in addition to ones specified via
-                  `dynamicFilesFrom`.  If null or an empty array and
-                  `dynamicFilesFrom` is also null, no backup command will be run.
-                    This can be used to create a prune-only job.
-                '';
-                example = [
-                  "/var/lib/postgresql"
-                  "/home/user/backup"
-                ];
-              };
-
-              command = lib.mkOption {
-                type = lib.types.listOf lib.types.str;
-                default = [ ];
-                description = ''
-                  Command to pass to --stdin-from-command. If null or an empty array, and `paths`/`dynamicFilesFrom`
-                  are also null, no backup command will be run.
-                '';
-                example = [
-                  "sudo"
-                  "-u"
-                  "postgres"
-                  "pg_dumpall"
-                ];
-              };
-
-              exclude = lib.mkOption {
-                type = lib.types.listOf lib.types.str;
-                default = [ ];
-                description = ''
-                  Patterns to exclude when backing up. See
-                  https://restic.readthedocs.io/en/latest/040_backup.html#excluding-files for
-                  details on syntax.
-                '';
-                example = [
-                  "/var/cache"
-                  "/home/*/.cache"
-                  ".git"
-                ];
-              };
-
-              dynamicFilesFrom = lib.mkOption {
-                type = with lib.types; nullOr str;
-                default = null;
-                description = ''
-                  A script that produces a list of files to back up.  The
-                  results of this command are given to the '--files-from'
-                  option. The result is merged with paths specified via `paths`.
-                '';
-                example = "find /home/matt/git -type d -name .git";
-              };
-
-              extraBackupArgs = lib.mkOption {
-                type = lib.types.listOf lib.types.str;
-                default = [ ];
-                description = ''
-                  Extra arguments passed to restic backup.
-                '';
-                example = [
-                  "--cleanup-cache"
-                  "--exclude-file=/etc/nixos/restic-ignore"
-                ];
-              };
+        lib.types.submodule {
+          options = {
+            unitOptions = lib.mkOption {
+              description = "Additional systemd unit options";
+              type = unitOption;
+              default = { };
             };
-          }
-        )
+
+            backupPre = lib.mkOption {
+              description = "Commands to run before the backup";
+              type = lib.types.nullOr lib.types.str;
+              default = "";
+            };
+
+            backupPost = lib.mkOption {
+              description = "Commands to run after the backup";
+              type = lib.types.nullOr lib.types.str;
+              default = "";
+            };
+
+            paths = lib.mkOption {
+              type = lib.types.listOf lib.types.str;
+              default = [ ];
+              description = ''
+                Which paths to backup, in addition to ones specified via
+                `dynamicFilesFrom`.  If null or an empty array and
+                `dynamicFilesFrom` is also null, no backup command will be run.
+                  This can be used to create a prune-only job.
+              '';
+              example = [
+                "/var/lib/postgresql"
+                "/home/user/backup"
+              ];
+            };
+
+            command = lib.mkOption {
+              type = lib.types.listOf lib.types.str;
+              default = [ ];
+              description = ''
+                Command to pass to --stdin-from-command. If null or an empty array, and `paths`/`dynamicFilesFrom`
+                are also null, no backup command will be run.
+              '';
+              example = [
+                "sudo"
+                "-u"
+                "postgres"
+                "pg_dumpall"
+              ];
+            };
+
+            exclude = lib.mkOption {
+              type = lib.types.listOf lib.types.str;
+              default = [ ];
+              description = ''
+                Patterns to exclude when backing up. See
+                https://restic.readthedocs.io/en/latest/040_backup.html#excluding-files for
+                details on syntax.
+              '';
+              example = [
+                "/var/cache"
+                "/home/*/.cache"
+                ".git"
+              ];
+            };
+
+            dynamicFilesFrom = lib.mkOption {
+              type = with lib.types; nullOr str;
+              default = null;
+              description = ''
+                A script that produces a list of files to back up.  The
+                results of this command are given to the '--files-from'
+                option. The result is merged with paths specified via `paths`.
+              '';
+              example = "find /home/matt/git -type d -name .git";
+            };
+
+            extraBackupArgs = lib.mkOption {
+              type = lib.types.listOf lib.types.str;
+              default = [ ];
+              description = ''
+                Extra arguments passed to restic backup.
+              '';
+              example = [
+                "--cleanup-cache"
+                "--exclude-file=/etc/nixos/restic-ignore"
+              ];
+            };
+          };
+        }
       );
     };
 
@@ -120,103 +117,100 @@ in
         Destinations where backups will be stored.
       '';
       type = lib.types.attrsOf (
-        lib.types.submodule (
-          { name, ... }:
-          {
-            options = {
-              init = lib.mkOption {
-                description = "Whether to init the destination repository prior to doing any backups";
-                type = lib.types.bool;
-                default = true;
-              };
+        lib.types.submodule {
+          options = {
+            init = lib.mkOption {
+              description = "Whether to init the destination repository prior to doing any backups";
+              type = lib.types.bool;
+              default = true;
+            };
 
-              unitOptions = lib.mkOption {
-                description = "Additional systemd unit options";
-                type = unitOption;
-                default = { };
-              };
+            unitOptions = lib.mkOption {
+              description = "Additional systemd unit options";
+              type = unitOption;
+              default = { };
+            };
 
-              extraOptions = lib.mkOption {
-                description = "Additional options added to restic invokation via '-o' flag";
-                type = lib.types.listOf lib.types.str;
-                default = [ ];
-              };
+            extraOptions = lib.mkOption {
+              description = "Additional options added to restic invokation via '-o' flag";
+              type = lib.types.listOf lib.types.str;
+              default = [ ];
+            };
 
-              settings = lib.mkOption {
-                description = ''
-                  Restic settings. They are provided as environment variables. They should be provided in upper snake
-                  case (e.g. {env}`RESTIC_PASSWORD_FILE`). See
-                  <https://restic.readthedocs.io/en/stable/040_backup.html#environment-variables> for supported options.
+            settings = lib.mkOption {
+              description = ''
+                Restic settings. They are provided as environment variables. They should be provided in upper snake
+                case (e.g. {env}`RESTIC_PASSWORD_FILE`). See
+                <https://restic.readthedocs.io/en/stable/040_backup.html#environment-variables> for supported options.
 
-                  This option can also take rclone settings, also as environment variables. They should be provided in
-                  upper snake case (e.g. {env}`RCLONE_SKIP_LINKS`). See <https://rclone.org/docs/#options> for supported
-                  options. Restic will automatically supply the remote type and name for you. To provide secrets to the
-                  backend, it's recommended to create rclone config file yourself, and use {env}`RCLONE_CONFIG` option
-                  to point to it. It is also recommended to use a separate config file if you care about
-                  case-sensitivity for your remote name.
-                '';
-                type = lib.types.submodule {
-                  freeformType =
-                    with lib.types;
-                    attrsOf (oneOf [
-                      str
-                      (listOf str)
-                    ]);
+                This option can also take rclone settings, also as environment variables. They should be provided in
+                upper snake case (e.g. {env}`RCLONE_SKIP_LINKS`). See <https://rclone.org/docs/#options> for supported
+                options. Restic will automatically supply the remote type and name for you. To provide secrets to the
+                backend, it's recommended to create rclone config file yourself, and use {env}`RCLONE_CONFIG` option
+                to point to it. It is also recommended to use a separate config file if you care about
+                case-sensitivity for your remote name.
+              '';
+              type = lib.types.submodule {
+                freeformType =
+                  with lib.types;
+                  attrsOf (oneOf [
+                    str
+                    (listOf str)
+                  ]);
 
-                  options = {
-                    RESTIC_REPOSITORY = lib.mkOption {
-                      type = with lib.types; nullOr str;
-                      default = null;
-                      description = ''
-                        repository to backup to.
-                      '';
-                      example = "sftp:backup@192.168.1.100:/backups/my-backup";
-                    };
-                    RESTIC_REPOSITORY_FILE = lib.mkOption {
-                      type = with lib.types; nullOr path;
-                      default = null;
-                      description = ''
-                        Path to the file containing the repository location to backup to.
-                      '';
-                    };
-                    RESTIC_PASSWORD_FILE = lib.mkOption {
-                      type = lib.types.str;
-                      default = "";
-                      description = ''
-                        Read the repository password from a file.
-                      '';
-                      example = "/etc/nixos/restic-password";
-                    };
+                options = {
+                  RESTIC_REPOSITORY = lib.mkOption {
+                    type = with lib.types; nullOr str;
+                    default = null;
+                    description = ''
+                      repository to backup to.
+                    '';
+                    example = "sftp:backup@192.168.1.100:/backups/my-backup";
+                  };
+                  RESTIC_REPOSITORY_FILE = lib.mkOption {
+                    type = with lib.types; nullOr path;
+                    default = null;
+                    description = ''
+                      Path to the file containing the repository location to backup to.
+                    '';
+                  };
+                  RESTIC_PASSWORD_FILE = lib.mkOption {
+                    type = lib.types.str;
+                    default = "";
+                    description = ''
+                      Read the repository password from a file.
+                    '';
+                    example = "/etc/nixos/restic-password";
+                  };
 
-                    RCLONE_CONFIG = lib.mkOption {
-                      type =
-                        with lib.types;
-                        nullOr (oneOf [
-                          str
-                          path
-                        ]);
-                      default = null;
-                      description = ''
-                        Location of the rclone configuration file.
-                      '';
-                    };
+                  RCLONE_CONFIG = lib.mkOption {
+                    type =
+                      with lib.types;
+                      nullOr (oneOf [
+                        str
+                        path
+                      ]);
+                    default = null;
+                    description = ''
+                      Location of the rclone configuration file.
+                    '';
                   };
                 };
-                example = lib.literalExpression ''
-                  RESTIC_REPOSITORY = "s3:s3.us-east-1.amazonaws.com/bucket_name/restic";
-                  RESTIC_PASSWORD_FILE = "/secrets/password-file";
-                  AWS_ACCESS_KEY_ID = "XXXX";
-                  AWS_SECRET_ACCESS_KEY = "YYYY";
-                  RCLONE_BWLIMIT = "10M";
-                  RCLONE_HARD_DELETE = "true";
-                  # RCLONE_S3_PROVIDER = "AWS";
-                  # RCLONE_CONFIG_MYS3_ACCESS_KEY_ID = "XXXX";
-                  # RCLONE_CONFIG = "/my/config/file";
-                '';
               };
+              example = lib.literalExpression ''
+                RESTIC_REPOSITORY = "s3:s3.us-east-1.amazonaws.com/bucket_name/restic";
+                RESTIC_PASSWORD_FILE = "/secrets/password-file";
+                AWS_ACCESS_KEY_ID = "XXXX";
+                AWS_SECRET_ACCESS_KEY = "YYYY";
+                RCLONE_BWLIMIT = "10M";
+                RCLONE_HARD_DELETE = "true";
+                # RCLONE_S3_PROVIDER = "AWS";
+                # RCLONE_CONFIG_MYS3_ACCESS_KEY_ID = "XXXX";
+                # RCLONE_CONFIG = "/my/config/file";
+              '';
             };
-          }
-        )
+          };
+        }
       );
     };
 
@@ -225,23 +219,20 @@ in
         Mappings between sources and destinations.
       '';
       type = lib.types.attrsOf (
-        lib.types.submodule (
-          { name, ... }:
-          {
-            options = {
-              sources = lib.mkOption {
-                description = "Backup sources";
-                type = lib.types.listOf lib.types.str;
-                default = [ ];
-              };
-              destinations = lib.mkOption {
-                description = "Backup destinations";
-                type = lib.types.listOf lib.types.str;
-                default = [ ];
-              };
+        lib.types.submodule {
+          options = {
+            sources = lib.mkOption {
+              description = "Backup sources";
+              type = lib.types.listOf lib.types.str;
+              default = [ ];
             };
-          }
-        )
+            destinations = lib.mkOption {
+              description = "Backup destinations";
+              type = lib.types.listOf lib.types.str;
+              default = [ ];
+            };
+          };
+        }
       );
     };
   };
@@ -388,7 +379,7 @@ in
       backupServices =
         config.nixchad.resticModule.mappings
         # { mapping-name = { sources = [x y]; ..}; ..} -> { mapping-name = { "restic-backup-source-to-destination" = { source = x; ..}; ..}; ..}
-        |> lib.mapAttrs (name: mapping: transformMapping mapping)
+        |> lib.mapAttrs (_name: mapping: transformMapping mapping)
         # Flatten attrs: { mapping-name = { "restic-backup-source-to-destination" = {..}; }; ..} -> { "restic-backup-source-to-destination" = {..}; ..}
         |> lib.foldlAttrs (
           acc: _name: value:
@@ -396,18 +387,16 @@ in
         ) { };
     in
     lib.mkIf config.nixchad.resticModule.enable {
-      assertions = (
-        lib.mapAttrsToList (name: source: {
-          assertion = lib.xor (source.paths != [ ] || source.dynamicFilesFrom != null) (
-            source.command != [ ]
-          );
-          message = "config.nixchad.resticModule.sources.${name} must specify exactly one of 'paths'/'dynamicFilesFrom' or 'command', but not both";
-        }) config.nixchad.resticModule.sources
-      );
+      assertions = lib.mapAttrsToList (name: source: {
+        assertion = lib.xor (source.paths != [ ] || source.dynamicFilesFrom != null) (
+          source.command != [ ]
+        );
+        message = "config.nixchad.resticModule.sources.${name} must specify exactly one of 'paths'/'dynamicFilesFrom' or 'command', but not both";
+      }) config.nixchad.resticModule.sources;
 
       systemd.services = destinationServices // backupServices;
       systemd.slices =
         config.nixchad.resticModule.destinations
-        |> lib.mapAttrs (name: destination: { sliceConfig.ConcurrencySoftMax = "1"; });
+        |> lib.mapAttrs (_: _: { sliceConfig.ConcurrencySoftMax = "1"; });
     };
 }
