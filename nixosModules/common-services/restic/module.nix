@@ -248,103 +248,110 @@ in
 
   config =
     let
-      extraOptions = mapping: lib.concatMapStrings (arg: " -o ${arg}") mapping.destinations.extraOptions;
-      inhibitCmd =
-        mapping:
-        lib.concatStringsSep " " [
-          "${pkgs.systemd}/bin/systemd-inhibit"
-          "--mode='block'"
-          "--who='restic'"
-          "--what='idle:sleep:shutdown:handle-lid-switch'"
-          "--why=${lib.escapeShellArg "Scheduled backup ${mapping.source.name}"} "
-        ];
-      resticCmd = mapping: "${inhibitCmd mapping}${lib.getExe pkgs.restic}${extraOptions mapping}";
-
-      destinationTemplater = name: destination: {
-        environment = destination.settings;
-        path = [ config.programs.ssh.package ];
-        restartIfChanged = false;
-        wants = [ "network-online.target" ];
-        after = [ "network-online.target" ];
-        serviceConfig = {
-          Type = "oneshot";
-          ExecStart = "${resticCmd name} cat config > /dev/null || ${resticCmd name} init";
-          User = "root";
-          Group = "root";
-          RuntimeDirectory = "restic-destination-${name}";
-          CacheDirectory = "restic-destination-${name}";
-          CacheDirectoryMode = "0700";
-          PrivateTmp = true;
-          # We don't want this to re-run needlessly
-          RemainAfterExit = true;
+      destinationTemplater =
+        name: destination:
+        let
+          extraOptions = lib.concatMapStrings (arg: " -o ${arg}") destination.extraOptions;
+          inhibitCmd = lib.concatStringsSep " " [
+            "${pkgs.systemd}/bin/systemd-inhibit"
+            "--mode='block'"
+            "--who='restic'"
+            "--what='idle:sleep:shutdown:handle-lid-switch'"
+            "--why=${lib.escapeShellArg "Initializing destination ${name}"} "
+          ];
+          resticCmd = "${inhibitCmd}${lib.getExe pkgs.restic}${extraOptions}";
+        in
+        {
+          environment = destination.settings;
+          path = [ config.programs.ssh.package ];
+          restartIfChanged = false;
+          wants = [ "network-online.target" ];
+          after = [ "network-online.target" ];
+          serviceConfig = {
+            Type = "oneshot";
+            ExecStart = "${resticCmd} cat config > /dev/null || ${resticCmd} init";
+            User = "root";
+            Group = "root";
+            RuntimeDirectory = "restic-destination-${name}";
+            CacheDirectory = "restic-destination-${name}";
+            CacheDirectoryMode = "0700";
+            PrivateTmp = true;
+            # We don't want this to re-run needlessly
+            RemainAfterExit = true;
+          };
         };
-      };
-
-      args =
-        mapping:
-        lib.concatStringsSep " " (
-          mapping.source.extraBackupArgs
-          ++ lib.optionals fileBackup (
-            (excludeFlags mapping.source) ++ [ "--files-from=${filesFromTmpFile mapping}" ]
-          )
-          ++ lib.optionals commandBackup ([ "--stdin-from-command=true --" ]) mapping.source.command
-        );
-
-      excludeFlags =
-        source:
-        lib.optional (
-          source.exclude != [ ]
-        ) "--exclude-file=${pkgs.writeText "exclude-patterns" (lib.concatStringsSep "\n" source.exclude)}";
-      fileBackup = source: (source.dynamicFilesFrom != null) || (source.paths != [ ]);
-      commandBackup = source: source.command != [ ];
-
-      filesFromTmpFile =
-        mapping: "/run/restic-backup-${mapping.source.name}-to-${mapping.destination.name}";
 
       # mapping is { source = { name = "foo"; ..}; ..}
-      backupTemplater = mapping: {
-        environment = mapping.destination.settings;
-        path = [ config.programs.ssh.package ];
-        restartIfChanged = false;
-        wants = [
-          "network-online.target"
-          "restic-destination-${mapping.destination.name}.service"
-        ];
-        after = [
-          "network-online.target"
-          "restic-destination-${mapping.destination.name}.service"
-        ];
-        serviceConfig = {
-          Type = "oneshot";
-          ExecStart = "${resticCmd mapping} backup ${args mapping}";
-          User = "root";
-          Group = "root";
-          RuntimeDirectory = "restic-backup-${mapping.source.name}-to-${mapping.destination.name}";
-          CacheDirectory = "restic-destination-${mapping.destination.name}";
-          CacheDirectoryMode = "0700";
-          PrivateTmp = true;
-          ExecStartPre = ''
-            ${lib.optionalString (mapping.source.backupPre != null) ''
-              ${pkgs.writeScript "backupPre" mapping.source.backupPre}
-            ''}
-            ${lib.optionalString (mapping.source.paths != [ ]) ''
-              cat ${pkgs.writeText "staticPaths" (lib.concatLines mapping.source.paths)} >> ${filesFromTmpFile mapping}
-            ''}
-            ${lib.optionalString (mapping.source.dynamicFilesFrom != null) ''
-              ${pkgs.writeScript "dynamicFilesFromScript" mapping.source.dynamicFilesFrom} >> ${filesFromTmpFile mapping}
-            ''}
-          '';
-          ExecStopPost = ''
-            ${lib.optionalString (mapping.source.backupPost != null) ''
-              ${pkgs.writeScript "backupPost" mapping.source.backupPost}
-            ''}
-            ${lib.optionalString (fileBackup mapping.source) ''
-              rm -f ${filesFromTmpFile mapping}
-            ''}
-          '';
-          Slice = "restic-destination-${mapping.destination.name}.slice";
+      backupTemplater =
+        mapping:
+        let
+          inherit (mapping) destination source;
+
+          extraOptions = lib.concatMapStrings (arg: " -o ${arg}") destination.extraOptions;
+          inhibitCmd = lib.concatStringsSep " " [
+            "${pkgs.systemd}/bin/systemd-inhibit"
+            "--mode='block'"
+            "--who='restic'"
+            "--what='idle:sleep:shutdown:handle-lid-switch'"
+            "--why=${lib.escapeShellArg "Scheduled backup ${source.name}"} "
+          ];
+          resticCmd = "${inhibitCmd}${lib.getExe pkgs.restic}${extraOptions}";
+          excludeFlags = lib.optional (
+            source.exclude != [ ]
+          ) "--exclude-file=${pkgs.writeText "exclude-patterns" (lib.concatStringsSep "\n" source.exclude)}";
+          fileBackup = (source.dynamicFilesFrom != null) || (source.paths != [ ]);
+          commandBackup = source.command != [ ];
+          filesFromTmpFile = "/run/restic-backup-${source.name}-to-${destination.name}";
+
+          args = lib.concatStringsSep " " (
+            source.extraBackupArgs
+            ++ lib.optionals fileBackup (excludeFlags ++ [ "--files-from=${filesFromTmpFile}" ])
+            ++ lib.optionals commandBackup ([ "--stdin-from-command=true -- " ] ++ source.command)
+          );
+        in
+        {
+          environment = destination.settings;
+          path = [ config.programs.ssh.package ];
+          restartIfChanged = false;
+          wants = [
+            "network-online.target"
+            "restic-destination-${destination.name}.service"
+          ];
+          after = [
+            "network-online.target"
+            "restic-destination-${destination.name}.service"
+          ];
+          serviceConfig = {
+            Type = "oneshot";
+            ExecStart = "${resticCmd} backup ${args}";
+            User = "root";
+            Group = "root";
+            RuntimeDirectory = "restic-backup-${source.name}-to-${destination.name}";
+            CacheDirectory = "restic-destination-${destination.name}";
+            CacheDirectoryMode = "0700";
+            PrivateTmp = true;
+            ExecStartPre = ''
+              ${lib.optionalString (source.backupPre != null) ''
+                ${pkgs.writeScript "backupPre" source.backupPre}
+              ''}
+              ${lib.optionalString (source.paths != [ ]) ''
+                cat ${pkgs.writeText "staticPaths" (lib.concatLines source.paths)} >> ${filesFromTmpFile}
+              ''}
+              ${lib.optionalString (source.dynamicFilesFrom != null) ''
+                ${pkgs.writeScript "dynamicFilesFromScript" source.dynamicFilesFrom} >> ${filesFromTmpFile}
+              ''}
+            '';
+            ExecStopPost = ''
+              ${lib.optionalString (source.backupPost != null) ''
+                ${pkgs.writeScript "backupPost" source.backupPost}
+              ''}
+              ${lib.optionalString (fileBackup source) ''
+                rm -f ${filesFromTmpFile mapping}
+              ''}
+            '';
+            Slice = "restic-destination-${destination.name}.slice";
+          };
         };
-      };
 
       destinationServices =
         config.nixchad.resticModule.destinations
