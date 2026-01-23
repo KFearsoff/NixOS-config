@@ -309,55 +309,55 @@ in
       doBackup = fileBackup || commandBackup;
 
       # FIXME: function expects strings, but is provided with attrsets
-      filesFromTmpFile = sources: destinations: "/run/restic-backup-${sources}-to-${destinations}";
+      filesFromTmpFile = source: destination: "/run/restic-backup-${source}-to-${destination}";
 
-      # mapping is { sources = "foo"; destinations = "bar"; }
+      # mapping is { source = "foo"; destination = "bar"; }
       backupTemplater = mapping: {
         environment = lib.getAttrFromPath [
-          mapping.destinations
+          mapping.destination
           "settings"
         ] config.nixchad.resticModule.destinations;
         path = [ config.programs.ssh.package ];
         restartIfChanged = false;
         wants = [
           "network-online.target"
-          "restic-destination-${mapping.destinations}.service"
+          "restic-destination-${mapping.destination}.service"
         ];
         after = [
           "network-online.target"
-          "restic-destination-${mapping.destinations}.service"
+          "restic-destination-${mapping.destination}.service"
         ];
         serviceConfig = {
           Type = "oneshot";
-          ExecStart = "${resticCmd mapping.sources} backup ${argsExtractSource mapping.sources}";
+          ExecStart = "${resticCmd mapping.source} backup ${argsExtractSource mapping.source}";
           User = "root";
           Group = "root";
-          RuntimeDirectory = "restic-backup-${mapping.sources}-to-${mapping.destinations}";
-          CacheDirectory = "restic-destination-${mapping.destinations}";
+          RuntimeDirectory = "restic-backup-${mapping.source}-to-${mapping.destination}";
+          CacheDirectory = "restic-destination-${mapping.destination}";
           CacheDirectoryMode = "0700";
           PrivateTmp = true;
           # FIXME: some things expect attrsets and some strings
           ExecStartPre = ''
-            ${lib.optionalString (mapping.sources.backupPre != null) ''
-              ${pkgs.writeScript "backupPre" mapping.sources.backupPre}
+            ${lib.optionalString (mapping.source.backupPre != null) ''
+              ${pkgs.writeScript "backupPre" mapping.source.backupPre}
             ''}
-            ${lib.optionalString (mapping.sources.paths != [ ]) ''
-              cat ${pkgs.writeText "staticPaths" (lib.concatLines mapping.sources.paths)} >> ${filesFromTmpFile mapping.sources mapping.destinations}
+            ${lib.optionalString (mapping.source.paths != [ ]) ''
+              cat ${pkgs.writeText "staticPaths" (lib.concatLines mapping.source.paths)} >> ${filesFromTmpFile mapping.source mapping.destination}
             ''}
-            ${lib.optionalString (mapping.sources.dynamicFilesFrom != null) ''
-              ${pkgs.writeScript "dynamicFilesFromScript" mapping.sources.dynamicFilesFrom} >> ${filesFromTmpFile mapping.sources mapping.destinations}
+            ${lib.optionalString (mapping.source.dynamicFilesFrom != null) ''
+              ${pkgs.writeScript "dynamicFilesFromScript" mapping.source.dynamicFilesFrom} >> ${filesFromTmpFile mapping.source mapping.destination}
             ''}
           '';
           # FIXME: some things expect attrsets and some strings
           ExecStopPost = ''
-            ${lib.optionalString (mapping.sources.backupPost != null) ''
-              ${pkgs.writeScript "backupPost" mapping.sources.backupPost}
+            ${lib.optionalString (mapping.source.backupPost != null) ''
+              ${pkgs.writeScript "backupPost" mapping.source.backupPost}
             ''}
             ${lib.optionalString fileBackup ''
               rm -f ${filesFromTmpFile}
             ''}
           '';
-          Slice = "restic-destination-${mapping.destinations}.slice";
+          Slice = "restic-destination-${mapping.destination}.slice";
         };
       };
 
@@ -375,17 +375,23 @@ in
         mapping
         # { sources = [x y]; destinations = [z w]; } -> [{ sources = x; destinations = z; } { sources = y; destinations = z; } ..]
         |> lib.cartesianProduct
-        # [{ sources = x; destinations = z; } ..] -> [{ name = "restic-backup-source-to-destination"; value = { sources = x; destinations = z; }; } ..]
+        # Use singular attribute names from this point on
+        # [{ sources = x; destinations = z; } ..] -> [{ source = x; destination = z; } ..]
         |> lib.map (attrset: {
-          name = "restic-backup-${attrset.sources}-to-${attrset.destinations}";
+          source = attrset.sources;
+          destination = attrset.destinations;
+        })
+        # [{ source = x; destination = z; } ..] -> [{ name = "restic-backup-source-to-destination"; value = { source = x; destination = z; }; } ..]
+        |> lib.map (attrset: {
+          name = "restic-backup-${attrset.source}-to-${attrset.destination}";
           value = backupTemplater attrset;
         })
-        # Turns that thing above into { "restic-backup-source-to-destination" = { sources = x; .. }; ..}
+        # Turns that thing above into { "restic-backup-source-to-destination" = { source = x; .. }; ..}
         |> lib.listToAttrs;
 
       backupServices =
         config.nixchad.resticModule.mappings
-        # { mapping-name = { sources = [x y]; ..}; ..} -> { mapping-name = { "restic-backup-source-to-destination" = { sources = x; ..}; ..}; ..}
+        # { mapping-name = { sources = [x y]; ..}; ..} -> { mapping-name = { "restic-backup-source-to-destination" = { source = x; ..}; ..}; ..}
         |> lib.mapAttrs (name: mapping: transformMapping mapping)
         # Flatten attrs: { mapping-name = { "restic-backup-source-to-destination" = {..}; }; ..} -> { "restic-backup-source-to-destination" = {..}; ..}
         |> lib.foldlAttrs (
