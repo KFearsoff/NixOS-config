@@ -405,10 +405,9 @@ in
         }) config.nixchad.resticModule.sources
       );
 
-      systemd.services = lib.traceVal (destinationServices // backupServices);
-      systemd.slices = lib.traceVal (
+      systemd.services = destinationServices // backupServices;
+      systemd.slices =
         config.nixchad.resticModule.destinations
-        |> lib.mapAttrs (name: destination: { sliceConfig.ConcurrencySoftMax = "1"; })
-      );
+        |> lib.mapAttrs (name: destination: { sliceConfig.ConcurrencySoftMax = "1"; });
     };
 }
