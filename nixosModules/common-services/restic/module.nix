@@ -248,21 +248,17 @@ in
 
   config =
     let
-      extraOptions =
-        name:
-        lib.concatMapStrings (arg: " -o ${arg}") (
-          lib.attrByPath [ name "extraOptions" ] [ ] config.nixchad.resticModule.destinations
-        );
+      extraOptions = mapping: lib.concatMapStrings (arg: " -o ${arg}") mapping.destinations.extraOptions;
       inhibitCmd =
-        name:
+        mapping:
         lib.concatStringsSep " " [
           "${pkgs.systemd}/bin/systemd-inhibit"
           "--mode='block'"
           "--who='restic'"
           "--what='idle:sleep:shutdown:handle-lid-switch'"
-          "--why=${lib.escapeShellArg "Scheduled backup ${name}"} "
+          "--why=${lib.escapeShellArg "Scheduled backup ${mapping.source.name}"} "
         ];
-      resticCmd = name: "${inhibitCmd name}${lib.getExe pkgs.restic}${extraOptions name}";
+      resticCmd = mapping: "${inhibitCmd mapping}${lib.getExe pkgs.restic}${extraOptions mapping}";
 
       destinationTemplater = name: destination: {
         environment = destination.settings;
@@ -285,79 +281,68 @@ in
       };
 
       args =
-        source: destination:
-        lib.concatStringsSep " " (
-          source.extraBackupArgs
-          ++ lib.optionals fileBackup (
-            (excludeFlags source) ++ [ "--files-from=${filesFromTmpFile source destination}" ]
-          )
-          ++ lib.optionals commandBackup ([ "--stdin-from-command=true --" ]) source.command
-        );
-      argsExtractSource =
         mapping:
-        args (lib.getAttrFromPath [ mapping ] config.nixchad.resticModule.sources) (
-          lib.getAttrFromPath [ mapping ] config.nixchad.resticModule.destinations
+        lib.concatStringsSep " " (
+          mapping.source.extraBackupArgs
+          ++ lib.optionals fileBackup (
+            (excludeFlags mapping.source) ++ [ "--files-from=${filesFromTmpFile mapping}" ]
+          )
+          ++ lib.optionals commandBackup ([ "--stdin-from-command=true --" ]) mapping.source.command
         );
 
       excludeFlags =
-        backup:
+        source:
         lib.optional (
-          backup.exclude != [ ]
-        ) "--exclude-file=${pkgs.writeText "exclude-patterns" (lib.concatStringsSep "\n" backup.exclude)}";
-      fileBackup = backup: (backup.dynamicFilesFrom != null) || (backup.paths != [ ]);
-      commandBackup = backup: backup.command != [ ];
-      doBackup = fileBackup || commandBackup;
+          source.exclude != [ ]
+        ) "--exclude-file=${pkgs.writeText "exclude-patterns" (lib.concatStringsSep "\n" source.exclude)}";
+      fileBackup = source: (source.dynamicFilesFrom != null) || (source.paths != [ ]);
+      commandBackup = source: source.command != [ ];
 
-      # FIXME: function expects strings, but is provided with attrsets
-      filesFromTmpFile = source: destination: "/run/restic-backup-${source}-to-${destination}";
+      filesFromTmpFile =
+        mapping: "/run/restic-backup-${mapping.source.name}-to-${mapping.destination.name}";
 
-      # mapping is { source = "foo"; destination = "bar"; }
+      # mapping is { source = { name = "foo"; ..}; ..}
       backupTemplater = mapping: {
-        environment = lib.getAttrFromPath [
-          mapping.destination
-          "settings"
-        ] config.nixchad.resticModule.destinations;
+        environment = mapping.destination.settings;
         path = [ config.programs.ssh.package ];
         restartIfChanged = false;
         wants = [
           "network-online.target"
-          "restic-destination-${mapping.destination}.service"
+          "restic-destination-${mapping.destination.name}.service"
         ];
         after = [
           "network-online.target"
-          "restic-destination-${mapping.destination}.service"
+          "restic-destination-${mapping.destination.name}.service"
         ];
         serviceConfig = {
           Type = "oneshot";
-          ExecStart = "${resticCmd mapping.source} backup ${argsExtractSource mapping.source}";
+          ExecStart = "${resticCmd mapping} backup ${args mapping}";
           User = "root";
           Group = "root";
-          RuntimeDirectory = "restic-backup-${mapping.source}-to-${mapping.destination}";
-          CacheDirectory = "restic-destination-${mapping.destination}";
+          RuntimeDirectory = "restic-backup-${mapping.source.name}-to-${mapping.destination.name}";
+          CacheDirectory = "restic-destination-${mapping.destination.name}";
           CacheDirectoryMode = "0700";
           PrivateTmp = true;
-          # FIXME: some things expect attrsets and some strings
           ExecStartPre = ''
             ${lib.optionalString (mapping.source.backupPre != null) ''
               ${pkgs.writeScript "backupPre" mapping.source.backupPre}
             ''}
             ${lib.optionalString (mapping.source.paths != [ ]) ''
-              cat ${pkgs.writeText "staticPaths" (lib.concatLines mapping.source.paths)} >> ${filesFromTmpFile mapping.source mapping.destination}
+              cat ${pkgs.writeText "staticPaths" (lib.concatLines mapping.source.paths)} >> ${filesFromTmpFile mapping}
             ''}
             ${lib.optionalString (mapping.source.dynamicFilesFrom != null) ''
-              ${pkgs.writeScript "dynamicFilesFromScript" mapping.source.dynamicFilesFrom} >> ${filesFromTmpFile mapping.source mapping.destination}
+              ${pkgs.writeScript "dynamicFilesFromScript" mapping.source.dynamicFilesFrom} >> ${filesFromTmpFile mapping}
             ''}
           '';
-          # FIXME: some things expect attrsets and some strings
           ExecStopPost = ''
             ${lib.optionalString (mapping.source.backupPost != null) ''
               ${pkgs.writeScript "backupPost" mapping.source.backupPost}
             ''}
-            ${lib.optionalString fileBackup ''
-              rm -f ${filesFromTmpFile}
+            ${lib.optionalString (fileBackup mapping.source) ''
+              rm -f ${filesFromTmpFile mapping}
             ''}
           '';
-          Slice = "restic-destination-${mapping.destination}.slice";
+          Slice = "restic-destination-${mapping.destination.name}.slice";
         };
       };
 
@@ -372,7 +357,15 @@ in
 
       transformMapping =
         mapping:
-        mapping
+        # Resolves source/destination names to the config attrsets
+        {
+          # ["x"..] -> [{ name = "x"; unitOptions = ..; .. } ..]
+          sources =
+            mapping.sources |> lib.map (name: { inherit name; } // config.nixchad.resticModule.sources.${name});
+          destinations =
+            mapping.destinations
+            |> lib.map (name: { inherit name; } // config.nixchad.resticModule.destinations.${name});
+        }
         # { sources = [x y]; destinations = [z w]; } -> [{ sources = x; destinations = z; } { sources = y; destinations = z; } ..]
         |> lib.cartesianProduct
         # Use singular attribute names from this point on
@@ -383,7 +376,7 @@ in
         })
         # [{ source = x; destination = z; } ..] -> [{ name = "restic-backup-source-to-destination"; value = { source = x; destination = z; }; } ..]
         |> lib.map (attrset: {
-          name = "restic-backup-${attrset.source}-to-${attrset.destination}";
+          name = "restic-backup-${attrset.source.name}-to-${attrset.destination.name}";
           value = backupTemplater attrset;
         })
         # Turns that thing above into { "restic-backup-source-to-destination" = { source = x; .. }; ..}
