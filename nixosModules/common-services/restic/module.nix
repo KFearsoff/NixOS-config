@@ -393,7 +393,16 @@ in
           acc // value
         ) { };
     in
-    {
+    lib.mkIf config.nixchad.resticModule.enable {
+      assertions = (
+        lib.mapAttrsToList (name: source: {
+          assertion = lib.xor (source.paths != [ ] || source.dynamicFilesFrom != null) (
+            source.command != [ ]
+          );
+          message = "config.nixchad.resticModule.sources.${name} must specify exactly one of 'paths'/'dynamicFilesFrom' or 'command', but not both";
+        }) config.nixchad.resticModule.sources
+      );
+
       systemd.services = lib.traceVal (destinationServices // backupServices);
     };
 }
