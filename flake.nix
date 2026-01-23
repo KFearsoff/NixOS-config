@@ -222,6 +222,10 @@
       checks.${hostSystem} = {
         pre-commit-check = inputs.pre-commit-hooks.lib.${hostSystem}.run {
           src = ./.;
+          default_stages = [
+            "pre-commit"
+            "pre-push"
+          ];
           hooks = {
             # Shell
             shellcheck.enable = true;
@@ -238,7 +242,7 @@
             editorconfig-checker.enable = true;
 
             # Nix
-            nixfmt-rfc-style.enable = true;
+            nixfmt.enable = true;
             deadnix.enable = true;
             statix.enable = true;
             statix.package = pkgs.statix;
