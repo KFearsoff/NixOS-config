@@ -269,7 +269,7 @@ in
           after = [ "network-online.target" ];
           serviceConfig = {
             Type = "oneshot";
-            ExecStart = "${resticCmd} cat config > /dev/null || ${resticCmd} init";
+            ExecStart = pkgs.writeShellScript "restic-destination-${name}" "${resticCmd} cat config > /dev/null || ${resticCmd} init";
             User = "root";
             Group = "root";
             RuntimeDirectory = "restic-destination-${name}";
@@ -330,10 +330,8 @@ in
             CacheDirectory = "restic-destination-${destination.name}";
             CacheDirectoryMode = "0700";
             PrivateTmp = true;
-            ExecStartPre = ''
-              ${lib.optionalString (source.backupPre != null) ''
-                ${pkgs.writeScript "backupPre" source.backupPre}
-              ''}
+            ExecStartPre = pkgs.writeShellScript "restic-backup-${source.name}-to-${destination.name}-pre" ''
+              ${lib.optionalString (source.backupPre != null) source.backupPre}
               ${lib.optionalString (source.paths != [ ]) ''
                 cat ${pkgs.writeText "staticPaths" (lib.concatLines source.paths)} >> ${filesFromTmpFile}
               ''}
@@ -341,12 +339,10 @@ in
                 ${pkgs.writeScript "dynamicFilesFromScript" source.dynamicFilesFrom} >> ${filesFromTmpFile}
               ''}
             '';
-            ExecStopPost = ''
-              ${lib.optionalString (source.backupPost != null) ''
-                ${pkgs.writeScript "backupPost" source.backupPost}
-              ''}
-              ${lib.optionalString (fileBackup source) ''
-                rm -f ${filesFromTmpFile mapping}
+            ExecStopPost = pkgs.writeShellScript "restic-backup-${source.name}-to-${destination.name}-post" ''
+              ${lib.optionalString (source.backupPost != null) source.backupPost}
+              ${lib.optionalString fileBackup ''
+                rm -f ${filesFromTmpFile}
               ''}
             '';
             Slice = "restic-destination-${destination.name}.slice";
