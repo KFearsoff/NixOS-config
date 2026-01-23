@@ -244,8 +244,11 @@
             # Nix
             nixfmt.enable = true;
             deadnix.enable = true;
-            statix.enable = true;
-            statix.package = pkgs.statix;
+            statix = {
+              enable = true;
+              package = pkgs.statix;
+              settings.format = "stderr";
+            };
           };
         };
       };
