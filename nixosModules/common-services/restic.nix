@@ -13,10 +13,10 @@ let
   backup-builder = builtins.mapAttrs (_: recursiveUpdate template);
   template = {
     passwordFile = "/secrets/restic-backup-linus";
-    repository = "sftp:kfears@sol.sphalerite.tech:/backup";
+    repository = "sftp:kfears@yew.sphalerite.tech:/backup";
     user = "root";
     extraOptions = [
-      "sftp.command='ssh kfears@sol.sphalerite.tech -i /home/${username}/.ssh/id_ed25519 -o StrictHostKeyChecking=no -s sftp'"
+      "sftp.command='ssh kfears@yew.sphalerite.tech -i /home/${username}/.ssh/id_ed25519 -o StrictHostKeyChecking=no -s sftp'"
     ];
     inhibitsSleep = true;
     initialize = true;
