@@ -43,16 +43,10 @@ in
 
     services.swayidle = {
       enable = true;
-      events = [
-        {
-          event = "before-sleep";
-          command = "${pkgs.swaylock}/bin/swaylock";
-        }
-        {
-          event = "lock";
-          command = "${pkgs.swaylock}/bin/swaylock";
-        }
-      ];
+      events = {
+        "before-sleep" = "${pkgs.swaylock}/bin/swaylock";
+        "lock" = "${pkgs.swaylock}/bin/swaylock";
+      };
       timeouts = [
         {
           timeout = cfg.timeouts.lock;

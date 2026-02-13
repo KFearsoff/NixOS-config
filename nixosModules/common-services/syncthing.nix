@@ -84,7 +84,7 @@ in
   hm = lib.mkMerge [
     {
       xdg.userDirs.extraConfig = {
-        XDG_SYNC_DIR = "$HOME/Sync";
+        SYNC = "${config.hm.home.homeDirectory}/Sync";
       };
     }
     (lib.mkIf (hostname != "cloudberry") {
