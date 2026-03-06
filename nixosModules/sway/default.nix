@@ -86,12 +86,6 @@ in
               titlebar = false;
               commands = [
                 {
-                  command = "floating enable, border none, resize set 450 400, move position 1470 0";
-                  criteria = {
-                    title = "^Syncthing Tray( \(.*\))?$";
-                  };
-                }
-                {
                   command = "border pixel 0, floating enable, fullscreen disable, move absolute position 0 0";
                   criteria = {
                     app_id = "flameshot";

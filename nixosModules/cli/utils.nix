@@ -17,7 +17,7 @@ in
     environment.systemPackages =
       with pkgs;
       [
-        neofetch # the system won't boot without it
+        hyfetch # the system won't boot without it
         ripgrep # alternative to grep
         fd # alternative to find
         nix-tree

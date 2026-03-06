@@ -50,6 +50,7 @@ in
             enabled = false;
           };
           auth.disable_login_form = true;
+          security.secret_key = "$__file{/secrets/grafana_secret_key}";
 
           "tracing.opentelemetry.otlp".address = "localhost:4317";
         };

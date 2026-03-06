@@ -15,4 +15,21 @@
       };
     });
   };
+  jj-pre-push = _: prev: {
+    jj-pre-push = prev.jj-pre-push.overrideAttrs (
+      _:
+      let
+        version = "0.3.4";
+      in
+      {
+        inherit version;
+        src = prev.fetchFromGitHub {
+          owner = "acarapetis";
+          repo = "jj-pre-push";
+          tag = "v${version}";
+          hash = "sha256-sj1JM2gcwTRMeEXSozI73LCwxSf69t4u/SmovV7Cyeg=";
+        };
+      }
+    );
+  };
 }
