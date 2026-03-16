@@ -292,7 +292,7 @@ in
           ) "--exclude-file=${pkgs.writeText "exclude-patterns" (lib.concatStringsSep "\n" source.exclude)}";
           fileBackup = (source.dynamicFilesFrom != null) || (source.paths != [ ]);
           commandBackup = source.command != [ ];
-          filesFromTmpFile = "/run/restic-backup-${source.name}-to-${destination.name}";
+          filesFromTmpFile = "/run/restic-backup-${source.name}-to-${destination.name}/tmp";
 
           args = lib.concatStringsSep " " (
             source.extraBackupArgs
@@ -340,6 +340,16 @@ in
           };
         };
 
+      # mapping is { source = { name = "foo"; ..}; ..}
+      timerTemplater = _mapping: {
+        wantedBy = [ "timers.target" ];
+        timerConfig = {
+          OnCalendar = "daily";
+          RandomizedDelaySec = "5h";
+          Persistent = true;
+        };
+      };
+
       destinationServices =
         config.nixchad.resticModule.destinations
         |> lib.mapAttrs' (
@@ -350,7 +360,7 @@ in
         );
 
       transformMapping =
-        mapping:
+        mapping: templater:
         # Resolves source/destination names to the config attrsets
         {
           # ["x"..] -> [{ name = "x"; unitOptions = ..; .. } ..]
@@ -371,7 +381,7 @@ in
         # [{ source = x; destination = z; } ..] -> [{ name = "restic-backup-source-to-destination"; value = { source = x; destination = z; }; } ..]
         |> lib.map (attrset: {
           name = "restic-backup-${attrset.source.name}-to-${attrset.destination.name}";
-          value = backupTemplater attrset;
+          value = templater attrset;
         })
         # Turns that thing above into { "restic-backup-source-to-destination" = { source = x; .. }; ..}
         |> lib.listToAttrs;
@@ -379,7 +389,17 @@ in
       backupServices =
         config.nixchad.resticModule.mappings
         # { mapping-name = { sources = [x y]; ..}; ..} -> { mapping-name = { "restic-backup-source-to-destination" = { source = x; ..}; ..}; ..}
-        |> lib.mapAttrs (_name: mapping: transformMapping mapping)
+        |> lib.mapAttrs (_name: mapping: transformMapping mapping backupTemplater)
+        # Flatten attrs: { mapping-name = { "restic-backup-source-to-destination" = {..}; }; ..} -> { "restic-backup-source-to-destination" = {..}; ..}
+        |> lib.foldlAttrs (
+          acc: _name: value:
+          acc // value
+        ) { };
+
+      backupTimers =
+        config.nixchad.resticModule.mappings
+        # { mapping-name = { sources = [x y]; ..}; ..} -> { mapping-name = { "restic-backup-source-to-destination" = { source = x; ..}; ..}; ..}
+        |> lib.mapAttrs (_name: mapping: transformMapping mapping timerTemplater)
         # Flatten attrs: { mapping-name = { "restic-backup-source-to-destination" = {..}; }; ..} -> { "restic-backup-source-to-destination" = {..}; ..}
         |> lib.foldlAttrs (
           acc: _name: value:
@@ -394,9 +414,12 @@ in
         message = "config.nixchad.resticModule.sources.${name} must specify exactly one of 'paths'/'dynamicFilesFrom' or 'command', but not both";
       }) config.nixchad.resticModule.sources;
 
-      systemd.services = destinationServices // backupServices;
-      systemd.slices =
-        config.nixchad.resticModule.destinations
-        |> lib.mapAttrs (_: _: { sliceConfig.ConcurrencySoftMax = "1"; });
+      systemd = {
+        services = destinationServices // backupServices;
+        slices =
+          config.nixchad.resticModule.destinations
+          |> lib.mapAttrs (_: _: { sliceConfig.ConcurrencySoftMax = "1"; });
+        timers = backupTimers;
+      };
     };
 }
