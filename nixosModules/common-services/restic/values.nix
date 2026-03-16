@@ -19,10 +19,17 @@ in
           paths = [
             "/secrets"
           ];
+          extraBackupArgs = [
+            "--tag secrets"
+          ];
         };
         stuff = {
           paths = [
             "/home/${username}/Sync"
+          ];
+          extraBackupArgs = [
+            "--host common"
+            "--tag stuff"
           ];
         };
       }
@@ -31,6 +38,10 @@ in
           paths = [
             "/home/${username}/Pictures/Photos"
             "/home/${username}/Pictures/Photos-phone"
+          ];
+          extraBackupArgs = [
+            "--host common"
+            "--tag photos"
           ];
         };
       })
@@ -48,6 +59,9 @@ in
           backupPost = ''
             rm -rfv /tmp/postgres
           '';
+          extraBackupArgs = [
+            "--tag postgres"
+          ];
         };
       })
       (lib.mkIf vaultwarden {
@@ -64,12 +78,18 @@ in
           backupPost = ''
             rm -rfv /tmp/vaultwarden
           '';
+          extraBackupArgs = [
+            "--tag vaultwarden"
+          ];
         };
       })
       (lib.mkIf paperless {
         paperless = {
           paths = [
             config.services.paperless.dataDir
+          ];
+          extraBackupArgs = [
+            "--tag paperless"
           ];
         };
       })
