@@ -104,6 +104,12 @@ in
         extraOptions = [
           "sftp.command='ssh kfears@yew.sphalerite.tech -i /home/${username}/.ssh/id_ed25519 -o StrictHostKeyChecking=no -s sftp'"
         ];
+        pruneOptions = [
+          "--keep-daily 7"
+          "--keep-weekly 5"
+          "--keep-monthly 12"
+          "--keep-yearly 75"
+        ];
       };
     };
 
