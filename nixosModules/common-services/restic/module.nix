@@ -137,6 +137,21 @@ in
               default = [ ];
             };
 
+            pruneOptions = lib.mkOption {
+              description = ''
+                Options for pruning the repository (if relevant). Empty list means no pruning.
+                Passed to `restic forget --prune` command on a daily timer.
+              '';
+              type = lib.types.listOf lib.types.str;
+              default = [ ];
+              example = [
+                "--keep-daily 7"
+                "--keep-weekly 5"
+                "--keep-monthly 12"
+                "--keep-yearly 75"
+              ];
+            };
+
             settings = lib.mkOption {
               description = ''
                 Restic settings. They are provided as environment variables. They should be provided in upper snake
@@ -239,6 +254,7 @@ in
 
   config =
     let
+      # TODO: weird that it's taking pair instead of mapping
       destinationTemplater =
         name: destination:
         let
@@ -340,6 +356,46 @@ in
           };
         };
 
+      # TODO: weird that it's taking pair instead of mapping
+      pruneTemplater =
+        name: destination:
+        let
+          extraOptions = lib.concatMapStrings (arg: " -o ${arg}") destination.extraOptions;
+          pruneOptions = lib.concatStringsSep " " destination.pruneOptions;
+          inhibitCmd = lib.concatStringsSep " " [
+            "${pkgs.systemd}/bin/systemd-inhibit"
+            "--mode='block'"
+            "--who='restic'"
+            "--what='idle:sleep:shutdown:handle-lid-switch'"
+            "--why=${lib.escapeShellArg "Pruning destination ${name}"} "
+          ];
+          resticCmd = "${inhibitCmd}${lib.getExe pkgs.restic}${extraOptions} forget --prune ${pruneOptions}";
+        in
+        {
+          environment = destination.settings;
+          path = [ config.programs.ssh.package ];
+          restartIfChanged = false;
+          wants = [
+            "network-online.target"
+            "restic-destination-${name}.service"
+          ];
+          after = [
+            "network-online.target"
+            "restic-destination-${name}.service"
+          ];
+          serviceConfig = {
+            Type = "oneshot";
+            ExecStart = pkgs.writeShellScript "restic-destination-${name}-prune" "${resticCmd}";
+            User = "root";
+            Group = "root";
+            RuntimeDirectory = "restic-destination-${name}";
+            CacheDirectory = "restic-destination-${name}";
+            CacheDirectoryMode = "0700";
+            PrivateTmp = true;
+            Slice = "restic-destination-${name}.slice";
+          };
+        };
+
       # mapping is { source = { name = "foo"; ..}; ..}
       timerTemplater = _mapping: {
         wantedBy = [ "timers.target" ];
@@ -405,6 +461,25 @@ in
           acc: _name: value:
           acc // value
         ) { };
+
+      pruneServices =
+        config.nixchad.resticModule.destinations
+        |> lib.mapAttrs' (
+          name: value: {
+            name = "restic-destination-${name}-prune";
+            value = pruneTemplater name value;
+          }
+        );
+
+      pruneTimers =
+        config.nixchad.resticModule.destinations
+        |> lib.mapAttrs' (
+          name: value: {
+            name = "restic-destination-${name}-prune";
+            # Argument value is a no-op
+            value = timerTemplater value;
+          }
+        );
     in
     lib.mkIf config.nixchad.resticModule.enable {
       assertions = lib.mapAttrsToList (name: source: {
@@ -415,11 +490,11 @@ in
       }) config.nixchad.resticModule.sources;
 
       systemd = {
-        services = destinationServices // backupServices;
+        services = destinationServices // backupServices // pruneServices;
         slices =
           config.nixchad.resticModule.destinations
           |> lib.mapAttrs (_: _: { sliceConfig.ConcurrencySoftMax = "1"; });
-        timers = backupTimers;
+        timers = backupTimers // pruneTimers;
       };
     };
 }
