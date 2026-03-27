@@ -15,7 +15,6 @@ in
     ./git.nix
     ./kubernetes.nix
     ./fzf.nix
-    ./nix-index.nix
     ./helix.nix
     ./jj.nix
   ];
