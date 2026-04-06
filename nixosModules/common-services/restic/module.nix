@@ -508,5 +508,7 @@ in
           |> lib.mapAttrs (_: _: { sliceConfig.ConcurrencySoftMax = "1"; });
         timers = backupTimers // pruneTimers;
       };
+
+      environment.systemPackages = [ pkgs.restic ];
     };
 }
