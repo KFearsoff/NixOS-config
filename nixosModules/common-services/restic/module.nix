@@ -285,6 +285,10 @@ in
             PrivateTmp = true;
             # We don't want this to re-run needlessly
             RemainAfterExit = true;
+            Restart = "on-failure";
+            RestartSec = "60";
+            RestartSteps = "5";
+            RestartMaxDelaySec = "3600";
           };
         };
 
@@ -353,6 +357,10 @@ in
               ''}
             '';
             Slice = "restic-destination-${destination.name}.slice";
+            Restart = "on-failure";
+            RestartSec = "60";
+            RestartSteps = "5";
+            RestartMaxDelaySec = "3600";
           };
         };
 
@@ -393,6 +401,10 @@ in
             CacheDirectoryMode = "0700";
             PrivateTmp = true;
             Slice = "restic-destination-${name}.slice";
+            Restart = "on-failure";
+            RestartSec = "60";
+            RestartSteps = "5";
+            RestartMaxDelaySec = "3600";
           };
         };
 
