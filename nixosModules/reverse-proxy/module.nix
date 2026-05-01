@@ -95,6 +95,7 @@ in
             mode = "prometheus";
             persist-path = "metrics-nsoe.json";
           };
+          firewall.enable = true;
           handler.nsoe.path = "${pkgs.nam-shub-of-enki}";
           handler.nsoe.config = {
             inherits = "default";
@@ -117,6 +118,39 @@ in
                   "${orwell-1984}"
                 ];
             };
+            firewall.block-rule-hits = [
+              "generated-url"
+              "asn"
+              "ai.robots.txt"
+            ];
+            firewall.allow = [
+              # blueberry
+              "100.76.254.66/32"
+            ];
+            ordering = [
+              "demo"
+              "cgi-bin-trap"
+              "asn"
+              # To here
+              "ai.robots.txt"
+              "custom-agents"
+              "generated-url"
+              "firefox-ai"
+              "cloudflare-workers"
+              "archiver"
+              "headless-browser"
+              # Moved from here
+              # "ai.robots.txt"
+              "fake-user-agent"
+              "big-tech"
+              "anti-robots.txt"
+              "commercial-scrapers"
+              "unwanted-fedi-actors"
+              "bad-browser"
+              "browser-verification"
+              "forbidden-referrer"
+              "cookie-monster"
+            ];
           };
         };
       };
