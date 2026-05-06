@@ -89,7 +89,6 @@ let
         inputs.impermanence.nixosModules.impermanence
         inputs.stylix.nixosModules.stylix
         inputs.nur.modules.nixos.default
-        inputs.lix-module.nixosModules.default
         inputs.nixocaine.nixosModules.default
         ../users
         ../nixosModules

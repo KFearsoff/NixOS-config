@@ -21,7 +21,6 @@ in
 
     environment.systemPackages = with pkgs; [
       htop
-      nix-prefetch-github
       dig
       nmap
       killall

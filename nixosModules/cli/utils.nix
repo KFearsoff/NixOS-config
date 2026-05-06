@@ -53,6 +53,7 @@ in
         direnv = {
           enable = true;
           nix-direnv.enable = true;
+          nix-direnv.package = pkgs.lixPackageSets.latest.nix-direnv;
         };
 
         btop.enable = true;

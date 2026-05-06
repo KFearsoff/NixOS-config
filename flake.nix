@@ -19,14 +19,6 @@
         # flake-compat.follows = "flake-compat-dep";
       };
     };
-    lix-module = {
-      url = "https://git.lix.systems/lix-project/nixos-module/archive/main.tar.gz";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        lix.follows = "lix";
-        # flake-utils.follows = "flake-utils-dep";
-      };
-    };
 
     # Libraries
     systems-dep.url = "github:nix-systems/default";
@@ -206,9 +198,7 @@
       devShells.${hostSystem}.default = pkgs.mkShellNoCC {
         packages = [
           pkgs.just
-          (inputs.colmena.packages.${hostSystem}.colmena.override {
-            inherit (inputs.lix.packages.${hostSystem}) nix-eval-jobs;
-          })
+          pkgs.lixPackageSets.latest.colmena
           pkgs.nvd
           pkgs.nixfmt
           pkgs.nix-output-monitor

@@ -11,7 +11,7 @@
       nixpkgs.flake = inputs.nixpkgs;
     };
 
-    package = pkgs.lix;
+    package = pkgs.lixPackageSets.latest.lix;
 
     settings = {
       trusted-users = [ "@wheel" ];
