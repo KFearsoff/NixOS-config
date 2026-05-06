@@ -76,6 +76,11 @@ in
   };
 
   config = mkIf cfg.enable {
+    nixchad.maxmind-db-update = {
+      enable = true;
+      attachTo = "iocaine";
+    };
+
     services = {
       caddy.virtualHosts = mapAttrs toCaddyVirtualHosts cfg.virtualHosts;
 
@@ -99,8 +104,11 @@ in
           handler.nsoe.path = "${pkgs.nam-shub-of-enki}";
           handler.nsoe.config = {
             inherits = "default";
-            checks.ai-robots-txt.path = "${inputs.ai-robots-txt}/robots.json";
-            checks.demo-host.host = "poison.nixalted.com";
+            checks = {
+              ai-robots-txt.path = "${inputs.ai-robots-txt}/robots.json";
+              demo-host.host = "poison.nixalted.com";
+              asn.database-path = "GeoLite2-ASN.mmdb";
+            };
             sources = {
               "wordlists" = [ "${pkgs.miscfiles}/share/web2" ];
               training-corpus =
@@ -121,7 +129,6 @@ in
             firewall.block-rule-hits = [
               "generated-url"
               "asn"
-              "ai.robots.txt"
             ];
             firewall.allow = [
               # blueberry
@@ -131,16 +138,13 @@ in
               "demo"
               "cgi-bin-trap"
               "asn"
-              # To here
-              "ai.robots.txt"
               "custom-agents"
               "generated-url"
               "firefox-ai"
               "cloudflare-workers"
               "archiver"
               "headless-browser"
-              # Moved from here
-              # "ai.robots.txt"
+              "ai.robots.txt"
               "fake-user-agent"
               "big-tech"
               "anti-robots.txt"
