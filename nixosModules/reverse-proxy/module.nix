@@ -108,6 +108,9 @@ in
               ai-robots-txt.path = "${inputs.ai-robots-txt}/robots.json";
               demo-host.host = "poison.nixalted.com";
               asn.database-path = "GeoLite2-ASN.mmdb";
+              generated-urls.identifiers = [
+                "lefruittrembolo"
+              ];
             };
             sources = {
               "wordlists" = [ "${pkgs.miscfiles}/share/web2" ];
