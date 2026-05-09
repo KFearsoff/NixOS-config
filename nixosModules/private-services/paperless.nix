@@ -22,7 +22,7 @@ in
         inherit domain;
         settings = {
           PAPERLESS_ADMIN_USER = "admin";
-          PAPERLESS_OCR_LANGUAGE = "eng+rus+kat+spa";
+          PAPERLESS_OCR_LANGUAGE = "eng+rus+kat+spa+deu";
           PAPERLESS_ENABLE_COMPRESSION = false; # Compression is done in Caddy
         };
       };

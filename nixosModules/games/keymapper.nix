@@ -34,7 +34,7 @@ in
   config = lib.mkIf cfg.enable {
     environment.systemPackages = [ cfg.package ];
 
-    environment.etc."keymapper.conf".text = "";
+    environment.etc."keymapper.conf".text = cfg.extraConfig;
 
     systemd.services.keymapperd = {
       description = "Keymapper daemon";
