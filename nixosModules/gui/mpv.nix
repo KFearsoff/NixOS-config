@@ -16,7 +16,7 @@ in
   config = mkIf cfg.enable {
     hm = {
       programs.mpv = {
-        # enable = true;
+        enable = true;
         defaultProfiles = [ "gpu-hq" ];
         scripts = [ pkgs.mpvScripts.uosc ];
         config = {

@@ -28,6 +28,10 @@ in
   };
 
   config = mkIf cfg.enable {
+    nixpkgs.config.permittedInsecurePackages = [
+      "electron-39.8.10"
+    ];
+
     nixchad = {
       gui = {
         obs = mkDefault false;
