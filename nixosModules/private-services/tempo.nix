@@ -36,6 +36,25 @@ in
           wal.path = "/var/lib/tempo/wal";
           local.path = "/var/lib/tempo/blocks";
         };
+        metrics_generator.storage = {
+          path = "/var/lib/tempo/generator/wal";
+          remote_write = [
+            {
+              url = "http://localhost:${toString config.services.prometheus.port}/api/v1/push";
+            }
+          ];
+        };
+        live_store = {
+          shutdown_marker_dir = "/var/lib/tempo/live-store/shutdown-marker";
+          wal.path = "/var/lib/tempo/live-store/traces";
+        };
+        block_builder.wal.path = "/var/lib/tempo/block-builder/wal";
+        backend_scheduler.local_work_path = "/var/lib/tempo";
+        overrides.defaults.metrics_generator.processors = [
+          "service-graphs"
+          "span-metrics"
+          "host-info"
+        ];
       };
     };
 
