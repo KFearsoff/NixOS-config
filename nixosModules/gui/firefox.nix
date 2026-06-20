@@ -58,6 +58,17 @@ in
                 "perplexity".metaData.hidden = true;
                 "wikipedia".metaData.alias = "@w";
 
+                "ddg" = {
+                  urls = [
+                    {
+                      template = "https://noai.duckduckgo.com/?q={searchTerms}";
+                    }
+                  ];
+                  icon = "https://noai.duckduckgo.com/favicon.ico";
+                  updateInterval = 24 * 60 * 60 * 1000; # every day
+                  definedAliases = [ "@ddg" ];
+                };
+
                 "Nix Packages" = {
                   urls = [
                     {
@@ -113,6 +124,17 @@ in
                   icon = "https://wiki.nixos.org/favicon.png";
                   updateInterval = 24 * 60 * 60 * 1000; # every day
                   definedAliases = [ "@nw" ];
+                };
+
+                "Arch Wiki" = {
+                  urls = [
+                    {
+                      template = "https://wiki.archlinux.org/index.php?search={searchTerms}&title=Special:Search&wprov=acrw1_-1";
+                    }
+                  ];
+                  icon = "https://wiki.archlinux.org/favicon.ico";
+                  updateInterval = 24 * 60 * 60 * 1000; # every day
+                  definedAliases = [ "@aw" ];
                 };
               };
             };
