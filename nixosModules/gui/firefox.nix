@@ -8,7 +8,6 @@
 with lib;
 let
   cfg = config.nixchad.firefox;
-  inherit (pkgs) nur;
 in
 {
   options.nixchad.firefox = {
@@ -19,7 +18,6 @@ in
     hm = {
       stylix.targets.firefox.profileNames = [
         "default"
-        "conferencing"
       ];
 
       programs.firefox = {
@@ -49,21 +47,6 @@ in
               }
             '';
 
-            extensions.packages = [
-              # recommended by arkenfox
-              nur.repos.rycee.firefox-addons.ublock-origin
-              nur.repos.rycee.firefox-addons.skip-redirect
-
-              # optional recommended by arkenfox
-              nur.repos.rycee.firefox-addons.multi-account-containers
-
-              # extensions I like/need
-              nur.repos.rycee.firefox-addons.bitwarden
-              nur.repos.rycee.firefox-addons.istilldontcareaboutcookies
-              nur.repos.rycee.firefox-addons.sidebery
-              nur.repos.rycee.firefox-addons.violentmonkey
-            ];
-
             search = {
               force = true;
               default = "ddg";
@@ -72,6 +55,7 @@ in
                 "amazondotcom-us".metaData.hidden = true;
                 "bing".metaData.hidden = true;
                 "google".metaData.hidden = true;
+                "perplexity".metaData.hidden = true;
                 "wikipedia".metaData.alias = "@w";
 
                 "Nix Packages" = {
@@ -126,47 +110,10 @@ in
 
                 "NixOS Wiki" = {
                   urls = [ { template = "https://wiki.nixos.org/w/index.php?search={searchTerms}"; } ];
-                  icon = "https://nixos.wiki/favicon.png";
+                  icon = "https://wiki.nixos.org/favicon.png";
                   updateInterval = 24 * 60 * 60 * 1000; # every day
                   definedAliases = [ "@nw" ];
                 };
-              };
-            };
-          };
-
-          "conferencing" = {
-            id = 1;
-
-            extraConfig = ''
-              // OVERRIDES
-
-              lockPref("signon.rememberSignons", false); // bitwarden is used instead
-              lockPref("toolkit.legacyUserProfileCustomizations.stylesheets", true); // enable CSS styling
-              lockPref("browser.tabs.inTitlebar", "0"); // use native decoration
-            '';
-
-            userChrome = ''
-              /* Hide horizontal tabs on top of the window */
-              #main-window #TabsToolbar {
-                display: none;
-              }
-            '';
-
-            extensions.packages = [
-              nur.repos.rycee.firefox-addons.ublock-origin
-              nur.repos.rycee.firefox-addons.bitwarden
-              nur.repos.rycee.firefox-addons.istilldontcareaboutcookies
-            ];
-
-            search = {
-              force = true;
-              default = "ddg";
-              order = [ "ddg" ];
-              engines = {
-                "amazondotcom-us".metaData.hidden = true;
-                "bing".metaData.hidden = true;
-                "google".metaData.hidden = true;
-                "wikipedia".metaData.alias = "@w";
               };
             };
           };

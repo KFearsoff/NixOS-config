@@ -88,7 +88,6 @@ let
         inputs.home-manager.nixosModules.home-manager
         inputs.impermanence.nixosModules.impermanence
         inputs.stylix.nixosModules.stylix
-        inputs.nur.modules.nixos.default
         inputs.nixocaine.nixosModules.default
         ../users
         ../nixosModules

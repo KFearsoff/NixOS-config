@@ -4,11 +4,6 @@
   inputs = {
     # Pkg sources
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nur = {
-      url = "github:nix-community/NUR";
-      inputs.flake-parts.follows = "flake-parts-dep";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
 
     # Lix
     lix = {
@@ -90,7 +85,6 @@
       url = "github:nix-community/stylix";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        nur.follows = "nur";
         flake-parts.follows = "flake-parts-dep";
       };
     };

@@ -729,18 +729,20 @@
     "nur": {
       "inputs": {
         "flake-parts": [
-          "flake-parts-dep"
+          "stylix",
+          "flake-parts"
         ],
         "nixpkgs": [
+          "stylix",
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1781737552,
-        "narHash": "sha256-NpiiXC/92jZl9CDhy8TzEFA+ilDVCna637Rple2ephg=",
+        "lastModified": 1781991426,
+        "narHash": "sha256-gU2HO9UsTiz0WjdmQ61QG4XD6kubS36STg/7a8fLNek=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "b2c84106da64ba040c4005449bdd0222d703ec71",
+        "rev": "c85b6b7e425ab2bee7793f569e6e10dfa2fd9867",
         "type": "github"
       },
       "original": {
@@ -846,7 +848,6 @@
         "nixocaine": "nixocaine",
         "nixpkgs": "nixpkgs_3",
         "nu-scripts": "nu-scripts",
-        "nur": "nur",
         "pre-commit-hooks": "pre-commit-hooks_2",
         "stylix": "stylix",
         "systems-dep": "systems-dep",
@@ -925,9 +926,7 @@
         "nixpkgs": [
           "nixpkgs"
         ],
-        "nur": [
-          "nur"
-        ],
+        "nur": "nur",
         "systems": "systems_3",
         "tinted-kitty": "tinted-kitty",
         "tinted-schemes": "tinted-schemes",
