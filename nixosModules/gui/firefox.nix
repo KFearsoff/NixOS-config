@@ -121,7 +121,7 @@ in
 
                 "NixOS Wiki" = {
                   urls = [ { template = "https://wiki.nixos.org/w/index.php?search={searchTerms}"; } ];
-                  icon = "https://wiki.nixos.org/favicon.png";
+                  icon = "https://wiki.nixos.org/nixos.png";
                   updateInterval = 24 * 60 * 60 * 1000; # every day
                   definedAliases = [ "@nw" ];
                 };
