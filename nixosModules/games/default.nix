@@ -10,6 +10,7 @@ let
 in
 {
   imports = [
+    ./keymapper.nix
     ./league-of-legends.nix
     ./legends-of-runeterra.nix
   ];
@@ -34,6 +35,15 @@ in
     programs.steam = {
       enable = true;
       remotePlay.openFirewall = true;
+    };
+
+    nixchad.keymapper = mkIf cfg.poe.enable {
+      enable = true;
+      extraConfig = ''
+        [class = "steam_app_238960"]
+        WheelUp >> ButtonLeft
+        WheelDown >> ButtonLeft
+      '';
     };
 
     programs.gamemode = mkIf cfg.gamemode.enable {
