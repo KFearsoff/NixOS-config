@@ -62,6 +62,7 @@ in
           # pinta
           chromium
           zulip
+          obsidian
         ]
         #++ (optional config.services.pipewire.enable easyeffects)
         ++ (optional config.programs.wireshark.enable wireshark)
