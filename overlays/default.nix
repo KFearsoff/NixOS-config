@@ -15,16 +15,4 @@
       };
     });
   };
-  syncplay = _: prev: {
-    syncplay = prev.syncplay.overridePythonAttrs (_: rec {
-      version = "1.7.6";
-
-      src = prev.fetchFromGitHub {
-        owner = "Syncplay";
-        repo = "syncplay";
-        tag = "v${version}";
-        sha256 = "sha256-DXkigo3XzR9G0g1egte96LEynSHyfhW7PjVG8i2r8Lc=";
-      };
-    });
-  };
 }

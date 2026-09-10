@@ -53,7 +53,9 @@ in
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN8XLDGBt0tt28PfY7O10WZJV793SUU3veDLkufyMKh7 github-action"
     ];
 
-    services.journald.extraConfig = "SystemMaxUse=100M";
+    services.journald.settings.Journal = {
+      SystemMaxUse = "100M";
+    };
 
     systemd = {
       oomd.enable = true;
