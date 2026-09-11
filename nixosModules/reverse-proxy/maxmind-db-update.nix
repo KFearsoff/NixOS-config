@@ -37,6 +37,8 @@ in
 
     systemd.services."maxmind-db-update" = {
       wants = [ "network.target" ];
+      before = [ "iocaine.service" ];
+      wantedBy = [ "iocaine.service" ];
       path = [
         pkgs.curl
         pkgs.gnutar
