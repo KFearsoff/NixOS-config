@@ -65,6 +65,7 @@ in
           obsidian
           syncplay
           electrum
+          anki
         ]
         #++ (optional config.services.pipewire.enable easyeffects)
         ++ (optional config.programs.wireshark.enable wireshark)
