@@ -6,6 +6,7 @@
     ./gui
     ./private-services
     ./neovim
+    ./niri
     ./cli
     ./sway
     ./reverse-proxy

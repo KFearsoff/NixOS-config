@@ -58,7 +58,7 @@ in
           discord
           # ardour
           # lingot
-          nemo
+          nautilus
           # pinta
           chromium
           zulip

@@ -18,7 +18,7 @@ in
       enable = true;
       settings = rec {
         initial_session = {
-          command = "$SHELL -l";
+          command = "niri-session";
           user = "${username}";
         };
         default_session = initial_session;

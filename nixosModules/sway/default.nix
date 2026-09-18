@@ -10,9 +10,6 @@ let
 in
 {
   imports = [
-    ./waybar.nix
-    ./greetd.nix
-    ./mako.nix
     ./keybindings.nix
     ./startup.nix
     ./assigns.nix

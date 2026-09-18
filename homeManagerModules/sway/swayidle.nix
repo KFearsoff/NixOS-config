@@ -13,7 +13,6 @@ let
     mkOption
     types
     ;
-  swaypkg = config.wayland.windowManager.sway.package;
 in
 {
   options.nixchad.swayidle = {
@@ -43,9 +42,10 @@ in
 
     services.swayidle = {
       enable = true;
+      systemdTargets = [ "niri.service" ];
       events = {
-        "before-sleep" = "${pkgs.swaylock}/bin/swaylock";
-        "lock" = "${pkgs.swaylock}/bin/swaylock";
+        "before-sleep" = "${pkgs.swaylock}/bin/swaylock -f";
+        "lock" = "${pkgs.swaylock}/bin/swaylock -f";
       };
       timeouts = [
         {
@@ -54,8 +54,7 @@ in
         }
         {
           timeout = cfg.timeouts.screen;
-          command = "${swaypkg}/bin/swaymsg \"output * dpms off\"";
-          resumeCommand = "${swaypkg}/bin/swaymsg \"output * dpms on\"";
+          command = "niri msg action power-off-monitors";
         }
       ];
     };

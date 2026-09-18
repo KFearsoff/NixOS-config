@@ -18,8 +18,8 @@ in
         enable = true;
 
         settings = {
-          defaultTimeout = 5000; # ms
-          ignoreTimeout = true;
+          default-timeout = 5000; # ms
+          ignore-timeout = true;
         };
       };
     };
