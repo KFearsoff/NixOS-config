@@ -43,6 +43,10 @@ in
         "${pkgs.element-desktop}/share/applications/element-desktop.desktop"
         "${pkgs.slack}/share/applications/slack.desktop"
         "${pkgs.firefox}/share/applications/firefox.desktop"
+        "${pkgs.zulip}/share/applications/zulip.desktop"
+        "${pkgs.discord}/share/applications/discord.desktop"
+        "${pkgs.obsidian}/share/applications/obsidian.desktop"
+        "${pkgs.steam}/share/applications/steam.desktop"
       ];
     };
   };
