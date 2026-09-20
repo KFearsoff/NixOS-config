@@ -636,5 +636,42 @@ binds {
 
 cursor {
   hide-after-inactive-ms 10000;
-  xcursor-size 32;
+}
+
+workspace "browser"
+workspace "chat"
+
+window-rule {
+  match app-id="firefox"
+  match app-id="freetube"
+
+  match at-startup=true
+  open-on-workspace "browser"
+  open-maximized-to-edges true
+}
+
+window-rule {
+  match app-id="org.telegram.desktop"
+  match app-id="element"
+  match app-id="slack"
+  match app-id="discord"
+  match app-id="zulip"
+
+  match at-startup=true
+  open-on-workspace "chat"
+  block-out-from "screencast"
+}
+
+// Make the Telegram media viewer open in windowed mode.
+window-rule {
+    match app-id=r#"^org\.telegram\.desktop$"# title="^Media viewer$"
+
+    open-fullscreen false
+}
+
+// Block out mako notifications from screencasts.
+layer-rule {
+    match namespace="^notifications$"
+
+    block-out-from "screencast"
 }
