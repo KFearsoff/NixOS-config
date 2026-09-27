@@ -6,5 +6,6 @@
     mpv.enable = true;
     zathura.enable = true;
     firefox.enable = true;
+    music.enable = true;
   };
 }

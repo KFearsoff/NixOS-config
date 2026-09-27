@@ -12,13 +12,13 @@ in
   imports = [
     ./alacritty.nix
     ./mpv.nix
+    ./music.nix
     ./zathura.nix
     ./office.nix
     ./graphics.nix
     ./newsboat.nix
     ./pipewire.nix
     ./firefox.nix
-    ./mpd.nix
   ];
 
   options.nixchad.gui = {
