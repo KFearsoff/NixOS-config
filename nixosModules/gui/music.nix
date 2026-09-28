@@ -18,6 +18,7 @@ in
       home.packages = with pkgs; [
         nicotine-plus
         tauon
+        sockseek
       ];
     };
   };

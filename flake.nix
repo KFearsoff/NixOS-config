@@ -238,11 +238,11 @@
       };
 
       packages.${hostSystem} = {
-        iso =
-          let
-            image = buildSystem { hostname = "iso"; };
-          in
-          image.config.system.build."isoImage";
+        # iso =
+        #   let
+        #     image = buildSystem { hostname = "iso"; };
+        #   in
+        #   image.config.system.build."isoImage";
       }
       // pkgs.lib.mapAttrs (_: v: v) (import ./pkgs { inherit pkgs; });
     };
