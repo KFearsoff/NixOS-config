@@ -38,6 +38,7 @@ in
     systemd.services."maxmind-db-update" = {
       wants = [ "network.target" ];
       before = [ "iocaine.service" ];
+      after = [ "network.target" ];
       wantedBy = [ "iocaine.service" ];
       path = [
         pkgs.curl

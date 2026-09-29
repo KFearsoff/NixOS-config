@@ -105,7 +105,7 @@
     };
 
     colmena = {
-      url = "github:zhaofengli/colmena/v0.4.0";
+      url = "github:nix-community/colmena/v0.5.0";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         # stable.follows = "nixpkgs";

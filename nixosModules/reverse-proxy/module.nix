@@ -81,13 +81,19 @@ in
       attachTo = "iocaine";
     };
 
+    systemd.services."iocaine".serviceConfig.RestrictAddressFamilies = [
+      "AF_INET"
+      "AF_INET6"
+      "AF_UNIX"
+    ];
+
     services = {
       caddy.virtualHosts = mapAttrs toCaddyVirtualHosts cfg.virtualHosts;
 
       iocaine = {
         enable = true;
         environment."RUST_LOG" = "error,iocaine=info";
-        config = {
+        settings = {
           server.main = {
             bind = "127.0.0.1:42069";
             mode = "http";
