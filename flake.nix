@@ -133,6 +133,7 @@
         patches =
           fetchers: with fetchers; {
             nixpkgs = [
+              (npr 566360 "sha256-uK+P3hFZAcebhauQFDg3w6fLBNChJy+ny34mBAWz0oA=")
               # (npr 305569 "0n0nbriaxfcbalyqp59d3qg91vni1p56avv19wlqhgghy74wr5f1")
               # (npr 436857 "sha256-3BOcRKoZeF2kVZig/A4cf8ZYn3GFQyKt2Pxaoc+dDvY=")
             ];
