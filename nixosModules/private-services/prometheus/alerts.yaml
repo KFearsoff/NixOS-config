@@ -9,7 +9,7 @@ groups:
             space left and is filling up.
           summary: Filesystem is predicted to run out of space within the next 24 hours.
         expr: |
-          (
+          avg by(device, instance) (
             node_filesystem_avail_bytes{job="integrations/unix",fstype!="",mountpoint!=""} / node_filesystem_size_bytes{job="integrations/unix",fstype!="",mountpoint!=""} * 100 < 40
           and
             predict_linear(node_filesystem_avail_bytes{job="integrations/unix",fstype!="",mountpoint!=""}[6h], 24*60*60) < 0
@@ -27,7 +27,7 @@ groups:
             space left and is filling up fast.
           summary: Filesystem is predicted to run out of space within the next 4 hours.
         expr: |
-          (
+          avg by(device, instance) (
             node_filesystem_avail_bytes{job="integrations/unix",fstype!="",mountpoint!=""} / node_filesystem_size_bytes{job="integrations/unix",fstype!="",mountpoint!=""} * 100 < 20
           and
             predict_linear(node_filesystem_avail_bytes{job="integrations/unix",fstype!="",mountpoint!=""}[6h], 4*60*60) < 0
@@ -45,7 +45,7 @@ groups:
             space left.
           summary: Filesystem has less than 5% space left.
         expr: |
-          (
+          avg by(device, instance) (
             node_filesystem_avail_bytes{job="integrations/unix",fstype!="",mountpoint!=""} / node_filesystem_size_bytes{job="integrations/unix",fstype!="",mountpoint!=""} * 100 < 5
           and
             node_filesystem_readonly{job="integrations/unix",fstype!="",mountpoint!=""} == 0
@@ -61,7 +61,7 @@ groups:
             space left.
           summary: Filesystem has less than 3% space left.
         expr: |
-          (
+          avg by(device, instance) (
             node_filesystem_avail_bytes{job="integrations/unix",fstype!="",mountpoint!=""} / node_filesystem_size_bytes{job="integrations/unix",fstype!="",mountpoint!=""} * 100 < 3
           and
             node_filesystem_readonly{job="integrations/unix",fstype!="",mountpoint!=""} == 0
@@ -77,7 +77,7 @@ groups:
             inodes left and is filling up.
           summary: Filesystem is predicted to run out of inodes within the next 24 hours.
         expr: |
-          (
+          avg by(device, instance) (
             node_filesystem_files_free{job="integrations/unix",fstype!="",mountpoint!=""} / node_filesystem_files{job="integrations/unix",fstype!="",mountpoint!=""} * 100 < 40
           and
             predict_linear(node_filesystem_files_free{job="integrations/unix",fstype!="",mountpoint!=""}[6h], 24*60*60) < 0
@@ -95,7 +95,7 @@ groups:
             inodes left and is filling up fast.
           summary: Filesystem is predicted to run out of inodes within the next 4 hours.
         expr: |
-          (
+          avg by(device, instance) (
             node_filesystem_files_free{job="integrations/unix",fstype!="",mountpoint!=""} / node_filesystem_files{job="integrations/unix",fstype!="",mountpoint!=""} * 100 < 20
           and
             predict_linear(node_filesystem_files_free{job="integrations/unix",fstype!="",mountpoint!=""}[6h], 4*60*60) < 0
@@ -113,7 +113,7 @@ groups:
             inodes left.
           summary: Filesystem has less than 5% inodes left.
         expr: |
-          (
+          avg by(device, instance) (
             node_filesystem_files_free{job="integrations/unix",fstype!="",mountpoint!=""} / node_filesystem_files{job="integrations/unix",fstype!="",mountpoint!=""} * 100 < 5
           and
             node_filesystem_readonly{job="integrations/unix",fstype!="",mountpoint!=""} == 0
@@ -129,7 +129,7 @@ groups:
             inodes left.
           summary: Filesystem has less than 3% inodes left.
         expr: |
-          (
+          avg by(device, instance) (
             node_filesystem_files_free{job="integrations/unix",fstype!="",mountpoint!=""} / node_filesystem_files{job="integrations/unix",fstype!="",mountpoint!=""} * 100 < 3
           and
             node_filesystem_readonly{job="integrations/unix",fstype!="",mountpoint!=""} == 0
