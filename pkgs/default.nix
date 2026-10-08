@@ -8,5 +8,4 @@
   brave-new-world = pkgs.callPackage ./brave-new-world.nix { };
   modest-proposal = pkgs.callPackage ./modest-proposal.nix { };
   orwell-1984 = pkgs.callPackage ./orwell-1984.nix { };
-  sockseek = pkgs.callPackage ./sockseek.nix { };
 }
