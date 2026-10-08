@@ -29,7 +29,6 @@ in
     hm = {
       home.packages = [
         pkgs.wl-clipboard
-        pkgs.grim
         pkgs.brightnessctl
       ];
 
