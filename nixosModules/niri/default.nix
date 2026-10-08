@@ -32,6 +32,10 @@ in
         pkgs.brightnessctl
       ];
 
+      xdg.configFile."niri/config.kdl" = {
+        source = ./config.kdl;
+      };
+
       services.flameshot = {
         enable = true;
       };
