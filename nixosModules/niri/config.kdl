@@ -34,7 +34,7 @@ input {
     touchpad {
         // off
         tap
-        // dwt
+        dwt
         // dwtp
         // drag false
         // drag-lock
@@ -645,7 +645,6 @@ window-rule {
   match app-id="firefox"
   match app-id="freetube"
 
-  match at-startup=true
   open-on-workspace "browser"
   open-maximized-to-edges true
 }
@@ -657,9 +656,9 @@ window-rule {
   match app-id="discord"
   match app-id="zulip"
 
-  match at-startup=true
   open-on-workspace "chat"
   block-out-from "screencast"
+  open-maximized-to-edges false
 }
 
 // Make the Telegram media viewer open in windowed mode.
