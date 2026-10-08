@@ -22,7 +22,7 @@ in
       programs.waybar = {
         enable = true;
         systemd.enable = true;
-        systemd.target = "niri.service";
+        systemd.targets = [ "niri.service" ];
       };
     };
   };

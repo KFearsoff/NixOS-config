@@ -28,10 +28,6 @@ in
   };
 
   config = mkIf cfg.enable {
-    nixpkgs.config.permittedInsecurePackages = [
-      "electron-39.8.10"
-    ];
-
     nixchad = {
       gui = {
         obs = mkDefault false;
@@ -59,8 +55,6 @@ in
           # ardour
           # lingot
           nautilus
-          # pinta
-          chromium
           zulip
           obsidian
           syncplay
@@ -68,13 +62,10 @@ in
           anki
         ]
         #++ (optional config.services.pipewire.enable easyeffects)
-        ++ (optional config.programs.wireshark.enable wireshark)
-        ++ (optional (!config.nixchad.firefox.enable) ungoogled-chromium);
+        ++ (optional config.programs.wireshark.enable wireshark);
 
       services = {
         udiskie.enable = true;
-        safeeyes.enable = false;
-        caffeine.enable = false;
       };
 
       programs = {
@@ -82,8 +73,8 @@ in
         obs-studio.enable = cfg.obs;
         rofi = {
           enable = cfg.rofi;
-          terminal = "alacritty";
-          extraConfig = {
+          settings = {
+            terminal = "alacritty";
             show-icons = true;
           };
         };

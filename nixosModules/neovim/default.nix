@@ -26,7 +26,9 @@ in
         enable = true;
         vimAlias = true;
         vimdiffAlias = true;
-        withNodeJs = true;
+        # FIXME: remove once updated HM stateVersion to 26.05
+        withPython3 = false;
+        withRuby = false;
 
         extraPackages = with pkgs; [
           gcc # needed for nvim-treesitter
