@@ -15,13 +15,15 @@ in
   };
 
   config = mkIf cfg.enable {
-    hm = {
+    hm = { config, ... }: {
       stylix.targets.firefox.profileNames = [
         "default"
       ];
 
       programs.firefox = {
         enable = true;
+        # FIXME: remove once updated HM stateVersion to 26.05
+        configPath = "${config.xdg.configHome}/mozilla/firefox";
         profiles = {
           "default" = {
             extraConfig = builtins.readFile "${inputs.arkenfox}/user.js" + ''
