@@ -25,11 +25,14 @@ in
       pkgs.xwayland-satellite
     ];
     systemd.user.services.niri.wants = [ "mako.service" ];
+    security.polkit.enable = true;
+    security.pam.services.swaylock = { };
 
     hm = {
       home.packages = [
         pkgs.wl-clipboard
         pkgs.brightnessctl
+        pkgs.wlogout
       ];
 
       xdg.configFile."niri/config.kdl" = {

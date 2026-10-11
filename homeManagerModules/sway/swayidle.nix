@@ -32,6 +32,10 @@ in
   };
 
   config = mkIf cfg.enable {
+    home.packages = [
+      pkgs.swaylock
+    ];
+
     programs.swaylock = {
       enable = true;
       settings = {
@@ -44,13 +48,13 @@ in
       enable = true;
       systemdTargets = [ "niri.service" ];
       events = {
-        "before-sleep" = "${pkgs.swaylock}/bin/swaylock -f";
-        "lock" = "${pkgs.swaylock}/bin/swaylock -f";
+        "before-sleep" = "swaylock -f";
+        "lock" = "swaylock -f";
       };
       timeouts = [
         {
           timeout = cfg.timeouts.lock;
-          command = "${pkgs.systemd}/bin/loginctl lock-session";
+          command = "loginctl lock-session";
         }
         {
           timeout = cfg.timeouts.screen;

@@ -626,7 +626,7 @@ binds {
     Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
 
     // The quit action will show a confirmation dialog to avoid accidental exits.
-    Mod+Shift+E { quit; }
+    Mod+Shift+E { spawn "wlogout"; }
     Ctrl+Alt+Delete { quit; }
 
     // Powers off the monitors. To turn them back on, do any input like
