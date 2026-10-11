@@ -41,6 +41,7 @@ in
     ];
 
     services.gvfs.enable = true;
+    services.oo7.enable = true;
 
     hm = {
       home.packages =

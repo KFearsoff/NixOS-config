@@ -39,9 +39,8 @@ in
         source = ./config.kdl;
       };
 
-      services.flameshot = {
-        enable = true;
-      };
+      services.flameshot.enable = true;
+      services.polkit-gnome.enable = true;
 
       xdg.autostart.entries = [
         "${pkgs.telegram-desktop}/share/applications/org.telegram.desktop.desktop"
