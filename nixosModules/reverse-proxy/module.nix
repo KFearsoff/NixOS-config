@@ -81,10 +81,6 @@ in
       attachTo = "iocaine";
     };
 
-    systemd.services."iocaine".serviceConfig.RestrictAddressFamilies = [
-      "AF_UNIX"
-    ];
-
     services = {
       caddy.virtualHosts = mapAttrs toCaddyVirtualHosts cfg.virtualHosts;
 
