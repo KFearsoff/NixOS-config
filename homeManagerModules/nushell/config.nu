@@ -17,3 +17,7 @@
 # You can remove these comments if you want or leave
 # them for future reference.
 $env.CARGO_TARGET_DIR = "~/.cache/cargo"
+
+def whereis [program: string] {
+  which $program | get path | path expand
+}
